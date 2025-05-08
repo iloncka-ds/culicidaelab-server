@@ -1,0 +1,87 @@
+/* General body styles - often better set via Solara theme or AppLayout's VBox */
+/* body {
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+} */
+
+/* Ensure Vuetify theming for fonts if not overridden by Solara's Style component effectively enough */
+/* .v-application {
+    font-family: 'Open Sans', sans-serif !important;
+} */
+
+/* .v-application .text-h1, .v-application .text-h2, .v-application .text-h3,
+.v-application .text-h4, .v-application .text-h5, .v-application .text-h6,
+.v-application .display-1, .v-application .headline, .v-application .title,
+.v-application .v-toolbar__title {
+    font-family: 'Montserrat', sans-serif !important;
+} */
+
+/* Custom scrollbar for better aesthetics (optional) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Specific styling for map component if needed, e.g., ensuring full height */
+/* This might be needed if the map doesn't take up space correctly within Solara's layout */
+/* .solara-container > .leaflet-container {
+    height: 100% !important;
+    width: 100% !important;
+} */
+
+/* Ensure map popups are styled reasonably if default ipyleaflet popups are problematic */
+.leaflet-popup-content-wrapper {
+    border-radius: 6px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
+}
+.leaflet-popup-content {
+    margin: 10px !important; /* Adjust padding inside popups */
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+}
+.leaflet-popup-content h4 {
+    font-family: 'Montserrat', sans-serif; /* Use heading font for popup titles */
+    font-size: 1.1em !important;
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+    color: #21908C; /* Primary color for popup titles */
+}
+.leaflet-popup-content p {
+    margin: 2px 0 !important;
+}
+
+
+/* Styling for Expansion Panel Headers to match app theme */
+.v-expansion-panel-header {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    /* color: #0D1B2A; /* Dark Navy text for headers */
+    /* background-color: #f0f0f0; /* Slightly off-white for panel headers */
+}
+/* .v-expansion-panel--active > .v-expansion-panel-header {
+    /* background-color: #e0e0e0; /* Darker when active */
+/* } */
+
+
+/* Ensure buttons adhere to typography */
+.v-btn {
+    text-transform: none !important; /* Override Vuetify's default uppercase for buttons */
+    /* font-family: 'Open Sans', sans-serif !important; */
+}
+
+/* Any other global overrides or utility classes */
+.text-center {
+    text-align: center;
+}
