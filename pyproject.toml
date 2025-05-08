@@ -1,0 +1,31 @@
+[project]
+name = "culicidaelab-server"
+version = "0.1.0"
+description = "Add your awesome app description here"
+readme = "README.md"
+requires-python = ">=3.11.0"
+dependencies = [
+    "colorcet>=3.1.0",
+    "httpx>=0.28.1",
+    "ipyleaflet>=0.19.2",
+    "pandas>=2.2.3",
+    "plotly>=6.0.1",
+    "solara>=1.47.0",
+]
+[dependency-groups]
+dev = [
+    "black>=24.10.0",
+    "crawl4ai>=0.6.2",
+    "culicidaelab-server",
+    "ipykernel>=6.29.5",
+    "isort>=5.13.2",
+    "mypy>=1.13.0",
+    "pandas>=2.2.3",
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.3",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.7.4",
+]
+
+[tool.uv.sources]
+culicidaelab-server = { workspace = true }
