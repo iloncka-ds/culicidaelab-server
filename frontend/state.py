@@ -3,6 +3,7 @@ import solara
 import httpx
 import asyncio
 from typing import List, Tuple, Optional, Dict, Any, cast  # Add Dict, Any, cast
+import datetime as dt
 
 # Import new endpoint from config
 from .config import FILTER_OPTIONS_ENDPOINT  # Assuming relative import within the package
@@ -10,7 +11,7 @@ from .config import FILTER_OPTIONS_ENDPOINT  # Assuming relative import within t
 # --- Filter States ---
 selected_species_reactive = solara.reactive(cast(List[str], []))  # Ensure type hint
 selected_date_range_reactive = solara.reactive(
-    cast(Tuple[Optional[Any], Optional[Any]], (None, None))
+    cast(Tuple[Optional[Any], Optional[Any]], [dt.date.today(), dt.date.today() + dt.timedelta(days=1)])
 )  # More specific Any for date
 selected_region_reactive = solara.reactive(cast(Optional[str], None))
 selected_data_source_reactive = solara.reactive(cast(Optional[str], None))

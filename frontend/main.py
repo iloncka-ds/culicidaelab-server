@@ -3,6 +3,7 @@ import sys
 import asyncio
 import solara
 import solara.lab
+
 from solara.alias import rv
 from typing import List, Optional, cast
 
@@ -129,12 +130,8 @@ def AppInitializer():
 
 @solara.component
 def Layout(children: List[solara.Element]):  # children is the current page content from the router
-    """
-    Main application layout using solara.AppLayout.
-    The first child passed to AppLayout's `children` prop becomes the sidebar.
-    The rest become the main content.
-    """
-    load_themes()  # Load themes once when Layout is first rendered
+    from solara.lab import theme
+    theme = load_themes(theme)  # Load themes once when Layout is first rendered
     AppInitializer()  # Initialize app data
 
     # `children` here is a list containing the component for the current route.
@@ -146,8 +143,8 @@ def Layout(children: List[solara.Element]):  # children is the current page cont
     #     solara.Button(icon_name="mdi-menu", icon=True, on_click=lambda: set_sidebar_is_open(not sidebar_is_open)),
     #     solara.lab.ThemeToggle() # If you want it in the toolbar
     # ]
-    # with solara.AppBar():
-    #     solara.lab.ThemeToggle()
+    with solara.AppBar():
+        solara.lab.ThemeToggle()
     # with solara.Sidebar():
     #     with solara.Card("Controls", margin=0, elevation=0):
     #         AppSidebarContent()
@@ -157,7 +154,7 @@ def Layout(children: List[solara.Element]):  # children is the current page cont
         # This will show tabs in the AppBar. If you want only sidebar nav, set this to False.
         children=children,
         # toolbar_dark can be set based on theme if desired
-        # color="primary" for the app bar
+        color=theme.themes.light.primary  # for the app bar
 
     )
 
@@ -184,8 +181,7 @@ def Layout(children: List[solara.Element]):  # children is the current page cont
 def Page():  # This is the root component Solara will render.
     # Layout will receive the specific page component (home, map, species) as its children
     # based on the current route.
-    with solara.AppBar():
-        solara.lab.ThemeToggle()
+
     # with solara.Sidebar():
     #     with solara.Card("Controls", margin=0, elevation=0):
     #         AppSidebarContent()
