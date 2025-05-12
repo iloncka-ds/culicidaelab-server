@@ -20,7 +20,7 @@ from ..state import (  # Assuming you'll add spinner back, import loading states
 )
 from ..config import COLOR_BACKGROUND
 from ..config import load_themes
-themes = load_themes()
+theme = load_themes(solara.lab.theme)
 
 
 @solara.component
