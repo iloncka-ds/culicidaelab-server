@@ -601,6 +601,7 @@ dependencies = [
     { name = "pyarrow" },
     { name = "pydantic-settings" },
     { name = "pylance" },
+    { name = "python-dotenv" },
     { name = "shapely" },
     { name = "solara", extra = ["assets"] },
 ]
@@ -631,6 +632,7 @@ requires-dist = [
     { name = "pyarrow", specifier = ">=20.0.0" },
     { name = "pydantic-settings", specifier = ">=2.9.1" },
     { name = "pylance", specifier = ">=0.26.1" },
+    { name = "python-dotenv", specifier = ">=1.1.0" },
     { name = "shapely", specifier = ">=2.1.0" },
     { name = "solara", extras = ["assets"], specifier = "==1.37.1" },
 ]
