@@ -13,7 +13,10 @@ dependencies = [
     "pandas>=2.2.3",
     "plotly>=6.0.1",
     "pyarrow>=20.0.0",
+    "pydantic-settings>=2.9.1",
     "pylance>=0.26.1",
+    "python-dotenv",
+    "shapely>=2.1.0",
     "solara[assets]==1.37.1",
 ]
 [dependency-groups]
