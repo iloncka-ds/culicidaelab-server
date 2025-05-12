@@ -1,61 +1,93 @@
-from backend.database.lancedb_manager import LanceDBManager
-from typing import List, Optional, Dict, Any
-import json  # For parsing characteristics etc. if they were stored as JSON strings
+import json
+from typing import List, Optional
+import lancedb
+from ..database import get_table
+from ..models import SpeciesDetail, SpeciesBase
 
 
-class SpeciesService:
-    def __init__(self, db_manager: LanceDBManager):
-        self.db_manager = db_manager
-
-    async def get_all_species(
-        self, search: Optional[str] = None, limit: int = 100, offset: int = 0
-    ) -> List[Dict[str, Any]]:
-        species_table = await self.db_manager.get_table("species")
-        if not species_table:
-            return []
-
-        query_builder = species_table.search()
-        if search:
-            # LanceDB full-text search is more complex (e.g., requires FTS index or vectorization)
-            # Simple SQL-like WHERE for substring match:
-            query_builder = query_builder.where(
-                f"LOWER(scientific_name) LIKE '%{search.lower()}%' OR LOWER(common_name) LIKE '%{search.lower()}%'"
-            )
-
-        results_df = await query_builder.limit(limit).offset(offset).to_pandas()
-        return results_df.to_dict(orient="records")
-
-    async def get_species_by_id(self, species_id: str) -> Optional[Dict[str, Any]]:
-        species_table = await self.db_manager.get_table("species")
-        if not species_table:
-            return None
-        try:
-            # Assuming 'id' is a primary field used for filtering
-            results_df = await species_table.search().where(f"id = '{species_id}'").limit(1).to_pandas()
-            if not results_df.empty:
-                return results_df.iloc[0].to_dict()
-        except Exception as e:
-            print(f"Error fetching species by id {species_id}: {e}")
+def _parse_json_field(json_string: Optional[str]) -> Optional[List[str]]:
+    if json_string is None:
         return None
+    try:
+        return json.loads(json_string)
+    except json.JSONDecodeError:
+        return None  # Or return [] or log error
 
-    async def get_filter_options(self) -> Dict[str, List[str]]:
-        species_table = await self.db_manager.get_table("species")
-        regions_table = await self.db_manager.get_table("regions")
-        data_sources_table = await self.db_manager.get_table("data_sources")
 
-        species_names = []
-        if species_table:
-            df = await species_table.to_pandas(columns=["scientific_name"])
-            species_names = df["scientific_name"].unique().tolist()
+def _db_record_to_species_detail(record: dict) -> SpeciesDetail:
+    return SpeciesDetail(
+        id=record.get("id", ""),
+        scientific_name=record.get("scientific_name", ""),
+        common_name=record.get("common_name"),
+        vector_status=record.get("vector_status"),
+        image_url=record.get("image_url"),
+        description=record.get("description"),
+        key_characteristics=_parse_json_field(record.get("key_characteristics")),
+        geographic_regions=_parse_json_field(record.get("geographic_regions")),
+        related_diseases=_parse_json_field(record.get("related_diseases")),
+        habitat_preferences=_parse_json_field(record.get("habitat_preferences")),
+    )
 
-        region_names = []
-        if regions_table:
-            df = await regions_table.to_pandas(columns=["name"])
-            region_names = df["name"].unique().tolist()
 
-        ds_names = []
-        if data_sources_table:
-            df = await data_sources_table.to_pandas(columns=["name"])
-            ds_names = df["name"].unique().tolist()
+def get_all_species(db: lancedb.DBConnection, search: Optional[str] = None, limit: int = 100) -> List[SpeciesBase]:
+    """Gets a list of species, optionally filtered by search term."""
+    try:
+        tbl = get_table(db, "species")
+        query = tbl.search().limit(limit)  # Start with limit
 
-        return {"species": sorted(species_names), "regions": sorted(region_names), "data_sources": sorted(ds_names)}
+        if search:
+            # LanceDB FTS or simple filtering (case-insensitive requires lower usually)
+            # Simple SQL-like filter (might be case-sensitive depending on backend)
+            # Adjust field names if needed
+            search_lower = search.lower()
+            # NOTE: LanceDB filtering on strings might be basic. FTS is better.
+            # For now, approximate with SQL 'like' idea if supported or filter in Python
+            # Let's try filtering in Python for simplicity now
+            all_species_raw = tbl.to_pydantic(SpeciesDetail)  # Fetch more details for filtering
+            filtered_species = [
+                s
+                for s in all_species_raw
+                if (s.scientific_name and search_lower in s.scientific_name.lower())
+                or (s.common_name and search_lower in s.common_name.lower())
+            ][:limit]  # Apply limit after Python filter
+            # Convert back to SpeciesBase for list response
+            return [SpeciesBase(**s.model_dump()) for s in filtered_species]
+
+        else:
+            # No search, just get base info
+            # Select specific columns for efficiency if possible
+            selected_columns = ["id", "scientific_name", "common_name", "vector_status", "image_url"]
+            # Check if select works as expected
+            try:
+                results = query.select(selected_columns).to_list()
+                return [SpeciesBase(**r) for r in results]
+            except:  # Fallback if select causes issues
+                print("Warning: Column selection failed, fetching full records for species list.")
+                results = query.to_list()
+                return [
+                    SpeciesBase(
+                        id=r.get("id"),
+                        scientific_name=r.get("scientific_name"),
+                        common_name=r.get("common_name"),
+                        vector_status=r.get("vector_status"),
+                        image_url=r.get("image_url"),
+                    )
+                    for r in results
+                ]
+
+    except Exception as e:
+        print(f"Error getting all species: {e}")
+        return []
+
+
+def get_species_by_id(db: lancedb.DBConnection, species_id: str) -> Optional[SpeciesDetail]:
+    """Gets detailed information for a single species by its ID."""
+    try:
+        tbl = get_table(db, "species")
+        result = tbl.search().where(f"id = '{species_id}'").limit(1).to_list()
+        if result:
+            return _db_record_to_species_detail(result[0])
+        return None
+    except Exception as e:
+        print(f"Error getting species by ID '{species_id}': {e}")
+        return None
