@@ -1,0 +1,26 @@
+{
+  "species": [
+    "Aedes albopictus",
+    "Aedes aegypti",
+    "Culex pipiens",
+    "Anopheles gambiae",
+    "Culiseta annulata"
+  ],
+  "regions": [
+    "Sub-Saharan Africa",
+    "Africa",
+    "Europe",
+    "Tropics Worldwide",
+    "Subtropics Worldwide",
+    "Asia",
+    "Americas",
+    "Oceania"
+  ],
+  "data_sources": [
+    "GBIF",
+    "iNaturalist",
+    "VectorBase",
+    "Local Survey Team A",
+    "Research Study XYZ"
+  ]
+}
