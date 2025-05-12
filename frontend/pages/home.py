@@ -1,7 +1,8 @@
 import solara
 import solara.lab
 from frontend.config import load_themes
-themes = load_themes()
+from solara.lab import theme
+theme = load_themes(theme)
 # from frontend.components.map_module.app_layout import AppSidebarContent, AppMainContent
 
 
@@ -15,5 +16,5 @@ def Page():
 def Layout(children):
     route, routes = solara.use_route()
     dark_effective = solara.lab.use_dark_effective()
-    return solara.AppLayout(children=children, toolbar_dark=dark_effective, color=themes.light.primary)
+    return solara.AppLayout(children=children, toolbar_dark=dark_effective, color=theme.themes.light.primary)
 
