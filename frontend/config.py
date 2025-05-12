@@ -20,7 +20,7 @@ DISTRIBUTION_STATUS_COLORS = {
 
 
 
-def load_themes(solara_theme):
+def load_themes(theme):
     """
     Directly apply theme definitions to solara.lab.theme.
 
