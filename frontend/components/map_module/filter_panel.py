@@ -15,21 +15,11 @@ from frontend.state import (
     selected_data_source_reactive,
     all_available_data_sources_reactive,
 )
-from frontend.config import COLOR_BUTTON_PRIMARY_BG, FONT_BODY
 
 
 @solara.component
 def FilterControls():
-    # Helper to manage date updates for the reactive tuple
-    def _set_start_date(value: Optional[datetime.date]):
-        current_end = selected_date_range_reactive.value[1] if selected_date_range_reactive.value else None
-        selected_date_range_reactive.value = (value, current_end)
 
-    def _set_end_date(value: Optional[datetime.date]):
-        current_start = selected_date_range_reactive.value[0] if selected_date_range_reactive.value else None
-        selected_date_range_reactive.value = (current_start, value)
-
-    current_start_date, current_end_date = selected_date_range_reactive.value
 
     # The card styling is better handled by ExpansionPanel in map_visualization.py
     # This component will just render the controls themselves.
@@ -59,22 +49,15 @@ def FilterControls():
         )
 
         # Date Range Filter
-        # Solara does not have a built-in DateRangePicker. Use two DatePickers.
-        # If using ipyvuetify's v.DatePicker, more setup is needed.
-        # solara.InputDate is simpler if available and suitable.
-        # For now, let's assume solara.lab.DatePicker or similar future component
-        # or create simple date inputs if needed.
-        # Placeholder using solara.Input for now, you'd replace with actual date pickers.
 
         solara.Markdown("#### Date Range (Optional)")
-        dates = solara.use_reactive(tuple([dt.date.today(), dt.date.today() + dt.timedelta(days=1)]))
+        dates = selected_date_range_reactive
 
-        solara.lab.InputDateRange(dates)
+        solara.lab.InputDateRange(dates, on_value=selected_date_range_reactive.set)
 
         # "Apply Filters" button is not strictly necessary if using reactive variables watched by effects.
         # However, it can provide a more explicit user action, especially for expensive re-queries.
-        # For now, let's omit it, assuming reactive updates.
-        # If added:
+
         # solara.Button("Apply Filters", on_click=lambda: asyncio.create_task(load_all_data()),
         #               color=COLOR_BUTTON_PRIMARY_BG, dark=True,
         #               style="margin-top: 15px;")

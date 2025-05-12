@@ -17,10 +17,10 @@ DISTRIBUTION_STATUS_COLORS = {
     "native_established": "rgba(51, 160, 44, 0.7)",
 }
 
-from solara.lab import theme as theme
 
 
-def load_themes():
+
+def load_themes(solara_theme):
     """
     Directly apply theme definitions to solara.lab.theme.
 
@@ -46,10 +46,9 @@ def load_themes():
         theme.themes.dark.warning = "#FFC107"  # Warning color for dark theme (amber)
 
         print("Theme applied successfully")
-        return True
     except Exception as e:
         print(f"Error applying theme: {e}")
-        return False
+    return theme
 
 def _hex_to_rgba(hex_color: str, alpha: float) -> str:
     hex_color = hex_color.lstrip("#")

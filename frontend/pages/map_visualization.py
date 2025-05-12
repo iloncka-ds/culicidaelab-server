@@ -1,4 +1,5 @@
 import solara
+import solara.lab
 from solara.alias import rv
 from typing import List, cast
 
@@ -18,10 +19,14 @@ from ..state import (  # Assuming you'll add spinner back, import loading states
     breeding_sites_loading_reactive,
 )
 from ..config import COLOR_BACKGROUND
+from ..config import load_themes
+themes = load_themes()
 
 
 @solara.component
 def Page():
+    with solara.AppBar():
+        solara.lab.ThemeToggle()
     # This Page component will be the main content for the "/map" route.
     # It will define its own internal layout with a control panel (tabs) and a map area.
 
