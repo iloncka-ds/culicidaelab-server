@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, Query, HTTPException
 from typing import List, Optional, Dict, Any
 
 from backend.database.lancedb_manager import LanceDBManager
-from backend.culicidaelab_api.dependencies import get_db
-from backend.culicidaelab_api.services.geo_service import GeoService
-from backend.culicidaelab_api.schemas.geo_schemas import GeoJSONFeatureCollection  # Using this as response
+from backend.dependencies import get_db
+from backend.services.geo_service import GeoService
+from backend.schemas.geo_schemas import GeoJSONFeatureCollection  # Using this as response
 
 router = APIRouter()
 

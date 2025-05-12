@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import List, Optional
 
 from backend.database.lancedb_manager import LanceDBManager
-from backend.culicidaelab_api.dependencies import get_db
-from backend.culicidaelab_api.services.species_service import SpeciesService
-from backend.culicidaelab_api.schemas.species_schemas import Species, FilterOptionsResponse
+from backend.dependencies import get_db
+from backend.services.species_service import SpeciesService
+from backend.schemas.species_schemas import Species, FilterOptionsResponse
 
 router = APIRouter()
 

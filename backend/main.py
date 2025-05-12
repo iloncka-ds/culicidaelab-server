@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.culicidaelab_api.config import settings
-from backend.culicidaelab_api.routers import mosquito_info_router, geo_data_router
+from backend.config import settings
+from backend.routers import mosquito_info_router, geo_data_router
 from backend.database.lancedb_manager import lancedb_manager  # Import the global instance
 
 app = FastAPI(title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json")
@@ -83,6 +83,6 @@ app.include_router(geo_data_router.router, prefix="/geo", tags=["Geographic Data
 if __name__ == "__main__":
     import uvicorn
 
-    # Run with: uvicorn backend.culicidaelab_api.main:app --reload --port 8000
+    # Run with: uvicorn backend.main:app --reload --port 8000
     # (Assuming you run this from the project root `culicidaelab-server/`)
     uvicorn.run(app, host="0.0.0.0", port=8000)
