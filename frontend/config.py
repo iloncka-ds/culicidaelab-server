@@ -28,22 +28,23 @@ def load_themes(theme):
     """
     try:
         # Apply themes directly using attribute access - LIGHT THEME
-        theme.themes.light.primary = "#009688"  # Primary green color
-        theme.themes.light.secondary = "#B2DFDB"  # Secondary green shade
-        theme.themes.light.accent = "#00796B"  # Accent color (amber/orange)
-        theme.themes.light.error = "#E74C3C"  # Error color (red)
-        theme.themes.light.info = "#3498DB"  # Info color (blue)
-        theme.themes.light.success = "#1ABC9C"  # Success color (teal)
-        theme.themes.light.warning = "#F1C40F"  # Warning color (yellow)
+        theme.themes.light.primary = "#009688"
+        theme.themes.light.secondary = "#B2DFDB"
+        theme.themes.light.accent = "#00796B"
+        theme.themes.light.error = "#E74C3C"
+        theme.themes.light.info = "#3498DB"
+        theme.themes.light.success = "#1ABC9C"
+        theme.themes.light.warning = "#F1C40F"
 
         # Apply themes directly using attribute access - DARK THEME
-        theme.themes.dark.primary = "#4ade80"  # Primary color for dark theme (lighter green)
-        theme.themes.dark.secondary = "#03DAC6"  # Secondary color for dark theme (teal)
-        theme.themes.dark.accent = "#F39C12"  # Accent color for dark theme (amber/orange)
-        theme.themes.dark.error = "#FF5252"  # Error color for dark theme (red)
-        theme.themes.dark.info = "#2196F3"  # Info color for dark theme (blue)
-        theme.themes.dark.success = "#4CAF50"  # Success color for dark theme (green)
-        theme.themes.dark.warning = "#FFC107"  # Warning color for dark theme (amber)
+        theme.themes.dark.primary = "#009688"
+        theme.themes.dark.secondary = "#B2DFDB"
+        theme.themes.dark.accent = "#00796B"
+        theme.themes.dark.error = "#E74C3C"  # Error color for dark theme (red)
+        theme.themes.dark.info = "#3498DB"  # Info color for dark theme (blue)
+        theme.themes.dark.success = "#1ABC9C"  # Success color (teal)
+
+        theme.themes.dark.warning = "#F1C40F"  # Warning color for dark theme (amber)
 
         print("Theme applied successfully")
     except Exception as e:

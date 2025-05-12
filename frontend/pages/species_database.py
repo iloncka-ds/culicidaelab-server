@@ -1,11 +1,12 @@
 import solara
 import solara.lab
 from solara.alias import rv
+
 import httpx
 import asyncio
 from typing import Dict, Any, List, Optional, cast
 from ..config import load_themes
-themes = load_themes()
+
 
 # Relative imports for config and state
 from ..config import (
@@ -269,7 +270,8 @@ def SpeciesDetailView(species_id: str, on_close: callable):
 
 @solara.component
 def Page():
-    with solara.AppBar(color=themes.light.primary):
+    theme = load_themes(solara.lab.theme)
+    with solara.AppBar():
         solara.lab.ThemeToggle()
     search_query, set_search_query = solara.use_state("")
     selected_species_id_for_detail, set_selected_species_id_for_detail = solara.use_state(cast(Optional[str], None))
