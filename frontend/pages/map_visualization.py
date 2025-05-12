@@ -20,11 +20,11 @@ from ..state import (  # Assuming you'll add spinner back, import loading states
 )
 from ..config import COLOR_BACKGROUND
 from ..config import load_themes
-theme = load_themes(solara.lab.theme)
 
 
 @solara.component
 def Page():
+    theme = load_themes(solara.lab.theme)
     with solara.AppBar():
         solara.lab.ThemeToggle()
     # This Page component will be the main content for the "/map" route.
@@ -66,57 +66,58 @@ def Page():
     #         overflow: hidden; /* Prevent this column from causing page scroll */
     #     """,
     # ):
-    with solara.Row():
-        with solara.ColumnsResponsive([1, 4]):
-            with solara.Column():
-                open_accordion_panels, set_open_accordion_panels = solara.use_state(
-                    cast(List[int], [0])
-                )  # Open "Filters" by default
+    # with solara.Row():
+    #     with solara.ColumnsResponsive([1, 4]):
+    with solara.Column():
+        with solara.Sidebar():
+            open_accordion_panels, set_open_accordion_panels = solara.use_state(
+                cast(List[int], [0])
+            )  # Open "Filters" by default
 
-                map_accordion_items = [
-                    {"title": "Filters", "icon": "mdi-filter-variant", "component": filter_panel.FilterControls},
-                    {"title": "Map Layers", "icon": "mdi-layers-triple-outline", "component": layer_control.LayerToggle},
-                    {"title": "Legend", "icon": "mdi-format-list-bulleted-type", "component": legend_component.LegendDisplay},
-                    {"title": "Details", "icon": "mdi-information-outline", "component": info_panel.InformationDisplay},
-                    ]
-                with rv.ExpansionPanels(
-                    accordion=True, # Only one panel open at a time
-                    multiple=True,  # Allow multiple panels to be open
-                    tabbable=False,
-                    flat=True,  # No box-shadow on panels
-                    value=open_accordion_panels,  # Controlled by state
-                    on_input=set_open_accordion_panels,  # Update state on change
-                    class_="pa-1",  # Some padding around the panels
-                    ):
-                    for i, item in enumerate(map_accordion_items):
-                        # rv.ExpansionPanel does not take a 'title' or 'icon_name' prop directly.
-                        # It uses slots for the header and content.
-                        with rv.ExpansionPanel(key=item["title"]):  # Key for reactivity
-                            with rv.Col():
-                                with rv.ExpansionPanelHeader():
-                                    rv.Icon(children=[item["icon"]], left=True, class_="mr-2")
-                                    solara.Text(item["title"])
-                                with rv.ExpansionPanelContent(
-                                    class_="pt-2",
-                                    # style_="display: block; width: 100%;"
-                                ):  # Add padding to content
-                                    item["component"]()
+            map_accordion_items = [
+                {"title": "Filters", "icon": "mdi-filter-variant", "component": filter_panel.FilterControls},
+                {"title": "Map Layers", "icon": "mdi-layers-triple-outline", "component": layer_control.LayerToggle},
+                {"title": "Legend", "icon": "mdi-format-list-bulleted-type", "component": legend_component.LegendDisplay},
+                {"title": "Details", "icon": "mdi-information-outline", "component": info_panel.InformationDisplay},
+                ]
+            with rv.ExpansionPanels(
+                accordion=True, # Only one panel open at a time
+                multiple=True,  # Allow multiple panels to be open
+                tabbable=False,
+                flat=True,  # No box-shadow on panels
+                value=open_accordion_panels,  # Controlled by state
+                on_input=set_open_accordion_panels,  # Update state on change
+                class_="pa-1",  # Some padding around the panels
+                ):
+                for i, item in enumerate(map_accordion_items):
+                    # rv.ExpansionPanel does not take a 'title' or 'icon_name' prop directly.
+                    # It uses slots for the header and content.
+                    with rv.ExpansionPanel(key=item["title"]):  # Key for reactivity
+                        with rv.Col():
+                            with rv.ExpansionPanelHeader():
+                                rv.Icon(children=[item["icon"]], left=True, class_="mr-2")
+                                solara.Text(item["title"])
+                            with rv.ExpansionPanelContent(
+                                class_="pt-2",
+                                # style_="display: block; width: 100%;"
+                            ):  # Add padding to content
+                                item["component"]()
 
         # --- Column 2: Map Display ---
-        with solara.Column(style="flex-grow: 1; min-height: 400px; height: 100%; width: 100%;"):
-            map_component.MapDisplay()
+    with solara.Column(style="flex-grow: 1; min-height: 400px; height: 100%; width: 100%;"):
+        map_component.MapDisplay()
 
-            # Add back the loading spinner
-            # is_loading = (
-            #     distribution_loading_reactive.value
-            #     or observations_loading_reactive.value
-            #     or modeled_loading_reactive.value
-            #     or breeding_sites_loading_reactive.value
-            # )
-            # if is_loading:
-            #     solara.SpinnerSolara(
-            #         size="60px",
-            #         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;",
-            #     )
+        # Add back the loading spinner
+        # is_loading = (
+        #     distribution_loading_reactive.value
+        #     or observations_loading_reactive.value
+        #     or modeled_loading_reactive.value
+        #     or breeding_sites_loading_reactive.value
+        # )
+        # if is_loading:
+        #     solara.SpinnerSolara(
+        #         size="60px",
+        #         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;",
+        #     )
 
 

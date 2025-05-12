@@ -8,8 +8,8 @@ import uuid  # Used only if sample data generation includes it
 
 # --- Configuration ---
 # Assumes script is run from backend/ directory
-DB_PATH = "data/.lancedb"
-SAMPLE_DATA_DIR = "data/sample_data"
+DB_PATH = "./backend/data/.lancedb"
+SAMPLE_DATA_DIR = "./backend/data/sample_data"
 SPECIES_FILE = os.path.join(SAMPLE_DATA_DIR, "sample_species.json")
 DIST_FILE = os.path.join(SAMPLE_DATA_DIR, "sample_distribution.geojson")
 OBS_FILE = os.path.join(SAMPLE_DATA_DIR, "sample_observations.geojson")
@@ -287,9 +287,9 @@ def setup_database():
             # Indexing nullable fields like 'species' might behave differently based on LanceDB version.
             try:
                 # Indexing on string fields helps with exact matches ('=').
-                tbl_geo.create_index("layer_type")
-                tbl_geo.create_index("species")  # Index even if nullable
-                tbl_geo.create_index("data_source")
+                tbl_geo.create_scalar_index("layer_type")
+                tbl_geo.create_scalar_index("species")  # Index even if nullable
+                tbl_geo.create_scalar_index("data_source")
                 # Scalar quantization index might help with bbox ranges, but requires careful config.
                 # For now, stick to basic indexes.
                 print(f"  Indexes created successfully (took {time.time() - start_time:.2f}s).")
