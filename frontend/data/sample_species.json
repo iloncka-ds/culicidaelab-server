@@ -1,0 +1,136 @@
+[
+  {
+    "id": "aedes_albopictus",
+    "scientific_name": "Aedes albopictus",
+    "common_name": "Asian Tiger Mosquito",
+    "vector_status": "High",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Aedes_albopictus_PCSL_00000090_00.jpg/640px-Aedes_albopictus_PCSL_00000090_00.jpg",
+    "description": "Known for its black and white striped legs and body. A significant vector for dengue, chikungunya, and Zika. Active during the day.",
+    "key_characteristics": [
+      "Distinct white stripe on dorsal thorax",
+      "Bites aggressively during the day",
+      "Black and white striped legs"
+    ],
+    "geographic_regions": [
+      "Asia",
+      "Europe",
+      "Americas",
+      "Africa",
+      "Oceania"
+    ],
+    "related_diseases": [
+      "Dengue",
+      "Chikungunya",
+      "Zika Virus"
+    ],
+    "habitat_preferences": [
+      "Artificial containers",
+      "Tree holes",
+      "Urban and suburban areas"
+    ]
+  },
+  {
+    "id": "aedes_aegypti",
+    "scientific_name": "Aedes aegypti",
+    "common_name": "Yellow Fever Mosquito",
+    "vector_status": "High",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Aedes_Aegypti_Feeding.jpg/640px-Aedes_Aegypti_Feeding.jpg",
+    "description": "Primary vector for yellow fever, dengue, chikungunya, and Zika. Prefers urban habitats and human blood.",
+    "key_characteristics": [
+      "Lyre-shaped silver markings on thorax",
+      "Prefers to feed on humans",
+      "Dark body with white markings"
+    ],
+    "geographic_regions": [
+      "Tropics Worldwide",
+      "Subtropics Worldwide"
+    ],
+    "related_diseases": [
+      "Yellow Fever",
+      "Dengue",
+      "Chikungunya",
+      "Zika Virus"
+    ],
+    "habitat_preferences": [
+      "Water storage containers",
+      "Flower pots",
+      "Discarded tires",
+      "Indoors"
+    ]
+  },
+  {
+    "id": "culex_pipiens",
+    "scientific_name": "Culex pipiens",
+    "common_name": "Common House Mosquito",
+    "vector_status": "Medium",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/CulexPipiens.jpg/640px-CulexPipiens.jpg",
+    "description": "Vector for West Nile virus and St. Louis encephalitis. Often breeds in stagnant, polluted water. Bites at dusk and night.",
+    "key_characteristics": [
+      "Brownish body with crossbands on abdomen",
+      "Primarily bites at dusk and night",
+      "Rounded abdomen tip"
+    ],
+    "geographic_regions": [
+      "Worldwide (Temperate and Tropical)"
+    ],
+    "related_diseases": [
+      "West Nile Virus",
+      "St. Louis Encephalitis",
+      "Avian Malaria"
+    ],
+    "habitat_preferences": [
+      "Stagnant water (ditches, ponds, catch basins)",
+      "Polluted water sources"
+    ]
+  },
+  {
+    "id": "anopheles_gambiae",
+    "scientific_name": "Anopheles gambiae",
+    "common_name": "African Malaria Mosquito",
+    "vector_status": "High",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Anopheles_gambiae_NIAID.jpg/640px-Anopheles_gambiae_NIAID.jpg",
+    "description": "One of the primary vectors of malaria in sub-Saharan Africa. Prefers to feed on humans and rest indoors.",
+    "key_characteristics": [
+      "Palps as long as proboscis",
+      "Spotted wings (in some Anopheles)",
+      "Rests with abdomen pointing upwards"
+    ],
+    "geographic_regions": [
+      "Sub-Saharan Africa"
+    ],
+    "related_diseases": [
+      "Malaria"
+    ],
+    "habitat_preferences": [
+      "Clean, shallow, sunlit water bodies",
+      "Temporary pools",
+      "Rice paddies"
+    ]
+  },
+  {
+    "id": "culiseta_annulata",
+    "scientific_name": "Culiseta annulata",
+    "common_name": "Banded Mosquito",
+    "vector_status": "Low",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Culiseta.annulata.jpg/640px-Culiseta.annulata.jpg",
+    "description": "A large mosquito with banded legs and abdomen. Less significant as a disease vector to humans compared to others.",
+    "key_characteristics": [
+      "Large size",
+      "Banded legs and abdomen",
+      "Dark wing scales"
+    ],
+    "geographic_regions": [
+      "Europe",
+      "North Africa",
+      "Asia Minor"
+    ],
+    "related_diseases": [
+      "Potentially some arboviruses (minor role)"
+    ],
+    "habitat_preferences": [
+      "Various water bodies, including slightly brackish",
+      "Caves",
+      "Cellars (for overwintering)"
+    ]
+  }
+]

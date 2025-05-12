@@ -1,0 +1,1405 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_a67ae7c8",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-04-14",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.07862007960273,
+          59.987200525847825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_68653318",
+        "site_type": "Tire",
+        "last_inspected": "2025-04-09",
+        "water_present": null,
+        "larvae_present": true,
+        "species_identified": "Culex pipiens",
+        "treatment_applied": "BTI",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.227216139721088,
+          47.04275530198504
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_5ba14d65",
+        "site_type": "Container",
+        "last_inspected": "2025-03-27",
+        "water_present": false,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.022047478476187266,
+          41.1374935220224
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_12145854",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-05-09",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.861245106854966,
+          47.829342866076075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_9e4432a9",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-04-18",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": "Culex pipiens",
+        "treatment_applied": "Methoprene",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.7352005995395459,
+          57.059007832844586
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_a9b01c88",
+        "site_type": "Tire",
+        "last_inspected": "2025-05-04",
+        "water_present": null,
+        "larvae_present": null,
+        "species_identified": "Aedes aegypti",
+        "treatment_applied": "Source Reduction",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2975986290737609,
+          69.17583216970797
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_3becc2ad",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-04-21",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.111153373178233,
+          66.59308616477318
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_94303d85",
+        "site_type": "Tire",
+        "last_inspected": "2025-03-16",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.66426812627005,
+          44.83071453849488
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_3fb09051",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-04-27",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.020140770286602,
+          67.99288656361449
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_c6ace68a",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-03-18",
+        "water_present": false,
+        "larvae_present": null,
+        "species_identified": "Aedes aegypti",
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.97273795720714,
+          24.37160188979216
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_1b6e33eb",
+        "site_type": "Tire",
+        "last_inspected": "2025-05-05",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": "Aedes aegypti",
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -8.11441423488923,
+          64.76108034773068
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_42aba0a4",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-03-14",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": "Anopheles gambiae",
+        "treatment_applied": "BTI",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.89829752032514,
+          -5.673921985969734
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_a1bb319e",
+        "site_type": "Container",
+        "last_inspected": "2025-04-29",
+        "water_present": null,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          91.47874362152771,
+          5.093482837715641
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_44a56648",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-04-27",
+        "water_present": null,
+        "larvae_present": false,
+        "species_identified": "Aedes albopictus",
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.67816903754245,
+          17.309289044336424
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_99d36f59",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-04-17",
+        "water_present": null,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Source Reduction",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.74168019353537,
+          10.729142584182163
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_416d972d",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-05-10",
+        "water_present": false,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.99948943149238,
+          58.04671872974434
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_b738181f",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-04-03",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.213751075666835,
+          52.25288706872055
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_151da3ab",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-04-27",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Source Reduction",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.642165331832196,
+          58.14424071607378
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_aa96b370",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-03-15",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.09096081872458,
+          22.096289180299998
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_06eb4f7c",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-04-01",
+        "water_present": null,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.9309176501823586,
+          50.6250933971634
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_e41ad8e5",
+        "site_type": "Tire",
+        "last_inspected": "2025-04-08",
+        "water_present": null,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.26343480174259,
+          28.22508551232783
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_fc09c13c",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-03-15",
+        "water_present": true,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.2171239334270165,
+          53.14557280614598
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_611935f5",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-04-17",
+        "water_present": false,
+        "larvae_present": false,
+        "species_identified": "Culex pipiens",
+        "treatment_applied": "Source Reduction",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.95265688567038,
+          45.399207873480975
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_bf20d701",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-03-13",
+        "water_present": false,
+        "larvae_present": null,
+        "species_identified": "Culex pipiens",
+        "treatment_applied": "Source Reduction",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.48525538253226,
+          20.947025650667747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_784668dd",
+        "site_type": "Container",
+        "last_inspected": "2025-03-24",
+        "water_present": true,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.661666340545707,
+          50.80940438239246
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_3df4682c",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-04-11",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.04146461856303,
+          -9.938758011191013
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_1bc76f7f",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-04-13",
+        "water_present": null,
+        "larvae_present": null,
+        "species_identified": "Culex pipiens",
+        "treatment_applied": "Source Reduction",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.03616968792425,
+          45.56290346709998
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_f10903e7",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-04-24",
+        "water_present": false,
+        "larvae_present": false,
+        "species_identified": "Aedes albopictus",
+        "treatment_applied": "Methoprene",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.79459846446319,
+          0.28206808423415275
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_0e6c9713",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-05-11",
+        "water_present": null,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -9.665492745687217,
+          39.81257673857232
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_9f6c3581",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-05-10",
+        "water_present": null,
+        "larvae_present": null,
+        "species_identified": "Anopheles gambiae",
+        "treatment_applied": "Source Reduction",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.32160614460602,
+          9.016360570476586
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_6945def4",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-04-12",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.99766041419846,
+          3.7747745196985782
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_07dc1b68",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-05-11",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.235186674583609,
+          38.954115212716125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_6934abc8",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-03-24",
+        "water_present": true,
+        "larvae_present": false,
+        "species_identified": "Aedes aegypti",
+        "treatment_applied": "Methoprene",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.705810062866703,
+          41.201348947146855
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_06e568a5",
+        "site_type": "Tire",
+        "last_inspected": "2025-03-13",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.48858881675574,
+          14.803480482842591
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_bbd44b7a",
+        "site_type": "Container",
+        "last_inspected": "2025-05-08",
+        "water_present": null,
+        "larvae_present": true,
+        "species_identified": "Anopheles gambiae",
+        "treatment_applied": "Methoprene",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.20489677109285,
+          0.34770038849755025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_8edf4adf",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-03-19",
+        "water_present": null,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -9.161353360675797,
+          58.094171421498146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_801cd873",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-03-20",
+        "water_present": false,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": "Source Reduction",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          91.65177395135501,
+          -1.4469911626108178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_3b01d9ad",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-05-08",
+        "water_present": null,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.074283875177464,
+          55.32323529071209
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_129ba0b5",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-05-11",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.44953860885983,
+          -4.644212765353912
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_a7bb5408",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-04-15",
+        "water_present": true,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          107.26078857784371,
+          -9.480372575108698
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_6f29cd89",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-04-12",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": "Aedes aegypti",
+        "treatment_applied": "BTI",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.24033856132579,
+          -6.059645126084283
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_6bed20dd",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-04-26",
+        "water_present": true,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": "Source Reduction",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.998779868144162,
+          55.45086276799334
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_a4b7e4e3",
+        "site_type": "Tire",
+        "last_inspected": "2025-04-13",
+        "water_present": null,
+        "larvae_present": false,
+        "species_identified": "Culiseta annulata",
+        "treatment_applied": "Source Reduction",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.579553265952,
+          18.500302203545424
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_6087fc04",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-03-18",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": "Culex pipiens",
+        "treatment_applied": null,
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.768466868658422,
+          54.59138583327535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_ab4ee4cb",
+        "site_type": "Tire",
+        "last_inspected": "2025-03-31",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.160131243452255,
+          48.26568509924514
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_4d5fcfc0",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-03-13",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Source Reduction",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.11629977822412,
+          -0.1510224765402679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_3a0f246f",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-03-21",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": "Anopheles gambiae",
+        "treatment_applied": "Methoprene",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.7703841390097,
+          -0.4712287108269386
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_05755dc9",
+        "site_type": "Tire",
+        "last_inspected": "2025-04-19",
+        "water_present": null,
+        "larvae_present": null,
+        "species_identified": "Culex pipiens",
+        "treatment_applied": "Source Reduction",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -9.242416145409457,
+          46.764186372124165
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_ed4e4b00",
+        "site_type": "Tire",
+        "last_inspected": "2025-04-24",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.23718060448683,
+          46.14505672128625
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_7a9bd70b",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-03-16",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.129402866374871,
+          69.60820695914413
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_5fe2b9fe",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-04-15",
+        "water_present": null,
+        "larvae_present": null,
+        "species_identified": "Anopheles gambiae",
+        "treatment_applied": "Source Reduction",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.212137271562462,
+          59.797668794356554
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_5b6bd33e",
+        "site_type": "Tire",
+        "last_inspected": "2025-03-15",
+        "water_present": null,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.000232525495846,
+          54.750396597131825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_8d36ffc2",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-03-13",
+        "water_present": false,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": "Source Reduction",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          128.31743265113255,
+          2.3990560232999947
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_6d171f83",
+        "site_type": "Container",
+        "last_inspected": "2025-04-16",
+        "water_present": false,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.90986102025713,
+          6.46490669320977
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_1565ec3b",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-05-07",
+        "water_present": null,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.229157296902,
+          -4.761570318750863
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_28f4df7e",
+        "site_type": "Tire",
+        "last_inspected": "2025-03-19",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "Source Reduction",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          128.08496491707962,
+          -1.7414532454047347
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_4f5a57aa",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-05-01",
+        "water_present": false,
+        "larvae_present": false,
+        "species_identified": "Culex pipiens",
+        "treatment_applied": "BTI",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.159327259064085,
+          66.43330147955896
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_06f561a0",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-03-20",
+        "water_present": true,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.43201009311268,
+          59.20564995720532
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_a5399fcf",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-04-21",
+        "water_present": false,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.663465225391565,
+          37.51208838851932
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_0a70935f",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-04-17",
+        "water_present": true,
+        "larvae_present": false,
+        "species_identified": "Anopheles gambiae",
+        "treatment_applied": "BTI",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.311332544815748,
+          61.9264779697497
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_c331b6ce",
+        "site_type": "Tire",
+        "last_inspected": "2025-04-14",
+        "water_present": null,
+        "larvae_present": false,
+        "species_identified": "Aedes aegypti",
+        "treatment_applied": "BTI",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.03077804274622,
+          -5.0866695391665795
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_d465b01c",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-04-08",
+        "water_present": null,
+        "larvae_present": false,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.85179855873687,
+          15.071921422761086
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_834d98c7",
+        "site_type": "Tire",
+        "last_inspected": "2025-04-27",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": "Culiseta annulata",
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.25027705013137,
+          62.639923823841386
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_79287c7e",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-05-10",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": "Aedes albopictus",
+        "treatment_applied": "Methoprene",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.57955001156138,
+          12.096744294093046
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_9a47f885",
+        "site_type": "Stormdrain (Dry)",
+        "last_inspected": "2025-04-07",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": "Aedes aegypti",
+        "treatment_applied": "Source Reduction",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.66022746889391,
+          23.31401492443534
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_bfef091b",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-03-15",
+        "water_present": false,
+        "larvae_present": true,
+        "species_identified": null,
+        "treatment_applied": "Methoprene",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.630702396423796,
+          48.915641038335025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_08bed8fa",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-04-26",
+        "water_present": false,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": null,
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.2265578552986,
+          57.59623852501721
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_73b32193",
+        "site_type": "Natural Pool",
+        "last_inspected": "2025-03-15",
+        "water_present": false,
+        "larvae_present": null,
+        "species_identified": "Culiseta annulata",
+        "treatment_applied": null,
+        "condition": "Needs Cleaning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          91.24600159116547,
+          -6.750138611983751
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_05eaa034",
+        "site_type": "Stormdrain (Water)",
+        "last_inspected": "2025-05-06",
+        "water_present": null,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Overgrown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.86658359693713,
+          64.75632995123064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "bs_b95ec5cb",
+        "site_type": "Catch Basin",
+        "last_inspected": "2025-04-05",
+        "water_present": true,
+        "larvae_present": null,
+        "species_identified": null,
+        "treatment_applied": "BTI",
+        "condition": "Good"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.67918941809191,
+          69.78381274360157
+        ]
+      }
+    }
+  ]
+}
