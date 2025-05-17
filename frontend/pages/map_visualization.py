@@ -28,7 +28,8 @@ def Page():
     with solara.AppBar():
         solara.lab.ThemeToggle()
 
-    with solara.Column():
+    with solara.Row(style="height: calc(100vh - 64px); width: 100%;"): # 64px is typical AppBar height
+
         with solara.Sidebar():
             open_accordion_panels, set_open_accordion_panels = solara.use_state(
                 cast(List[int], [0])
@@ -66,8 +67,11 @@ def Page():
                                 item["component"]()
 
         # --- Column 2: Map Display ---
-        with solara.Column(style="flex-grow: 1; min-height: 400px; height: 100%; width: 100%;"):
-            map_component.MapDisplay()
+        with solara.Column(style="flex-grow: 1; height: 100%; padding:0; margin:0;"):  # Map takes remaining space
+            with solara.Div(
+                style="width: 100%; height: 100%; display: flex; flex-direction: column; position: relative;"
+            ):
+                map_component.MapDisplay()
 
 
 
