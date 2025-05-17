@@ -15,3 +15,5 @@ wheels/
 .venv
 example*
 .qodo
+md_*
+tree-maker
