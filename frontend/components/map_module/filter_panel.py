@@ -1,3 +1,4 @@
+# filter_panel.py
 import solara
 import solara.lab
 from solara.alias import rv
@@ -42,7 +43,6 @@ breeding_sites_loading = solara.reactive(False)
 
 async def fetch_data_with_filters() -> None:
     """Fetch all map data based on current filters."""
-    print("[DEBUG] fetch_data_with_filters() called")
     # Build query parameters from reactive state
     params: Dict[str, Any] = {}
 
@@ -63,8 +63,6 @@ async def fetch_data_with_filters() -> None:
         if end_date:
             params["end_date"] = end_date.strftime("%Y-%m-%d")
 
-    print(f"[DEBUG] fetch_data_with_filters params: {params}")
-    
     # Fetch distribution data
     await fetch_distribution_data(params)
 
@@ -76,25 +74,19 @@ async def fetch_data_with_filters() -> None:
 
     # Fetch breeding sites data
     await fetch_breeding_sites_data(params)
-    
-    print("[DEBUG] fetch_data_with_filters() completed")
 
 
 async def fetch_distribution_data(params: Dict[str, Any]) -> None:
     """Fetch species distribution data."""
-    print(f"[DEBUG] fetch_distribution_data() called with params: {params}")
     distribution_loading.value = True
     try:
         async with httpx.AsyncClient() as client:
-            print(f"[DEBUG] Calling distribution API: {SPECIES_DISTRIBUTION_ENDPOINT}")
             response = await client.get(SPECIES_DISTRIBUTION_ENDPOINT, params=params, timeout=15.0)
             response.raise_for_status()
             distribution_data_reactive.value = response.json()
-            print(f"[DEBUG] Distribution data fetched: {len(distribution_data_reactive.value)}")
+            print(f"Distribution data fetched: {len(distribution_data_reactive.value)}")
     except Exception as e:
-        print(f"[DEBUG] Error fetching distribution data: {e}")
-        import traceback
-        print(f"[DEBUG] Distribution fetch error details: {traceback.format_exc()}")
+        print(f"Error fetching distribution data: {e}")
         distribution_data_reactive.value = {"type": "FeatureCollection", "features": []}
     finally:
         distribution_loading.value = False
@@ -102,7 +94,6 @@ async def fetch_distribution_data(params: Dict[str, Any]) -> None:
 
 async def fetch_observations_data(params: Dict[str, Any]) -> None:
     """Fetch species observation data."""
-    print(f"[DEBUG] fetch_observations_data() called with params: {params}")
     observations_loading.value = True
     try:
         async with httpx.AsyncClient() as client:
@@ -111,9 +102,7 @@ async def fetch_observations_data(params: Dict[str, Any]) -> None:
             observations_data_reactive.value = response.json()
             print(f"Observation data fetched: {len(observations_data_reactive.value)}")
     except Exception as e:
-        print(f"[DEBUG] Error fetching observation data: {e}")
-        import traceback
-        print(f"[DEBUG] Observation fetch error details: {traceback.format_exc()}")
+        print(f"Error fetching observation data: {e}")
         observations_data_reactive.value = {"type": "FeatureCollection", "features": []}
     finally:
         observations_loading.value = False
@@ -121,7 +110,6 @@ async def fetch_observations_data(params: Dict[str, Any]) -> None:
 
 async def fetch_modeled_data(params: Dict[str, Any]) -> None:
     """Fetch modeled probability data."""
-    print(f"[DEBUG] fetch_modeled_data() called with params: {params}")
     modeled_loading.value = True
     try:
         async with httpx.AsyncClient() as client:
@@ -130,9 +118,7 @@ async def fetch_modeled_data(params: Dict[str, Any]) -> None:
             modeled_data_reactive.value = response.json()
             print(f"Modeled data fetched: {len(modeled_data_reactive.value.get('features', []))} features")
     except Exception as e:
-        print(f"[DEBUG] Error fetching modeled data: {e}")
-        import traceback
-        print(f"[DEBUG] Modeled data fetch error details: {traceback.format_exc()}")
+        print(f"Error fetching modeled data: {e}")
         modeled_data_reactive.value = {"type": "FeatureCollection", "features": []}
     finally:
         modeled_loading.value = False
@@ -140,7 +126,6 @@ async def fetch_modeled_data(params: Dict[str, Any]) -> None:
 
 async def fetch_breeding_sites_data(params: Dict[str, Any]) -> None:
     """Fetch breeding sites data."""
-    print(f"[DEBUG] fetch_breeding_sites_data() called with params: {params}")
     breeding_sites_loading.value = True
     try:
         async with httpx.AsyncClient() as client:
@@ -149,9 +134,7 @@ async def fetch_breeding_sites_data(params: Dict[str, Any]) -> None:
             breeding_sites_data_reactive.value = response.json()
             print(f"Breeding sites data fetched: {len(breeding_sites_data_reactive.value)}")
     except Exception as e:
-        print(f"[DEBUG] Error fetching breeding sites data: {e}")
-        import traceback
-        print(f"[DEBUG] Breeding sites fetch error details: {traceback.format_exc()}")
+        print(f"Error fetching breeding sites data: {e}")
         breeding_sites_data_reactive.value = {"type": "FeatureCollection", "features": []}
     finally:
         breeding_sites_loading.value = False
@@ -163,52 +146,33 @@ def FilterControls():
     start_date, set_start_date = solara.use_state(None)
     end_date, set_end_date = solara.use_state(None)
 
-    # Reference to store async task
-    task_ref = solara.use_ref(None)
-
-    # Fetch filter options when component mounts with proper task cleanup
-    solara.use_effect(
-        lambda: (
-            setattr(task_ref, "current", asyncio.create_task(fetch_filter_options())),
-            lambda: task_ref.current.cancel() if task_ref.current else None,
-        ),
-        [],
-    )
+    # Fetch filter options when component mounts
+    solara.use_effect(lambda: asyncio.create_task(fetch_filter_options()), [])
 
     # Handle when date range changes from date pickers
     def handle_date_range_change():
         selected_date_range_reactive.value = (start_date, end_date)
 
-    # Reference for apply filters task
-    apply_task_ref = solara.use_ref(None)
-
     # Apply filters button handler
     async def handle_apply_filters():
-        print("[DEBUG] handle_apply_filters clicked")
-        # Cancel any previously running task
-        if apply_task_ref.current and not apply_task_ref.current.done():
-            apply_task_ref.current.cancel()
-
         # Apply date range from local state
         selected_date_range_reactive.value = (start_date, end_date)
         # Fetch data with all current filters
-        apply_task_ref.current = asyncio.create_task(fetch_data_with_filters())
+        await fetch_data_with_filters()
 
     with solara.Column(style="padding: 10px;"):
-        solara.Markdown("## Filter Data", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT};")
+        solara.Markdown("#### Filter Data", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT};")
 
         # Display loading or error status
         if filter_options_loading_reactive.value:
-            solara.lab.Progress(1, indeterminate=True)
-            solara.Text(
-                "Loading filter options...", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;"
-            )
+            solara.ProgressLinear(True)
+            solara.Text("Loading filter options...", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;")
 
         if filter_options_error_reactive.value:
             solara.Error(filter_options_error_reactive.value)
 
         # Species Selection (Multi-select)
-        solara.Markdown("### Species", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
+        solara.Markdown("##### Species", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
 
         if all_available_species_reactive.value:
             with rv.Select(
@@ -222,12 +186,10 @@ def FilterControls():
             ):
                 pass
         else:
-            solara.Text(
-                "No species available", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;"
-            )
+            solara.Text("No species available", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;")
 
         # Region Selection (Single-select)
-        solara.Markdown("### Region", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
+        solara.Markdown("##### Region", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
 
         region_options = ["All Regions"] + all_available_regions_reactive.value
         selected_region_display = selected_region_reactive.value if selected_region_reactive.value else "All Regions"
@@ -242,12 +204,10 @@ def FilterControls():
             pass
 
         # Data Source Selection (Single-select)
-        solara.Markdown("### Data Source", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
+        solara.Markdown("##### Data Source", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
 
         data_source_options = ["All Sources"] + all_available_data_sources_reactive.value
-        selected_source_display = (
-            selected_data_source_reactive.value if selected_data_source_reactive.value else "All Sources"
-        )
+        selected_source_display = selected_data_source_reactive.value if selected_data_source_reactive.value else "All Sources"
 
         with rv.Select(
             label="Select Data Source",
@@ -259,7 +219,7 @@ def FilterControls():
             pass
 
         # Date Range Selection
-        solara.Markdown("### Date Range", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
+        solara.Markdown("##### Date Range", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
 
         solara.lab.InputDateRange((start_date, end_date), on_value=selected_date_range_reactive.set)
 
@@ -267,26 +227,20 @@ def FilterControls():
         with solara.Row(style="margin-top: 15px;"):
             solara.Button(
                 "Apply Filters",
-                on_click=lambda: (
-                    # Create a new task but don't use create_task in the lambda directly
-                    # Instead use a function that creates the task
-                    handle_apply_filters()
-                ),
+                on_click=lambda: asyncio.create_task(handle_apply_filters()),
                 color=COLOR_BUTTON_PRIMARY_BG,
                 style=f"color: white; font-family: {FONT_BODY};",
             )
 
             # Loading indicator
             loading_any = (
-                distribution_loading.value
-                or observations_loading.value
-                or modeled_loading.value
-                or breeding_sites_loading.value
+                distribution_loading.value or
+                observations_loading.value or
+                modeled_loading.value or
+                breeding_sites_loading.value
             )
 
             if loading_any:
                 with solara.Row(style="align-items: center; margin-left: 10px;"):
-                    solara.lab.Progress(1, indeterminate=True, style="width: 24px; height: 24px;")
-                    solara.Text(
-                        "Loading data...", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;"
-                    )
+                    solara.ProgressLinear(True, style="width: 24px; height: 24px;")
+                    solara.Text("Loading data...", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;")
