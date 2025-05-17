@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
 import lancedb
-from .. import database, services
-from ..models import FilterOptions
+from backend.services import database
+from backend.services import filter_service
+from backend.models import FilterOptions
 
 router = APIRouter()
 
@@ -11,4 +12,4 @@ async def get_filter_options_endpoint(db: lancedb.DBConnection = Depends(databas
     """
     Retrieve available filter options (species, regions, data sources).
     """
-    return services.filter_service.get_filter_options(db)
+    return filter_service.get_filter_options(db)

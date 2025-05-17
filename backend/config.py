@@ -15,7 +15,11 @@
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 import os
+import pathlib
 
+
+# Go up one level to the 'backend' directory
+BACKEND_DIR = pathlib.Path(__file__).parent.resolve()
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -27,7 +31,7 @@ class Settings(BaseSettings):
 
     APP_NAME: str = "CulicidaeLab API"
     API_V1_STR: str = "/api"
-    DATABASE_PATH: str = os.getenv("CULICIDAELAB_DATABASE_PATH", ".lancedb")
+    DATABASE_PATH: str = str(BACKEND_DIR / "data" / ".lancedb")
     # CORS settings
     # Allow requests from the default Solara dev server port
     BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:8765", "http://127.0.0.1:8765"]

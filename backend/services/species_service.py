@@ -1,8 +1,8 @@
 import json
 from typing import List, Optional
 import lancedb
-from ..database import get_table
-from ..models import SpeciesDetail, SpeciesBase
+from backend.services.database import get_table
+from backend.models import SpeciesDetail, SpeciesBase
 
 
 def _parse_json_field(json_string: Optional[str]) -> Optional[List[str]]:
@@ -29,65 +29,94 @@ def _db_record_to_species_detail(record: dict) -> SpeciesDetail:
     )
 
 
-def get_all_species(db: lancedb.DBConnection, search: Optional[str] = None, limit: int = 100) -> List[SpeciesBase]:
+def get_all_species(db: lancedb.DBConnection, search: Optional[str] = None, limit: int = 10) -> List[SpeciesBase]:
     """Gets a list of species, optionally filtered by search term."""
     try:
         tbl = get_table(db, "species")
-        query = tbl.search().limit(limit)  # Start with limit
 
         if search:
-            # LanceDB FTS or simple filtering (case-insensitive requires lower usually)
-            # Simple SQL-like filter (might be case-sensitive depending on backend)
-            # Adjust field names if needed
             search_lower = search.lower()
-            # NOTE: LanceDB filtering on strings might be basic. FTS is better.
-            # For now, approximate with SQL 'like' idea if supported or filter in Python
-            # Let's try filtering in Python for simplicity now
-            all_species_raw = tbl.to_pydantic(SpeciesDetail)  # Fetch more details for filtering
-            filtered_species = [
-                s
-                for s in all_species_raw
-                if (s.scientific_name and search_lower in s.scientific_name.lower())
-                or (s.common_name and search_lower in s.common_name.lower())
-            ][:limit]  # Apply limit after Python filter
-            # Convert back to SpeciesBase for list response
-            return [SpeciesBase(**s.model_dump()) for s in filtered_species]
-
-        else:
-            # No search, just get base info
-            # Select specific columns for efficiency if possible
-            selected_columns = ["id", "scientific_name", "common_name", "vector_status", "image_url"]
-            # Check if select works as expected
+            # Try using LanceDB's vector search with metadata filtering if possible
             try:
-                results = query.select(selected_columns).to_list()
-                return [SpeciesBase(**r) for r in results]
-            except:  # Fallback if select causes issues
-                print("Warning: Column selection failed, fetching full records for species list.")
-                results = query.to_list()
-                return [
-                    SpeciesBase(
-                        id=r.get("id"),
-                        scientific_name=r.get("scientific_name"),
-                        common_name=r.get("common_name"),
-                        vector_status=r.get("vector_status"),
-                        image_url=r.get("image_url"),
+                # This would be the preferred approach if supported by your LanceDB version
+                query = (
+                    tbl.search()
+                    .where(
+                        f"LOWER(scientific_name) LIKE '%{search_lower}%' OR LOWER(common_name) LIKE '%{search_lower}%'"
                     )
-                    for r in results
-                ]
+                    .limit(limit)
+                )
+                results = query.to_list()
+                return [SpeciesBase(**_extract_base_fields(r)) for r in results]
+            except Exception as e:
+                # Fallback to Python filtering if LanceDB's WHERE clause doesn't work as expected
+                print(f"Warning: LanceDB filtering failed, using Python filtering: {e}")
+                all_species_raw = tbl.to_list()  # Get all records
+                filtered_species = [
+                    r
+                    for r in all_species_raw
+                    if (r.get("scientific_name") and search_lower in str(r.get("scientific_name")).lower())
+                    or (r.get("common_name") and search_lower in str(r.get("common_name")).lower())
+                ][:limit]  # Apply limit after filtering
+                return [SpeciesBase(**_extract_base_fields(r)) for r in filtered_species]
+        else:
+            # No search term, just get the limited list
+            results = tbl.search().limit(limit).to_list()
+            return [SpeciesBase(**_extract_base_fields(r)) for r in results]
 
     except Exception as e:
         print(f"Error getting all species: {e}")
+        # Consider logging the full exception with traceback for debugging
+        import traceback
+
+        traceback.print_exc()
         return []
+
+
+def _extract_base_fields(record: dict) -> dict:
+    """Helper function to extract only the fields needed for SpeciesBase."""
+    return {
+        "id": record.get("id"),
+        "scientific_name": record.get("scientific_name"),
+        "common_name": record.get("common_name"),
+        "vector_status": record.get("vector_status"),
+        "image_url": record.get("image_url"),
+    }
 
 
 def get_species_by_id(db: lancedb.DBConnection, species_id: str) -> Optional[SpeciesDetail]:
     """Gets detailed information for a single species by its ID."""
     try:
         tbl = get_table(db, "species")
-        result = tbl.search().where(f"id = '{species_id}'").limit(1).to_list()
-        if result:
+        # Sanitize the input to prevent injection
+        sanitized_id = species_id.replace("'", "''")  # Basic SQL injection protection
+        result = tbl.search().where(f"id = '{sanitized_id}'").limit(1).to_list()
+
+        if result and len(result) > 0:
             return _db_record_to_species_detail(result[0])
         return None
     except Exception as e:
         print(f"Error getting species by ID '{species_id}': {e}")
+        # Consider logging the full exception with traceback for debugging
+        import traceback
+
+        traceback.print_exc()
         return None
+
+
+def _db_record_to_species_detail(record: dict) -> SpeciesDetail:
+    """Convert a database record to a SpeciesDetail model.
+    This function centralizes the logic for mapping DB fields to the model."""
+    # Add any field transformations or enrichment here
+    return SpeciesDetail(
+        id=record.get("id"),
+        scientific_name=record.get("scientific_name"),
+        common_name=record.get("common_name"),
+        vector_status=record.get("vector_status"),
+        image_url=record.get("image_url"),
+        taxonomy=record.get("taxonomy"),
+        conservation_status=record.get("conservation_status"),
+        habitat=record.get("habitat"),
+        description=record.get("description"),
+        # Add other fields as needed
+    )

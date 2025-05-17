@@ -1,5 +1,5 @@
 import lancedb
-from .config import settings
+from backend.config import settings
 from functools import lru_cache
 
 
@@ -8,7 +8,8 @@ def get_db():
     """Connects to the LanceDB database."""
     try:
         db = lancedb.connect(settings.DATABASE_PATH)
-        # print(f"DB Connection Success: {settings.DATABASE_PATH}")
+        print(settings.DATABASE_PATH)
+        print(f"DB Connection Success: {settings.DATABASE_PATH}")
         return db
     except Exception as e:
         print(f"Error connecting to LanceDB at {settings.DATABASE_PATH}: {e}")

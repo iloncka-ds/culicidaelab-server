@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import List, Optional
 import lancedb
-from .. import database, services
-from ..models import SpeciesListResponse, SpeciesDetail, SpeciesBase
+from backend.services import database, species_service
+from backend.models import SpeciesListResponse, SpeciesDetail, SpeciesBase
 
 router = APIRouter()
 
@@ -16,7 +16,7 @@ async def get_species_list_endpoint(
     """
     Retrieve a list of mosquito species, optionally filtered by a search term.
     """
-    species_list = services.species_service.get_all_species(db, search=search, limit=limit)
+    species_list = species_service.get_all_species(db, search=search, limit=limit)
     return SpeciesListResponse(count=len(species_list), species=species_list)
 
 
@@ -25,7 +25,7 @@ async def get_species_detail_endpoint(species_id: str, db: lancedb.DBConnection 
     """
     Retrieve detailed information for a specific mosquito species by ID.
     """
-    species_detail = services.species_service.get_species_by_id(db, species_id)
+    species_detail = species_service.get_species_by_id(db, species_id)
     if not species_detail:
         raise HTTPException(status_code=404, detail="Species not found")
     return species_detail
