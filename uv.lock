@@ -136,6 +136,20 @@ wheels = [
 ]
 
 [[package]]
+name = "anywidget"
+version = "0.9.18"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "ipywidgets" },
+    { name = "psygnal" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ed/69/20423d6abd2a57d767d20a9dcf3f816bd4cbbe4813ac7c7158ba16e44c3f/anywidget-0.9.18.tar.gz", hash = "sha256:262cf459b517a7d044d6fbc84b953e9c83f026790b2dd3ce90f21a7f8eded00f", size = 9808509 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2b/f0/09a30ca0551af20c7cefa7464b7ccb6f5407a550b83c4dcb15c410814849/anywidget-0.9.18-py3-none-any.whl", hash = "sha256:944b82ef1dd17b8ff0fb6d1f199f613caf9111338e6e2857da478f6e73770cb8", size = 220671 },
+]
+
+[[package]]
 name = "appnope"
 version = "0.1.4"
 source = { registry = "https://pypi.org/simple" }
@@ -600,6 +614,7 @@ name = "culicidaelab-server"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "anywidget" },
     { name = "colorcet" },
     { name = "fastapi" },
     { name = "httpx" },
@@ -633,6 +648,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "anywidget", specifier = ">=0.9.18" },
     { name = "colorcet", specifier = ">=3.1.0" },
     { name = "fastapi", specifier = ">=0.115.12" },
     { name = "httpx", specifier = ">=0.28.1" },
@@ -2055,6 +2071,30 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/eb/a2/709e0fe2f093556c17fbafda93ac032257242cabcc7ff3369e2cb76a97aa/psutil-7.0.0-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a5f098451abc2828f7dc6b58d44b532b22f2088f4999a937557b603ce72b1993", size = 279544 },
     { url = "https://files.pythonhosted.org/packages/50/e6/eecf58810b9d12e6427369784efe814a1eec0f492084ce8eb8f4d89d6d61/psutil-7.0.0-cp37-abi3-win32.whl", hash = "sha256:ba3fcef7523064a6c9da440fc4d6bd07da93ac726b5733c29027d7dc95b39d99", size = 241053 },
     { url = "https://files.pythonhosted.org/packages/50/1b/6921afe68c74868b4c9fa424dad3be35b095e16687989ebbb50ce4fceb7c/psutil-7.0.0-cp37-abi3-win_amd64.whl", hash = "sha256:4cf3d4eb1aa9b348dec30105c55cd9b7d4629285735a102beb4441e38db90553", size = 244885 },
+]
+
+[[package]]
+name = "psygnal"
+version = "0.13.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/23/aa/e1484b0d6f311d3adad8f09166ab56cfb16ed2986f8b1c9a28e5ca2e13ef/psygnal-0.13.0.tar.gz", hash = "sha256:086cd929960713d7bf1e87242952b0d90330a1028827894dcb0cd174b331c1e4", size = 107299 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4e/18/8effafa830203d8114c63074bb7c742c58fed3dd90bbec90a58cf44d652d/psygnal-0.13.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:62ca8ef35a915a368ca466121777cc79bdcc20e9e4e664102f13f743fdbe5f64", size = 498057 },
+    { url = "https://files.pythonhosted.org/packages/d5/38/aa42027c80171005b417d45b38fdd3a3a8e785130f4713e6d2ef796550e0/psygnal-0.13.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:964962c1f8bd021921f72989bdd9a03c533abee9beeeb3e826b025ed72473318", size = 465652 },
+    { url = "https://files.pythonhosted.org/packages/5c/38/e78e16fcb7d719e949749861f3e35f76bafd31b0b5e5b4fd5ae076e940dc/psygnal-0.13.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5bcedff5bbffe0c6507398f1b5d0b839d36a87927b97d97754d50f8b42cc47e0", size = 842537 },
+    { url = "https://files.pythonhosted.org/packages/3c/d5/aabaf0631bcf26f942392d5f73840980084dfbbddcd1a51b8231e0eb8ff5/psygnal-0.13.0-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:226939f2674a7c8acc15328ff1fec4bc5b835b9faa8de588b4d4625af5fad33c", size = 827320 },
+    { url = "https://files.pythonhosted.org/packages/fd/c4/66601e151fb9912d552daeac824021c1f1967d13ba15b3cd0e8cd5d64d4f/psygnal-0.13.0-cp311-cp311-win_amd64.whl", hash = "sha256:0402e02448ff064fd3a7df06342404b247c9440d8e81b3450d05cc9ecf835043", size = 411417 },
+    { url = "https://files.pythonhosted.org/packages/46/40/5530b2a63b9912f9994534bedcaa3c8bf0682e9517f05e071ce96ec96005/psygnal-0.13.0-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:8759aac2b496627307b5a2144d21f3f709800cb176dba8bd4a2d04ebda055fc1", size = 508810 },
+    { url = "https://files.pythonhosted.org/packages/ff/e6/75db7228852ec9ff31e4521d5a6d24d82dcf98ba521dfca3957a79284c5a/psygnal-0.13.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:8ea258c2196ca4aa1097a3e4cf46212e94c57e3392d75845ccdfecea280d9f2b", size = 462899 },
+    { url = "https://files.pythonhosted.org/packages/ae/5b/e9622a3b2f5461ba1d17cd8371387bf5708f652423421f03d3fb0c734f6c/psygnal-0.13.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c7b350f559b3189f32a2f786d16dd0669152a333524313c2f2b8a818c1687832", size = 869626 },
+    { url = "https://files.pythonhosted.org/packages/75/1a/38d51d066550ab8bf880981387888ca6d9c4e4335e285e461fe2d5f0d524/psygnal-0.13.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:bb9017b1ca24f788c971b9b5ec3b4d88ed441fbc7e5ae0896542c27c15bdc078", size = 863250 },
+    { url = "https://files.pythonhosted.org/packages/00/b4/51e6e5c3ca2cf8c5a0cbc0769bfe70660543b2e909dc0516f69460e26533/psygnal-0.13.0-cp312-cp312-win_amd64.whl", hash = "sha256:749ac4d0db768728f8569b6e49ac5e926751ee77064b6a2096dbd2e637eb5b06", size = 415568 },
+    { url = "https://files.pythonhosted.org/packages/74/bf/2dc3aeb32029b764877656f113a43993b6faa7b5514c04bcb7860fcd2a0c/psygnal-0.13.0-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:579653746e0a6f22e1fc2041c62110547ffcc71fbf78a555a93bce914689d7c0", size = 507751 },
+    { url = "https://files.pythonhosted.org/packages/3b/78/ee53a192c5884fb240ba70aaba6c952da97166856c36c131a37240ac2f10/psygnal-0.13.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:ffb04781db0fc11fc36805d64bcc4ac72b48111766f78f2e3bb286f0ec579587", size = 462782 },
+    { url = "https://files.pythonhosted.org/packages/a4/e2/3757e1547782a9f5afb34fc8e1b3de90f87207fc3f64b486af02c25d8c04/psygnal-0.13.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:313b53b2cac99ab35d7d72bf9d6f65235917c31cd8a49de9c455ab61d88eaf6f", size = 866975 },
+    { url = "https://files.pythonhosted.org/packages/69/02/946820d5796c58d221e0bf90065e9b3979bd2ba3bdb3d4972c2e2582c578/psygnal-0.13.0-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:28502286592431a66eedcbc25df3bd990b1ff5b56a923cf27776fc6003e6414d", size = 861217 },
+    { url = "https://files.pythonhosted.org/packages/0d/48/b1e32de11849c140ba44a63dddd2ac7a9052d12977f25c51e68220229fc6/psygnal-0.13.0-cp313-cp313-win_amd64.whl", hash = "sha256:11c71df54bcb4c08220ac1a2e4712d7eda823951c6767a485f76f7ccea15f579", size = 416449 },
+    { url = "https://files.pythonhosted.org/packages/77/0c/2c6287a3b85db24f81bcf2b32d14f7a0c57bfe538675efbf44a3c4733daf/psygnal-0.13.0-py3-none-any.whl", hash = "sha256:fb500bd5aaed9cee1123c3cd157747cd4ac2c9b023a6cb9c1b49c51215eedcfa", size = 80681 },
 ]
 
 [[package]]
