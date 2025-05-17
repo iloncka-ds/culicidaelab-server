@@ -28,23 +28,13 @@ species_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
 @solara.component
 def SpeciesCard(species: Dict[str, Any]):
-    item_id = species.get("id")
-    router = solara.use_router() # Get the router object
 
-    def navigate_to_detail():
-        if item_id:
-            link_path = f"/species/{item_id}"
-            print(f"Programmatic navigation to: {link_path}")
-            router.push(link_path)
-        else:
-            print(f"Warning: Cannot navigate. Species {species.get('scientific_name')} has no ID.")
-            # Optionally show a snackbar or alert to the user
 
     with rv.Card(
         class_="ma-2 pa-3",
         hover=True,
         style="cursor: pointer; ...", # Add pointer cursor
-        onclick=navigate_to_detail, # Make the whole card clickable
+
     ):
         with solara.Row(style="align-items: center; flex-grow:1;"):
             if species.get("image_url"):
@@ -60,8 +50,9 @@ def SpeciesCard(species: Dict[str, Any]):
                 rv.Icon(children=["mdi-bug"], size="100px", class_="mr-3", color=COLOR_PRIMARY)
 
             with solara.Column(align="start", style="overflow: hidden;"):
+                species_id = species.get("id")
                 # Wrap the entire content in a Link for better UX
-                with solara.Link(path_or_route=f"/species/{item_id}"):
+                with solara.Link(path_or_route=f"/info/{species_id}"):
                     solara.Markdown(
                         f"#### {species.get('scientific_name', 'N/A')}",
                         style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY}; text-decoration: none;",
@@ -88,6 +79,7 @@ def SpeciesCard(species: Dict[str, Any]):
                     class_="mt-1",
                     text_color=text_c,
                 )
+
 
 
 @solara.component

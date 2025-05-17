@@ -34,9 +34,15 @@ routes = [
         label="Species Database",
     ),
     solara.Route(
-        "species/:species_id",  # Parameter syntax with colon
+        "info",
         component=species_detail.Page,
-        label=None,  # Don't show in navigation
+        label="Item Detail",
+        children=[
+            solara.Route(
+                path=":species_id",
+                component=species_detail.Page,
+            )
+        ],
     ),
 ]
 
