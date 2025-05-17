@@ -206,7 +206,8 @@ class LeafletMapManager:
                 name=str(species) if species else "Observation",
             )
             marker.popup = HTML(self._create_popup_html(props, title_key="species"))
-            marker.on_click(lambda p=props: selected_map_feature_info.set(p))  # Capture props correctly in lambda
+            # Fix: Add event parameter to lambda and ignore it
+            marker.on_click(lambda event, p=props: selected_map_feature_info.set(p))  # Handle event parameter
             markers.append(marker)
 
         if markers:
