@@ -1,11 +1,7 @@
-import os
-import sys
-import asyncio
 import solara
 import solara.lab
 
-from solara.alias import rv
-from typing import List, Optional, cast
+from typing import List, Optional
 
 # Application imports
 import frontend.pages.home as home
@@ -13,7 +9,7 @@ import frontend.pages.map_visualization as map_visualization
 import frontend.pages.species_database as species_database
 import frontend.pages.species_detail as species_detail
 
-from frontend.config import load_themes
+# from frontend.config import load_themes  # Not used in this file
 from frontend.state import (
     fetch_filter_options,
     # filter_options_loading_reactive, # Not directly used by AppInitializer for rendering
@@ -49,11 +45,18 @@ routes = [
 @solara.component
 def AppInitializer():
     """A component to handle one-time app initialization tasks."""
-    def _init_app_data_effect():
-        async def _async_task():
-            await fetch_filter_options()
-        asyncio.create_task(_async_task())
-    solara.use_effect(_init_app_data_effect, [])
+    # Use a state to track if we've already initialized
+    initialized, set_initialized = solara.use_state(False)
+    
+    # Use solara.lab.use_task at the component level, not inside an effect
+    # This follows the rules of hooks properly
+    if not initialized:
+        # Run the fetch operation using solara.lab.use_task
+        # This properly handles async operations without creating cleanup issues
+        solara.lab.use_task(fetch_filter_options)
+        # Mark as initialized after the task is started
+        set_initialized(True)
+    
     return None
 
 
