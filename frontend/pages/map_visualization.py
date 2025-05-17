@@ -66,8 +66,8 @@ def Page():
                                 item["component"]()
 
         # --- Column 2: Map Display ---
-    with solara.Column(style="flex-grow: 1; min-height: 400px; height: 100%; width: 100%;"):
-        map_component.MapDisplay()
+        with solara.Column(style="flex-grow: 1; min-height: 400px; height: 100%; width: 100%;"):
+            map_component.MapDisplay()
 
 
 
