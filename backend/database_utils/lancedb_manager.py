@@ -62,7 +62,9 @@ class LanceDBManager:
             print("LanceDB connection implicitly managed.")
             self.db = None
 
-    async def get_table(self, table_name: str, schema: Optional[pa.Schema] = None) -> Optional[lancedb.aio.LanceTable]:
+    async def get_table(
+        self, table_name: str, schema: Optional[pa.Schema] = None
+    ) -> Optional[lancedb.table.AsyncTable]:
         """Gets a table, creating it with the schema if it doesn't exist."""
         if not self.db:
             await self.connect()

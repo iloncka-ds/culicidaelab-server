@@ -1,15 +1,18 @@
 import json
 import asyncio
 import os
-from lancedb_manager import LanceDBManager, SPECIES_SCHEMA, FILTER_OPTIONS_SCHEMA, MAP_LAYERS_SCHEMA
+from backend.database_utils.lancedb_manager import LanceDBManager, SPECIES_SCHEMA, FILTER_OPTIONS_SCHEMA, MAP_LAYERS_SCHEMA
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent
+JSON_FILES_DIR = (BASE_DIR / "../data/sample_data").resolve()
 # Adjust paths if your JSON files are elsewhere relative to this script
-DATA_DIR = "../../data"  # Assuming JSON files are in culicidaelab_server/data/
+DATA_DIR = (BASE_DIR / "../data").resolve() # Assuming JSON files are in culicidaelab_server/data/
 # If running from culicidaelab_server/backend/database:
 # DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "data")
 # For script to be run from culicidaelab_server/ (where sample files are generated)
 # This assumes `generate_sample_data.py` was run from the project root.
-JSON_FILES_DIR = "."
+# JSON_FILES_DIR = Path("../../data/sample_data")
 
 
 async def populate_species_table(manager: LanceDBManager):
@@ -87,7 +90,7 @@ async def populate_map_layers_table(manager: LanceDBManager):
 
 async def main():
     # Ensure the .lancedb directory exists or adjust LANCEDB_URI
-    lancedb_dir = ".lancedb"  # Default, relative to where this script is run
+    lancedb_dir = DATA_DIR/".lancedb"  # Default, relative to where this script is run
     if not os.path.exists(lancedb_dir):
         os.makedirs(lancedb_dir, exist_ok=True)
 

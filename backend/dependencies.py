@@ -1,4 +1,4 @@
-from backend.database.lancedb_manager import get_lancedb_manager, LanceDBManager
+from backend.database_utils.lancedb_manager import get_lancedb_manager, LanceDBManager
 
 
 async def get_db() -> LanceDBManager:
