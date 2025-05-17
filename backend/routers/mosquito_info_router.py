@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import List, Optional
 
-from backend.database.lancedb_manager import LanceDBManager
+from backend.database_utils.lancedb_manager import LanceDBManager
 from backend.dependencies import get_db
 from backend.services.species_service import SpeciesService
 from backend.schemas.species_schemas import Species, FilterOptionsResponse

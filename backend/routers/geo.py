@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, Query, HTTPException, Path
-from typing import Optional, List
+from typing import Optional, List, Tuple
 import lancedb
-from .. import database, services
-from ..models import GeoJSONFeatureCollection
+from backend.services import database, geo_service
+from backend.models import GeoJSONFeatureCollection
 
 router = APIRouter()
 
@@ -43,7 +43,7 @@ async def get_geographic_layer(
                 status_code=400, detail=f"Invalid bbox format: {e}. Use min_lon,min_lat,max_lon,max_lat"
             )
 
-    geojson_collection = services.geo_service.get_geo_layer(
+    geojson_collection = geo_service.get_geo_layer(
         db=db,
         layer_type=layer_type,
         species_list=species_list,

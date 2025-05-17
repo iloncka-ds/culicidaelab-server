@@ -5,11 +5,23 @@ import os
 from shapely.geometry import shape, Point, Polygon, MultiPolygon  # For geometry handling
 import time
 import uuid  # Used only if sample data generation includes it
+import pathlib
 
 # --- Configuration ---
+# Get the directory where this script is located
+SCRIPT_DIR = pathlib.Path(__file__).parent.resolve()
+# Go up one level to the 'backend' directory
+BACKEND_DIR = SCRIPT_DIR.parent
+# Define paths relative to the backend directory
+DB_DIR = BACKEND_DIR / "data" / ".lancedb"  # Use pathlib for paths
+SAMPLE_DATA_DIR = BACKEND_DIR / "data" / "sample_data"
+
+# Convert pathlib paths back to strings where needed by functions like os.path.exists or open
+DB_PATH_STR = str(DB_DIR)
+SAMPLE_DATA_DIR_STR = str(SAMPLE_DATA_DIR)
 # Assumes script is run from backend/ directory
-DB_PATH = "./backend/data/.lancedb"
-SAMPLE_DATA_DIR = "./backend/data/sample_data"
+# DB_PATH = "./backend/data/.lancedb"
+# SAMPLE_DATA_DIR = "./backend/data/sample_data"
 SPECIES_FILE = os.path.join(SAMPLE_DATA_DIR, "sample_species.json")
 DIST_FILE = os.path.join(SAMPLE_DATA_DIR, "sample_distribution.geojson")
 OBS_FILE = os.path.join(SAMPLE_DATA_DIR, "sample_observations.geojson")
@@ -206,7 +218,7 @@ def setup_database():
                 tbl.add(processed_species_data)
                 print(f"  Added {len(processed_species_data)} records to 'species' table.")
                 # Consider creating index on 'id' or 'scientific_name' if needed frequently
-                # tbl.create_index("scientific_name")
+                tbl.create_scalar_index("scientific_name")
             except Exception as e:
                 print(f"Error setting up 'species' table: {e}")
         else:

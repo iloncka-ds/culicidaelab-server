@@ -1,6 +1,6 @@
 import lancedb
-from ..database import get_table
-from ..models import FilterOptions
+from backend.services.database import get_table
+from backend.models import FilterOptions
 
 
 def get_filter_options(db: lancedb.DBConnection) -> FilterOptions:

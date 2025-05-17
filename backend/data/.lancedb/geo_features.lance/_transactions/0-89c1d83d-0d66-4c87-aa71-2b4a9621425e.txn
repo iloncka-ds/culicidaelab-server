@@ -1,4 +1,4 @@
-$8a156fdd-acaf-4332-8378-8983f66e6b44²‚*
+$89c1d83d-0d66-4c87-aa71-2b4a9621425e²‚*
 layer_type ÿÿÿÿÿÿÿÿÿ*string8Zdefault+species ÿÿÿÿÿÿÿÿÿ*string08Zdefault1geometry_type ÿÿÿÿÿÿÿÿÿ*string08Zdefault/geometry_json ÿÿÿÿÿÿÿÿÿ*string8Zdefault'lon ÿÿÿÿÿÿÿÿÿ*double08Zdefault'lat ÿÿÿÿÿÿÿÿÿ*double08Zdefault(minx ÿÿÿÿÿÿÿÿÿ*double08Zdefault(miny ÿÿÿÿÿÿÿÿÿ*double08Zdefault(maxx ÿÿÿÿÿÿÿÿÿ*double08Zdefault(maxy	 ÿÿÿÿÿÿÿÿÿ*double08Zdefault,obs_date
  ÿÿÿÿÿÿÿÿÿ*string08Zdefault(count ÿÿÿÿÿÿÿÿÿ*int6408Zdefault/data_source ÿÿÿÿÿÿÿÿÿ*string08Zdefault/dist_status ÿÿÿÿÿÿÿÿÿ*string08Zdefault/probability ÿÿÿÿÿÿÿÿÿ*double08Zdefault-	site_type ÿÿÿÿÿÿÿÿÿ*string08Zdefault0larvae_present ÿÿÿÿÿÿÿÿÿ*bool08Zdefault1properties_json ÿÿÿÿÿÿÿÿÿ*string8Zdefault"!
 lance.auto_cleanup.interval20"'

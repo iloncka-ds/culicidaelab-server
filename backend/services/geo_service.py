@@ -100,8 +100,8 @@
 import json
 from typing import List, Optional, Tuple
 import lancedb
-from ..database import get_table
-from ..models import GeoJSONFeatureCollection, GeoJSONFeature, GeoJSONGeometry
+from backend.services.database import get_table
+from backend.models import GeoJSONFeatureCollection, GeoJSONFeature, GeoJSONGeometry
 from shapely.geometry import box, Point, shape  # For bbox filtering
 
 
@@ -166,7 +166,7 @@ def filter_features(
         filtered = [f for f in filtered if f.get("species") is None or f.get("species") in species]
 
     # 2. Bbox Filter
-        if bbox:
+    if bbox:
         min_lon, min_lat, max_lon, max_lat = bbox
         bbox_polygon = box(min_lon, min_lat, max_lon, max_lat)
         spatially_filtered = []

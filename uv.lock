@@ -166,6 +166,15 @@ wheels = [
 ]
 
 [[package]]
+name = "babel"
+version = "2.17.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7d/6b/d52e42361e1aa00709585ecc30b3f9684b3ab62530771402248b1b1d6240/babel-2.17.0.tar.gz", hash = "sha256:0c54cffb19f690cdcc52a3b50bcbf71e07a808d1c80d549f2459b9d2cf0afb9d", size = 9951852 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b7/b8/3fe70c75fe32afc4bb507f75563d39bc5642255d1d94f1f23604725780bf/babel-2.17.0-py3-none-any.whl", hash = "sha256:4d0b53093fdfb4b21c92b5213dba5a1b23885afa8383709427046b21c366e5f2", size = 10182537 },
+]
+
+[[package]]
 name = "beautifulsoup4"
 version = "4.13.4"
 source = { registry = "https://pypi.org/simple" }
@@ -610,9 +619,11 @@ dependencies = [
 dev = [
     { name = "black" },
     { name = "crawl4ai" },
+    { name = "docxtpl" },
     { name = "ipykernel" },
     { name = "isort" },
     { name = "mypy" },
+    { name = "openpyxl" },
     { name = "pandas" },
     { name = "pre-commit" },
     { name = "pytest" },
@@ -642,9 +653,11 @@ dev = [
     { name = "black", specifier = ">=24.10.0" },
     { name = "crawl4ai", specifier = ">=0.6.2" },
     { name = "culicidaelab-server", virtual = "." },
+    { name = "docxtpl", specifier = ">=0.20.0" },
     { name = "ipykernel", specifier = ">=6.29.5" },
     { name = "isort", specifier = ">=5.13.2" },
     { name = "mypy", specifier = ">=1.13.0" },
+    { name = "openpyxl", specifier = ">=3.1.5" },
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "pre-commit", specifier = ">=4.0.1" },
     { name = "pytest", specifier = ">=8.3.3" },
@@ -710,6 +723,43 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/fc/f8/98eea607f65de6527f8a2e8885fc8015d3e6f5775df186e443e0964a11c3/distro-1.9.0.tar.gz", hash = "sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed", size = 60722 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2", size = 20277 },
+]
+
+[[package]]
+name = "docxcompose"
+version = "1.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "babel" },
+    { name = "lxml" },
+    { name = "python-docx" },
+    { name = "setuptools" },
+    { name = "six" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5d/25/07597a0fda04adf2f2fc375f48f704612a91c0c1da64f4c18e78a4a26630/docxcompose-1.4.0.tar.gz", hash = "sha256:bcf2799a0b63c29eb77a3d799a2f28443ae0f69f8691ff3d753f706be515c3e9", size = 20219 }
+
+[[package]]
+name = "docxtpl"
+version = "0.20.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "docxcompose" },
+    { name = "jinja2" },
+    { name = "lxml" },
+    { name = "python-docx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ae/58/9b422958a1c5bd7b73f0abbaf150f367dbb83f0fe088dc11e51164c6ba5a/docxtpl-0.20.0.tar.gz", hash = "sha256:87d5d9c7f73a6c74c182b4b78a82886047e33db64973f7adaac3e0a824ffef63", size = 31544 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f9/ea/c95680b1fb979ec1fdc5f70efd43004376b7f7446a70eecc3c9f67ac3179/docxtpl-0.20.0-py2.py3-none-any.whl", hash = "sha256:7e2a0e01a87952c161b8e24b84941f515051e36814eb357c98c218c8ea6b2c40", size = 29771 },
+]
+
+[[package]]
+name = "et-xmlfile"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/38/af70d7ab1ae9d4da450eeec1fa3918940a5fafb9055e934af8d6eb0c2313/et_xmlfile-2.0.0.tar.gz", hash = "sha256:dab3f4764309081ce75662649be815c4c9081e88f0837825f90fd28317d4da54", size = 17234 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c1/8b/5fe2cc11fee489817272089c4203e679c63b570a5aaeb18d852ae3cbba6a/et_xmlfile-2.0.0-py3-none-any.whl", hash = "sha256:7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa", size = 18059 },
 ]
 
 [[package]]
@@ -1700,6 +1750,18 @@ wheels = [
 ]
 
 [[package]]
+name = "openpyxl"
+version = "3.1.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "et-xmlfile" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3d/f9/88d94a75de065ea32619465d2f77b29a0469500e99012523b91cc4141cd1/openpyxl-3.1.5.tar.gz", hash = "sha256:cf0e3cf56142039133628b5acffe8ef0c12bc902d2aadd3e0fe5878dc08d1050", size = 186464 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl", hash = "sha256:5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2", size = 250910 },
+]
+
+[[package]]
 name = "overrides"
 version = "7.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2272,6 +2334,19 @@ wheels = [
 ]
 
 [[package]]
+name = "python-docx"
+version = "1.1.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "lxml" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/35/e4/386c514c53684772885009c12b67a7edd526c15157778ac1b138bc75063e/python_docx-1.1.2.tar.gz", hash = "sha256:0cf1f22e95b9002addca7948e16f2cd7acdfd498047f1941ca5d293db7762efd", size = 5656581 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3e/3d/330d9efbdb816d3f60bf2ad92f05e1708e4a1b9abe80461ac3444c83f749/python_docx-1.1.2-py3-none-any.whl", hash = "sha256:08c20d6058916fb19853fcf080f7f42b6270d89eac9fa5f8c15f691c0017fabe", size = 244315 },
+]
+
+[[package]]
 name = "python-dotenv"
 version = "1.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2624,6 +2699,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/8d/1b/dd77503b3875c51e3dbc053fd8367b845ab8b01c9ca6d0c237082732856c/ruff-0.7.4-py3-none-win32.whl", hash = "sha256:75c53f54904be42dd52a548728a5b572344b50d9b2873d13a3f8c5e3b91f5cac", size = 8702767 },
     { url = "https://files.pythonhosted.org/packages/63/76/253ddc3e89e70165bba952ecca424b980b8d3c2598ceb4fc47904f424953/ruff-0.7.4-py3-none-win_amd64.whl", hash = "sha256:745775c7b39f914238ed1f1b0bebed0b9155a17cd8bc0b08d3c87e4703b990d6", size = 9497534 },
     { url = "https://files.pythonhosted.org/packages/aa/70/f8724f31abc0b329ca98b33d73c14020168babcf71b0cba3cded5d9d0e66/ruff-0.7.4-py3-none-win_arm64.whl", hash = "sha256:11bff065102c3ae9d3ea4dc9ecdfe5a5171349cdd0787c1fc64761212fc9cf1f", size = 8851590 },
+]
+
+[[package]]
+name = "setuptools"
+version = "80.7.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9e/8b/dc1773e8e5d07fd27c1632c45c1de856ac3dbf09c0147f782ca6d990cf15/setuptools-80.7.1.tar.gz", hash = "sha256:f6ffc5f0142b1bd8d0ca94ee91b30c0ca862ffd50826da1ea85258a06fd94552", size = 1319188 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a1/18/0e835c3a557dc5faffc8f91092f62fc337c1dab1066715842e7a4b318ec4/setuptools-80.7.1-py3-none-any.whl", hash = "sha256:ca5cc1069b85dc23070a6628e6bcecb3292acac802399c7f8edc0100619f9009", size = 1200776 },
 ]
 
 [[package]]

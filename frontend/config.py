@@ -1,6 +1,7 @@
 import colorcet as cc
 from typing import List, Dict
 
+
 COLOR_PRIMARY = "#21908C"
 COLOR_SECONDARY = "#ADDC30"
 COLOR_ACCENT = "#DBF3AD"

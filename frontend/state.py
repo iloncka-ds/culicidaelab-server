@@ -8,6 +8,51 @@ import datetime as dt
 # Import new endpoint from config
 from .config import FILTER_OPTIONS_ENDPOINT  # Assuming relative import within the package
 
+# --- API Helper ---
+async def fetch_api_data(
+    url: str,
+    params: Optional[Dict[str, Any]] = None,
+    loading_reactive: Optional[solara.Reactive[bool]] = None,
+    error_reactive: Optional[solara.Reactive[Optional[str]]] = None,
+) -> Optional[Any]:
+    if loading_reactive:
+        loading_reactive.value = True
+    if error_reactive:
+        error_reactive.value = None
+    try:
+        async with httpx.AsyncClient() as client:
+            print(f"Fetching data from {url} with params {params if params else ''}")
+            response = await client.get(url, params=params, timeout=20.0)
+            response.raise_for_status()
+            return response.json()
+    except httpx.ReadTimeout:
+        msg = f"Timeout fetching data from {url}."
+        if error_reactive:
+            error_reactive.value = msg
+        print(msg)
+        return None
+    except httpx.HTTPStatusError as e:
+        detail = e.response.text
+        try:
+            detail_json = e.response.json()
+            detail = detail_json.get("detail", detail)
+        except Exception:
+            pass
+        msg = f"HTTP error {e.response.status_code} from {url}. Detail: {detail}"
+        if error_reactive:
+            error_reactive.value = msg
+        print(msg)
+        return None
+    except Exception as e:
+        msg = f"Failed to fetch data from {url}: {e}"
+        if error_reactive:
+            error_reactive.value = msg
+        print(msg)
+        return None
+    finally:
+        if loading_reactive:
+            loading_reactive.value = False
+
 # --- Filter States ---
 selected_species_reactive = solara.reactive(cast(List[str], []))  # Ensure type hint
 selected_date_range_reactive = solara.reactive(
