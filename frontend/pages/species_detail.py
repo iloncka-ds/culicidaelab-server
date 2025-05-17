@@ -15,22 +15,19 @@ def Page():
     with solara.AppBar():
         solara.lab.ThemeToggle()
 
-    # Get the current route and router object
-    route_current, route_path = solara.use_route()
     router = solara.use_router()
-
-    # Extract species_id from path parameters
+    # Get the item ID from the URL path
+    path_parts = router.parts
     species_id = None
-    if route_current and hasattr(route_current, "path_params") and route_current.path_params:
-        species_id = route_current.path_params.get("species_id")
-        print(f"DEBUG: SPECIES_DETAIL.PY - Retrieved species_id from route_current.path_params: '{species_id}'")
-    else:
-        print(f"DEBUG: SPECIES_DETAIL.PY - Failed to get species_id from route parameters")
-        # Try to extract from the URL path as fallback
-        path_parts = router.path.strip("/").split("/")
-        if len(path_parts) >= 2 and path_parts[0] == "species":
+    print(f"DEBUG: SPECIES_DETAIL.PY - router parts {router.parts}")
+    # Parse the item ID from the URL path (format: /item/{id})
+    if len(path_parts) >= 2 and path_parts[0] == "info":
+        try:
             species_id = path_parts[1]
-            print(f"DEBUG: SPECIES_DETAIL.PY - Retrieved species_id from URL path: '{species_id}'")
+            print(f"DEBUG: SPECIES_DETAIL.PY - {species_id}")
+        except ValueError:
+            print(f"DEBUG: SPECIES_DETAIL.PY - router parts {router.parts}")
+
 
     # State for this page
     species_data, set_species_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
@@ -117,7 +114,7 @@ def Page():
 
         if loading:
             print(f"DEBUG: SPECIES_DETAIL.PY - Rendering loading spinner for {species_id}")
-            solara.SpinnerSolara(size="60px", style="margin-top: 50px;")
+            solara.SpinnerSolara(size="60px")
         elif error:
             print(f"DEBUG: SPECIES_DETAIL.PY - Rendering error message: {error}")
             solara.Error(
@@ -139,6 +136,7 @@ def Page():
             )
         else:
             print(f"DEBUG: SPECIES_DETAIL.PY - Rendering species data for: {species_data.get('scientific_name')}")
+            solara.Title(f"Item Details: {species_data.get('scientific_name')}")
             solara.Markdown(
                 f"# {species_data.get('scientific_name', 'N/A')}",
                 style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-bottom: 5px;",
@@ -150,7 +148,7 @@ def Page():
             rv.Divider(style="margin: 15px 0;")
 
             with solara.Row(style="margin-top:20px; gap: 20px;", justify="center"):
-                with solara.Column(md=5, sm=12, align="center"):  # Image and status chip column
+                with solara.Column( align="center"):  # Image and status chip column
                     if species_data.get("image_url"):
                         rv.Img(
                             src=species_data["image_url"],
@@ -185,7 +183,7 @@ def Page():
                         style="font-size: 1em;",
                     )
 
-                with solara.Column(md=7, sm=12):  # Text details column
+                with solara.Column():  # Text details column
                     if desc := species_data.get("description"):
                         solara.Markdown(f"### Description\n{desc}")
                     else:
