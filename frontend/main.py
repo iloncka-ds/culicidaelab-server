@@ -8,6 +8,7 @@ import frontend.pages.home as home
 import frontend.pages.map_visualization as map_visualization
 import frontend.pages.species_database as species_database
 import frontend.pages.species_detail as species_detail
+import frontend.pages.prediction as prediction
 
 # from frontend.config import load_themes  # Not used in this file
 from frontend.state import (
@@ -23,6 +24,9 @@ species_id: Optional[str] = None
 
 routes = [
     solara.Route("/", component=home.Page, label="Home"),
+    solara.Route(
+        "predict", component=prediction.Page, label="Predict Species"
+    ),
     solara.Route("map", component=map_visualization.Page, label="Map Visualization"),
     solara.Route(
         "species",
@@ -47,7 +51,7 @@ def AppInitializer():
     """A component to handle one-time app initialization tasks."""
     # Use a state to track if we've already initialized
     initialized, set_initialized = solara.use_state(False)
-    
+
     # Use solara.lab.use_task at the component level, not inside an effect
     # This follows the rules of hooks properly
     if not initialized:
@@ -56,7 +60,7 @@ def AppInitializer():
         solara.lab.use_task(fetch_filter_options)
         # Mark as initialized after the task is started
         set_initialized(True)
-    
+
     return None
 
 
