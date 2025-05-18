@@ -1,7 +1,7 @@
 import lancedb
 from backend.services.database import get_table
 from backend.models import FilterOptions
-import json
+
 
 def get_filter_options(db: lancedb.DBConnection) -> FilterOptions:
     """Gets filter options (species, regions, data sources)."""
@@ -18,10 +18,10 @@ def get_filter_options(db: lancedb.DBConnection) -> FilterOptions:
         regions_tbl = get_table(db, "regions")
 
         regions_res = regions_tbl.search().select(["name"]).to_list()
-        regions = sorted([r.get("name") for r in regions_res])
+        regions = sorted([r.get("name") for r in regions_res if r.get("name")])
         data_sources_tbl = get_table(db, "data_sources")
         data_sources_res = data_sources_tbl.search().select(["name"]).to_list()
-        data_sources = sorted([r.get("name") for r in data_sources_res])
+        data_sources = sorted([r.get("name") for r in data_sources_res if r.get("name")])
         # Get distinct regions and data sources from geo_features table
         # geo_tbl = get_table(db, "geo_features")
         # This might be slow on large tables without specific optimizations/indexes in LanceDB for distinct values.
