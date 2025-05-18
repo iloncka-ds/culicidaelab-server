@@ -1,7 +1,8 @@
 import json
 import asyncio
 import os
-from backend.database_utils.lancedb_manager import LanceDBManager, SPECIES_SCHEMA, FILTER_OPTIONS_SCHEMA, MAP_LAYERS_SCHEMA
+from backend.database_utils.lancedb_manager import (LanceDBManager,
+                                                    SPECIES_SCHEMA, FILTER_OPTIONS_SCHEMA, MAP_LAYERS_SCHEMA)
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
