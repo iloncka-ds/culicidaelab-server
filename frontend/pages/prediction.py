@@ -1,429 +1,261 @@
 import solara
 import solara.lab
-from solara.alias import rv
-import httpx
-import asyncio
-from typing import Dict, Any, Optional, List, cast, Tuple
 import io
 import base64
-from datetime import datetime
+from typing import Dict, Any, Optional, cast
+import asyncio
+from functools import partial
 
-# Configuration constants
-FONT_HEADINGS = "Arial, Helvetica, sans-serif"
-FONT_BODY = "Roboto, sans-serif"
-COLOR_PRIMARY = "primary"
-COLOR_TEXT = "black"
-API_BASE_URL = "http://localhost:8000"
-PREDICTION_ENDPOINT = f"{API_BASE_URL}/predict_species/"
-OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"
-
-
-@solara.component
-def SpeciesCard(species: Dict[str, Any]):
-    """Displays information about a mosquito species in a card format."""
-    species_id_for_link = species.get("id", species.get("species_id", "unknown"))
-    with rv.Card(
-        class_="ma-2 pa-3", hover=True, style_="cursor: pointer; max-width: 100%; width: 100%; text-decoration: none;"
-    ):
-        with solara.Link(path_or_route=f"/info/{species_id_for_link}", style="text-decoration: none;"):
-            with solara.Row(style="align-items: center;"):
-                if species.get("image_url"):
-                    rv.Img(
-                        src=species["image_url"],
-                        height="100px",
-                        width="100px",
-                        aspect_ratio="1",
-                        class_="mr-3 elevation-1",
-                        style_="border-radius: 4px; object-fit: cover;",
-                    )
-                else:
-                    rv.Icon(children=["mdi-bug"], size="100px", class_="mr-3", color=COLOR_PRIMARY)
-                with solara.Column(align="start", style="overflow: hidden;"):
-                    solara.Markdown(
-                        f"#### {species.get('scientific_name', 'N/A')}",
-                        style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY};",
-                    )
-                    solara.Text(
-                        species.get("common_name", ""),
-                        style=f"font-size: 0.9em; color: {COLOR_TEXT}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
-                    )
-                    if "confidence" in species and species["confidence"] is not None:
-                        try:
-                            confidence_value = float(species["confidence"])
-                            solara.Text(
-                                f"Confidence: {confidence_value:.2%}",
-                                style=f"font-size: 0.85em; color: {COLOR_TEXT}; font-style: italic;",
-                            )
-                        except (ValueError, TypeError):
-                            solara.Text(
-                                f"Confidence: {species['confidence']}",
-                                style=f"font-size: 0.85em; color: {COLOR_TEXT}; font-style: italic;",
-                            )
-            status_value = str(species.get("vector_status", "Unknown")).lower()
-            status_color, text_c = "grey", "black"
-            if status_value == "high":
-                status_color, text_c = "red", "white"
-            elif status_value == "medium":
-                status_color, text_c = "orange", "white"
-            elif status_value == "low":
-                status_color, text_c = "green", "white"
-            if species.get("vector_status"):
-                rv.Chip(
-                    small=True,
-                    children=[f"Vector Status: {species.get('vector_status', 'Unknown')}"],
-                    color=status_color,
-                    class_="mt-1",
-                    text_color=text_c,
-                )
-
-
-# async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-#     """Upload image to prediction endpoint and get species prediction."""
-#     files = {"file": (filename, file_obj, "image/jpeg")}
-#     error_msg = None
-#     prediction_result = None
-
-#     try:
-#         async with httpx.AsyncClient() as client:
-#             response = await client.post(PREDICTION_ENDPOINT, files=files, timeout=60.0)
-#             response.raise_for_status()
-#             prediction_result = response.json()
-#     except httpx.HTTPStatusError as e:
-#         error_detail = e.response.text
-#         try:
-#             error_detail = e.response.json().get("detail", error_detail)
-#         except Exception:
-#             pass
-#         error_msg = f"Prediction failed: {e.response.status_code} - {error_detail}"
-#     except httpx.RequestError as e:
-#         error_msg = f"Network error during prediction: {e}"
-#     except Exception as e:
-#         error_msg = f"An unexpected error occurred: {e}"
-
-#     return prediction_result, error_msg
-async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-    return {"scientific_name": "Aedes albopictus", "probabilities": {"Aedes albopictus": 1.0}}, None
-
-async def submit_observation_data(observation_payload: Dict[str, Any]) -> Optional[str]:
-    """Submit observation data to the backend API."""
-    error_msg = None
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.post(OBSERVATIONS_ENDPOINT, json=observation_payload, timeout=30.0)
-            response.raise_for_status()
-            return None
-    except httpx.HTTPStatusError as e:
-        error_detail = e.response.text
-        try:
-            error_detail = e.response.json().get("detail", error_detail)
-        except Exception:
-            pass
-        error_msg = f"Submission failed: {e.response.status_code} - {error_detail}"
-    except httpx.RequestError as e:
-        error_msg = f"Network error during submission: {e}"
-    except Exception as e:
-        error_msg = f"An unexpected error occurred: {e}"
-
-    return error_msg
-
-
-@solara.component
-def ObservationForm(prediction: Dict[str, Any], file_name: str, on_submit_success: Any = None):
-    """Form component for submitting observation details."""
-    # State variables for form fields
-    obs_latitude, set_obs_latitude = solara.use_state("")
-    obs_longitude, set_obs_longitude = solara.use_state("")
-    current_date = datetime.now().date()
-    obs_date_str, set_obs_date_str = solara.use_state(current_date.strftime("%Y-%m-%d"))
-    obs_count, set_obs_count = solara.use_state(1)
-    obs_notes, set_obs_notes = solara.use_state("")
-    obs_observer_id, set_obs_observer_id = solara.use_state("obs_trial")
-    obs_location_accuracy_m, set_obs_location_accuracy_m = solara.use_state(100)
-
-    # Submission state
-    is_submitting, set_is_submitting = solara.use_state(False)
-    submit_status, set_submit_status = solara.use_state(cast(Optional[str], None))
-
-    # Try to use DatePicker if available
-    DatePickerComponent = None
-    use_date_picker = False
-    try:
-        from solara.lab import DatePicker
-
-        DatePickerComponent = DatePicker
-        obs_date_obj, set_obs_date_obj = solara.use_state(current_date)
-        use_date_picker = True
-    except ImportError:
-        pass
-
-    async def handle_submit():
-        # Validate inputs
-        if not (obs_latitude.strip() and obs_longitude.strip()):
-            set_submit_status("Latitude and Longitude are required.")
-            return
-
-        try:
-            lat = float(obs_latitude)
-            lon = float(obs_longitude)
-            if not (-90 <= lat <= 90 and -180 <= lon <= 180):
-                set_submit_status("Invalid latitude/longitude values.")
-                return
-        except ValueError:
-            set_submit_status("Latitude and Longitude must be numbers.")
-            return
-
-        date_str = obs_date_obj.strftime("%Y-%m-%d") if use_date_picker else obs_date_str
-        if not date_str:
-            set_submit_status("Date is required.")
-            return
-
-        try:
-            datetime.strptime(date_str, "%Y-%m-%d")
-        except ValueError:
-            set_submit_status("Invalid date format.")
-            return
-
-        predicted_species_id = prediction.get("id")
-        if not predicted_species_id:
-            set_submit_status("Predicted species ID is missing.")
-            return
-
-        # Prepare and submit observation
-        set_is_submitting(True)
-        set_submit_status(None)
-
-        properties = {
-            "predicted_species_id": predicted_species_id,
-            "confirmed_species_id": None,
-            "entomolog_id": None,
-            "observation_date": date_str,
-            "count": obs_count,
-            "observer_id": obs_observer_id or "obs_trial",
-            "data_source": "culicidaelab_server",
-            "location_accuracy_m": obs_location_accuracy_m,
-            "notes": obs_notes.strip() or None,
-            "image_filename": file_name,
-            "confidence": prediction.get("confidence"),
-            "model_id": prediction.get("model_id"),
-        }
-
-        # Filter out None values
-        properties = {k: v for k, v in properties.items() if v is not None}
-
-        payload = {
-            "type": "Feature",
-            "properties": properties,
-            "geometry": {"type": "Point", "coordinates": [float(obs_longitude), float(obs_latitude)]},
-        }
-
-        error = await submit_observation_data(payload)
-        if error is None:
-            set_submit_status("Observation submitted successfully!")
-            if on_submit_success:
-                on_submit_success()
-        else:
-            set_submit_status(error)
-
-        set_is_submitting(False)
-
-    # Render form
-    solara.Markdown(
-        "### Submit Observation Details", style=f"margin-top:20px; margin-bottom:10px; font-family: {FONT_HEADINGS};"
-    )
-
-    if submit_status:
-        if "success" in submit_status.lower():
-            solara.Success(submit_status, icon=True, dense=True, style="margin-bottom: 10px;")
-        else:
-            solara.Error(submit_status, icon=True, dense=True, style="margin-bottom: 10px;")
-
-    with solara.Card(style="padding: 15px; margin-top: 5px;"):
-        with solara.Columns([1, 1], gutters=True, style="margin-bottom: 10px;"):
-            solara.InputText("Latitude *", value=obs_latitude, style="margin-right: 5px;")
-            solara.InputText("Longitude *", value=obs_longitude, style="margin-left: 5px;")
-
-        if use_date_picker and DatePickerComponent:
-            DatePickerComponent(label="Observation Date *", value=obs_date_obj)
-        else:
-            solara.InputText("Observation Date (YYYY-MM-DD) *", value=obs_date_str)
-
-        solara.InputInt("Count *", value=obs_count, style="max-width: 200px; margin-top: 10px;")
-        solara.InputText("Observer ID", value=obs_observer_id, style="margin-top: 10px;")
-        solara.InputInt(
-            "Location Accuracy (m)", value=obs_location_accuracy_m, style="max-width: 200px; margin-top: 10px;"
-        )
-        solara.InputText("Notes", value=obs_notes, style="margin-top: 10px;")
-
-        solara.Button(
-            "Submit Observation",
-            on_click=lambda: asyncio.create_task(handle_submit()),
-            color="green",
-            disabled=is_submitting,
-            loading=is_submitting,
-            style="margin-top: 15px;",
-        )
+# Assuming components are in the same directory or adjust path
+from ..config import FONT_HEADINGS, FONT_BODY, COLOR_PRIMARY
+from frontend.components.prediction.file_upload import FileUploadComponent, mock_upload_and_predict
+from frontend.components.prediction.location import LocationComponent
+from frontend.components.prediction.observation_form import ObservationFormComponent
+from frontend.components.species.species_card import SpeciesCard
 
 
 @solara.component
 def Page():
-    """Main page component for mosquito species prediction."""
-    # State for file upload
-    file_data, set_file_data = solara.use_state(cast(Optional[bytes], None))
-    file_name, set_file_name = solara.use_state(cast(Optional[str], None))
+    # --- Page View Mode ---
+    # "form": shows the 3-column input form
+    # "results": shows submitted image, prediction, and success message
+    view_mode, set_view_mode = solara.use_state("form")
 
-    # State for prediction
-    prediction_result, set_prediction_result = solara.use_state(cast(Optional[Dict[str, Any]], None))
-    is_predicting, set_is_predicting = solara.use_state(False)
-    # Fix for error_message state - use empty string instead of None
-    error_message, set_error_message = solara.use_state("")
+    # --- Cross-Component State ---
+    # File & Prediction
+    file_data_state, set_file_data_state = solara.use_state(cast(Optional[bytes], None))
+    file_name_state, set_file_name_state = solara.use_state(cast(Optional[str], None))
+    prediction_result_state, set_prediction_result_state = solara.use_state(cast(Optional[Dict[str, Any]], None))
 
-    # State for workflow
-    observation_submitted, set_observation_submitted = solara.use_state(False)
+    # Location
+    latitude_state, set_latitude_state = solara.use_state(cast(Optional[float], None))  # Start with no location
+    longitude_state, set_longitude_state = solara.use_state(cast(Optional[float], None))
 
-    def handle_file_upload(file_info: Dict[str, Any]):
-        """Handle file upload and reset states."""
-        set_error_message("")
-        set_prediction_result(None)
-        set_observation_submitted(False)
+    # Operation Status
+    is_predicting_state, set_is_predicting_state = solara.use_state(False)
+    page_error_message, set_page_error_message = solara.use_state("")
+    page_success_message, set_page_success_message = solara.use_state("")
+    file_upload_specific_error, set_file_upload_specific_error = solara.use_state("")
+
+    def reset_to_new_submission():
+        set_file_data_state(None)
+        set_file_name_state(None)
+        set_prediction_result_state(None)
+        # Optionally reset location, or keep it for convenience
+        # set_latitude_state(None)
+        # set_longitude_state(None)
+        set_is_predicting_state(False)
+        set_page_error_message("")
+        set_page_success_message("")
+        set_file_upload_specific_error("")
+        set_view_mode("form")
+
+
+
+    # This callback handles the result or error from the prediction
+    def _handle_prediction_result(result_tuple):
+        print(f"Handling prediction result: {result_tuple}")
+        result, error = result_tuple
+
+        if error:
+            set_page_error_message(f"Prediction Error: {error}")
+            set_page_success_message("")
+        elif result:
+            set_prediction_result_state(result)
+            set_page_success_message(f"Prediction complete: {result.get('scientific_name', 'Unknown species')}")
+        else:
+            set_page_error_message("Prediction returned no result and no error.")
+            set_page_success_message("")
+
+        set_is_predicting_state(False)
+
+    def handle_file_selected_from_component(file_info: Dict[str, Any]) -> bool:
+        # Clear previous states related to file/prediction
+        set_page_error_message("")
+        set_page_success_message("")
+        set_file_upload_specific_error("")
+        set_prediction_result_state(None)
+        set_is_predicting_state(False)  # Reset predicting state
 
         try:
-            if not file_info["file_obj"]:
-                set_error_message("Error: Uploaded file appears to be empty")
-                set_file_data(None)
-                set_file_name(None)
-                return
+            if not file_info:
+                set_file_upload_specific_error("File information is empty.")
+                return False
 
-            set_file_name(file_info["name"])
-            set_file_data(file_info["data"])
-        except Exception as e:
-            set_error_message(f"Error reading file: {e}")
-            set_file_data(None)
-            set_file_name(None)
+            if "data" not in file_info or file_info["data"] is None:
+                set_file_upload_specific_error("File data is missing from uploaded file.")
+                return False
 
-    async def perform_prediction():
-        """Send image to prediction API."""
-        if not (file_data and file_name):
-            set_error_message("Please upload an image first.")
-            return
+            if "name" not in file_info or not file_info["name"]:
+                set_file_upload_specific_error("File name is missing from uploaded file.")
+                return False
 
-        set_is_predicting(True)
-        set_error_message("")
-        set_prediction_result(None)
-
-        # Create BytesIO from our file data
-        file_obj = io.BytesIO(file_data)
-
-        # Call prediction API
-        result, error = await upload_and_predict(file_obj, file_name)
-
-        if result:
-            set_prediction_result(result)
-        else:
-            set_error_message(error or "Prediction failed with unknown error.")
-
-        set_is_predicting(False)
-
-    def handle_observation_success():
-        """Handle successful observation submission."""
-        set_observation_submitted(True)
-
-    # Main page layout
-    with solara.Column(align="center", style="padding: 20px; width: 100%;"):
-        # Page header
-        solara.Markdown("# Mosquito Species Prediction", style=f"font-family: {FONT_HEADINGS}; color: {COLOR_PRIMARY};")
-        solara.Markdown(
-            "Upload an image of a mosquito, predict its species, and submit your observation.",
-            style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-bottom: 20px;",
-        )
-
-        # File upload area
-        solara.FileDrop(
-            label="Drag and drop an image here, or click to select.", on_file=handle_file_upload, lazy=False
-        )
-
-        # Error display
-        if error_message:
-            solara.Error(
-                error_message, style="margin-top: 15px; margin-bottom: 10px; width: 100%; max-width: 700px;"
+            # Debug info
+            print(
+                f"Received file: {file_info['name']}, size: {len(file_info['data']) if file_info['data'] else 'None'} bytes"
             )
 
-        # Content area - shows after file upload
-        if file_data:
-            with solara.ColumnsResponsive(
-                default=[12, 12],
-                small=[6, 6],
-                medium=[5, 7],
-                large=[4, 8],
-                gutters=True,
-                style="width: 100%; max-width: 1000px; margin-top: 20px;",
-            ):
-                # Left column - image and predict button
-                with solara.Column(align="center", style="padding: 10px;"):
-                    if file_name:
-                        solara.Text(
-                            f"Uploaded: {file_name}", style=f"font-family: {FONT_BODY}; margin-bottom: 10px;"
-                        )
+            # Store file data and name in state
+            set_file_data_state(file_info["data"])
+            set_file_name_state(file_info["name"])
 
-                    try:
-                        # Display the uploaded image
-                        image_data_url = f"data:image/jpeg;base64,{base64.b64encode(file_data).decode()}"
-                        rv.Img(
-                            src=image_data_url,
-                            max_height="350px",
-                            contain=True,
-                            class_="elevation-2",
-                            style_="border-radius: 4px; width: 100%; object-fit: contain;",
-                        )
-                    except Exception as e:
-                        set_error_message(f"Error displaying image: {e}")
 
-                    # Predict button
-                    solara.Button(
-                        label="Predict Species",
-                        on_click=lambda: asyncio.create_task(perform_prediction()),
-                        color=COLOR_PRIMARY,
-                        disabled=is_predicting,
-                        loading=is_predicting,
-                        style="margin-top: 15px;",
+            img_bytes_io = io.BytesIO(file_info["data"])
+            result = asyncio.run(mock_upload_and_predict(img_bytes_io, file_info["name"]))
+            print(f"Prediction complete for {file_info['name']}: {'Success' if result[0] else 'Failed'}")
+            _handle_prediction_result(result)
+            # set_prediction_result_state(result)
+            return True
+        except Exception as e:
+            set_file_upload_specific_error(f"Error processing uploaded file: {str(e)}")
+            set_file_data_state(None)
+            set_file_name_state(None)
+            return False
+
+    def handle_observation_success():
+        set_page_success_message("Observation submitted successfully!")
+        set_page_error_message("")  # Clear any previous errors
+        set_view_mode("results")
+
+    def handle_observation_error(error_msg: str):
+        set_page_error_message(f"Failed to submit observation: {error_msg}")
+        set_page_success_message("")  # Clear any previous success
+
+    # Page Title
+    solara.Markdown(
+        "# Mosquito Species Prediction & Observation",
+        style=f"font-family: {FONT_HEADINGS}; color: {COLOR_PRIMARY}; text-align: center; margin-bottom:20px;",
+    )
+
+    # Global status messages
+    if page_error_message:
+        solara.Error(
+            page_error_message,
+            icon=True,
+            style="margin-bottom: 15px; width:100%; max-width:900px; margin-left:auto; margin-right:auto;",
+        )
+    if page_success_message and view_mode == "form":  # Show ongoing status in form view
+        solara.Info(
+            page_success_message,
+            icon=True,
+            style="margin-bottom: 15px; width:100%; max-width:900px; margin-left:auto; margin-right:auto;",
+        )
+
+    if view_mode == "form":
+        with solara.ColumnsResponsive(
+            6, large=[4, 4, 4], gutters_dense=True, style="max-width: 1200px; margin: 0 auto;"
+        ):
+            # Column 1: File Upload
+            with solara.Card("1. Upload Mosquito Image", margin=0, style="height: 100%;"):
+                FileUploadComponent(
+                    on_file_selected=handle_file_selected_from_component,
+                    upload_error_message=file_upload_specific_error,
+                    is_processing=is_predicting_state,  # Let component know if parent is busy with its file
+                )
+                if file_data_state and not is_predicting_state and prediction_result_state:
+                    solara.Success(
+                        f"Image uploaded & predicted: {prediction_result_state}",  # .get('scientific_name', 'N/A')
+                        dense=True,
+                        icon=True,
+                        style="margin-top:10px;",
+                    )
+                elif (
+                    file_data_state
+                    and not is_predicting_state
+                    and not prediction_result_state
+                    and not page_error_message
+                ):
+                    solara.Info(
+                        "Awaiting prediction results or further action.",
+                        dense=True,
+                        icon=True,
+                        style="margin-top:10px;",
                     )
 
-                # Right column - prediction results or observation form
-                with solara.Column(style="padding: 10px;"):
-                    if is_predicting:
-                        # Show loading state
-                        solara.ProgressLinear(True, color=COLOR_PRIMARY, style="margin-top: 20px;")
-                        solara.Text(
-                            "Predicting, please wait...",
-                            style=f"font-style: italic; font-family: {FONT_BODY}; margin-top:10px; text-align: center;",
-                        )
-                    elif prediction_result:
-                        # Show prediction results
-                        solara.Markdown(
-                            "### Prediction Result", style=f"margin-bottom:10px; font-family: {FONT_HEADINGS};"
-                        )
-                        SpeciesCard(species=prediction_result)
+            # Column 2: Location Picker
+            with solara.Card("2. Pinpoint Observation Location", margin=0, style="height: 100%;"):
+                LocationComponent(
+                    latitude=latitude_state,
+                    set_latitude=set_latitude_state,
+                    longitude=longitude_state,
+                    set_longitude=set_longitude_state,
+                    initial_lat=20.0,  # Global default view
+                    initial_lon=0.0,
+                    initial_zoom=1,
+                )
 
-                        # Show observation form or success message
-                        solara.Markdown("---")
-                        if observation_submitted:
-                            solara.Success("Observation submitted successfully!", icon=True, style="margin-top: 20px;")
-                            solara.Button(
-                                "Submit Another Observation",
-                                on_click=lambda: set_observation_submitted(False),
-                                color="green",
-                                style="margin-top: 15px;",
-                            )
-                        else:
-                            # Show observation form
-                            ObservationForm(
-                                prediction=prediction_result,
-                                file_name=file_name,
-                                on_submit_success=handle_observation_success,
-                            )
-                    else:
-                        # Show instructions
-                        solara.Info(
-                            "Upload an image and click 'Predict Species' to see results.",
-                            icon="mdi-arrow-up-bold-box-outline",
-                            style="margin-top:20px;",
-                        )
+            # Column 3: Observation Form
+            with solara.Card("3. Record Observation Details", margin=0, style="height: 100%;"):
+                if not file_data_state:
+                    solara.Info(
+                        "Upload an image first to enable the observation form.",
+                        icon="mdi-image-off-outline",
+                        style="padding:10px;",
+                    )
+                elif is_predicting_state:
+                    solara.Info(
+                        "Waiting for prediction to complete before enabling form...",
+                        icon="mdi-timer-sand",
+                        style="padding:10px;",
+                    )
+                elif not prediction_result_state:
+                    solara.Warning(
+                        "Prediction failed or no result. Cannot submit observation without a prediction.",
+                        icon="mdi-alert-circle-outline",
+                        style="padding:10px;",
+                    )
+                else:
+                    ObservationFormComponent(
+                        prediction=prediction_result_state,
+                        file_name=file_name_state,
+                        current_latitude=latitude_state,
+                        current_longitude=longitude_state,
+                        on_submit_success=handle_observation_success,
+                        on_submit_error=handle_observation_error,
+                    )
+
+    elif view_mode == "results":
+        with solara.Column(align="center", style="padding: 20px; max-width: 800px; margin: 0 auto;"):
+            solara.Success(
+                page_success_message or "Observation recorded!",
+                icon="mdi-check-circle-outline",
+                style="font-size:1.2em; margin-bottom:20px;",
+            )
+
+            if file_data_state:
+                solara.Markdown("### Uploaded Image", style=f"font-family:{FONT_HEADINGS}; margin-top:20px;")
+                try:
+                    img_bytes = file_data_state
+                    b64_img = base64.b64encode(img_bytes).decode("utf-8")
+                    # Determine content type roughly, default to jpeg
+                    content_type = "image/jpeg"
+                    if file_name_state and file_name_state.lower().endswith(".png"):
+                        content_type = "image/png"
+                    elif file_name_state and file_name_state.lower().endswith(".gif"):
+                        content_type = "image/gif"
+
+                    solara.HTML(
+                        tag="img",
+                        unsafe_innerHTML="",
+                        attributes={
+                            "src": f"data:{content_type};base64,{b64_img}",
+                            "style": "max-width: 100%; max-height: 400px; border: 1px solid #ccc; margin-top:10px; border-radius: 4px;",
+                        },
+                    )
+                except Exception as e:
+                    solara.Error(f"Could not display uploaded image: {e}")
+
+            if prediction_result_state:
+                # print(prediction_result_state)
+                solara.Markdown("### Prediction Details", style=f"font-family:{FONT_HEADINGS}; margin-top:30px;")
+                SpeciesCard(species=prediction_result_state)
+            else:  # Should ideally not happen if submission was successful
+                solara.Warning("No prediction data available for this observation.", style="margin-top:20px;")
+
+            solara.Button(
+                "Submit Another Observation",
+                on_click=reset_to_new_submission,
+                color=COLOR_PRIMARY,
+                icon_name="mdi-plus-circle-outline",
+                style="margin-top: 30px; padding: 10px 20px; font-size:1.1em;",
+            )

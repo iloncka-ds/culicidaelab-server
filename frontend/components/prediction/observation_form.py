@@ -1,0 +1,162 @@
+import solara
+from typing import Optional, cast, Dict, Any
+from datetime import datetime
+import asyncio
+
+from ...config import FONT_HEADINGS  # Assuming app_config.py
+
+
+async def mock_submit_observation_data(observation_payload: Dict[str, Any]) -> Optional[str]:
+    """
+    MOCK FUNCTION: Simulates submitting observation data to a backend API.
+    Returns an error message string if failed, or None if successful.
+    """
+    print("Submitting observation:", observation_payload)  # For debugging
+    await asyncio.sleep(1.5)  # Simulate network delay
+    # Example error condition
+    # if observation_payload["properties"]["count"] < 1:
+    #     return "Count must be at least 1."
+    return None  # None indicates success
+
+
+@solara.component
+def ObservationFormComponent(
+    prediction: Optional[Dict[str, Any]],  # Full prediction result from API
+    file_name: Optional[str],
+    current_latitude: Optional[float],  # Use float for consistency
+    current_longitude: Optional[float],
+    on_submit_success: callable,  # Callback: () -> None
+    on_submit_error: callable,  # Callback: (error_message: str) -> None
+):
+    """
+    Form for submitting observation details along with a prediction.
+    """
+    # Form-specific state
+    obs_date_str, set_obs_date_str = solara.use_state(datetime.now().date().strftime("%Y-%m-%d"))
+    obs_count, set_obs_count = solara.use_state(1)
+    obs_notes, set_obs_notes = solara.use_state("")
+    obs_observer_id, set_obs_observer_id = solara.use_state("user_01")  # Example default
+    obs_location_accuracy_m, set_obs_location_accuracy_m = solara.use_state(50)  # Example default
+
+    is_submitting, set_is_submitting = solara.use_state(False)
+
+    # DatePicker (optional, from solara.lab)
+    DatePickerComponent = None
+    use_date_picker = False
+    obs_date_obj_state = solara.use_state(datetime.now().date())  # Use a separate state for DatePicker object
+    try:
+        from solara.lab import DatePicker
+
+        DatePickerComponent = DatePicker
+        use_date_picker = True
+    except ImportError:
+        pass  # Fallback to InputText for date
+
+    async def handle_submit():
+        error_messages = []
+        if not prediction:
+            error_messages.append("Prediction data is missing.")
+        if not file_name:
+            error_messages.append("Image file name is missing.")
+        if current_latitude is None or current_longitude is None:
+            error_messages.append("Latitude and Longitude are required.")
+        else:
+            try:
+                lat = float(current_latitude)
+                lon = float(current_longitude)
+                if not (-90 <= lat <= 90 and -180 <= lon <= 180):
+                    error_messages.append("Invalid latitude or longitude values.")
+            except ValueError:  # Should not happen if props are float
+                error_messages.append("Latitude and Longitude must be valid numbers.")
+
+        date_to_submit = obs_date_obj_state[0].strftime("%Y-%m-%d") if use_date_picker else obs_date_str
+        if not date_to_submit:
+            error_messages.append("Observation date is required.")
+        else:
+            try:
+                datetime.strptime(date_to_submit, "%Y-%m-%d")
+            except ValueError:
+                error_messages.append("Invalid date format (YYYY-MM-DD).")
+
+        predicted_species_id = prediction.get("id") if prediction else None
+        if not predicted_species_id:
+            error_messages.append("Predicted species ID is missing from prediction data.")
+
+        if error_messages:
+            on_submit_error(". ".join(error_messages))
+            return
+
+        set_is_submitting(True)
+
+        payload_properties = {
+            "predicted_species_id": predicted_species_id,
+            "observation_date": date_to_submit,
+            "count": obs_count,
+            "observer_id": obs_observer_id or "anonymous_user",
+            "data_source": "field_app_v1",  # Example
+            "location_accuracy_m": obs_location_accuracy_m,
+            "notes": obs_notes.strip() or None,
+            "image_filename": file_name,
+            "confidence": prediction.get("confidence") if prediction else None,
+            "model_id": prediction.get("model_id") if prediction else None,
+        }
+        # Filter out None values from properties before creating payload
+        payload_properties = {k: v for k, v in payload_properties.items() if v is not None}
+
+        observation_payload = {
+            "type": "Feature",
+            "properties": payload_properties,
+            "geometry": {"type": "Point", "coordinates": [float(current_longitude), float(current_latitude)]},
+        }
+
+        submission_error = await mock_submit_observation_data(observation_payload)
+
+        if submission_error is None:  # Success
+            on_submit_success()
+        else:
+            on_submit_error(str(submission_error))
+        set_is_submitting(False)
+
+    # Form UI
+    solara.Markdown(
+        "### Submit Observation Details", style=f"margin-top:10px; margin-bottom:10px; font-family: {FONT_HEADINGS};"
+    )
+
+    with solara.Card(style="padding: 15px; margin-top: 5px;"):
+        if current_latitude is not None and current_longitude is not None:
+            solara.Info(
+                f"Selected Location: Lat: {current_latitude:.4f}, Lon: {current_longitude:.4f}",
+                dense=True,
+                style="margin-bottom:10px;",
+            )
+        else:
+            solara.Warning(
+                "Location not set. Please select on map or enter coordinates.",
+                dense=True,
+                icon=True,
+                style="margin-bottom:10px;",
+            )
+
+        if use_date_picker and DatePickerComponent:
+            DatePickerComponent(label="Observation Date *", value=obs_date_obj_state[0], on_value=obs_date_obj_state[1])
+        else:
+            solara.InputText("Date (YYYY-MM-DD) *", value=obs_date_str, on_value=set_obs_date_str)
+
+        solara.InputInt("Count observed *", value=obs_count, on_value=set_obs_count, style="margin-top: 10px;")
+        solara.InputText("Observer ID", value=obs_observer_id, on_value=set_obs_observer_id, style="margin-top: 10px;")
+        solara.InputInt(
+            "Location Accuracy (meters)",
+            value=obs_location_accuracy_m,
+            on_value=set_obs_location_accuracy_m,
+            style="margin-top: 10px;",
+        )
+        solara.InputText("Notes (optional)", value=obs_notes, on_value=set_obs_notes, style="margin-top: 10px;")
+
+        solara.Button(
+            "Submit Observation",
+            on_click=lambda: asyncio.create_task(handle_submit()),
+            color="green",
+            disabled=is_submitting or not prediction or current_latitude is None or current_longitude is None,
+            loading=is_submitting,
+            style="margin-top: 20px; width: 100%;",
+        )

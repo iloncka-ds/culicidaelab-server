@@ -6,7 +6,7 @@ from typing import List, Optional
 # Application imports
 import frontend.pages.home as home
 import frontend.pages.map_visualization as map_visualization
-import frontend.pages.species_database as species_database
+import frontend.pages.species_gallery as species_gallery
 import frontend.pages.species_detail as species_detail
 import frontend.pages.prediction as prediction
 
@@ -30,7 +30,7 @@ routes = [
     solara.Route("map", component=map_visualization.Page, label="Map Visualization"),
     solara.Route(
         "species",
-        component=species_database.Page,
+        component=species_gallery.Page,
         label="Species Database",
     ),
     solara.Route(
