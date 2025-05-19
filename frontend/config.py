@@ -120,6 +120,18 @@ BREEDING_SITES_ENDPOINT = f"{API_BASE_URL}/geo/breeding_sites"
 FILTER_OPTIONS_ENDPOINT = f"{API_BASE_URL}/filter_options"
 SPECIES_LIST_ENDPOINT = f"{API_BASE_URL}/species"
 SPECIES_DETAIL_ENDPOINT_TEMPLATE = f"{API_BASE_URL}/species/{{species_id}}"
-PREDICTION_ENDPOINT = f"{API_BASE_URL}/predict_species"
+
+# Configuration constants for the application
 FONT_HEADINGS = "Montserrat, sans-serif"
 FONT_BODY = "Open Sans, sans-serif"
+COLOR_PRIMARY = "primary"
+COLOR_TEXT = "black"
+COLOR_SECONDARY = "#1976D2"
+COLOR_SUCCESS = "#4CAF50"
+COLOR_WARNING = "#FF9800"
+COLOR_ERROR = "#F44336"
+
+# API endpoints
+
+PREDICTION_ENDPOINT = f"{API_BASE_URL}/predict_species/"
+OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"
