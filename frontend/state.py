@@ -57,10 +57,11 @@ async def fetch_api_data(
 selected_species_reactive = solara.reactive(cast(List[str], []))  # Ensure type hint
 selected_date_range_reactive = solara.reactive(
     cast(Tuple[Optional[Any], Optional[Any]], [dt.date.today(), dt.date.today() + dt.timedelta(days=1)])
-)  # More specific Any for date
+)
+# More specific Any for date
 selected_region_reactive = solara.reactive(cast(Optional[str], None))
 selected_data_source_reactive = solara.reactive(cast(Optional[str], None))
-
+selected_species_item_id = solara.reactive(None)
 
 # --- Layer Visibility ---
 show_observed_data_reactive = solara.reactive(True)
@@ -86,10 +87,19 @@ breeding_sites_data_reactive = solara.reactive(None)  # GeoJSON for breeding sit
 all_available_species_reactive = solara.reactive(cast(List[str], []))  # Start empty
 all_available_regions_reactive = solara.reactive(cast(List[str], []))  # Start empty
 all_available_data_sources_reactive = solara.reactive(cast(List[str], []))  # Start empty
+# --- Reactive States for Species Database Page ---
+species_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
+species_list_loading_reactive = solara.reactive(False)
+species_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
 filter_options_loading_reactive = solara.reactive(False)
 filter_options_error_reactive = solara.reactive(cast(Optional[str], None))
 
+# --- Reactive States for Disease Database Page ---
+selected_disease_item_id = solara.reactive(None)
+disease_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
+disease_list_loading_reactive = solara.reactive(False)
+disease_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
 async def fetch_filter_options():
     """Fetches species, regions, and data sources for filter dropdowns."""

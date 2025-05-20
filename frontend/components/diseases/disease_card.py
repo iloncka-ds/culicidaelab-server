@@ -7,8 +7,9 @@ from typing import Dict, Any
 # Imports for config
 from ...config import (
     COLOR_PRIMARY,
-    FONT_HEADINGS,
+    FONT_HEADINGS
 )
+from ...state import selected_disease_item_id
 
 @solara.component
 def DiseaseCard(disease: Dict[str, Any]):
@@ -31,22 +32,22 @@ def DiseaseCard(disease: Dict[str, Any]):
                 rv.Icon(children=["mdi-virus"], size="100px", class_="mr-3", color=COLOR_PRIMARY)
 
             with solara.Column(align="start", style="overflow: hidden;"):
-                disease_id = disease.get("id")
+                # disease_id = disease.get("id")
                 # Wrap the entire content in a Link for better UX
-                with solara.Link(path_or_route=f"/diseases/{disease_id}"):
-                    solara.Markdown(
-                        f"#### {disease.get('name', 'N/A')}",
-                        style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY}; text-decoration: none;",
-                    )
+                # with solara.Link(path_or_route=f"/diseases/{disease_id}"):
+                solara.Markdown(
+                    f"#### {disease.get('name', 'N/A')}",
+                    style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY}; text-decoration: none;",
+                )
 
-                    # Brief description snippet
-                    description = disease.get("description", "")
-                    # Truncate description if needed
-                    description_snippet = description[:60] + "..." if len(description) > 60 else description
-                    solara.Text(
-                        description_snippet,
-                        style="font-size: 0.9em; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
-                    )
+                # Brief description snippet
+                description = disease.get("description", "")
+                # Truncate description if needed
+                description_snippet = description[:60] + "..." if len(description) > 60 else description
+                solara.Text(
+                    description_snippet,
+                    style="font-size: 0.9em; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                )
 
                 # Prevalence information shown as a chip
                 if prevalence := disease.get("prevalence"):
@@ -57,3 +58,4 @@ def DiseaseCard(disease: Dict[str, Any]):
                         class_="mt-1",
                         text_color="white",
                     )
+                solara.Button("View Details", on_click=lambda: selected_disease_item_id.set(disease.get("id", "")))

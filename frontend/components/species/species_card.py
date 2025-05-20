@@ -13,8 +13,18 @@ from ...config import (
 
 )
 
+from ...state import selected_species_item_id
+
+
+
 @solara.component
 def SpeciesCard(species: Dict[str, Any]):
+    router = solara.use_router()
+
+    def redirect_to_species(species_id):
+        selected_species_item_id.set(species_id)
+        router.push("species")\
+
     with rv.Card(
         class_="ma-2 pa-3",
         hover=True,
@@ -36,16 +46,16 @@ def SpeciesCard(species: Dict[str, Any]):
             with solara.Column(align="start", style="overflow: hidden;"):
                 species_id = species.get("id")
                 # Wrap the entire content in a Link for better UX
-                with solara.Link(path_or_route=f"/info/{species_id}"):
-                    solara.Markdown(
-                        f"#### {species.get('scientific_name', 'N/A')}",
-                        style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY}; text-decoration: none;",
-                    )
+                # with solara.Link(path_or_route=f"/species/{species_id}"):
+                solara.Markdown(
+                    f"#### {species.get('scientific_name', 'N/A')}",
+                    style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY}; text-decoration: none;",
+                )
 
-                    solara.Text(
-                        species.get("common_name", ""),
-                        style="font-size: 0.9em; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
-                    )
+                solara.Text(
+                    species.get("common_name", ""),
+                    style="font-size: 0.9em; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                )
 
                 # Keep status chip outside the link for better UX
                 status = str(species.get("vector_status", "Unknown")).lower()
@@ -63,3 +73,4 @@ def SpeciesCard(species: Dict[str, Any]):
                     class_="mt-1",
                     text_color=text_c,
                 )
+                solara.Button("View Details", on_click=lambda: redirect_to_species(species_id))

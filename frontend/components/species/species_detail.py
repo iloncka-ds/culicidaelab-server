@@ -3,28 +3,31 @@ import solara.lab
 from solara.alias import rv
 from typing import List, Optional, cast, Dict, Any, Callable
 import asyncio
-from ..config import SPECIES_DETAIL_ENDPOINT_TEMPLATE
-from ..state import fetch_api_data
-from ..config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
+from ...config import SPECIES_DETAIL_ENDPOINT_TEMPLATE
+from ...state import fetch_api_data
+from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
+from ...state import selected_species_item_id
 
 print("DEBUG: SPECIES_DETAIL.PY module loaded")
 
 
 @solara.component
-def Page():
+def SpeciesDetailPageComponent():
     with solara.AppBar():
         solara.lab.ThemeToggle()
 
+
+    species_id = selected_species_item_id.value
     router = solara.use_router()
     # Get the item ID from the URL path
     path_parts = router.parts
-    species_id = None
+    # species_id = None
     print(f"DEBUG: SPECIES_DETAIL.PY - router parts {router.parts}")
     # Parse the item ID from the URL path (format: /item/{id})
-    if len(path_parts) >= 2 and path_parts[0] == "info":
+    if len(path_parts) >= 2 and path_parts[0] == "species":
         try:
-            species_id = path_parts[1]
-            print(f"DEBUG: SPECIES_DETAIL.PY - {species_id}")
+            # species_id = path_parts[1]
+            print(f"DEBUG: SPECIES_DETAIL.PY - {path_parts[1]}")
         except ValueError:
             print(f"DEBUG: SPECIES_DETAIL.PY - router parts {router.parts}")
 
@@ -102,15 +105,16 @@ def Page():
 
     # --- Page Layout ---
     with solara.Column(align="center", classes=["pa-4"], style="max-width: 900px; margin: auto;"):
-        with solara.Link("/species"):
-            solara.Button(
-                "Back to Gallery",
-                icon_name="mdi-arrow-left",
-                text=True,
-                outlined=True,
-                color=COLOR_PRIMARY,
-                class_="mb-4 align-self-start",
-            )
+        # with solara.Link("/species"):
+        solara.Button(
+            "Go to Species Gallery",
+            icon_name="mdi-arrow-left",
+            text=True,
+            outlined=True,
+            color=COLOR_PRIMARY,
+            classes=["mb-4", "align-self-start"],
+            on_click=lambda: selected_species_item_id.set(None),
+        )
 
         if loading:
             print(f"DEBUG: SPECIES_DETAIL.PY - Rendering loading spinner for {species_id}")

@@ -5,14 +5,14 @@ from solara.alias import rv
 import httpx
 import asyncio
 from typing import Dict, Any, List, Optional, cast, Callable
-from ..state import fetch_api_data
-import frontend.pages.species_detail as species_detail
+from ...state import fetch_api_data, selected_species_item_id, species_list_data_reactive, species_list_loading_reactive, species_list_error_reactive
+
 from frontend.components.species.species_card import SpeciesCard
 
 # Assuming these are correctly defined in your project structure
 # from ..config import load_themes # Not used in this snippet directly, but kept for context
 # Relative imports for config and state
-from ..config import (
+from ...config import (
     COLOR_PRIMARY,
     FONT_HEADINGS,
     COLOR_TEXT,
@@ -21,11 +21,8 @@ from ..config import (
     API_BASE_URL
 )
 
-# --- Reactive States for Species Database Page ---
-species_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
-species_list_loading_reactive = solara.reactive(False)
-species_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
+selected_species_item_id.set(None)
 
 # @solara.component
 # def SpeciesCard(species: Dict[str, Any]):
@@ -84,7 +81,7 @@ species_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
 
 @solara.component
-def Page():
+def SpeciesGalleryPageComponent():
     # solara.Style("""
     # .card-link {
     #    text-decoration: none;
@@ -199,14 +196,14 @@ def Page():
                     classes=["pa-2"],
                 ):
                     for species_item in displayed_species:
-                        item_id = species_item.get(
-                            "id"
-                        )  # Crucial: ensure 'id' is the correct key and gives a string or int
-                        if item_id is None:
-                            print(
-                                f"Warning: Species item {species_item.get('scientific_name', 'Unknown')} is missing an 'id'. Card will not be clickable for details."
-                            )
-                        # Render the species card (now with proper linking)
+                        # item_id = species_item.get(
+                        #     "id"
+                        # )  # Crucial: ensure 'id' is the correct key and gives a string or int
+                        # if item_id is None:
+                        #     print(
+                        #         f"Warning: Species item {species_item.get('scientific_name', 'Unknown')} is missing an 'id'. Card will not be clickable for details."
+                        #     )
+                        # # Render the species card (now with proper linking)
                         SpeciesCard(species_item)
         else:  # displayed_species is None (should not happen if initialized to [])
             solara.Info(

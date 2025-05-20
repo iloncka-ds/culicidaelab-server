@@ -3,30 +3,33 @@ import solara.lab
 from solara.alias import rv
 from typing import List, Optional, cast, Dict, Any, Callable
 import asyncio
-from ..config import DISEASE_DETAIL_ENDPOINT_TEMPLATE, SPECIES_LIST_ENDPOINT
-from ..state import fetch_api_data
-from ..config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
+from ...config import DISEASE_DETAIL_ENDPOINT_TEMPLATE, SPECIES_LIST_ENDPOINT
+from ...state import fetch_api_data, selected_disease_item_id
+from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
+from frontend.components.species.species_card import SpeciesCard
 
 print("DEBUG: DISEASE_DETAIL.PY module loaded")
 
 
 @solara.component
-def Page():
+def DiseaseDetailPageComponent():
     with solara.AppBar():
         solara.lab.ThemeToggle()
 
-    router = solara.use_router()
-    # Get the disease ID from the URL path
-    path_parts = router.parts
-    disease_id = None
-    print(f"DEBUG: DISEASE_DETAIL.PY - router parts {router.parts}")
-    # Parse the disease ID from the URL path (format: /diseases/{id})
-    if len(path_parts) >= 2 and path_parts[0] == "diseases":
-        try:
-            disease_id = path_parts[1]
-            print(f"DEBUG: DISEASE_DETAIL.PY - {disease_id}")
-        except ValueError:
-            print(f"DEBUG: DISEASE_DETAIL.PY - router parts {router.parts}")
+    disease_id = selected_disease_item_id.value
+    # router = solara.use_router()
+    # # Get the disease ID from the URL path
+    # path_parts = router.parts
+
+    # print(f"DEBUG: DISEASE_DETAIL.PY - router parts {router.parts}")
+    # # Parse the disease ID from the URL path (format: /diseases/{id})
+    # if len(path_parts) >= 2 and path_parts[0] == "diseases":
+    #     try:
+    #         disease_id = path_parts[1]
+    #         print(f"DEBUG: DISEASE_DETAIL.PY - {disease_id}")
+    #     except ValueError:
+    #         print(f"DEBUG: DISEASE_DETAIL.PY - router parts {router.parts}")
+
 
     # State for this page
     disease_data, set_disease_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
@@ -125,15 +128,16 @@ def Page():
 
     # --- Page Layout ---
     with solara.Column(align="center", classes=["pa-4"], style="max-width: 900px; margin: auto;"):
-        with solara.Link("/diseases"):
-            solara.Button(
-                "Back to Disease Gallery",
-                icon_name="mdi-arrow-left",
-                text=True,
-                outlined=True,
-                color=COLOR_PRIMARY,
-                class_="mb-4 align-self-start",
-            )
+        # with solara.Link("/diseases"):
+        solara.Button(
+            "Go to Disease Gallery",
+            icon_name="mdi-arrow-left",
+            text=True,
+            outlined=True,
+            color=COLOR_PRIMARY,
+            classes=["mb-4 align-self-start"],
+            on_click=lambda: selected_disease_item_id.set(None)
+        )
 
         if loading:
             print(f"DEBUG: DISEASE_DETAIL.PY - Rendering loading spinner for {disease_id}")
@@ -223,55 +227,4 @@ def Page():
             else:
                 with solara.Row(justify="center", style="flex-wrap: wrap; gap: 16px;"):
                     for vector in vectors_data:
-                        with rv.Card(
-                            class_="ma-2",
-                            width="300px",
-                            style="overflow: hidden;"
-                        ):
-                            with solara.Link(path_or_route=f"/info/{vector.get('id')}"):
-                                if vector.get("image_url"):
-                                    rv.Img(
-                                        src=vector["image_url"],
-                                        height="150px",
-                                        width="100%",
-                                        style="object-fit: cover;",
-                                    )
-                                else:
-                                    rv.Icon(
-                                        children=["mdi-bug"],
-                                        size="150px",
-                                        color=COLOR_PRIMARY,
-                                        style="display: block; margin: auto; padding: 10px;",
-                                    )
-
-                                with rv.CardTitle():
-                                    solara.Text(
-                                        vector.get("scientific_name", "Unknown Species"),
-                                        style=f"font-family: {FONT_HEADINGS}; color: {COLOR_PRIMARY}; font-size: 1.1em;"
-                                    )
-
-                                with rv.CardText():
-                                    if common_name := vector.get("common_name"):
-                                        solara.Text(
-                                            common_name,
-                                            style="font-style: italic; font-size: 0.9em;"
-                                        )
-
-                                    # Vector status
-                                    status = str(vector.get("vector_status", "Unknown")).lower()
-                                    status_color = "grey"
-                                    text_color = "black"
-                                    if status == "high":
-                                        status_color, text_color = "red", "white"
-                                    elif status == "medium":
-                                        status_color, text_color = "orange", "white"
-                                    elif status == "low":
-                                        status_color, text_color = "green", "white"
-
-                                    rv.Chip(
-                                        small=True,
-                                        children=[f"Vector: {vector.get('vector_status', 'Unknown')}"],
-                                        color=status_color,
-                                        text_color=text_color,
-                                        class_="mt-2",
-                                    )
+                        SpeciesCard(vector)

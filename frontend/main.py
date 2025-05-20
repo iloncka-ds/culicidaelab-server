@@ -6,11 +6,9 @@ from typing import List, Optional
 # Application imports
 import frontend.pages.home as home
 import frontend.pages.map_visualization as map_visualization
-import frontend.pages.species_gallery as species_gallery
-import frontend.pages.species_detail as species_detail
+import frontend.pages.species as species
 import frontend.pages.prediction as prediction
-import frontend.pages.disease_gallery as disease_gallery
-import frontend.pages.disease_detail as disease_detail
+import frontend.pages.diseases as diseases
 
 
 # from frontend.config import load_themes  # Not used in this file
@@ -31,31 +29,31 @@ routes = [
     solara.Route("map", component=map_visualization.Page, label="Map Visualization"),
     solara.Route(
         "species",
-        component=species_gallery.Page,
+        component=species.Page,
         label="Species Database",
+        children=[
+            solara.Route(
+                path=":species_id",
+                component=species.Page,
+            )
+        ],
     ),
     solara.Route(
         "diseases",
-        component=disease_gallery.Page,
+        component=diseases.Page,
         label="Disease Database",
         children=[
             solara.Route(
                 path=":disease_id",
-                component=disease_detail.Page,
+                component=diseases.Page,
             )
         ],
     ),
-    solara.Route(
-        "info",
-        component=species_detail.Page,
-        label="Item Detail",
-        children=[
-            solara.Route(
-                path=":species_id",
-                component=species_detail.Page,
-            )
-        ],
-    ),
+    # solara.Route(
+    #     "info",
+    #     component=species_detail.Page,
+    #     label="Item Detail",
+    # ),
 ]
 
 @solara.component
