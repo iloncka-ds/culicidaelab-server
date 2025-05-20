@@ -1,8 +1,9 @@
 import json
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import lancedb
 from backend.services.database import get_table
 from backend.models import SpeciesDetail, SpeciesBase
+from backend.services import disease_service
 
 
 def _parse_json_field(json_string: Optional[str]) -> Optional[List[str]]:
@@ -120,3 +121,34 @@ def _db_record_to_species_detail(record: dict) -> SpeciesDetail:
         description=record.get("description"),
         # Add other fields as needed
     )
+
+def get_vector_species(db: lancedb.DBConnection, disease_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    """
+    Get species that are disease vectors, optionally filtered by a specific disease.
+    """
+    # If a disease ID is provided, get its vectors
+    if disease_id:
+        disease = disease_service.get_disease_by_id(db, disease_id)
+        if not disease or "vectors" not in disease:
+            return []
+
+        vector_ids = disease.get("vectors", [])
+        if not vector_ids:
+            return []
+
+        # Get species details for each vector ID
+        table = db.open_table("species")
+        vector_species = []
+
+        for vector_id in vector_ids:
+            result = table.search(f"id = '{vector_id}'").limit(1).to_pandas()
+            if not result.empty:
+                vector_species.append(result.to_dict("records")[0])
+
+        return vector_species
+
+    # Otherwise, get all species with vector_status not "None"
+    else:
+        table = db.open_table("species")
+        result = table.search("vector_status != 'None'").to_pandas()
+        return result.to_dict("records")

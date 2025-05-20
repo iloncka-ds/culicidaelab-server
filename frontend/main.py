@@ -9,6 +9,9 @@ import frontend.pages.map_visualization as map_visualization
 import frontend.pages.species_gallery as species_gallery
 import frontend.pages.species_detail as species_detail
 import frontend.pages.prediction as prediction
+import frontend.pages.disease_gallery as disease_gallery
+import frontend.pages.disease_detail as disease_detail
+
 
 # from frontend.config import load_themes  # Not used in this file
 from frontend.state import (
@@ -24,14 +27,23 @@ species_id: Optional[str] = None
 
 routes = [
     solara.Route("/", component=home.Page, label="Home"),
-    solara.Route(
-        "predict", component=prediction.Page, label="Predict Species"
-    ),
+    solara.Route("predict", component=prediction.Page, label="Predict Species"),
     solara.Route("map", component=map_visualization.Page, label="Map Visualization"),
     solara.Route(
         "species",
         component=species_gallery.Page,
         label="Species Database",
+    ),
+    solara.Route(
+        "diseases",
+        component=disease_gallery.Page,
+        label="Disease Database",
+        children=[
+            solara.Route(
+                path=":disease_id",
+                component=disease_detail.Page,
+            )
+        ],
     ),
     solara.Route(
         "info",

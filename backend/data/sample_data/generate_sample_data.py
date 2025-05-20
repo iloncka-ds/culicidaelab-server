@@ -270,3 +270,65 @@ for _ in range(70):  # Generate 70 breeding sites
 with open("sample_breeding_sites.geojson", "w") as f:
     json.dump({"type": "FeatureCollection", "features": breeding_sites_data}, f, indent=2)
 print("Generated sample_breeding_sites.geojson")
+
+diseases_data_list = [
+    {
+        "id": "dengue_fever",  # Using descriptive string IDs
+        "name": "Dengue Fever",
+        "description": "Viral infection causing high fever, severe headache, and joint/muscle pain.",
+        "symptoms": "High fever, severe headache, pain behind the eyes, joint and muscle pain, rash, mild bleeding",
+        "treatment": "No specific treatment. Rest, fluids, pain relievers (avoiding aspirin). Severe cases require hospitalization.",
+        "prevention": "Avoid mosquito bites, eliminate breeding sites, use repellents, wear protective clothing",
+        "prevalence": "Tropical and subtropical regions, affecting up to 400 million people annually",
+        "image_url": "assets/images/dengue.jpg",  # Placeholder or relative path
+        "vectors": ["aedes_aegypti", "aedes_albopictus"],
+    },
+    {
+        "id": "malaria",
+        "name": "Malaria",
+        "description": "Parasitic infection causing cycles of fever, chills, and sweating.",
+        "symptoms": "Fever, chills, sweating, headache, nausea, vomiting, body aches, general malaise",
+        "treatment": "Antimalarial drugs based on the type of malaria and severity. Early treatment is essential.",
+        "prevention": "Antimalarial medications, insecticide-treated bed nets, indoor residual spraying, eliminating breeding sites",
+        "prevalence": "Tropical and subtropical regions, particularly in Africa, with over 200 million cases annually",
+        "image_url": "assets/images/malaria.jpg",  # Placeholder or relative path
+        "vectors": ["anopheles_gambiae"],
+    },
+    {
+        "id": "zika_virus",
+        "name": "Zika Virus",
+        "description": "Viral infection that can cause birth defects if contracted during pregnancy.",
+        "symptoms": "Mild fever, rash, joint pain, conjunctivitis, muscle pain, headache. Often asymptomatic.",
+        "treatment": "No specific treatment. Rest, fluids, acetaminophen for pain and fever.",
+        "prevention": "Avoid mosquito bites, use repellents, wear protective clothing, practice safe sex",
+        "prevalence": "Tropical and subtropical regions, with outbreaks in the Americas, Africa, and Asia",
+        "image_url": "assets/images/zika.jpg",  # Placeholder or relative path
+        "vectors": ["aedes_aegypti", "aedes_albopictus"],
+    },
+    {
+        "id": "west_nile_virus",
+        "name": "West Nile Virus",
+        "description": "Viral infection primarily transmitted by Culex mosquitoes, can cause neurological disease.",
+        "symptoms": "Often asymptomatic. Febrile illness (fever, headache, body aches), skin rash, swollen lymph glands. Severe cases: encephalitis, meningitis.",
+        "treatment": "No specific vaccine or treatment. Supportive care for severe cases.",
+        "prevention": "Avoid mosquito bites, use repellents, eliminate standing water.",
+        "prevalence": "Africa, Europe, Middle East, North America, West Asia. Outbreaks occur sporadically.",
+        "image_url": "assets/images/west_nile.jpg",  # Placeholder or relative path
+        "vectors": ["culex_pipiens"],  # Add other Culex species if relevant
+    },
+    {
+        "id": "chikungunya",
+        "name": "Chikungunya",
+        "description": "Viral illness transmitted by Aedes mosquitoes, causing severe joint pain.",
+        "symptoms": "Sudden onset of fever, severe joint pain (often debilitating), muscle pain, headache, nausea, fatigue, rash.",
+        "treatment": "No specific antiviral treatment. Symptomatic relief for pain and fever.",
+        "prevention": "Avoid mosquito bites, eliminate breeding sites, use repellents.",
+        "prevalence": "Africa, Asia, Europe, Indian and Pacific Oceans, Americas. Has caused large outbreaks.",
+        "image_url": "assets/images/chikungunya.jpg",  # Placeholder or relative path
+        "vectors": ["aedes_aegypti", "aedes_albopictus"],
+    },
+]
+with open( "sample_diseases.json", "w") as f:
+    json.dump(diseases_data_list, f, indent=2)
+
+print(f"Generated {'sample_diseases.json'}")

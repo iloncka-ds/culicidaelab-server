@@ -91,7 +91,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import settings
-from backend.routers import filters, species, geo
+from backend.routers import filters, species, geo, diseases
 
 app = FastAPI(title=settings.APP_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json")
 
@@ -111,6 +111,7 @@ api_router_prefix = settings.API_V1_STR.replace("/api", "")  # Base prefix for r
 
 app.include_router(filters.router, prefix=settings.API_V1_STR, tags=["Filters"])
 app.include_router(species.router, prefix=settings.API_V1_STR, tags=["Species"])
+app.include_router(diseases.router, prefix=settings.API_V1_STR, tags=["Diseases"])
 app.include_router(geo.router, prefix=settings.API_V1_STR, tags=["GeoData"])
 
 

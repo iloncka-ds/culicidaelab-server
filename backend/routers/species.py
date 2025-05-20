@@ -29,3 +29,14 @@ async def get_species_detail_endpoint(species_id: str, db: lancedb.DBConnection 
     if not species_detail:
         raise HTTPException(status_code=404, detail="Species not found")
     return species_detail
+
+@router.get("/vector-species", response_model=List[SpeciesBase])
+async def get_vector_species_endpoint(
+    db: lancedb.DBConnection = Depends(database.get_db),
+    disease_id: Optional[str] = Query(None, description="Filter vectors by disease ID"),
+):
+    """
+    Retrieve mosquito species that are disease vectors, optionally filtered by a specific disease.
+    """
+    vector_species = species_service.get_vector_species(db, disease_id=disease_id)
+    return vector_species

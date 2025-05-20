@@ -1,8 +1,13 @@
 import json
 import asyncio
 import os
-from backend.database_utils.lancedb_manager import (LanceDBManager,
-                                                    SPECIES_SCHEMA, FILTER_OPTIONS_SCHEMA, MAP_LAYERS_SCHEMA)
+from backend.database_utils.lancedb_manager import (
+    LanceDBManager,
+    SPECIES_SCHEMA,
+    FILTER_OPTIONS_SCHEMA,
+    MAP_LAYERS_SCHEMA,
+    DISEASES_SCHEMA,
+)
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -88,6 +93,28 @@ async def populate_map_layers_table(manager: LanceDBManager):
     if all_map_layer_data:
         await manager.create_or_overwrite_table("map_layers", all_map_layer_data, MAP_LAYERS_SCHEMA)
 
+async def populate_diseases_table(manager: LanceDBManager):
+    file_path = JSON_FILES_DIR / "sample_diseases.json"
+    if not file_path.exists():
+        print(f"Error: {file_path} not found.")
+        return
+    with open(file_path, "r") as f:
+        diseases_data = json.load(f)
+
+    # Ensure data matches schema (e.g., vectors is a list)
+    for d in diseases_data:
+        d["vectors"] = d.get("vectors", [])
+        # Ensure all fields defined in schema are present, defaulting if necessary
+        for field in DISEASES_SCHEMA.names:
+            if field not in d:
+                if DISEASES_SCHEMA.field(field).type == pa.list_(pa.string()):
+                    d[field] = []
+                elif DISEASES_SCHEMA.field(field).type == pa.string():
+                    d[field] = None  # Or "" depending on preference for nullable strings
+                # Add other type checks if necessary
+
+    await manager.create_or_overwrite_table("diseases", diseases_data, DISEASES_SCHEMA)
+    print("Diseases table populated.")
 
 async def main():
     # Ensure the .lancedb directory exists or adjust LANCEDB_URI
@@ -102,6 +129,7 @@ async def main():
     await populate_species_table(manager)
     await populate_filter_options_tables(manager)
     await populate_map_layers_table(manager)
+    await populate_diseases_table(manager)
     print("LanceDB population complete.")
     # No explicit close needed for current LanceDB versions for local FS
 

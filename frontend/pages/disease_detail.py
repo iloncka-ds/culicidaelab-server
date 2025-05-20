@@ -20,8 +20,8 @@ def Page():
     path_parts = router.parts
     disease_id = None
     print(f"DEBUG: DISEASE_DETAIL.PY - router parts {router.parts}")
-    # Parse the disease ID from the URL path (format: /disease/{id})
-    if len(path_parts) >= 2 and path_parts[0] == "disease":
+    # Parse the disease ID from the URL path (format: /diseases/{id})
+    if len(path_parts) >= 2 and path_parts[0] == "diseases":
         try:
             disease_id = path_parts[1]
             print(f"DEBUG: DISEASE_DETAIL.PY - {disease_id}")
@@ -72,7 +72,7 @@ def Page():
                     print(f"DEBUG: DISEASE_DETAIL.PY Effect: Data received for {disease_id}: {data}")
                     set_disease_data(data)
                     set_error(None)
-                    
+
                     # Fetch related vector species if the disease data contains vectors IDs
                     if vectors_ids := data.get("vectors", []):
                         set_vectors_loading(True)
@@ -85,14 +85,14 @@ def Page():
                                 )
                                 if vector_data:
                                     vector_species.append(vector_data)
-                            
+
                             set_vectors_data(vector_species)
                         except Exception as e:
                             print(f"DEBUG: DISEASE_DETAIL.PY Effect: Error fetching vector data: {e}")
                             set_vectors_error(f"Could not load vector species: {str(e)}")
                         finally:
                             set_vectors_loading(False)
-                    
+
             except asyncio.CancelledError:
                 print(f"DEBUG: DISEASE_DETAIL.PY Effect _async_task for {disease_id} was cancelled.")
                 raise
@@ -213,7 +213,7 @@ def Page():
                 "## Vector Species",
                 style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-top: 30px; margin-bottom: 15px;",
             )
-            
+
             if vectors_loading:
                 solara.SpinnerSolara(size="40px")
             elif vectors_error:
@@ -243,20 +243,20 @@ def Page():
                                         color=COLOR_PRIMARY,
                                         style="display: block; margin: auto; padding: 10px;",
                                     )
-                                
+
                                 with rv.CardTitle():
                                     solara.Text(
                                         vector.get("scientific_name", "Unknown Species"),
                                         style=f"font-family: {FONT_HEADINGS}; color: {COLOR_PRIMARY}; font-size: 1.1em;"
                                     )
-                                
+
                                 with rv.CardText():
                                     if common_name := vector.get("common_name"):
                                         solara.Text(
                                             common_name,
                                             style="font-style: italic; font-size: 0.9em;"
                                         )
-                                        
+
                                     # Vector status
                                     status = str(vector.get("vector_status", "Unknown")).lower()
                                     status_color = "grey"
@@ -267,7 +267,7 @@ def Page():
                                         status_color, text_color = "orange", "white"
                                     elif status == "low":
                                         status_color, text_color = "green", "white"
-                                        
+
                                     rv.Chip(
                                         small=True,
                                         children=[f"Vector: {vector.get('vector_status', 'Unknown')}"],
