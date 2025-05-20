@@ -22,6 +22,20 @@ SPECIES_SCHEMA = pa.schema(
     ]
 )
 
+DISEASES_SCHEMA = pa.schema(
+    [
+        pa.field("id", pa.string(), nullable=False),
+        pa.field("name", pa.string()),
+        pa.field("description", pa.string()),
+        pa.field("symptoms", pa.string()),
+        pa.field("treatment", pa.string()),
+        pa.field("prevention", pa.string()),
+        pa.field("prevalence", pa.string()),
+        pa.field("image_url", pa.string()),
+        pa.field("vectors", pa.list_(pa.string())),  # List of species IDs
+    ]
+)
+
 FILTER_OPTIONS_SCHEMA = pa.schema(
     [  # Store each option type in its own table for simplicity
         pa.field("name", pa.string(), nullable=False)

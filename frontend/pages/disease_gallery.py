@@ -7,7 +7,7 @@ import asyncio
 from typing import Dict, Any, List, Optional, cast, Callable
 from ..state import fetch_api_data
 import frontend.pages.disease_detail as disease_detail
-from frontend.components.disease.disease_card import DiseaseCard
+from frontend.components.diseases.disease_card import DiseaseCard
 
 # Relative imports for config and state
 from ..config import (
@@ -26,8 +26,8 @@ disease_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
 @solara.component
 def Page():
-    with solara.AppBar():  
-        solara.lab.ThemeToggle()  
+    with solara.AppBar():
+        solara.lab.ThemeToggle()
 
     search_query, set_search_query = solara.use_state("")
 

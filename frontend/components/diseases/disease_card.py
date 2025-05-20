@@ -25,7 +25,7 @@ def DiseaseCard(disease: Dict[str, Any]):
                     width="100px",
                     aspect_ratio="1",
                     class_="mr-3 elevation-1",
-                    style="border-radius: 4px; object-fit: cover;",
+                    style_="border-radius: 4px; object-fit: cover;",
                 )
             else:
                 rv.Icon(children=["mdi-virus"], size="100px", class_="mr-3", color=COLOR_PRIMARY)
@@ -33,7 +33,7 @@ def DiseaseCard(disease: Dict[str, Any]):
             with solara.Column(align="start", style="overflow: hidden;"):
                 disease_id = disease.get("id")
                 # Wrap the entire content in a Link for better UX
-                with solara.Link(path_or_route=f"/disease/{disease_id}"):
+                with solara.Link(path_or_route=f"/diseases/{disease_id}"):
                     solara.Markdown(
                         f"#### {disease.get('name', 'N/A')}",
                         style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY}; text-decoration: none;",
