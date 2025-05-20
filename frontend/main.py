@@ -33,6 +33,7 @@ routes = [
         "species",
         component=species_gallery.Page,
         label="Species Database",
+
     ),
     solara.Route(
         "diseases",
