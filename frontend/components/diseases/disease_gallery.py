@@ -5,12 +5,12 @@ from solara.alias import rv
 import httpx
 import asyncio
 from typing import Dict, Any, List, Optional, cast, Callable
-from ..state import fetch_api_data
-import frontend.pages.disease_detail as disease_detail
+from ...state import fetch_api_data, disease_list_data_reactive, disease_list_loading_reactive, disease_list_error_reactive, selected_disease_item_id
+
 from frontend.components.diseases.disease_card import DiseaseCard
 
 # Relative imports for config and state
-from ..config import (
+from ...config import (
     COLOR_PRIMARY,
     FONT_HEADINGS,
     COLOR_TEXT,
@@ -19,13 +19,10 @@ from ..config import (
     API_BASE_URL
 )
 
-# --- Reactive States for Disease Database Page ---
-disease_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
-disease_list_loading_reactive = solara.reactive(False)
-disease_list_error_reactive = solara.reactive(cast(Optional[str], None))
+
 
 @solara.component
-def Page():
+def DiseaseGalleryPageComponent():
     with solara.AppBar():
         solara.lab.ThemeToggle()
 
@@ -132,12 +129,12 @@ def Page():
                     classes=["pa-2"],
                 ):
                     for disease_item in displayed_diseases:
-                        item_id = disease_item.get("id")
-                        if item_id is None:
-                            print(
-                                f"Warning: Disease item {disease_item.get('name', 'Unknown')} is missing an 'id'. Card will not be clickable for details."
-                            )
-                        # Render the disease card
+                        # item_id = disease_item.get("id")
+                        # if item_id is None:
+                        #     print(
+                        #         f"Warning: Disease item {disease_item.get('name', 'Unknown')} is missing an 'id'. Card will not be clickable for details."
+                        #     )
+                        # # Render the disease card
                         DiseaseCard(disease_item)
         else:  # displayed_diseases is None (should not happen if initialized to [])
             solara.Info(
