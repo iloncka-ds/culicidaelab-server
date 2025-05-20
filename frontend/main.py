@@ -33,12 +33,6 @@ routes = [
         "species",
         component=species_gallery.Page,
         label="Species Database",
-        children=[
-            solara.Route(
-                "info/:species_id",  # Nested under species
-                component=species_detail.Page,
-            )
-        ],
     ),
     solara.Route(
         "diseases",
@@ -51,17 +45,17 @@ routes = [
             )
         ],
     ),
-    # solara.Route(
-    #     "info",
-    #     component=species_detail.Page,
-    #     label="Item Detail",
-    #     children=[
-    #         solara.Route(
-    #             path=":species_id",
-    #             component=species_detail.Page,
-    #         )
-    #     ],
-    # ),
+    solara.Route(
+        "info",
+        component=species_detail.Page,
+        label="Item Detail",
+        children=[
+            solara.Route(
+                path=":species_id",
+                component=species_detail.Page,
+            )
+        ],
+    ),
 ]
 
 @solara.component
