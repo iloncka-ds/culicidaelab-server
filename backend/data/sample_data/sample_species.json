@@ -19,10 +19,11 @@
       "Oceania"
     ],
     "related_diseases": [
-      "Dengue",
-      "Chikungunya",
-      "Zika Virus"
+      "dengue",
+      "chikungunya",
+      "zika_virus"
     ],
+    "related_diseases_info": [],
     "habitat_preferences": [
       "Artificial containers",
       "Tree holes",
@@ -46,11 +47,12 @@
       "Subtropics Worldwide"
     ],
     "related_diseases": [
-      "Yellow Fever",
-      "Dengue",
-      "Chikungunya",
-      "Zika Virus"
+      "yellow_fever",
+      "dengue",
+      "chikungunya",
+      "zika_virus"
     ],
+    "related_diseases_info": [],
     "habitat_preferences": [
       "Water storage containers",
       "Flower pots",
@@ -74,10 +76,11 @@
       "Worldwide (Temperate and Tropical)"
     ],
     "related_diseases": [
-      "West Nile Virus",
-      "St. Louis Encephalitis",
-      "Avian Malaria"
+      "west_nile_virus",
+      "st_louis_encephalitis",
+      "avian_malaria"
     ],
+    "related_diseases_info": [],
     "habitat_preferences": [
       "Stagnant water (ditches, ponds, catch basins)",
       "Polluted water sources"
@@ -99,8 +102,9 @@
       "Sub-Saharan Africa"
     ],
     "related_diseases": [
-      "Malaria"
+      "malaria"
     ],
+    "related_diseases_info": [],
     "habitat_preferences": [
       "Clean, shallow, sunlit water bodies",
       "Temporary pools",
@@ -124,7 +128,8 @@
       "North Africa",
       "Asia Minor"
     ],
-    "related_diseases": [
+    "related_diseases": [],
+    "related_diseases_info": [
       "Potentially some arboviruses (minor role)"
     ],
     "habitat_preferences": [

@@ -110,7 +110,7 @@ SPECIES_COLORS = generate_species_colors(DEFAULT_SPECIES_LIST_FOR_COLORS)
 
 DEFAULT_MAP_CENTER = (40.416775, -3.703790)
 DEFAULT_MAP_ZOOM = 5
-
+# disease_id = None
 API_BASE_URL = "http://localhost:8000/api"
 SPECIES_DISTRIBUTION_ENDPOINT = f"{API_BASE_URL}/geo/distribution"
 OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/geo/observations"

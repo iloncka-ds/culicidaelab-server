@@ -13,6 +13,12 @@ from ...state import selected_disease_item_id
 
 @solara.component
 def DiseaseCard(disease: Dict[str, Any]):
+    router = solara.use_router()
+
+    def redirect_to_disease_item(disease_id):
+        selected_disease_item_id.set(disease_id)
+        router.push("diseases")
+
     with rv.Card(
         class_="ma-2 pa-3",
         hover=True,
@@ -58,4 +64,4 @@ def DiseaseCard(disease: Dict[str, Any]):
                         class_="mt-1",
                         text_color="white",
                     )
-                solara.Button("View Details", on_click=lambda: selected_disease_item_id.set(disease.get("id", "")))
+                solara.Button("View Details", on_click=lambda: redirect_to_disease_item(disease.get("id", "")) )

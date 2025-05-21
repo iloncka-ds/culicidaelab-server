@@ -18,7 +18,8 @@ species_list = [
             "Black and white striped legs",
         ],
         "geographic_regions": ["Asia", "Europe", "Americas", "Africa", "Oceania"],
-        "related_diseases": ["Dengue", "Chikungunya", "Zika Virus"],
+        "related_diseases": ["dengue", "chikungunya", "zika_virus"],
+        "related_diseases_info": [],
         "habitat_preferences": ["Artificial containers", "Tree holes", "Urban and suburban areas"],
     },
     {
@@ -34,7 +35,8 @@ species_list = [
             "Dark body with white markings",
         ],
         "geographic_regions": ["Tropics Worldwide", "Subtropics Worldwide"],
-        "related_diseases": ["Yellow Fever", "Dengue", "Chikungunya", "Zika Virus"],
+        "related_diseases": ["yellow_fever", "dengue", "chikungunya", "zika_virus"],
+        "related_diseases_info": [],
         "habitat_preferences": ["Water storage containers", "Flower pots", "Discarded tires", "Indoors"],
     },
     {
@@ -50,7 +52,8 @@ species_list = [
             "Rounded abdomen tip",
         ],
         "geographic_regions": ["Worldwide (Temperate and Tropical)"],
-        "related_diseases": ["West Nile Virus", "St. Louis Encephalitis", "Avian Malaria"],
+        "related_diseases": ["west_nile_virus", "st_louis_encephalitis", "avian_malaria"],
+        "related_diseases_info": [],
         "habitat_preferences": ["Stagnant water (ditches, ponds, catch basins)", "Polluted water sources"],
     },
     {
@@ -66,7 +69,8 @@ species_list = [
             "Rests with abdomen pointing upwards",
         ],
         "geographic_regions": ["Sub-Saharan Africa"],
-        "related_diseases": ["Malaria"],
+        "related_diseases": ["malaria"],
+        "related_diseases_info": [],
         "habitat_preferences": ["Clean, shallow, sunlit water bodies", "Temporary pools", "Rice paddies"],
     },
     {
@@ -78,7 +82,8 @@ species_list = [
         "description": "A large mosquito with banded legs and abdomen. Less significant as a disease vector to humans compared to others.",
         "key_characteristics": ["Large size", "Banded legs and abdomen", "Dark wing scales"],
         "geographic_regions": ["Europe", "North Africa", "Asia Minor"],
-        "related_diseases": ["Potentially some arboviruses (minor role)"],
+        "related_diseases": [],
+        "related_diseases_info": ["Potentially some arboviruses (minor role)"],
         "habitat_preferences": [
             "Various water bodies, including slightly brackish",
             "Caves",

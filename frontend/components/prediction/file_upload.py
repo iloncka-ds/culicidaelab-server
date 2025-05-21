@@ -29,7 +29,7 @@ async def mock_upload_and_predict(
 def FileUploadComponent(
     on_file_selected: callable,  # Callback: (file_info: Dict[str, Any]) -> bool
     upload_error_message: Optional[str] = None,
-    is_processing: bool = False,  # To show a general processing state if needed by parent
+    is_processing: bool = True,  # To show a general processing state if needed by parent
 ):
     """
     A component for handling file uploads.
@@ -42,7 +42,7 @@ def FileUploadComponent(
     )
 
     solara.FileDrop(
-        label="Drag and drop an image here, or click to select.",
+        label="Drag and drop an image here...",
         on_file=on_file_selected,
         lazy=False,  # Process immediately
     )

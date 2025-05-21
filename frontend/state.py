@@ -4,6 +4,7 @@ import httpx
 import asyncio
 from typing import List, Tuple, Optional, Dict, Any, cast  # Add Dict, Any, cast
 import datetime as dt
+from datetime import date, timedelta
 
 # Import new endpoint from config
 from .config import FILTER_OPTIONS_ENDPOINT  # Assuming relative import within the package
@@ -53,28 +54,48 @@ async def fetch_api_data(
         if loading_reactive:
             loading_reactive.value = False
 
-# --- Filter States ---
-selected_species_reactive = solara.reactive(cast(List[str], []))  # Ensure type hint
-selected_date_range_reactive = solara.reactive(
-    cast(Tuple[Optional[Any], Optional[Any]], [dt.date.today(), dt.date.today() + dt.timedelta(days=1)])
+# # --- Filter States ---
+# selected_species_reactive = solara.reactive(cast(List[str], []))  # Ensure type hint
+# selected_date_range_reactive = solara.reactive(
+#     cast(Tuple[Optional[Any], Optional[Any]], [dt.date.today(), dt.date.today() + dt.timedelta(days=1)])
+# )
+# --- Filter State ---
+# Default date range: last 30 days up to today
+default_end_date = date.today()
+default_start_date = default_end_date - timedelta(days=365)
+
+DEFAULT_INITIAL_SPECIES_TO_LOAD = ["Aedes albopictus", "Culex pipiens"]
+selected_species_reactive: solara.Reactive[Optional[List[str]]] = solara.reactive(DEFAULT_INITIAL_SPECIES_TO_LOAD)
+selected_date_range_reactive: solara.Reactive[Tuple[Optional[date], Optional[date]]] = solara.reactive(
+    (default_start_date, default_end_date)
 )
+selected_region_reactive: solara.Reactive[Optional[str]] = solara.reactive(None)
+selected_data_source_reactive: solara.Reactive[Optional[str]] = solara.reactive(None)
 # More specific Any for date
 selected_region_reactive = solara.reactive(cast(Optional[str], None))
 selected_data_source_reactive = solara.reactive(cast(Optional[str], None))
 selected_species_item_id = solara.reactive(None)
 
 # --- Layer Visibility ---
-show_observed_data_reactive = solara.reactive(True)
+show_observed_data_reactive = solara.reactive(True) # TRUE
 show_modeled_data_reactive = solara.reactive(False)  # Default off as it can be heavy
 show_distribution_status_reactive = solara.reactive(True)
 show_breeding_sites_reactive = solara.reactive(False)  # From map DETAILED PLAN
 
 # --- Map Interaction State ---
+# --- Map Interaction State ---
+# Example: current center and zoom of the map
+DEFAULT_MAP_CENTER = (20, 0)  # Default latitude and longitude
+DEFAULT_MAP_ZOOM = 3
+current_map_center_reactive: solara.Reactive[Tuple[float, float]] = solara.reactive(DEFAULT_MAP_CENTER)
+current_map_zoom_reactive: solara.Reactive[int] = solara.reactive(DEFAULT_MAP_ZOOM)
+current_map_bounds_reactive: solara.Reactive[Optional[Tuple[Tuple[float, float], Tuple[float, float]]]] = (
+    solara.reactive(None)
+)
+
 # For info panel when a feature (polygon, marker) is clicked
 selected_map_feature_info = solara.reactive(None)
-# To fetch data for current view, or trigger other actions on map move
-current_map_bounds_reactive = solara.reactive(None)  # ((south, west), (north, east))
-current_map_zoom_reactive = solara.reactive(None)
+
 
 # --- Data States ---
 # These would be populated by API calls. GeoJSON is a common format.

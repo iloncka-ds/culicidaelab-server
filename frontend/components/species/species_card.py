@@ -23,7 +23,7 @@ def SpeciesCard(species: Dict[str, Any]):
 
     def redirect_to_species(species_id):
         selected_species_item_id.set(species_id)
-        router.push("species")\
+        router.push("species")
 
     with rv.Card(
         class_="ma-2 pa-3",

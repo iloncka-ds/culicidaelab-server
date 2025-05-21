@@ -1,169 +1,67 @@
-# from backend.database.lancedb_manager import LanceDBManager
-# from typing import List, Optional, Dict, Any
-# import json
-
-
-# def filter_geojson_features(
-#     geojson_collection_str: str,
-#     species_list: Optional[List[str]] = None,
-#     bbox_str: Optional[str] = None,  # "min_lon,min_lat,max_lon,max_lat"
-# ) -> Dict[str, Any]:
-#     """
-#     Filters features in a GeoJSON FeatureCollection string.
-#     Currently supports filtering by species.
-#     BBOX filtering requires parsing geometry.
-#     """
-#     if not geojson_collection_str:
-#         return {"type": "FeatureCollection", "features": []}
-
-#     geojson_data = json.loads(geojson_collection_str)
-#     original_features = geojson_data.get("features", [])
-
-#     if not original_features:
-#         return {"type": "FeatureCollection", "features": []}
-
-#     filtered_features = []
-
-#     # Parse BBOX if provided
-#     bbox = None
-#     if bbox_str:
-#         try:
-#             coords = [float(c.strip()) for c in bbox_str.split(",")]
-#             if len(coords) == 4:
-#                 bbox = {"min_lon": coords[0], "min_lat": coords[1], "max_lon": coords[2], "max_lat": coords[3]}
-#         except ValueError:
-#             print(f"Warning: Invalid BBOX string format: {bbox_str}")
-#             bbox = None
-
-#     for feature in original_features:
-#         props = feature.get("properties", {})
-#         geometry = feature.get("geometry", {})
-
-#         # Species filter
-#         if species_list:
-#             feature_species = props.get("species")
-#             if not feature_species or feature_species not in species_list:
-#                 continue  # Skip if species doesn't match
-
-#         # BBOX filter (basic point-in-bbox for Point geometries)
-#         if bbox and geometry and geometry.get("type") == "Point":
-#             coords = geometry.get("coordinates")  # [lon, lat]
-#             if not (
-#                 coords
-#                 and len(coords) == 2
-#                 and bbox["min_lon"] <= coords[0] <= bbox["max_lon"]
-#                 and bbox["min_lat"] <= coords[1] <= bbox["max_lat"]
-#             ):
-#                 continue  # Skip if point outside bbox
-#         # TODO: Add BBOX filtering for Polygons (more complex: check if polygon intersects bbox)
-
-#         filtered_features.append(feature)
-
-#     return {"type": "FeatureCollection", "features": filtered_features}
-
-
-# class GeoService:
-#     def __init__(self, db_manager: LanceDBManager):
-#         self.db_manager = db_manager
-
-#     async def get_map_layer_data(
-#         self, layer_type: str, species: Optional[List[str]] = None, bbox_filter: Optional[str] = None
-#     ) -> Optional[Dict[str, Any]]:
-#         map_layers_table = await self.db_manager.get_table("map_layers")
-#         if not map_layers_table:
-#             return None
-
-#         # Find the layer entry for the given type.
-#         # This assumes one entry per layer_type in the 'map_layers' table.
-#         # If multiple named layers of the same type exist, this needs refinement.
-#         query_builder = map_layers_table.search().where(f"layer_type = '{layer_type}'")
-
-#         # If layer data is pre-filtered by 'contained_species' in LanceDB table
-#         # this could be an optimization, but requires exact match logic for list elements.
-#         # For now, fetch the whole GeoJSON and filter in Python.
-
-#         results_df = await query_builder.limit(1).to_pandas()
-
-#         if results_df.empty:
-#             return None
-
-#         layer_record = results_df.iloc[0].to_dict()
-#         geojson_str = layer_record.get("geojson_data")
-
-#         if not geojson_str:
-#             return {"type": "FeatureCollection", "features": []}
-
-#         # Filter the GeoJSON data in Python
-#         filtered_geojson = filter_geojson_features(geojson_str, species_list=species, bbox_str=bbox_filter)
-#         return filtered_geojson
-
 import json
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Dict, Any
 import lancedb
 from backend.services.database import get_table
 from backend.models import GeoJSONFeatureCollection, GeoJSONFeature, GeoJSONGeometry
 from shapely.geometry import box, Point, shape  # For bbox filtering
+from datetime import datetime
+
+
+def is_valid_date_str(date_str: str) -> bool:
+    """Helper to validate YYYY-MM-DD date string format."""
+    try:
+        datetime.strptime(date_str, "%Y-%m-%d")
+        return True
+    except ValueError:
+        return False
 
 
 def _db_record_to_geojson_feature(record: dict) -> Optional[GeoJSONFeature]:
     """Converts a LanceDB geo_features record back to a GeoJSON Feature."""
     properties_json = record.get("properties_json")
-    if not properties_json:
-        return None  # Cannot reconstruct without properties
+    geometry_json = record.get("geometry_json")  # Assuming full geometry is stored here
+
+    if not properties_json or not geometry_json:
+        # print(f"Warning: Missing properties_json or geometry_json in record: {record.get('id', 'N/A')}")
+        return None
 
     try:
         properties = json.loads(properties_json)
-    except json.JSONDecodeError:
-        print(f"Warning: Could not decode properties_json: {properties_json}")
+        geometry_dict = json.loads(geometry_json)
+    except json.JSONDecodeError as e:
+        # print(f"Warning: Could not decode properties_json or geometry_json: {e} for record: {record.get('id', 'N/A')}")
         return None
 
-    # Reconstruct geometry (simple point/polygon for now)
-    geom_type = record.get("geometry_type")
-    coordinates = None
-    if geom_type == "Point" and record.get("lon") is not None and record.get("lat") is not None:
-        coordinates = [record["lon"], record["lat"]]
-    elif geom_type == "Polygon":
-        # We didn't store full polygon coordinates back, only bbox/centroid
-        # We MUST retrieve the original properties to get the geometry back accurately
-        # The properties_json should contain the original geometry! Let's check.
-        if "geometry" in properties and isinstance(properties.get("geometry"), dict):
-            geom_dict_from_props = properties["geometry"]  # This assumes we stored it - WE DIDN'T in setup script
-            geom_type_from_props = geom_dict_from_props.get("type")
-            coords_from_props = geom_dict_from_props.get("coordinates")
-            if geom_type_from_props and coords_from_props:
-                geom_type = geom_type_from_props
-                coordinates = coords_from_props
-        # Fallback: If not stored in props, we cannot reconstruct polygons accurately here.
-        # We NEED to store the full geometry in LanceDB or retrieve it differently.
-        # Let's modify setup_lancedb.py later. For now, return None for polygons.
-        if not coordinates:
-            # print(f"Warning: Cannot reconstruct Polygon geometry for record. Need original geometry.")
-            return None  # Cannot reconstruct polygon geometry from current DB schema accurately
-
-    if coordinates is None:
-        return None  # Skip features where geometry can't be determined
+    # Validate geometry structure minimally
+    if not isinstance(geometry_dict, dict) or "type" not in geometry_dict or "coordinates" not in geometry_dict:
+        # print(f"Warning: Invalid geometry structure in geometry_json for record: {record.get('id', 'N/A')}")
+        return None
 
     return GeoJSONFeature(
-        properties=properties,  # Use the full original properties
-        geometry=GeoJSONGeometry(type=geom_type, coordinates=coordinates),
+        properties=properties,
+        geometry=GeoJSONGeometry(type=geometry_dict["type"], coordinates=geometry_dict["coordinates"]),
     )
 
 
 # --- Filtering Logic ---
 
+
 def filter_features(
     features: List[dict],  # List of raw dicts from LanceDB
+    layer_type: str,
     species: Optional[List[str]] = None,
     bbox: Optional[Tuple[float, float, float, float]] = None,  # (min_lon, min_lat, max_lon, max_lat)
-    # date_range: Optional[Tuple[str, str]] = None # TODO: Add date filtering
+    date_range_str: Optional[Tuple[Optional[str], Optional[str]]] = None,
 ) -> List[dict]:
     """Filters raw LanceDB records in Python."""
     filtered = features
 
     # 1. Species Filter
     if species:
-        # Handle features where species might be None (like some breeding sites)
-        filtered = [f for f in filtered if f.get("species") is None or f.get("species") in species]
+        # Handle features where species might be None or empty string
+        filtered = [
+            f for f in filtered if f.get("species") is None or f.get("species") == "" or f.get("species") in species
+        ]
 
     # 2. Bbox Filter
     if bbox:
@@ -172,23 +70,70 @@ def filter_features(
         spatially_filtered = []
         for f in filtered:
             geom_json = f.get("geometry_json")
-            if not geom_json: continue
+            if not geom_json:
+                continue
             try:
                 geom_dict = json.loads(geom_json)
-                feature_geom = shape(geom_dict) # Use shapely to parse full geometry
-                if bbox_polygon.intersects(feature_geom): # Use intersects for points and polygons
+                feature_geom = shape(geom_dict)
+                if bbox_polygon.intersects(feature_geom):
                     spatially_filtered.append(f)
-            except Exception as e:
+            except Exception:  # Catch shapely errors or JSON errors
                 # print(f"Warning: Could not parse geometry for bbox filtering: {e}")
-                pass # Skip if geometry is invalid
-
+                pass
         filtered = spatially_filtered
 
-    # 3. Date Range Filter (Placeholder)
-    # if date_range:
-    #    start_date, end_date = date_range
-    #    # Filter based on obs_date or other relevant date field
-    #    pass
+    # 3. Date Range Filter
+    if date_range_str and (date_range_str[0] or date_range_str[1]):
+        s_date_str, e_date_str = date_range_str
+        start_date_obj, end_date_obj = None, None
+        try:
+            if s_date_str:
+                start_date_obj = datetime.strptime(s_date_str, "%Y-%m-%d").date()
+            if e_date_str:
+                end_date_obj = datetime.strptime(e_date_str, "%Y-%m-%d").date()
+        except ValueError:
+            print(f"Warning: Invalid date format in date_range_str: {date_range_str}. Skipping date filter.")
+            return filtered  # Return already filtered list if date format is bad
+
+        date_key_map = {
+            "observations": "observation_date",
+            "distribution": "last_updated",
+            "modeled": "run_date",
+            "breeding_sites": "last_inspected",
+        }
+        date_property_key = date_key_map.get(layer_type)
+
+        if not date_property_key:
+            print(
+                f"Warning: No date property key defined for layer_type '{layer_type}'. Date filter not applied for this layer."
+            )
+        else:
+            date_filtered_batch = []
+            for f_dict in filtered:
+                props_json = f_dict.get("properties_json")
+                if not props_json:
+                    continue  # Skip if no properties to check date
+
+                try:
+                    props = json.loads(props_json)
+                    feature_date_str = props.get(date_property_key)
+                    if not feature_date_str:
+                        continue  # Skip if no date property in feature
+
+                    feature_date = datetime.strptime(feature_date_str, "%Y-%m-%d").date()
+
+                    passes_date_filter = True
+                    if start_date_obj and feature_date < start_date_obj:
+                        passes_date_filter = False
+                    if end_date_obj and feature_date > end_date_obj:
+                        passes_date_filter = False
+
+                    if passes_date_filter:
+                        date_filtered_batch.append(f_dict)
+                except (json.JSONDecodeError, ValueError):
+                    # print(f"Warning: Could not parse properties or date for feature: {e}")
+                    continue
+            filtered = date_filtered_batch
 
     return filtered
 
@@ -201,31 +146,52 @@ def get_geo_layer(
     layer_type: str,
     species_list: Optional[List[str]] = None,
     bbox_filter: Optional[Tuple[float, float, float, float]] = None,
-    limit: int = 5000,  # Limit records retrieved from DB before Python filtering
+    start_date_str: Optional[str] = None,
+    end_date_str: Optional[str] = None,
+    limit: int = 10000,  # Increased limit for broader initial fetch before Python filtering
 ) -> GeoJSONFeatureCollection:
     """Gets features for a specific layer, applying filters."""
 
     features_out: List[GeoJSONFeature] = []
     try:
         tbl = get_table(db, "geo_features")
+        if tbl is None:
+            print(f"Error: Table 'geo_features' not found or could not be opened.")
+            return GeoJSONFeatureCollection(features=[])
 
-        # --- LanceDB Filtering (if possible) ---
-        # Build a basic WHERE clause
-        # Note: LanceDB SQL support is evolving. Test these clauses.
         where_clauses = [f"layer_type = '{layer_type}'"]
-        # Cannot directly filter by species list in WHERE easily unless LanceDB supports IN operator well.
-        # Bbox filtering using SQL is complex without spatial indexing/functions.
+        # LanceDB's SQL 'IN' operator for list filtering on 'species' field (if it's a simple string)
+        # might be possible but can be tricky with array/list fields.
+        # For now, species filtering is done in Python post-fetch for robustness.
+        # if species_list:
+        #    species_filter_str = ", ".join([f"'{s}'" for s in species_list])
+        #    where_clauses.append(f"species IN ({species_filter_str})") # Requires species field to be top-level
 
-        query_str = " AND ".join(where_clauses) if where_clauses else None
+        # query_str = " AND ".join(where_clauses)
+        query_str = f"layer_type = '{layer_type}'"
 
-        # Retrieve raw data (potentially more than needed, up to limit)
-        raw_records = (
-            tbl.search().where(query_str).limit(limit).to_list() if query_str else tbl.search().limit(limit).to_list()
-        )
-        print(f"Retrieved {len(raw_records)} raw records for layer '{layer_type}' from DB.")
+        query = tbl.search().where(query_str)
+        # # Retrieve raw data
+        # query = tbl.search()
+        # if query_str:
+        #     query = query.where(query_str)
+
+        # Add a sort order if applicable, e.g., by a date field if one exists top-level
+        # query = query.order_by("some_date_field", "desc")
+
+        raw_records = query.limit(limit).to_list()
+
+        print(f"Retrieved {len(raw_records)} raw records for layer '{layer_type}' (filter: {query_str}) from DB.")
 
         # --- Python Filtering ---
-        filtered_records = filter_features(raw_records, species=species_list, bbox=bbox_filter)
+        date_range_tuple = (start_date_str, end_date_str)
+        filtered_records = filter_features(
+            raw_records,
+            layer_type=layer_type,
+            species=species_list,
+            bbox=bbox_filter,
+            date_range_str=date_range_tuple,
+        )
         print(f"Filtered down to {len(filtered_records)} records in Python.")
 
         # --- Convert to GeoJSON Features ---
@@ -234,11 +200,12 @@ def get_geo_layer(
             if feature:
                 features_out.append(feature)
 
-    except ValueError as e:  # Catch table not found from get_table
+    except ValueError as e:
         print(f"Value error getting geo layer {layer_type}: {e}")
-        # Return empty collection
     except Exception as e:
-        print(f"Error getting geo layer {layer_type}: {e}")
-        # Optionally raise or return empty collection
+        print(f"General error getting geo layer {layer_type}: {e}")
+        import traceback
+
+        traceback.print_exc()
 
     return GeoJSONFeatureCollection(features=features_out)

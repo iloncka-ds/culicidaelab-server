@@ -7,14 +7,14 @@
     "Culiseta annulata"
   ],
   "regions": [
-    "Sub-Saharan Africa",
     "Africa",
-    "Europe",
     "Tropics Worldwide",
+    "Sub-Saharan Africa",
+    "Americas",
     "Subtropics Worldwide",
     "Asia",
-    "Americas",
-    "Oceania"
+    "Oceania",
+    "Europe"
   ],
   "data_sources": [
     "GBIF",

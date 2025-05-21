@@ -13,8 +13,8 @@ print("DEBUG: DISEASE_DETAIL.PY module loaded")
 
 @solara.component
 def DiseaseDetailPageComponent():
-    with solara.AppBar():
-        solara.lab.ThemeToggle()
+    # with solara.AppBar():
+    #     solara.lab.ThemeToggle()
 
     disease_id = selected_disease_item_id.value
     # router = solara.use_router()

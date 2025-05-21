@@ -16,6 +16,10 @@ from frontend.components.species.species_card import SpeciesCard
 
 @solara.component
 def Page():
+    with solara.AppBar():
+        solara.lab.ThemeToggle()
+    with solara.AppBarTitle():
+        solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
     # --- Page View Mode ---
     # "form": shows the 3-column input form
     # "results": shows submitted image, prediction, and success message
