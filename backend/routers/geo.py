@@ -16,7 +16,8 @@ async def get_geographic_layer(
     db: lancedb.DBConnection = Depends(database.get_db),
     species: Optional[str] = Query(None, description="Comma-separated list of species scientific names to filter by"),
     bbox: Optional[str] = Query(None, description="Bounding box filter: min_lon,min_lat,max_lon,max_lat"),
-    # limit: int = Query(5000, description="Max features to retrieve from DB before filtering") # Already handled in service
+    start_date: Optional[str] = Query(None, description="Start date for filtering (YYYY-MM-DD)"),
+    end_date: Optional[str] = Query(None, description="End date for filtering (YYYY-MM-DD)"),
 ):
     """
     Retrieve geographic features for a specific layer, with optional filters.
@@ -43,11 +44,18 @@ async def get_geographic_layer(
                 status_code=400, detail=f"Invalid bbox format: {e}. Use min_lon,min_lat,max_lon,max_lat"
             )
 
+    # Validate date strings if provided (basic validation, service can do more)
+    if start_date and not geo_service.is_valid_date_str(start_date):
+        raise HTTPException(status_code=400, detail="Invalid start_date format. Use YYYY-MM-DD")
+    if end_date and not geo_service.is_valid_date_str(end_date):
+        raise HTTPException(status_code=400, detail="Invalid end_date format. Use YYYY-MM-DD")
+
     geojson_collection = geo_service.get_geo_layer(
         db=db,
         layer_type=layer_type,
         species_list=species_list,
         bbox_filter=bbox_filter,
-        # limit=limit # Pass limit to service if needed
+        start_date_str=start_date,
+        end_date_str=end_date,
     )
     return geojson_collection
