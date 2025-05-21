@@ -41,3 +41,6 @@ dev = [
 
 [tool.uv.sources]
 culicidaelab-server = { workspace = true }
+
+[tool.mypy]
+
