@@ -136,4 +136,4 @@ COLOR_ERROR = "#F44336"
 # API endpoints
 
 PREDICTION_ENDPOINT = f"{API_BASE_URL}/predict_species/"
-OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"
+STORE_OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"
