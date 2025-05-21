@@ -4,19 +4,19 @@
     {
       "type": "Feature",
       "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-12-10",
-        "count": 15,
-        "observer_id": "obs_649",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-03",
+        "count": 9,
+        "observer_id": "obs_864",
+        "data_source": "GBIF",
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          3.622617871893306,
-          41.68836853312347
+          24.585147594825436,
+          35.67973099950589
         ]
       }
     },
@@ -24,37 +24,18 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes aegypti",
-        "observation_date": "2024-06-28",
-        "count": 20,
-        "observer_id": "obs_292",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          138.8040509815358,
-          8.690231535979919
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-07-19",
+        "observation_date": "2025-03-31",
         "count": 17,
-        "observer_id": "obs_874",
+        "observer_id": "obs_349",
         "data_source": "Local Survey Team A",
-        "location_accuracy_m": null,
-        "notes": "Larvae collected."
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.983575340530283,
-          45.66705265874934
+          102.31774295012434,
+          -2.4468606498152745
         ]
       }
     },
@@ -62,132 +43,284 @@
       "type": "Feature",
       "properties": {
         "species": "Culiseta annulata",
-        "observation_date": "2025-03-28",
+        "observation_date": "2025-05-07",
+        "count": 6,
+        "observer_id": "obs_693",
+        "data_source": "GBIF",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.776243025570693,
+          36.91347235750175
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-01-04",
+        "count": 9,
+        "observer_id": "obs_229",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 5,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.184973275111753,
+          -30.684423781802526
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2024-08-15",
+        "count": 17,
+        "observer_id": "obs_281",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.33501756756958,
+          49.24366647512441
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-29",
+        "count": 4,
+        "observer_id": "obs_647",
+        "data_source": "GBIF",
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.747849995606806,
+          60.217415807714346
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2025-04-14",
+        "count": 9,
+        "observer_id": "obs_339",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.614851434891893,
+          68.95040985359635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2025-04-24",
+        "count": 10,
+        "observer_id": "obs_735",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.1128318902807,
+          -8.96441267995478
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2024-06-03",
+        "count": 10,
+        "observer_id": "obs_678",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2319249276980457,
+          54.993538915053136
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-09-22",
+        "count": 18,
+        "observer_id": "obs_589",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.3189073727582574,
+          59.065690877002375
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-04-06",
+        "count": 14,
+        "observer_id": "obs_628",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.967854102155655,
+          -5.539143270840775
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-01-14",
+        "count": 6,
+        "observer_id": "obs_617",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.19214334016939,
+          -32.52771320707594
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2024-10-25",
+        "count": 14,
+        "observer_id": "obs_876",
+        "data_source": "GBIF",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.324810673293257,
+          40.87287336472647
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2025-03-15",
+        "count": 3,
+        "observer_id": "obs_250",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 10,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.28292430917373,
+          49.97137984534923
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2025-05-18",
+        "count": 3,
+        "observer_id": "obs_349",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 5,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4632165348273727,
+          52.16582982862066
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-16",
+        "count": 9,
+        "observer_id": "obs_308",
+        "data_source": "VectorBase",
+        "location_accuracy_m": null,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.039410559303228,
+          52.263989057081716
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-02-12",
         "count": 2,
-        "observer_id": "obs_903",
+        "observer_id": "obs_110",
         "data_source": "Research Study XYZ",
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.158660356787376,
-          69.76755225981137
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-07-22",
-        "count": 3,
-        "observer_id": "obs_886",
-        "data_source": "GBIF",
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.713314351010677,
-          43.25718984057244
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2025-01-18",
-        "count": 18,
-        "observer_id": "obs_633",
-        "data_source": "VectorBase",
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -7.955756361612256,
-          62.30432203139955
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-10-28",
-        "count": 6,
-        "observer_id": "obs_983",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.2763477785264303,
-          39.76103781552477
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-08-07",
-        "count": 6,
-        "observer_id": "obs_690",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          12.315773788718325,
-          52.09724061281289
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-05-28",
-        "count": 19,
-        "observer_id": "obs_983",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.6971864358883888,
-          56.18750703022415
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-01-26",
-        "count": 3,
-        "observer_id": "obs_499",
-        "data_source": "iNaturalist",
         "location_accuracy_m": 5,
-        "notes": "Near standing water."
+        "notes": "Adult female found."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          8.740461123387032,
-          49.67468685850853
+          32.23710887863772,
+          69.01878155895001
         ]
       }
     },
@@ -195,341 +328,75 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes albopictus",
-        "observation_date": "2024-07-21",
-        "count": 15,
-        "observer_id": "obs_536",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.771834301485914,
-          65.70890085665067
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-01-16",
-        "count": 16,
-        "observer_id": "obs_800",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          9.977818414677873,
-          14.425359821284303
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2025-02-15",
-        "count": 19,
-        "observer_id": "obs_185",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          12.680845420269218,
-          37.44934562233104
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-12-08",
-        "count": 6,
-        "observer_id": "obs_764",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          34.282818356390905,
-          67.83706787218108
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-04-30",
-        "count": 12,
-        "observer_id": "obs_475",
-        "data_source": "GBIF",
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          39.942028805407176,
-          51.4008721102925
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2024-11-13",
-        "count": 18,
-        "observer_id": "obs_689",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": null,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          123.23115344611415,
-          12.947923881686549
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-07-29",
-        "count": 16,
-        "observer_id": "obs_445",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 100,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          35.93039446941759,
-          68.8714026205593
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-02-04",
-        "count": 7,
-        "observer_id": "obs_872",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 50,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.98804815881229,
-          36.676840990291275
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2025-01-11",
-        "count": 4,
-        "observer_id": "obs_302",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          23.823134634765438,
-          59.42272392636642
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-09-10",
-        "count": 9,
-        "observer_id": "obs_691",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.82536727699401,
-          43.61636417731145
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-08-08",
+        "observation_date": "2024-11-26",
         "count": 1,
-        "observer_id": "obs_403",
-        "data_source": "GBIF",
+        "observer_id": "obs_878",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 5,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.800540932105889,
+          45.238414418969406
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2024-08-18",
+        "count": 7,
+        "observer_id": "obs_149",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.698222405102549,
+          50.14332130190697
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-06-24",
+        "count": 18,
+        "observer_id": "obs_802",
+        "data_source": "Research Study XYZ",
         "location_accuracy_m": 10,
-        "notes": ""
+        "notes": "Larvae collected."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          35.73447309320743,
-          43.326997929334716
+          -0.719069076027953,
+          47.09009152038597
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-09-13",
-        "count": 8,
-        "observer_id": "obs_871",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 100,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.75079834737723,
-          51.28009916289686
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-04-13",
+        "species": "Culex pipiens",
+        "observation_date": "2024-12-01",
         "count": 15,
-        "observer_id": "obs_409",
-        "data_source": "VectorBase",
+        "observer_id": "obs_931",
+        "data_source": "Research Study XYZ",
         "location_accuracy_m": 100,
         "notes": ""
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -3.5862257664991484,
-          38.313837979208756
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-06-25",
-        "count": 16,
-        "observer_id": "obs_627",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          31.58527667637283,
-          63.50020768517798
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2025-03-13",
-        "count": 14,
-        "observer_id": "obs_611",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": null,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          111.60794105908067,
-          24.93926095060725
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-04-04",
-        "count": 18,
-        "observer_id": "obs_592",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          22.732544070412253,
-          40.13988530671653
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-01-05",
-        "count": 6,
-        "observer_id": "obs_866",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.6681812660901691,
-          55.70577126780583
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-06-23",
-        "count": 12,
-        "observer_id": "obs_485",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          19.59348128019611,
-          44.101769867334355
+          30.99564109139949,
+          60.67206564377173
         ]
       }
     },
@@ -537,227 +404,18 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2024-11-22",
-        "count": 17,
-        "observer_id": "obs_114",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": 50,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.052437265399426,
-          -4.218020823684455
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-12-31",
-        "count": 18,
-        "observer_id": "obs_836",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -9.966733583721702,
-          47.075258058267266
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-03-28",
-        "count": 16,
-        "observer_id": "obs_810",
-        "data_source": "GBIF",
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.854553388563737,
-          58.147126730587516
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-05-09",
-        "count": 17,
-        "observer_id": "obs_410",
-        "data_source": "GBIF",
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          20.416125248292936,
-          8.617039400201527
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-11-12",
+        "observation_date": "2024-10-02",
         "count": 4,
-        "observer_id": "obs_108",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 50,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          22.183203752672675,
-          69.12454612681968
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2025-01-30",
-        "count": 18,
-        "observer_id": "obs_159",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          18.18019480678324,
-          58.15819282023696
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-10-20",
-        "count": 20,
-        "observer_id": "obs_109",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          30.612564941624626,
-          57.59594030501425
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-03-23",
-        "count": 18,
-        "observer_id": "obs_661",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          27.984965144831037,
-          59.27692975710568
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-04-17",
-        "count": 9,
-        "observer_id": "obs_974",
-        "data_source": "iNaturalist",
+        "observer_id": "obs_623",
+        "data_source": "VectorBase",
         "location_accuracy_m": 10,
         "notes": ""
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          18.52436064695632,
-          46.23650134433766
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-08-25",
-        "count": 5,
-        "observer_id": "obs_479",
-        "data_source": "GBIF",
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.932840853660608,
-          48.27191447273596
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-11-07",
-        "count": 14,
-        "observer_id": "obs_469",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          12.42188275711542,
-          46.33990850572794
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-01-19",
-        "count": 10,
-        "observer_id": "obs_908",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          18.102136235591868,
-          49.036964594051554
+          35.183642438723204,
+          4.511678031891634
         ]
       }
     },
@@ -765,9 +423,427 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes aegypti",
-        "observation_date": "2024-12-10",
+        "observation_date": "2024-10-27",
+        "count": 17,
+        "observer_id": "obs_475",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.3822924666466,
+          -9.700772253858254
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-02-14",
+        "count": 15,
+        "observer_id": "obs_271",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.080341063251524,
+          -26.02710183606066
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-09-23",
+        "count": 4,
+        "observer_id": "obs_705",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 50,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.814972280386225,
+          48.90620864351538
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-05-21",
+        "count": 1,
+        "observer_id": "obs_292",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": null,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.275723164939315,
+          40.37980697260712
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2024-09-28",
+        "count": 5,
+        "observer_id": "obs_107",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.928701448898295,
+          36.091654479690106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2024-06-29",
+        "count": 9,
+        "observer_id": "obs_927",
+        "data_source": "VectorBase",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.25910184321162,
+          8.565118397652395
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-23",
+        "count": 13,
+        "observer_id": "obs_730",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 100,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.806002770621268,
+          45.23733481334765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-06-26",
+        "count": 4,
+        "observer_id": "obs_863",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.666121349303797,
+          9.73533008695744
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-11-11",
+        "count": 18,
+        "observer_id": "obs_473",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 5,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.19100185147012,
+          67.20104035827887
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-10-07",
+        "count": 4,
+        "observer_id": "obs_493",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": 100,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.77569476315324,
+          -5.134652296216082
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-07-11",
+        "count": 6,
+        "observer_id": "obs_350",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": 10,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.27089587170522,
+          65.80929840071148
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-12-01",
+        "count": 20,
+        "observer_id": "obs_282",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.479153237645335,
+          -24.28986792810362
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-08-05",
+        "count": 6,
+        "observer_id": "obs_661",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 5,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.337839600850884,
+          -11.249906877027112
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-08-10",
         "count": 10,
-        "observer_id": "obs_418",
+        "observer_id": "obs_623",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.459202053768216,
+          56.46887363657677
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-02-06",
+        "count": 8,
+        "observer_id": "obs_800",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.44815150198862,
+          4.290952971545821
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-16",
+        "count": 1,
+        "observer_id": "obs_427",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": null,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.003553224582973,
+          54.92557695071949
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-01-02",
+        "count": 2,
+        "observer_id": "obs_561",
+        "data_source": "GBIF",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.76411483813839,
+          54.73334413470353
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-01-23",
+        "count": 4,
+        "observer_id": "obs_252",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.63311754635617,
+          36.69839318393703
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-01-25",
+        "count": 6,
+        "observer_id": "obs_266",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -19.151172419210287,
+          8.417202615507833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2024-09-04",
+        "count": 4,
+        "observer_id": "obs_990",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 5,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.08130155778055,
+          20.102201469406204
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2024-08-29",
+        "count": 14,
+        "observer_id": "obs_622",
+        "data_source": "GBIF",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.70913672926583,
+          51.111594683409635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2024-10-23",
+        "count": 19,
+        "observer_id": "obs_797",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.314161109517,
+          4.463371867014615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2024-06-12",
+        "count": 13,
+        "observer_id": "obs_185",
         "data_source": "GBIF",
         "location_accuracy_m": 100,
         "notes": "Adult female found."
@@ -775,8 +851,65 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          111.70701232338479,
-          -8.301341278067596
+          17.1176750180177,
+          39.22361488306952
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2025-03-10",
+        "count": 9,
+        "observer_id": "obs_819",
+        "data_source": "VectorBase",
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.4434179839722,
+          54.52652002574642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-03-15",
+        "count": 3,
+        "observer_id": "obs_521",
+        "data_source": "VectorBase",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.91081453588203,
+          48.13573123345796
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2025-02-07",
+        "count": 12,
+        "observer_id": "obs_663",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.662102579864234,
+          35.69096624988963
         ]
       }
     },
@@ -785,283 +918,17 @@
       "properties": {
         "species": "Anopheles gambiae",
         "observation_date": "2025-05-06",
-        "count": 11,
-        "observer_id": "obs_937",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -12.569066153620385,
-          4.776410843901083
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-11-21",
-        "count": 11,
-        "observer_id": "obs_523",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 10,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          29.44828618421871,
-          59.726078069276596
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-04-08",
-        "count": 14,
-        "observer_id": "obs_185",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -5.1204525281724,
-          66.96699341275436
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-11",
-        "count": 1,
-        "observer_id": "obs_611",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 100,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -3.5604281884770757,
-          -13.72196630113239
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-04-02",
-        "count": 4,
-        "observer_id": "obs_798",
-        "data_source": "GBIF",
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          3.094549310378511,
-          44.43213807353549
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-07-23",
-        "count": 1,
-        "observer_id": "obs_513",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          23.269520712905937,
-          61.931949942839594
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-12-09",
-        "count": 18,
-        "observer_id": "obs_662",
-        "data_source": "GBIF",
-        "location_accuracy_m": null,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          33.359213691856965,
-          37.686491542990424
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-02-03",
-        "count": 15,
-        "observer_id": "obs_673",
-        "data_source": "GBIF",
-        "location_accuracy_m": 50,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -10.284257362037675,
-          -22.92911157100027
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2024-05-23",
-        "count": 20,
-        "observer_id": "obs_171",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          132.98328258807132,
-          4.100255965804301
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-08-13",
-        "count": 2,
-        "observer_id": "obs_642",
-        "data_source": "GBIF",
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          35.697954126699244,
-          12.662006187285769
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-11-18",
-        "count": 20,
-        "observer_id": "obs_916",
-        "data_source": "GBIF",
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          15.422759152910167,
-          47.62318741675881
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2024-11-07",
-        "count": 9,
-        "observer_id": "obs_975",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": 100,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          119.13234280954416,
-          15.121781645654558
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-04-12",
-        "count": 5,
-        "observer_id": "obs_808",
-        "data_source": "GBIF",
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          7.259087100617354,
-          42.377406893382776
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-05-29",
-        "count": 3,
-        "observer_id": "obs_435",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.153729240353439,
-          47.590988649686864
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-04-07",
         "count": 7,
-        "observer_id": "obs_388",
-        "data_source": "Research Study XYZ",
+        "observer_id": "obs_890",
+        "data_source": "iNaturalist",
         "location_accuracy_m": 50,
-        "notes": "Near standing water."
+        "notes": ""
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          3.855617795551245,
-          59.147472696381016
+          27.293986865867623,
+          -25.90635967625679
         ]
       }
     },
@@ -1069,56 +936,18 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes aegypti",
-        "observation_date": "2024-12-07",
-        "count": 13,
-        "observer_id": "obs_566",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.36408092363928,
-          -3.139222273293729
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-11-12",
-        "count": 20,
-        "observer_id": "obs_543",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -8.46868709726767,
-          40.9467945849913
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-09-28",
-        "count": 13,
-        "observer_id": "obs_173",
-        "data_source": "Local Survey Team A",
+        "observation_date": "2025-01-29",
+        "count": 3,
+        "observer_id": "obs_237",
+        "data_source": "Research Study XYZ",
         "location_accuracy_m": null,
         "notes": ""
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          25.348168743004507,
-          51.78544917619186
+          92.1482486268062,
+          25.03030224543378
         ]
       }
     },
@@ -1126,398 +955,18 @@
       "type": "Feature",
       "properties": {
         "species": "Culiseta annulata",
-        "observation_date": "2024-08-27",
-        "count": 15,
-        "observer_id": "obs_244",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": null,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          17.31567390273645,
-          69.24823486459393
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-12-19",
-        "count": 9,
-        "observer_id": "obs_833",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -10.620569748870505,
-          -2.1764860039483054
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-06-27",
-        "count": 4,
-        "observer_id": "obs_701",
-        "data_source": "GBIF",
-        "location_accuracy_m": 100,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.913423363133102,
-          62.777559085431164
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-08-12",
-        "count": 6,
-        "observer_id": "obs_256",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          31.307153690029686,
-          39.92158754477459
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-12-02",
-        "count": 10,
-        "observer_id": "obs_905",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          16.211329531422262,
-          51.296799734090285
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-03-27",
-        "count": 16,
-        "observer_id": "obs_120",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -9.65577762515645,
-          35.07601554251493
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-05-22",
-        "count": 13,
-        "observer_id": "obs_153",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": null,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -8.996511014410187,
-          -18.372336701586757
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-10-08",
-        "count": 10,
-        "observer_id": "obs_427",
-        "data_source": "GBIF",
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.04678203599944,
-          38.49993494393243
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2025-04-11",
-        "count": 8,
-        "observer_id": "obs_877",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          104.02165726704213,
-          -6.3611886370108595
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-06-14",
-        "count": 11,
-        "observer_id": "obs_469",
-        "data_source": "GBIF",
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          47.121884653341866,
-          -17.41470275238178
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-09-22",
-        "count": 5,
-        "observer_id": "obs_916",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": 100,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          14.122342349603969,
-          42.66393237806661
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-07-08",
-        "count": 14,
-        "observer_id": "obs_213",
-        "data_source": "GBIF",
-        "location_accuracy_m": 100,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          17.01343472418611,
-          45.899126263329606
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-01-19",
-        "count": 8,
-        "observer_id": "obs_443",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.280981057293591,
-          41.33729602117617
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2024-09-25",
-        "count": 5,
-        "observer_id": "obs_392",
-        "data_source": "GBIF",
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          104.74212406220498,
-          18.805825296128596
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2025-04-30",
-        "count": 17,
-        "observer_id": "obs_384",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          119.31333325959287,
-          -9.378174985667705
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-11-17",
-        "count": 5,
-        "observer_id": "obs_744",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 5,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          24.22025191923489,
-          54.63341052025291
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2024-07-21",
-        "count": 18,
-        "observer_id": "obs_592",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          94.21883678151673,
-          24.04272532236685
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-04-19",
-        "count": 9,
-        "observer_id": "obs_302",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          27.023345453313624,
-          47.39246959518075
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2024-08-30",
-        "count": 18,
-        "observer_id": "obs_752",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          132.83703486570516,
-          12.386786655673092
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2024-10-24",
-        "count": 16,
-        "observer_id": "obs_413",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          96.03065162124652,
-          1.71680932367099
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-04-17",
+        "observation_date": "2024-07-17",
         "count": 19,
-        "observer_id": "obs_593",
+        "observer_id": "obs_405",
         "data_source": "iNaturalist",
         "location_accuracy_m": null,
-        "notes": ""
+        "notes": "Larvae collected."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.650573123547289,
-          43.44754962880286
+          -8.746211716440097,
+          46.81983292558343
         ]
       }
     },
@@ -1525,113 +974,892 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2024-09-16",
-        "count": 17,
-        "observer_id": "obs_845",
+        "observation_date": "2025-04-11",
+        "count": 3,
+        "observer_id": "obs_281",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.23738164926263,
+          -20.586566834197402
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2024-07-01",
+        "count": 9,
+        "observer_id": "obs_937",
         "data_source": "iNaturalist",
+        "location_accuracy_m": 50,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.40725595563546,
+          -0.9908670990509236
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-02-12",
+        "count": 6,
+        "observer_id": "obs_801",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.7396439913390545,
+          60.36456851162904
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-01-10",
+        "count": 19,
+        "observer_id": "obs_990",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.153929068328768,
+          42.95444728073934
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2024-10-11",
+        "count": 13,
+        "observer_id": "obs_924",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.5366272364436,
+          6.905304478373186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2024-07-13",
+        "count": 2,
+        "observer_id": "obs_517",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 50,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.606471220320685,
+          45.200801745008285
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2024-10-20",
+        "count": 10,
+        "observer_id": "obs_307",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.543309347659346,
+          62.3274935261372
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-02-05",
+        "count": 20,
+        "observer_id": "obs_494",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.087669644350676,
+          45.69020712506406
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-06-16",
+        "count": 12,
+        "observer_id": "obs_329",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.471361847986653,
+          -32.38773251442155
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-03-24",
+        "count": 9,
+        "observer_id": "obs_282",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.476720701041064,
+          -22.65908445181973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-05-12",
+        "count": 9,
+        "observer_id": "obs_755",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": null,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.075352487058478,
+          63.45404587928526
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-01-05",
+        "count": 9,
+        "observer_id": "obs_651",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 50,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.868625786550325,
+          49.65318433475524
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-03-17",
+        "count": 1,
+        "observer_id": "obs_942",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.6375656968739065,
+          60.08147481441662
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-04-14",
+        "count": 12,
+        "observer_id": "obs_260",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.984640538858876,
+          35.707887611021086
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-04-23",
+        "count": 19,
+        "observer_id": "obs_223",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.10630834971094,
+          38.93804156389495
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-04-28",
+        "count": 20,
+        "observer_id": "obs_276",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.0713767828822895,
+          40.70116949163005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2024-10-05",
+        "count": 11,
+        "observer_id": "obs_426",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 50,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.8141445189951,
+          10.58277910115287
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2025-03-23",
+        "count": 12,
+        "observer_id": "obs_651",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.56509160278926,
+          50.838520511701205
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2024-10-26",
+        "count": 6,
+        "observer_id": "obs_296",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.7914435440853396,
+          61.63191610493308
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-07-20",
+        "count": 20,
+        "observer_id": "obs_727",
+        "data_source": "GBIF",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.4773663206917185,
+          67.12452194232077
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-02-04",
+        "count": 19,
+        "observer_id": "obs_435",
+        "data_source": "GBIF",
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.13427018800577,
+          14.563624213237766
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-07-06",
+        "count": 1,
+        "observer_id": "obs_797",
+        "data_source": "VectorBase",
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.887085614645393,
+          44.82580523302259
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2025-04-24",
+        "count": 2,
+        "observer_id": "obs_355",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.50939750376205,
+          -3.9927023083967628
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-08-30",
+        "count": 5,
+        "observer_id": "obs_503",
+        "data_source": "GBIF",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.979219703480688,
+          -22.77748064477567
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-06-24",
+        "count": 16,
+        "observer_id": "obs_984",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 10,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.50440413308206,
+          56.13723237698906
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-05-05",
+        "count": 11,
+        "observer_id": "obs_449",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.734028892522188,
+          60.880186965835556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2025-04-19",
+        "count": 1,
+        "observer_id": "obs_336",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.87620544044582,
+          61.95650985686474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2024-06-02",
+        "count": 10,
+        "observer_id": "obs_755",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": 50,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.650754423283004,
+          42.27938396550619
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2024-09-12",
+        "count": 17,
+        "observer_id": "obs_462",
+        "data_source": "GBIF",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.016433989906815,
+          64.40423590527692
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2025-05-17",
+        "count": 12,
+        "observer_id": "obs_542",
+        "data_source": "VectorBase",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.69174571547286,
+          8.403994121480824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-24",
+        "count": 17,
+        "observer_id": "obs_483",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.178205171744363,
+          54.17210128211167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2024-12-17",
+        "count": 19,
+        "observer_id": "obs_325",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.494622706694297,
+          62.33998700725401
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-07-21",
+        "count": 9,
+        "observer_id": "obs_415",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.282810059453453,
+          -11.889920078908304
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-01-21",
+        "count": 12,
+        "observer_id": "obs_544",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": null,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.651841742010376,
+          45.27973034686828
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-10-17",
+        "count": 15,
+        "observer_id": "obs_567",
+        "data_source": "GBIF",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.468166183340738,
+          -8.16748844284141
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2025-01-10",
+        "count": 11,
+        "observer_id": "obs_254",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.653104578659658,
+          41.69074335567713
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-02-05",
+        "count": 17,
+        "observer_id": "obs_343",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.160572958541884,
+          -6.010533100051674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2025-01-24",
+        "count": 7,
+        "observer_id": "obs_266",
+        "data_source": "GBIF",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.48709729699123,
+          44.55139028570152
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-29",
+        "count": 15,
+        "observer_id": "obs_139",
+        "data_source": "GBIF",
+        "location_accuracy_m": 100,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1086669384063654,
+          51.8853420921359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-12-04",
+        "count": 7,
+        "observer_id": "obs_225",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 50,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -11.004351285659961,
+          -23.733510035813616
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-03-18",
+        "count": 12,
+        "observer_id": "obs_656",
+        "data_source": "GBIF",
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.78964631024788,
+          59.977532888093094
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-06-11",
+        "count": 13,
+        "observer_id": "obs_547",
+        "data_source": "Local Survey Team A",
+        "location_accuracy_m": 10,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -14.913612306537885,
+          -2.4524346225776696
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culiseta annulata",
+        "observation_date": "2024-09-04",
+        "count": 9,
+        "observer_id": "obs_321",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.780366064982267,
+          55.08406486830908
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Culex pipiens",
+        "observation_date": "2024-11-10",
+        "count": 8,
+        "observer_id": "obs_647",
+        "data_source": "Research Study XYZ",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.71777252965315,
+          47.319994055820246
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2025-02-23",
+        "count": 17,
+        "observer_id": "obs_967",
+        "data_source": "GBIF",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.48167988863615,
+          21.372359708452603
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-07-20",
+        "count": 14,
+        "observer_id": "obs_942",
+        "data_source": "iNaturalist",
+        "location_accuracy_m": 5,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.16078363447034,
+          9.494370447251349
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes aegypti",
+        "observation_date": "2024-10-17",
+        "count": 6,
+        "observer_id": "obs_259",
+        "data_source": "VectorBase",
         "location_accuracy_m": 100,
         "notes": "Near standing water."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          44.01883254463047,
-          -8.57506170343585
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-01-16",
-        "count": 14,
-        "observer_id": "obs_170",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 5,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          17.177626792326777,
-          -2.846704328581403
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-05-12",
-        "count": 14,
-        "observer_id": "obs_350",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          39.038455200577616,
-          11.84687935317173
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2025-03-04",
-        "count": 10,
-        "observer_id": "obs_787",
-        "data_source": "GBIF",
-        "location_accuracy_m": 10,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.0209285106705,
-          -6.322221390637512
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-05-10",
-        "count": 11,
-        "observer_id": "obs_184",
-        "data_source": "GBIF",
-        "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.194033121346557,
-          46.156595103720235
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-07-04",
-        "count": 14,
-        "observer_id": "obs_176",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          14.396438367030544,
-          40.3894845880273
+          137.1708371348331,
+          28.494566515141756
         ]
       }
     },
@@ -1639,237 +1867,28 @@
       "type": "Feature",
       "properties": {
         "species": "Culex pipiens",
-        "observation_date": "2024-07-24",
+        "observation_date": "2025-02-15",
         "count": 15,
-        "observer_id": "obs_272",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 5,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          16.19501650037884,
-          36.31770795216533
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-10-23",
-        "count": 1,
-        "observer_id": "obs_299",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          12.937004455838604,
-          55.55978334395775
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2024-10-10",
-        "count": 12,
-        "observer_id": "obs_705",
+        "observer_id": "obs_694",
         "data_source": "Research Study XYZ",
         "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.865455128530137,
-          46.81096623133361
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-05-17",
-        "count": 20,
-        "observer_id": "obs_105",
-        "data_source": "GBIF",
-        "location_accuracy_m": 50,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          9.19997100958592,
-          67.45441964310467
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-02-11",
-        "count": 13,
-        "observer_id": "obs_300",
-        "data_source": "GBIF",
-        "location_accuracy_m": null,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          39.78142576785434,
-          38.82214611135703
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-19",
-        "count": 9,
-        "observer_id": "obs_747",
-        "data_source": "Local Survey Team A",
-        "location_accuracy_m": 5,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          45.46481925424452,
-          -20.073684212323315
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-01-18",
-        "count": 16,
-        "observer_id": "obs_625",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 50,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.066458800595301,
-          44.647301104951154
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2025-04-12",
-        "count": 13,
-        "observer_id": "obs_406",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          36.09091691916736,
-          62.18692256710304
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-06-14",
-        "count": 17,
-        "observer_id": "obs_469",
-        "data_source": "iNaturalist",
-        "location_accuracy_m": 5,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -13.784021855086454,
-          -15.91859382691365
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Culiseta annulata",
-        "observation_date": "2025-03-31",
-        "count": 7,
-        "observer_id": "obs_640",
-        "data_source": "Research Study XYZ",
-        "location_accuracy_m": null,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.2354435489774858,
-          60.279318099464845
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-03-20",
-        "count": 13,
-        "observer_id": "obs_707",
-        "data_source": "VectorBase",
-        "location_accuracy_m": null,
         "notes": ""
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -8.385960800396344,
-          38.16532224922812
+          38.35358440970464,
+          64.21477706737844
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "species": "Culex pipiens",
-        "observation_date": "2024-09-12",
-        "count": 14,
-        "observer_id": "obs_330",
-        "data_source": "VectorBase",
-        "location_accuracy_m": 50,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.703685752506942,
-          63.285375133522194
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-16",
-        "count": 3,
-        "observer_id": "obs_337",
+        "species": "Culiseta annulata",
+        "observation_date": "2024-05-22",
+        "count": 11,
+        "observer_id": "obs_163",
         "data_source": "GBIF",
         "location_accuracy_m": null,
         "notes": "Adult female found."
@@ -1877,27 +1896,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -12.521400646332493,
-          7.485799116675693
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes aegypti",
-        "observation_date": "2024-07-07",
-        "count": 1,
-        "observer_id": "obs_642",
-        "data_source": "GBIF",
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          107.88484602035729,
-          15.873607918318676
+          -0.577478046621513,
+          43.24582455328891
         ]
       }
     }

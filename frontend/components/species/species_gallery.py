@@ -89,8 +89,8 @@ def SpeciesGalleryPageComponent():
     # }
     # """)
 
-    with solara.AppBar():  # Keep if you have an AppBar
-        solara.lab.ThemeToggle()  # Keep if used
+    # with solara.AppBar():  # Keep if you have an AppBar
+    #     solara.lab.ThemeToggle()  # Keep if used
 
     search_query, set_search_query = solara.use_state("")
 
@@ -166,8 +166,8 @@ def SpeciesGalleryPageComponent():
                 style="flex-grow: 1;",
             )
             solara.Button(
-                "Filters",
-                icon_name="mdi-filter-variant",
+                "Search",
+                icon_name="mdi-magnify",
                 outlined=True,
                 color=COLOR_PRIMARY,
                 # dense=True, # dense might make it too small

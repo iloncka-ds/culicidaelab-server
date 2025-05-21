@@ -23,8 +23,8 @@ from ...config import (
 
 @solara.component
 def DiseaseGalleryPageComponent():
-    with solara.AppBar():
-        solara.lab.ThemeToggle()
+    # with solara.AppBar():
+    #     solara.lab.ThemeToggle()
 
     search_query, set_search_query = solara.use_state("")
 
@@ -100,8 +100,8 @@ def DiseaseGalleryPageComponent():
                 style="flex-grow: 1;",
             )
             solara.Button(
-                "Filters",
-                icon_name="mdi-filter-variant",
+                "Search",
+                icon_name="mdi-magnify",
                 outlined=True,
                 color=COLOR_PRIMARY,
                 on_click=lambda: solara.Warning("Filter panel not yet implemented."),
@@ -114,28 +114,28 @@ def DiseaseGalleryPageComponent():
                 f"Could not load diseases: {disease_list_error_reactive.value}",
                 icon="mdi-alert-circle-outline",
             )
-        elif displayed_diseases:  # Check if list is not None
-            if not displayed_diseases:  # Empty list
-                solara.Info(
-                    "No diseases found matching your criteria.", icon="mdi-information-outline", style="margin: 16px;"
-                )
-            else:
-                with solara.ColumnsResponsive(
-                    default=[3, 3, 3, 3],
-                    large=[4, 4, 4],
-                    medium=[6, 6],
-                    small=[12],
-                    gutters="16px",
-                    classes=["pa-2"],
-                ):
-                    for disease_item in displayed_diseases:
-                        # item_id = disease_item.get("id")
-                        # if item_id is None:
-                        #     print(
-                        #         f"Warning: Disease item {disease_item.get('name', 'Unknown')} is missing an 'id'. Card will not be clickable for details."
-                        #     )
-                        # # Render the disease card
-                        DiseaseCard(disease_item)
+          # Check if list is not None
+        elif not displayed_diseases:  # Empty list
+            solara.Info(
+                "No diseases found matching your criteria.", icon="mdi-information-outline", style="margin: 16px;"
+            )
+        elif displayed_diseases:
+            with solara.ColumnsResponsive(
+                default=[3, 3, 3, 3],
+                large=[4, 4, 4],
+                medium=[6, 6],
+                small=[12],
+                gutters="16px",
+                classes=["pa-2"],
+            ):
+                for disease_item in displayed_diseases:
+                    # item_id = disease_item.get("id")
+                    # if item_id is None:
+                    #     print(
+                    #         f"Warning: Disease item {disease_item.get('name', 'Unknown')} is missing an 'id'. Card will not be clickable for details."
+                    #     )
+                    # # Render the disease card
+                    DiseaseCard(disease_item)
         else:  # displayed_diseases is None (should not happen if initialized to [])
             solara.Info(
                 "Initializing disease data or an unexpected issue occurred.",

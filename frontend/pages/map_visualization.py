@@ -23,6 +23,10 @@ from ..config import load_themes
 
 @solara.component
 def Page():
+    with solara.AppBar():
+        solara.lab.ThemeToggle()
+    with solara.AppBarTitle():
+        solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
     theme = load_themes(solara.lab.theme)  # If you're using custom themes
 
     filters_panel_value, set_filters_panel_value = solara.use_state(

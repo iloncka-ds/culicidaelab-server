@@ -11,6 +11,7 @@ class SpeciesBase(BaseModel):
     key_characteristics: Optional[List[str]] = []
     geographic_regions: Optional[List[str]] = []
     related_diseases: Optional[List[str]] = []
+    related_diseases_info: Optional[List[str]] = []
     habitat_preferences: Optional[List[str]] = []
 
 

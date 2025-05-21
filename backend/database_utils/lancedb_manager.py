@@ -18,6 +18,7 @@ SPECIES_SCHEMA = pa.schema(
         pa.field("key_characteristics", pa.list_(pa.string())),
         pa.field("geographic_regions", pa.list_(pa.string())),
         pa.field("related_diseases", pa.list_(pa.string())),
+        pa.field("related_diseases_info", pa.list_(pa.string())),
         pa.field("habitat_preferences", pa.list_(pa.string())),
     ]
 )

@@ -637,6 +637,7 @@ dev = [
     { name = "docxtpl" },
     { name = "ipykernel" },
     { name = "isort" },
+    { name = "l10n", extra = ["cli"] },
     { name = "mypy" },
     { name = "openpyxl" },
     { name = "pandas" },
@@ -672,6 +673,7 @@ dev = [
     { name = "docxtpl", specifier = ">=0.20.0" },
     { name = "ipykernel", specifier = ">=6.29.5" },
     { name = "isort", specifier = ">=5.13.2" },
+    { name = "l10n", extras = ["cli"], specifier = ">=0.1.5" },
     { name = "mypy", specifier = ">=1.13.0" },
     { name = "openpyxl", specifier = ">=3.1.5" },
     { name = "pandas", specifier = ">=2.2.3" },
@@ -1334,6 +1336,22 @@ wheels = [
 ]
 
 [[package]]
+name = "l10n"
+version = "0.1.5"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/18/fa/28b6097db2a4996fd8c9f08f10a9f2aab7238c17efb08f3f9c2e466f50ac/l10n-0.1.5.tar.gz", hash = "sha256:7acf4cfca9308aaf29153403ca79f54627a99f7087183af3091363737b2027a4", size = 29256 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e9/8e/0b33e1dfc46fd03bc8608348f56654c48fd9fde77dbec95e03a543d3b318/l10n-0.1.5-py3-none-any.whl", hash = "sha256:182496aa52cb8774cc1de42f0343ef3f90ddb5251e968c4c6e1dbab60aff5fef", size = 17868 },
+]
+
+[package.optional-dependencies]
+cli = [
+    { name = "mypy" },
+    { name = "polib" },
+    { name = "tomli" },
+]
+
+[[package]]
 name = "lancedb"
 version = "0.22.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1955,6 +1973,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/96/2d/02d4312c973c6050a18b314a5ad0b3210edb65a906f868e31c111dede4a6/pluggy-1.5.0.tar.gz", hash = "sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1", size = 67955 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/88/5f/e351af9a41f866ac3f1fac4ca0613908d9a41741cfcf2228f4ad853b697d/pluggy-1.5.0-py3-none-any.whl", hash = "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669", size = 20556 },
+]
+
+[[package]]
+name = "polib"
+version = "1.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/10/9a/79b1067d27e38ddf84fe7da6ec516f1743f31f752c6122193e7bce38bdbf/polib-1.2.0.tar.gz", hash = "sha256:f3ef94aefed6e183e342a8a269ae1fc4742ba193186ad76f175938621dbfc26b", size = 161658 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6b/99/45bb1f9926efe370c6dbe324741c749658e44cb060124f28dad201202274/polib-1.2.0-py2.py3-none-any.whl", hash = "sha256:1c77ee1b81feb31df9bca258cbc58db1bbb32d10214b173882452c73af06d62d", size = 20634 },
 ]
 
 [[package]]
