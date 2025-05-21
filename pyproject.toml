@@ -10,6 +10,7 @@ dependencies = [
     "fastapi>=0.115.12",
     "httpx>=0.28.1",
     "ipyleaflet>=0.19.2",
+    "l10n[cli]>=0.1.5",
     "lancedb>=0.22.0",
     "pandas>=2.2.3",
     "plotly>=6.0.1",
