@@ -1,6 +1,5 @@
 import solara
 import i18n
-from typing import List, Optional
 
 # Supported locales with their display names
 LOCALES = {
@@ -16,8 +15,6 @@ def get_current_locale() -> str:
 
 def set_locale(locale: str):
     i18n.set("locale", locale)
-    # You might want to store this in browser localStorage or a cookie for persistence
-    # solara.reload()  # Uncomment if you need to force a full reload
 
 
 @solara.component
