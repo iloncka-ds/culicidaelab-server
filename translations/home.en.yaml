@@ -1,32 +1,31 @@
-en:
-  home:
-    app_title: "CulicidaeLab"
-    welcome: "Welcome to CulicidaeLab"
-    intro: |
-      CulicidaeLab is your comprehensive platform for mosquito research, surveillance, and data analysis.
-      Our tools and resources are designed to empower researchers, public health officials, and enthusiasts
-      in understanding and combating mosquito-borne diseases.
-    disclaimer: |
-      **Disclaimer:** This platform is intended for educational and research purposes only.
-      It is not a substitute for professional medical advice or public health directives.
-    footer: |
-      ---
-      CulicidaeLab development is supported by a grant from the
-      [Innovation Assistance Foundation (Фонд содействия инновациям)](https://fasie.ru/).
-    cards:
-      predict:
-        title: "Predict Mosquito Species"
-        description: "Upload an image of a mosquito and get an AI-powered species prediction. Contribute your findings by submitting observation data."
-        button: "Start Prediction"
-      visualize:
-        title: "Visualize Mosquito Data"
-        description: "Explore interactive maps showing mosquito distribution, observation points, modeled probabilities, and breeding sites."
-        button: "Explore Maps"
-      species:
-        title: "Browse Species Database"
-        description: "Access detailed information about various mosquito species, including characteristics, vector status, and related diseases."
-        button: "View Species"
-      diseases:
-        title: "Explore Disease Information"
-        description: "Learn about mosquito-borne diseases, their symptoms, prevention, and the mosquito species that transmit them."
-        button: "Learn About Diseases"
+
+app_title: "CulicidaeLab"
+welcome: "Welcome to CulicidaeLab"
+intro: |
+  CulicidaeLab is your comprehensive platform for mosquito research, surveillance, and data analysis.
+  Our tools and resources are designed to empower researchers, public health officials, and enthusiasts
+  in understanding and combating mosquito-borne diseases.
+disclaimer: |
+  **Disclaimer:** This platform is intended for educational and research purposes only.
+  It is not a substitute for professional medical advice or public health directives.
+footer: |
+  ---
+  CulicidaeLab development is supported by a grant from the
+  [Innovation Assistance Foundation (Фонд содействия инновациям)](https://fasie.ru/).
+cards:
+  predict:
+    title: "Predict Mosquito Species"
+    description: "Upload an image of a mosquito and get an AI-powered species prediction. Contribute your findings by submitting observation data."
+    button: "Start Prediction"
+  visualize:
+    title: "Visualize Mosquito Data"
+    description: "Explore interactive maps showing mosquito distribution, observation points, modeled probabilities, and breeding sites."
+    button: "Explore Maps"
+  species:
+    title: "Browse Species Database"
+    description: "Access detailed information about various mosquito species, including characteristics, vector status, and related diseases."
+    button: "View Species"
+  diseases:
+    title: "Explore Disease Information"
+    description: "Learn about mosquito-borne diseases, their symptoms, prevention, and the mosquito species that transmit them."
+    button: "Learn About Diseases"
