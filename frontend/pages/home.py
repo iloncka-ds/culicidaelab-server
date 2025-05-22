@@ -1,16 +1,24 @@
 import solara
 import solara.routing
 from solara.alias import rv  # For potential direct Vuetify component use, though not strictly needed here
-
+from pathlib import Path
 # Attempt to import config for styling, ensure paths are correct if used
 from ..config import load_themes
 from frontend.components.common.locale_selector import LocaleSelector
+
 import i18n
 
+def setup_i18n():
+    i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
+    i18n.set("locale", "en")
+    i18n.set("fallback", "en")
+    # i18n.set("skip_locale_root_data", True)
+    i18n.set("filename_format", "{namespace}.{locale}.{format}")
 
 @solara.component
 def Page():
     theme = load_themes(solara.lab.theme)
+    setup_i18n()
     with solara.AppBar():
         solara.v.Spacer()
         LocaleSelector()
