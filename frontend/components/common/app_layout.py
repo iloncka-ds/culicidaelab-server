@@ -2,9 +2,6 @@ import solara
 from typing import List, Optional
 
 
-
-
-
 class NavRoute(solara.Route):
     icon_name: Optional[str] = None
 

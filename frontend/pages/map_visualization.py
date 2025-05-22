@@ -19,12 +19,14 @@ from ..state import (
 )
 from ..config import COLOR_BACKGROUND  # Keep if used
 from ..config import load_themes
-
+from frontend.components.common.locale_selector import LocaleSelector
+import i18n
 
 @solara.component
 def Page():
     with solara.AppBar():
-        solara.lab.ThemeToggle()
+        solara.v.Spacer()
+        LocaleSelector()
     with solara.AppBarTitle():
         solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
     theme = load_themes(solara.lab.theme)  # If you're using custom themes
