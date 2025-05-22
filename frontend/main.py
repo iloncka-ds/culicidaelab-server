@@ -3,6 +3,8 @@ import solara.lab
 
 from typing import List, Optional
 
+import i18n
+from pathlib import Path
 # Application imports
 import frontend.pages.home as home
 import frontend.pages.map_visualization as map_visualization
@@ -18,19 +20,27 @@ from frontend.state import (
     # filter_options_error_reactive   # Not directly used by AppInitializer for rendering
 )
 
-# --- Routes with Icons ---
-# To have icons, we can store them in a dictionary or extend solara.Route if needed.
-# For simplicity, let's use a dictionary to map paths to icons and labels for the sidebar.
-species_id: Optional[str] = None
+
+
+
+def setup_i18n():
+    i18n.load_path.append(str(Path(__file__).parent / "translations"))
+    i18n.set("locale", "en")
+    i18n.set("fallback", "en")
+    i18n.set("skip_locale_root_data", True)
+    i18n.set("filename_format", "{namespace}.{locale}.{format}")
+
+
+
 
 routes = [
-    solara.Route("/", component=home.Page, label="Home"),
-    solara.Route("predict", component=prediction.Page, label="Predict Species"),
-    solara.Route("map", component=map_visualization.Page, label="Map Visualization"),
+    solara.Route("/", component=home.Page, label=i18n.t("layout.home")),
+    solara.Route("predict", component=prediction.Page, label=i18n.t("layout.predict")),
+    solara.Route("map", component=map_visualization.Page, label=i18n.t("layout.map")),
     solara.Route(
         "species",
         component=species.Page,
-        label="Species Database",
+        label=i18n.t("layout.species"),
         children=[
             solara.Route(
                 path=":species_id",
@@ -41,7 +51,7 @@ routes = [
     solara.Route(
         "diseases",
         component=diseases.Page,
-        label="Disease Database",
+        label=i18n.t("layout.diseases"),
         children=[
             solara.Route(
                 path=":disease_id",
@@ -49,12 +59,9 @@ routes = [
             )
         ],
     ),
-    # solara.Route(
-    #     "info",
-    #     component=species_detail.Page,
-    #     label="Item Detail",
-    # ),
+
 ]
+
 
 @solara.component
 def AppInitializer():
@@ -70,7 +77,7 @@ def AppInitializer():
         solara.lab.use_task(fetch_filter_options)
         # Mark as initialized after the task is started
         set_initialized(True)
-
+    setup_i18n()
     return None
 
 

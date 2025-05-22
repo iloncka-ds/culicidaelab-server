@@ -12,12 +12,14 @@ from frontend.components.prediction.file_upload import FileUploadComponent, mock
 from frontend.components.prediction.location import LocationComponent
 from frontend.components.prediction.observation_form import ObservationFormComponent
 from frontend.components.species.species_card import SpeciesCard
-
+from frontend.components.common.locale_selector import LocaleSelector
+import i18n
 
 @solara.component
 def Page():
     with solara.AppBar():
-        solara.lab.ThemeToggle()
+        solara.v.Spacer()
+        LocaleSelector()
     with solara.AppBarTitle():
         solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
     # --- Page View Mode ---
