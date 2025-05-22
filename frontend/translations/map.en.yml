@@ -1,0 +1,7 @@
+en:
+  app_title: "CulicidaeLab"
+  panels:
+    filters:
+      title: "Filters"
+    legend:
+      title: "Legend"

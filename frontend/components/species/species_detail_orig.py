@@ -1,60 +1,33 @@
 import solara
 import solara.lab
-from solara.alias import rv
-from typing import List, Optional, cast, Dict, Any, Callable
+from solara.alias import rv  # Make sure rv is imported
+from typing import List, Optional, cast, Dict, Any, Callable  # typing.List is fine for type hints
 import asyncio
+
+# Updated config import to include DISEASE_DETAIL_ENDPOINT_TEMPLATE
 from ...config import SPECIES_DETAIL_ENDPOINT_TEMPLATE, DISEASE_DETAIL_ENDPOINT_TEMPLATE
 from ...state import fetch_api_data
 from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
 from ...state import selected_species_item_id
+
+# Import DiseaseCard to display related diseases
 from frontend.components.diseases.disease_card import DiseaseCard
-import i18n
 
-# Add translations
-i18n.add_translation("species.gallery_link", "Go to Species Gallery", locale="en")
-i18n.add_translation("species.error.load", "Could not load species details: %{error}", locale="en")
-i18n.add_translation("species.error.no_id", "No species ID specified.", locale="en")
-i18n.add_translation("species.error.not_found", 'Species details for "%{species_id}" not found or are unavailable.', locale="en")
-i18n.add_translation("species.labels.vector_status", "Vector Status: %{status}", locale="en")
-i18n.add_translation("species.sections.description", "Description", locale="en")
-i18n.add_translation("species.sections.characteristics", "Key Identifying Characteristics", locale="en")
-i18n.add_translation("species.sections.distribution", "Geographic Distribution", locale="en")
-i18n.add_translation("species.sections.diseases", "Related Diseases Transmitted", locale="en")
-i18n.add_translation("species.messages.no_description", "No description available.", locale="en")
-i18n.add_translation("species.messages.no_diseases", "No related diseases are listed for this species.", locale="en")
-i18n.add_translation(
-    "species.messages.disease_load_error",
-    "Related diseases are listed but could not be loaded. Please try again later.",
-    locale="en"
-)
-i18n.add_translation(
-    "species.messages.disease_unavailable", "Information on related diseases is currently unavailable.", locale="en"
-)
-
-# Russian translations
-i18n.add_translation("species.gallery_link", "К списку видов", locale="ru")
-i18n.add_translation("species.error.load", "Ошибка загрузки данных: %{error}", locale="ru")
-i18n.add_translation("species.error.no_id", "Идентификатор вида не указан.", locale="ru")
-i18n.add_translation("species.error.not_found", 'Данные для вида "%{species_id}" не найдены.', locale="ru")
-i18n.add_translation("species.labels.vector_status", "Статус переносчика: %{status}", locale="ru")
-i18n.add_translation("species.sections.description", "Описание", locale="ru")
-i18n.add_translation("species.sections.characteristics", "Ключевые характеристики", locale="ru")
-i18n.add_translation("species.sections.distribution", "Географическое распространение", locale="ru")
-i18n.add_translation("species.sections.diseases", "Переносимые заболевания", locale="ru")
-i18n.add_translation("species.messages.no_description", "Описание отсутствует.", locale="ru")
-i18n.add_translation("species.messages.no_diseases", "Связанные заболевания отсутствуют.", locale="ru")
-i18n.add_translation("species.messages.disease_load_error", "Ошибка загрузки связанных заболеваний.", locale="ru")
-i18n.add_translation("species.messages.disease_unavailable", "Информация о заболеваниях недоступна.", locale="ru")
+print("DEBUG: SPECIES_DETAIL.PY module loaded")
 
 
 @solara.component
 def SpeciesDetailPageComponent():
+    # with solara.AppBar():
+    #     solara.lab.ThemeToggle()
+
     species_id = selected_species_item_id.value
     router = solara.use_router()
 
     species_data, set_species_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
     loading, set_loading = solara.use_state(False)
     error, set_error = solara.use_state(cast(Optional[str], None))
+
     related_diseases_data, set_related_diseases_data = solara.use_state(cast(List[Dict[str, Any]], []))
     diseases_loading, set_diseases_loading = solara.use_state(False)
     diseases_error, set_diseases_error = solara.use_state(cast(Optional[str], None))
@@ -177,7 +150,7 @@ def SpeciesDetailPageComponent():
 
     with solara.Column(align="center", classes=["pa-4"], style="max-width: 900px; margin: auto;"):
         solara.Button(
-            i18n.t("species.gallery_link"),
+            "Go to Species Gallery",
             icon_name="mdi-arrow-left",
             text=True,
             outlined=True,
@@ -186,25 +159,33 @@ def SpeciesDetailPageComponent():
             on_click=lambda: selected_species_item_id.set(None),
         )
 
-        if loading:
+        if loading:  # Use .value for reactive variables in conditional rendering
+            print(f"DEBUG: SPECIES_DETAIL.PY - Rendering loading spinner for {species_id}")
             solara.SpinnerSolara(size="60px")
         elif error:
+            print(f"DEBUG: SPECIES_DETAIL.PY - Rendering error message: {error}")
             solara.Error(
-                i18n.t("species.error.load", error=error),
+                f"Could not load species details: {error}",
                 icon="mdi-alert-circle-outline",
                 style="margin-top: 20px;",
             )
         elif not species_id:
-            solara.Info(i18n.t("species.error.no_id"), icon="mdi-information-outline", style="margin-top: 20px;")
+            print(
+                f"DEBUG: SPECIES_DETAIL.PY - Rendering 'no species ID specified' because species_id is '{species_id}'"
+            )
+            solara.Info("No species ID specified.", icon="mdi-information-outline", style="margin-top: 20px;")
         elif not species_data:
+            print(f"DEBUG: SPECIES_DETAIL.PY - Rendering 'details not found' for {species_id} (data is None/empty)")
             solara.Info(
-                i18n.t("species.error.not_found", species_id=species_id),
+                f"Species details for '{species_id}' not found or are unavailable.",
                 icon="mdi-information-outline",
                 style="margin-top: 20px;",
             )
         else:
-            _species_data = species_data
-            solara.Title(i18n.t("species.title", name=_species_data.get("scientific_name")))
+            # Species details are loaded, render them
+            _species_data = species_data  # Use a local variable for the current value
+            print(f"DEBUG: SPECIES_DETAIL.PY - Rendering species data for: {_species_data.get('scientific_name')}")
+            solara.Title(f"Species Details: {_species_data.get('scientific_name')}")
             solara.Markdown(
                 f"# {_species_data.get('scientific_name', 'N/A')}",
                 style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-bottom: 5px;",
@@ -233,7 +214,6 @@ def SpeciesDetailPageComponent():
                         )
 
                     status_detail = str(_species_data.get("vector_status", "Unknown")).lower()
-
                     status_color_detail, text_color_detail = "blue-grey", "white"
                     if status_detail == "high":
                         status_color_detail = "red"
@@ -244,9 +224,7 @@ def SpeciesDetailPageComponent():
                     elif status_detail == "unknown":
                         status_color_detail, text_color_detail = "grey", "black"
                     rv.Chip(
-                        children=[
-                            i18n.t("species.labels.vector_status", status=_species_data.get("vector_status", "Unknown"))
-                        ],
+                        children=[f"Vector Status: {_species_data.get('vector_status', 'Unknown')}"],
                         color=status_color_detail,
                         text_color=text_color_detail,
                         class_="mt-3 pa-2 elevation-1",
@@ -255,33 +233,48 @@ def SpeciesDetailPageComponent():
 
                 with solara.Column():
                     if desc := _species_data.get("description"):
-                        solara.Markdown(f"### {i18n.t('species.sections.description')}\n{desc}")
+                        solara.Markdown(f"### Description\n{desc}")
                     else:
-                        solara.Text(i18n.t("species.messages.no_description"), style="font-style: italic; color: #777;")
+                        solara.Text("No description available.", style="font-style: italic; color: #777;")
 
                     if chars := _species_data.get("key_characteristics"):
-                        solara.Markdown(f"### {i18n.t('species.sections.characteristics')}")
-                        with rv.List(dense=True, style_="padding-left:0; list-style-position: inside;"):
-                            for char_item in chars:
-                                rv.ListItem(children=[f"• {char_item}"], style_="padding-left:0; margin-bottom:2px;")
+                        solara.Markdown("### Key Identifying Characteristics")
+                        # --- CORRECTED LIST RENDERING ---
+                        with rv.List(  # Changed from solara.List
+                            dense=True,
+                            style_="padding-left:0; list-style-position: inside;",  # Changed style_ to style
+                        ):
+                            for char_item in chars:  # Renamed char to char_item to avoid conflict if char is imported
+                                rv.ListItem(
+                                    children=[f"• {char_item}"], style_="padding-left:0; margin-bottom:2px;"
+                                )  # Changed from solara.ListItem, style_ to style
+                        # --- END OF CORRECTION ---
 
                     if regions := _species_data.get("geographic_regions"):
-                        solara.Markdown(f"### {i18n.t('species.sections.distribution')}\n{', '.join(regions)}")
+                        # Ensure regions is a list of strings before joining
+                        if isinstance(regions, list) and all(isinstance(r, str) for r in regions):
+                            solara.Markdown(f"### Geographic Distribution\n{', '.join(regions)}")
+                        elif isinstance(
+                            regions, list
+                        ):  # If it's a list but not all strings, display differently or log
+                            solara.Markdown(f"### Geographic Distribution\n" + "; ".join(map(str, regions)))
 
             solara.Markdown(
-                f"## {i18n.t('species.sections.diseases')}",
+                "## Related Diseases Transmitted",
                 style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-top: 30px; margin-bottom: 15px;",
             )
 
             if diseases_loading:
                 solara.SpinnerSolara(size="40px")
             elif diseases_error:
-                solara.Error(i18n.t("species.messages.disease_load_error"), icon="mdi-alert-circle-outline")
+                solara.Error(
+                    f"Could not load related diseases: {diseases_error}", icon="mdi-alert-circle-outline"
+                )
             elif not related_diseases_data and not _species_data.get("related_diseases"):
-                solara.Info(i18n.t("species.messages.no_diseases"))
+                solara.Info("No related diseases are listed for this species.")
             elif not related_diseases_data and _species_data.get("related_diseases"):
                 solara.Warning(
-                    i18n.t("species.messages.disease_load_error"),
+                    "Related diseases are listed but could not be loaded. Please try again later.",
                     icon="mdi-alert-outline",
                 )
             elif related_diseases_data:
@@ -297,4 +290,4 @@ def SpeciesDetailPageComponent():
                     for disease_item in related_diseases_data:
                         DiseaseCard(disease_item)
             else:
-                solara.Info(i18n.t("species.messages.disease_unavailable"))
+                solara.Info("Information on related diseases is currently unavailable.")

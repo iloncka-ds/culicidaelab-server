@@ -1,0 +1,27 @@
+ru:
+  app_title: "CulicidaeLab"
+  page_title: "Определение вида комаров и наблюдения"
+  cards:
+    upload:
+      title: "1. Загрузите изображение комара"
+    location:
+      title: "2. Укажите место наблюдения"
+    observation:
+      title: "3. Запишите детали наблюдения"
+  messages:
+    success:
+      upload_predicted: "Изображение загружено и обработано: %{result}"
+      observation_recorded: "Наблюдение успешно записано!"
+    info:
+      upload_first: "Сначала загрузите изображение для активации формы наблюдения."
+      waiting_prediction: "Ожидание завершения определения вида..."
+    warning:
+      no_prediction: "Определение вида не удалось. Невозможно отправить наблюдение без результата."
+      no_prediction_data: "Данные определения вида недоступны для этого наблюдения."
+    error:
+      generic: "Ошибка: %{message}"
+  labels:
+    uploaded_image: "### Загруженное изображение"
+    prediction_details: "### Детали определения вида"
+  buttons:
+    submit_another: "Добавить новое наблюдение"

@@ -7,42 +7,31 @@ from ...config import DISEASE_DETAIL_ENDPOINT_TEMPLATE, SPECIES_LIST_ENDPOINT
 from ...state import fetch_api_data, selected_disease_item_id
 from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
 from frontend.components.species.species_card import SpeciesCard
-import i18n
 
-# Add translations
-i18n.add_translation("disease.gallery_link", "Go to Disease Gallery", locale="en")
-i18n.add_translation("disease.error.load", "Could not load disease details: %{error}", locale="en")
-i18n.add_translation("disease.error.no_id", "No disease ID specified in the URL.", locale="en")
-i18n.add_translation("disease.error.not_found", 'Disease details for "%{disease_id}" not found or are unavailable.', locale="en")
-i18n.add_translation("disease.sections.description", "Description", locale="en")
-i18n.add_translation("disease.sections.symptoms", "Symptoms", locale="en")
-i18n.add_translation("disease.sections.treatment", "Treatment", locale="en")
-i18n.add_translation("disease.sections.prevention", "Prevention", locale="en")
-i18n.add_translation("disease.sections.vectors", "Vector Species", locale="en")
-i18n.add_translation("disease.labels.prevalence", "Prevalence: %{prevalence}", locale="en")
-i18n.add_translation("disease.messages.no_description", "No description available.", locale="en")
-i18n.add_translation("disease.messages.no_vectors", "No known vector species for this disease.", locale="en")
-i18n.add_translation("disease.errors.vector_load", "Could not load vector species: %{error}", locale="en")
-
-# Russian translations
-i18n.add_translation("disease.gallery_link", "К списку заболеваний", locale="ru")
-i18n.add_translation("disease.error.load", "Не удалось загрузить данные: %{error}", locale="ru")
-i18n.add_translation("disease.error.no_id", "Идентификатор заболевания не указан.", locale="ru")
-i18n.add_translation("disease.error.not_found", 'Данные для заболевания "%{disease_id}" не найдены.', locale="ru")
-i18n.add_translation("disease.sections.description", "Описание", locale="ru")
-i18n.add_translation("disease.sections.symptoms", "Симптомы", locale="ru")
-i18n.add_translation("disease.sections.treatment", "Лечение", locale="ru")
-i18n.add_translation("disease.sections.prevention", "Профилактика", locale="ru")
-i18n.add_translation("disease.sections.vectors", "Переносчики заболевания", locale="ru")
-i18n.add_translation("disease.labels.prevalence", "Распространенность: %{prevalence}", locale="ru")
-i18n.add_translation("disease.messages.no_description", "Описание отсутствует.", locale="ru")
-i18n.add_translation("disease.messages.no_vectors", "Известные переносчики отсутствуют.", locale="ru")
-i18n.add_translation("disease.errors.vector_load", "Ошибка загрузки переносчиков: %{error}", locale="ru")
+print("DEBUG: DISEASE_DETAIL.PY module loaded")
 
 
 @solara.component
 def DiseaseDetailPageComponent():
+    # with solara.AppBar():
+    #     solara.lab.ThemeToggle()
+
     disease_id = selected_disease_item_id.value
+    # router = solara.use_router()
+    # # Get the disease ID from the URL path
+    # path_parts = router.parts
+
+    # print(f"DEBUG: DISEASE_DETAIL.PY - router parts {router.parts}")
+    # # Parse the disease ID from the URL path (format: /diseases/{id})
+    # if len(path_parts) >= 2 and path_parts[0] == "diseases":
+    #     try:
+    #         disease_id = path_parts[1]
+    #         print(f"DEBUG: DISEASE_DETAIL.PY - {disease_id}")
+    #     except ValueError:
+    #         print(f"DEBUG: DISEASE_DETAIL.PY - router parts {router.parts}")
+
+
+    # State for this page
     disease_data, set_disease_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
     vectors_data, set_vectors_data = solara.use_state(cast(List[Dict[str, Any]], []))
     loading, set_loading = solara.use_state(False)
@@ -94,7 +83,9 @@ def DiseaseDetailPageComponent():
                             # We'll need to implement a fetch for each vector or create a batch API endpoint
                             vector_species = []
                             for vector_id in vectors_ids:
-                                vector_data = await fetch_api_data(f"{SPECIES_LIST_ENDPOINT}/{vector_id}")
+                                vector_data = await fetch_api_data(
+                                    f"{SPECIES_LIST_ENDPOINT}/{vector_id}"
+                                )
                                 if vector_data:
                                     vector_species.append(vector_data)
 
@@ -135,33 +126,44 @@ def DiseaseDetailPageComponent():
     # such that 'disease_id' changes, this effect will re-run.
     solara.use_effect(_fetch_disease_detail_effect, [disease_id])
 
+    # --- Page Layout ---
     with solara.Column(align="center", classes=["pa-4"], style="max-width: 900px; margin: auto;"):
+        # with solara.Link("/diseases"):
         solara.Button(
-            i18n.t("disease.gallery_link"),
+            "Go to Disease Gallery",
             icon_name="mdi-arrow-left",
             text=True,
             outlined=True,
             color=COLOR_PRIMARY,
             classes=["mb-4 align-self-start"],
-            on_click=lambda: selected_disease_item_id.set(None),
+            on_click=lambda: selected_disease_item_id.set(None)
         )
 
         if loading:
+            print(f"DEBUG: DISEASE_DETAIL.PY - Rendering loading spinner for {disease_id}")
             solara.SpinnerSolara(size="60px")
         elif error:
+            print(f"DEBUG: DISEASE_DETAIL.PY - Rendering error message: {error}")
             solara.Error(
-                i18n.t("disease.error.load", error=error), icon="mdi-alert-circle-outline", style="margin-top: 20px;"
+                f"Could not load disease details: {error}", icon="mdi-alert-circle-outline", style="margin-top: 20px;"
             )
         elif not disease_id:
-            solara.Info(i18n.t("disease.error.no_id"), icon="mdi-information-outline", style="margin-top: 20px;")
-        elif not disease_data:
+            print(
+                f"DEBUG: DISEASE_DETAIL.PY - Rendering 'no disease ID specified' because disease_id is '{disease_id}'"
+            )
             solara.Info(
-                i18n.t("disease.error.not_found", disease_id=disease_id),
+                "No disease ID specified in the URL.", icon="mdi-information-outline", style="margin-top: 20px;"
+            )
+        elif not disease_data:
+            print(f"DEBUG: DISEASE_DETAIL.PY - Rendering 'details not found' for {disease_id} (data is None/empty)")
+            solara.Info(
+                f"Disease details for '{disease_id}' not found or are unavailable.",
                 icon="mdi-information-outline",
                 style="margin-top: 20px;",
             )
         else:
-            solara.Title(i18n.t("disease.title", name=disease_data.get("name")))
+            print(f"DEBUG: DISEASE_DETAIL.PY - Rendering disease data for: {disease_data.get('name')}")
+            solara.Title(f"Disease Details: {disease_data.get('name')}")
             solara.Markdown(
                 f"# {disease_data.get('name', 'N/A')}",
                 style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-bottom: 20px;",
@@ -169,7 +171,7 @@ def DiseaseDetailPageComponent():
             rv.Divider(style="margin: 15px 0;")
 
             with solara.Row(style="margin-top:20px; gap: 20px;", justify="center"):
-                with solara.Column(align="center"):
+                with solara.Column(align="center"):  # Image column
                     if disease_data.get("image_url"):
                         rv.Img(
                             src=disease_data["image_url"],
@@ -185,42 +187,43 @@ def DiseaseDetailPageComponent():
                             style="display:block; margin:auto; width:100%; max-height:300px; border: 1px dashed #ccc; border-radius: 8px; padding: 20px;",
                         )
 
+                    # Display prevalence as a chip
                     if prevalence := disease_data.get("prevalence"):
                         rv.Chip(
-                            children=[i18n.t("disease.labels.prevalence", prevalence=prevalence)],
+                            children=[f"Prevalence: {prevalence}"],
                             color="blue",
                             text_color="white",
                             class_="mt-3 pa-2 elevation-1",
                             style="font-size: 1em;",
                         )
 
-                with solara.Column():
-                    sections = [
-                        ("description", i18n.t("disease.sections.description")),
-                        ("symptoms", i18n.t("disease.sections.symptoms")),
-                        ("treatment", i18n.t("disease.sections.treatment")),
-                        ("prevention", i18n.t("disease.sections.prevention")),
-                    ]
+                with solara.Column():  # Text details column
+                    if desc := disease_data.get("description"):
+                        solara.Markdown(f"### Description\n{desc}")
+                    else:
+                        solara.Text("No description available.", style="font-style: italic; color: #777;")
 
-                    for key, title in sections:
-                        if content := disease_data.get(key):
-                            solara.Markdown(f"### {title}\n{content}")
-                        else:
-                            solara.Text(
-                                i18n.t("disease.messages.no_description"), style="font-style: italic; color: #777;"
-                            )
+                    if symptoms := disease_data.get("symptoms"):
+                        solara.Markdown(f"### Symptoms\n{symptoms}")
 
+                    if treatment := disease_data.get("treatment"):
+                        solara.Markdown(f"### Treatment\n{treatment}")
+
+                    if prevention := disease_data.get("prevention"):
+                        solara.Markdown(f"### Prevention\n{prevention}")
+
+            # Vector Mosquito Species Section
             solara.Markdown(
-                f"## {i18n.t('disease.sections.vectors')}",
+                "## Vector Species",
                 style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-top: 30px; margin-bottom: 15px;",
             )
 
             if vectors_loading:
                 solara.SpinnerSolara(size="40px")
             elif vectors_error:
-                solara.Error(i18n.t("disease.errors.vector_load", error=vectors_error))
+                solara.Error(f"Could not load vector species: {vectors_error}")
             elif not vectors_data:
-                solara.Info(i18n.t("disease.messages.no_vectors"))
+                solara.Info("No known vector species for this disease.")
             else:
                 with solara.Row(justify="center", style="flex-wrap: wrap; gap: 16px;"):
                     for vector in vectors_data:

@@ -6,22 +6,22 @@ from typing import List, cast, Optional
 from ..components.map_module import (
     map_component,
     filter_panel,
+    info_panel,
     legend_component,
+    layer_control,
 )
-
+from ..state import (
+    distribution_loading_reactive,
+    observations_loading_reactive,
+)
+from ..config import COLOR_BACKGROUND
 from ..config import load_themes
 from frontend.components.common.locale_selector import LocaleSelector
 import i18n
-from pathlib import Path
 
-def setup_i18n():
-    i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    i18n.set("locale", "ru")
-    i18n.set("fallback", "en")
 
 @solara.component
 def Page():
-    setup_i18n()
     with solara.AppBar():
         solara.v.Spacer()
         LocaleSelector()

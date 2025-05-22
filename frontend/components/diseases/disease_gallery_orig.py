@@ -1,11 +1,15 @@
 import solara
 import solara.lab
 from solara.alias import rv
+
 import httpx
 import asyncio
 from typing import Dict, Any, List, Optional, cast, Callable
 from ...state import fetch_api_data, disease_list_data_reactive, disease_list_loading_reactive, disease_list_error_reactive, selected_disease_item_id
+
 from frontend.components.diseases.disease_card import DiseaseCard
+
+# Relative imports for config and state
 from ...config import (
     COLOR_PRIMARY,
     FONT_HEADINGS,
@@ -14,26 +18,14 @@ from ...config import (
     DISEASE_DETAIL_ENDPOINT_TEMPLATE,
     API_BASE_URL
 )
-import i18n
 
-# Add translations
-i18n.add_translation("disease_gallery.title", "Vector-Borne Disease Gallery", locale="en")
-i18n.add_translation("disease_gallery.search.placeholder", "Search disease...", locale="en")
-i18n.add_translation("disease_gallery.search.button", "Search", locale="en")
-i18n.add_translation("disease_gallery.error.load", "Could not load diseases: %{error}", locale="en")
-i18n.add_translation("disease_gallery.messages.no_results", "No diseases found matching your criteria.", locale="en")
-i18n.add_translation("disease_gallery.messages.initializing", "Initializing disease data or an unexpected issue occurred.", locale="en")
 
-# Russian translations
-i18n.add_translation("disease_gallery.title", "Трансмиссивные заболевания", locale="ru")
-i18n.add_translation("disease_gallery.search.placeholder", "Поиск заболеваний...", locale="ru")
-i18n.add_translation("disease_gallery.search.button", "Поиск", locale="ru")
-i18n.add_translation("disease_gallery.error.load", "Ошибка загрузки списка заболеваний: %{error}", locale="ru")
-i18n.add_translation("disease_gallery.messages.no_results", "Информация о заболевании не найдена.", locale="ru")
-i18n.add_translation("disease_gallery.messages.initializing", "Инициализация данных или непредвиденная ошибка.", locale="ru")
 
 @solara.component
 def DiseaseGalleryPageComponent():
+    # with solara.AppBar():
+    #     solara.lab.ThemeToggle()
+
     search_query, set_search_query = solara.use_state("")
 
     def _load_disease_list_data_effect() -> Optional[Callable[[], None]]:
@@ -90,24 +82,25 @@ def DiseaseGalleryPageComponent():
 
     displayed_diseases = disease_list_data_reactive.value
 
-    with solara.Column(style="padding-bottom: 20px; min-height: calc(100vh - 120px);"):
+    with solara.Column(
+        style="padding-bottom: 20px; min-height: calc(100vh - 120px);"
+    ):
         solara.Markdown(
-            f"# {i18n.t('disease_gallery.title')}",
-            style=f"font-family: {FONT_HEADINGS}; text-align:center; margin-bottom:20px;"
+            "# Vector-Borne Disease Gallery", style=f"font-family: {FONT_HEADINGS}; text-align:center; margin-bottom:20px;"
         )
         with solara.Row(
             classes=["pa-2 ma-2 elevation-1"],
             style="border-radius: 6px; background-color: var(--solara-card-background-color); align-items: center; gap: 10px; position: sticky; top: 0px; z-index:10; margin-bottom:10px;",
         ):
             solara.InputText(
-                label=i18n.t('disease_gallery.search.placeholder'),
+                label="Search disease...",
                 value=search_query,
                 on_value=set_search_query,
                 continuous_update=False,
                 style="flex-grow: 1;",
             )
             solara.Button(
-                i18n.t('disease_gallery.search.button'),
+                "Search",
                 icon_name="mdi-magnify",
                 outlined=True,
                 color=COLOR_PRIMARY,
@@ -118,14 +111,13 @@ def DiseaseGalleryPageComponent():
             solara.SpinnerSolara(size="60px")
         elif disease_list_error_reactive.value:
             solara.Error(
-                i18n.t('disease_gallery.error.load', error=disease_list_error_reactive.value),
+                f"Could not load diseases: {disease_list_error_reactive.value}",
                 icon="mdi-alert-circle-outline",
             )
-        elif not displayed_diseases:
+          # Check if list is not None
+        elif not displayed_diseases:  # Empty list
             solara.Info(
-                i18n.t('disease_gallery.messages.no_results'),
-                icon="mdi-information-outline",
-                style="margin: 16px;"
+                "No diseases found matching your criteria.", icon="mdi-information-outline", style="margin: 16px;"
             )
         elif displayed_diseases:
             with solara.ColumnsResponsive(
@@ -137,10 +129,16 @@ def DiseaseGalleryPageComponent():
                 classes=["pa-2"],
             ):
                 for disease_item in displayed_diseases:
+                    # item_id = disease_item.get("id")
+                    # if item_id is None:
+                    #     print(
+                    #         f"Warning: Disease item {disease_item.get('name', 'Unknown')} is missing an 'id'. Card will not be clickable for details."
+                    #     )
+                    # # Render the disease card
                     DiseaseCard(disease_item)
-        else:
+        else:  # displayed_diseases is None (should not happen if initialized to [])
             solara.Info(
-                i18n.t('disease_gallery.messages.initializing'),
+                "Initializing disease data or an unexpected issue occurred.",
                 icon="mdi-information-outline",
                 style="margin: 16px;",
             )

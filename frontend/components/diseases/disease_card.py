@@ -10,6 +10,18 @@ from ...config import (
     FONT_HEADINGS
 )
 from ...state import selected_disease_item_id
+# In your initialization code (e.g., app.py or config/i18n.py)
+import i18n
+
+# English translations
+i18n.add_translation("actions.view_details", "View Details", locale="en")
+
+# Russian translations
+i18n.add_translation("actions.view_details", "Читать далее", locale="ru")
+
+# Configure i18n
+i18n.set("locale", "ru")
+i18n.set("fallback", "en")
 
 @solara.component
 def DiseaseCard(disease: Dict[str, Any]):
@@ -64,4 +76,4 @@ def DiseaseCard(disease: Dict[str, Any]):
                         class_="mt-1",
                         text_color="white",
                     )
-                solara.Button("View Details", on_click=lambda: redirect_to_disease_item(disease.get("id", "")) )
+                solara.Button(i18n.t('actions.view_details'), on_click=lambda: redirect_to_disease_item(disease.get("id", "")) )
