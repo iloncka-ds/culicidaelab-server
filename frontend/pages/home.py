@@ -10,10 +10,10 @@ import i18n
 
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    i18n.set("locale", "en")
+    i18n.set("locale", "ru")
     i18n.set("fallback", "en")
     # i18n.set("skip_locale_root_data", True)
-    i18n.set("filename_format", "{namespace}.{locale}.{format}")
+    # i18n.set("filename_format", "{namespace}.{locale}.{format}")
 
 @solara.component
 def Page():
@@ -38,14 +38,14 @@ def Page():
 
     card_data = [
         {
-            "title": i18n.t("home.en.cards.predict.title"),
+            "title": i18n.t("home.cards.predict.title"),
             "icon": "mdi-camera-plus-outline",
-            "description": i18n.t("home.en.cards.predict.description"),
+            "description": i18n.t("home.cards.predict.description"),
             "link": "predict",
-            "button_label": i18n.t("home.en.cards.predict.button"),
+            "button_label": i18n.t("home.cards.predict.button"),
         },
         {
-            "title": i18n.t("home.en.cards.visualize.title"),
+            "title": i18n.t("home.cards.visualize.title"),
             "icon": "mdi-map-marker-radius-outline",
             "description": i18n.t("home.cards.visualize.description"),
             "link": "map",
