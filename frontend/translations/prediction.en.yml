@@ -1,0 +1,28 @@
+en:
+
+  app_title: "CulicidaeLab"
+  page_title: "Mosquito Species Prediction & Observation"
+  cards:
+    upload:
+      title: "1. Upload Mosquito Image"
+    location:
+      title: "2. Pinpoint Observation Location"
+    observation:
+      title: "3. Record Observation Details"
+  messages:
+    success:
+      upload_predicted: "Image uploaded & predicted: %{result}"
+      observation_recorded: "Observation recorded!"
+    info:
+      upload_first: "Upload an image first to enable the observation form."
+      waiting_prediction: "Waiting for prediction to complete before enabling form..."
+    warning:
+      no_prediction: "Prediction failed or no result. Cannot submit observation without a prediction."
+      no_prediction_data: "No prediction data available for this observation."
+    error:
+      generic: "Error: %{message}"
+  labels:
+    uploaded_image: "### Uploaded Image"
+    prediction_details: "### Prediction Details"
+  buttons:
+    submit_another: "Submit Another Observation"

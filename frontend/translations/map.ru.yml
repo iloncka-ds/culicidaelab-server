@@ -1,0 +1,7 @@
+ru:
+  app_title: "CulicidaeLab"
+  panels:
+    filters:
+      title: "Фильтры"
+    legend:
+      title: "Описание"
