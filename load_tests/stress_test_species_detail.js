@@ -29,7 +29,7 @@ export const options = {
 
 export default function () {
 
-    const res = http.get('http://127.0.0.1:8000/api/species?limit=10');
+    const res = http.get('http://127.0.0.1:8000/api/species/aedes_albopictus');
 
     check(res, { 'status was 200': (r) => r.status == 200 });
 
@@ -38,6 +38,6 @@ export default function () {
 }
 export function handleSummary(data) {
         return {
-        "summary_stress_test_species.html": htmlReport(data),
+        "load_tests/summary_stress_test_species_detail.html": htmlReport(data),
         };
     }
