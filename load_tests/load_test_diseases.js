@@ -47,6 +47,6 @@ export default function () {
 }
 export function handleSummary(data) {
         return {
-        "summary_load_test_diseases.html": htmlReport(data),
+        "load_tests/summary_load_test_diseases.html": htmlReport(data),
         };
     }
