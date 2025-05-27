@@ -17,23 +17,15 @@ export const options = {
 
     stages: [
         { duration: '2m', target: 100 }, // below normal load
-        { duration: '5m', target: 100 },
         { duration: '2m', target: 200 }, // normal load
-        { duration: '5m', target: 200 },
         { duration: '2m', target: 300 }, // around the breaking point
-        { duration: '5m', target: 300 },
         { duration: '2m', target: 400 }, // beyond the breaking point
-        { duration: '5m', target: 400 },
-        { duration: '10m', target: 0 }, // scale down. Recovery stage.
+        { duration: '5m', target: 0 }, // scale down. Recovery stage.
         ],
 
 };
 
-// for (let id = 1; id <= 100; id++) {
-//     http.get(`http://localhost:8001/item/${id}?k=3`, {
-//       tags: { name: 'PostsItemURL' },
-//     });
-//   }
+
 
 export default function () {
 
@@ -46,6 +38,6 @@ export default function () {
 }
 export function handleSummary(data) {
         return {
-        "summary_stress_test.html": htmlReport(data),
+        "summary_stress_test_filter_options.html": htmlReport(data),
         };
     }

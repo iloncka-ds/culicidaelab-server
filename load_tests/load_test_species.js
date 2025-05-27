@@ -38,7 +38,7 @@ export const options = {
 
 export default function () {
 
-    const res = http.get('http://127.0.0.1:8000/api/filter_options');
+    const res = http.get('http://127.0.0.1:8000/api/species?limit=10');
 
     check(res, { 'status was 200': (r) => r.status == 200 });
 
@@ -47,6 +47,6 @@ export default function () {
 }
 export function handleSummary(data) {
         return {
-        "summary_load_test.html": htmlReport(data),
+        "load_tests/summary_load_test_species.html": htmlReport(data),
         };
     }
