@@ -38,6 +38,6 @@ export default function () {
 }
 export function handleSummary(data) {
         return {
-        "summary_stress_test_filter_options.html": htmlReport(data),
+        "load_tests/summary_stress_test_filter_options.html": htmlReport(data),
         };
     }
