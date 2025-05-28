@@ -6,7 +6,7 @@ from typing import Dict, Any, Optional, cast
 import asyncio
 
 from ..config import FONT_HEADINGS, COLOR_PRIMARY
-from frontend.components.prediction.file_upload import FileUploadComponent, mock_upload_and_predict
+from frontend.components.prediction.file_upload import FileUploadComponent, upload_and_predict
 from frontend.components.prediction.location import LocationComponent
 from frontend.components.prediction.observation_form import ObservationFormComponent
 from frontend.components.species.species_card import SpeciesCard
@@ -85,7 +85,7 @@ def Page():
             set_file_data_state(file_info["data"])
             set_file_name_state(file_info["name"])
             img_bytes_io = io.BytesIO(file_info["data"])
-            result = asyncio.run(mock_upload_and_predict(img_bytes_io, file_info["name"]))
+            result = asyncio.run(upload_and_predict(img_bytes_io, file_info["name"]))
             _handle_prediction_result(result)
             return True
         except Exception as e:

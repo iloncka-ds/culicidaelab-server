@@ -1,9 +1,9 @@
 
 import solara
 import httpx
-import asyncio
+
 from typing import List, Tuple, Optional, Dict, Any, cast  # Add Dict, Any, cast
-import datetime as dt
+
 from datetime import date, timedelta
 
 # Import new endpoint from config
@@ -82,7 +82,7 @@ show_modeled_data_reactive = solara.reactive(False)  # Default off as it can be 
 show_distribution_status_reactive = solara.reactive(True)
 show_breeding_sites_reactive = solara.reactive(False)  # From map DETAILED PLAN
 
-# --- Map Interaction State ---
+
 # --- Map Interaction State ---
 # Example: current center and zoom of the map
 DEFAULT_MAP_CENTER = (20, 0)  # Default latitude and longitude
