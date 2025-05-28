@@ -1,28 +1,65 @@
 import solara
 import io
 from typing import Optional, Dict, Any, Tuple
-import asyncio  # For mock delay
+import aiohttp
 
-from ...config import FONT_BODY, COLOR_TEXT  # Assuming app_config.py is in the same directory
+from ...config import FONT_BODY, COLOR_TEXT, API_BASE_URL
 
 
-async def mock_upload_and_predict(
-    file_obj: io.BytesIO, filename: str
-) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     """
-    MOCK FUNCTION: Simulates uploading an image to a prediction endpoint
-    and getting a species prediction.
+    Upload an image to the prediction endpoint and get a species prediction.
+
+    Args:
+        file_obj: BytesIO object containing the image data
+        filename: Name of the file being uploaded
+
+    Returns:
+        Tuple containing (prediction_result, error_message)
+        If successful, error_message will be None
+        If failed, prediction_result will be None and error_message will contain the error
     """
-    await asyncio.sleep(2)  # Simulate network delay
-    # Ensure mock result contains fields expected by SpeciesCard and ObservationForm
-    return {
-        "scientific_name": "Aedes fictus",
-        "probabilities": {"Aedes fictus": 0.95, "Culex pipiens": 0.05},
-        "id": "species_mock_001",  # Example species ID
-        "model_id": "model_v1_mock",  # Example model ID
-        "confidence": 0.95,  # Overall confidence
-        "image_url_species": "https://via.placeholder.com/300x200.png?text=Aedes+fictus",  # Placeholder species image
-    }, None
+    try:
+        # Prepare the file for upload
+        file_data = file_obj.getvalue()
+
+        # Determine content type based on file extension
+        content_type = "image/jpeg"  # Default
+        if filename.lower().endswith(".png"):
+            content_type = "image/png"
+        elif filename.lower().endswith(".gif"):
+            content_type = "image/gif"
+
+        # Create API endpoint URL
+        prediction_url = f"{API_BASE_URL}/predict"
+
+        # Create form data with file
+        form_data = aiohttp.FormData()
+        form_data.add_field("file", file_data, filename=filename, content_type=content_type)
+
+        # Make API request
+        async with aiohttp.ClientSession() as session:
+            async with session.post(prediction_url, data=form_data) as response:
+                if response.status == 200:
+                    # Successfully got prediction
+                    prediction_data = await response.json()
+                    return prediction_data, None
+                else:
+                    # Error occurred
+                    try:
+                        error_data = await response.json()
+                        error_message = error_data.get("detail", f"Error: HTTP {response.status}")
+                    except (aiohttp.ContentTypeError, ValueError):
+                        # Handle case where response is not valid JSON
+                        error_message = f"Error: HTTP {response.status} - {await response.text()}"
+                    return None, error_message
+
+    except aiohttp.ClientError as e:
+        # Network or connection error
+        return None, f"Connection error: {str(e)}"
+    except Exception as e:
+        # Any other error
+        return None, f"Error: {str(e)}"
 
 
 @solara.component
