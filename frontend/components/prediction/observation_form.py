@@ -1,22 +1,10 @@
-import solara
-from typing import Optional, cast, Dict, Any
-from datetime import datetime
+from typing import Optional, Dict, Any
 import asyncio
+from datetime import datetime
+import solara
+from ...config import FONT_HEADINGS
 
-from ...config import FONT_HEADINGS  # Assuming app_config.py
-
-
-async def mock_submit_observation_data(observation_payload: Dict[str, Any]) -> Optional[str]:
-    """
-    MOCK FUNCTION: Simulates submitting observation data to a backend API.
-    Returns an error message string if failed, or None if successful.
-    """
-    print("Submitting observation:", observation_payload)  # For debugging
-    await asyncio.sleep(1.5)  # Simulate network delay
-    # Example error condition
-    # if observation_payload["properties"]["count"] < 1:
-    #     return "Count must be at least 1."
-    return None  # None indicates success
+from .observation_service import submit_observation_data
 
 
 @solara.component
@@ -109,7 +97,7 @@ def ObservationFormComponent(
             "geometry": {"type": "Point", "coordinates": [float(current_longitude), float(current_latitude)]},
         }
 
-        submission_error = await mock_submit_observation_data(observation_payload)
+        submission_error = await submit_observation_data(observation_payload)
 
         if submission_error is None:  # Success
             on_submit_success()
