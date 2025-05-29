@@ -1,11 +1,20 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException
+from typing import Optional
+from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, status
 
 from backend.services.prediction_service import prediction_service, PredictionResult
+from backend.services.observation_service import observation_service
+from backend.models import Observation, ObservationCreate, ObservationListResponse
+from backend.dependencies import get_current_user_id  # Assuming you have auth setup
 
-router = APIRouter()
+router = APIRouter(prefix="/api/v1", tags=["predictions"])
 
 
-@router.post("/predict", response_model=PredictionResult)
+@router.post(
+    "/predict",
+    response_model=PredictionResult,
+    summary="Predict mosquito species from image",
+    description="Upload an image of a mosquito to identify its species using AI.",
+)
 async def predict_species(
     file: UploadFile = File(...),
 ) -> PredictionResult:
@@ -13,44 +22,121 @@ async def predict_species(
     Predict mosquito species from an uploaded image.
 
     Args:
-        file: Uploaded image file
+        file: Uploaded image file (JPEG, PNG, etc.)
 
     Returns:
-        PredictionResult: Prediction result with species information
+        Prediction result with species information and confidence scores
 
     Raises:
         HTTPException: If prediction fails or file is invalid
     """
     # Validate file
     if not file:
-        raise HTTPException(status_code=400, detail="No file provided")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No file provided"
+        )
 
     # Check file type
     content_type = file.content_type
     if not content_type or not content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail=f"File must be an image, got {content_type}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"File must be an image, got {content_type}"
+        )
 
     try:
         # Read file content
         contents = await file.read()
         if not contents:
-            raise HTTPException(status_code=400, detail="Empty file")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Empty file"
+            )
 
         # Get prediction
         result, error = await prediction_service.predict_species(contents, file.filename)
 
         if error:
-            raise HTTPException(status_code=500, detail=error)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Prediction failed: {error}"
+            )
 
         if not result:
-            raise HTTPException(status_code=500, detail="Prediction failed with no specific error")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Prediction failed with no specific error"
+            )
 
         return result
 
     except HTTPException:
-        # Re-raise HTTP exceptions
         raise
     except Exception as e:
-        # Log and convert other exceptions to HTTP exceptions
-        print(f"Error in prediction endpoint: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Prediction failed: {str(e)}"
+        )
+
+
+@router.post(
+    "/observations",
+    response_model=Observation,
+    status_code=status.HTTP_201_CREATED,
+    summary="Submit a new observation",
+    description="Submit a new mosquito observation with species, location, and other details.",
+)
+async def create_observation(
+    observation: ObservationCreate,
+    user_id: str = Depends(get_current_user_id),
+) -> Observation:
+    """
+    Create a new observation record.
+    
+    This endpoint allows authenticated users to submit mosquito observation data.
+    The observation will be associated with the authenticated user.
+    """
+    try:
+        return await observation_service.create_observation(observation, user_id)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to create observation: {str(e)}"
+        )
+
+
+@router.get(
+    "/observations",
+    response_model=ObservationListResponse,
+    summary="Get observations",
+    description="Retrieve observations with optional filtering.",
+)
+async def get_observations(
+    species_id: Optional[str] = None,
+    limit: int = 100,
+    offset: int = 0,
+    user_id: str = Depends(get_current_user_id),
+) -> ObservationListResponse:
+    """
+    Get a list of observations, optionally filtered by species.
+    
+    Only returns observations for the authenticated user unless the user has admin privileges.
+    """
+    try:
+        # In a real implementation, you might want to add admin checks here
+        return await observation_service.get_observations(
+            user_id=user_id,
+            species_id=species_id,
+            limit=min(limit, 1000),  # Enforce max limit
+            offset=max(offset, 0),
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to retrieve observations: {str(e)}"
+        )

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict, Any, Union
+from typing import List, Optional, Dict, Any
 
 
 # --- Species Models ---
@@ -50,6 +50,33 @@ class GeoJSONFeature(BaseModel):
 class GeoJSONFeatureCollection(BaseModel):
     type: str = "FeatureCollection"
     features: List[GeoJSONFeature]
+
+
+# Observation Model
+class ObservationBase(BaseModel):
+    species_id: str
+    count: int = Field(..., gt=0, description="Number of observed specimens")
+    location: Dict[str, float]  # {lat: float, lng: float}
+    observed_at: str  # ISO 8601 datetime string
+    notes: Optional[str] = None
+    image_url: Optional[str] = None
+    user_id: Optional[str] = None  # Will be populated from auth token
+    metadata: Optional[Dict[str, Any]] = {}
+
+
+class Observation(ObservationBase):
+    id: str
+    created_at: str  # ISO 8601 datetime string
+    updated_at: str  # ISO 8601 datetime string
+
+
+class ObservationCreate(ObservationBase):
+    pass
+
+
+class ObservationListResponse(BaseModel):
+    count: int
+    observations: List[Observation]
 
 
 # Disease Models
