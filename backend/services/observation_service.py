@@ -12,11 +12,15 @@ class ObservationService:
 
     def __init__(self):
         self.table_name = "observations"
-        self.db = get_lancedb_manager()
+        self.db = None
 
-    async def create_observation(
-        self, observation_data: ObservationCreate, user_id: str | None = None
-    ) -> Observation:
+    async def initialize(self):
+        """Initialize the database connection."""
+        lancedb_manager = await get_lancedb_manager()
+        self.db = lancedb_manager.db
+        return self
+
+    async def create_observation(self, observation_data: ObservationCreate, user_id: str | None = None) -> Observation:
         """
         Create a new observation record.
 
@@ -41,22 +45,16 @@ class ObservationService:
                 table = self.db.open_table(self.table_name)
             except Exception:
                 # Create table with schema if it doesn't exist
-                table = self.db.create_table(
-                    self.table_name,
-                    data=[observation_dict],
-                    mode="overwrite"
-                )
+                table = self.db.create_table(self.table_name, data=[observation_dict], mode="overwrite")
             else:
                 # Table exists, insert new record
                 table.add([observation_dict])
 
             return Observation(**observation_dict)
 
-
         except Exception as e:
             raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Failed to save observation: {str(e)}"
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to save observation: {str(e)}"
             )
 
     async def get_observations(
@@ -98,10 +96,17 @@ class ObservationService:
 
         except Exception as e:
             raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Failed to retrieve observations: {str(e)}"
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to retrieve observations: {str(e)}"
             )
 
 
 # Singleton instance
-observation_service = ObservationService()
+observation_service = None
+
+
+# Async function to initialize the service
+async def get_observation_service():
+    global observation_service
+    if observation_service is None:
+        observation_service = await ObservationService().initialize()
+    return observation_service
