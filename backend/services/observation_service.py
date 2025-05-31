@@ -4,7 +4,7 @@ from uuid import uuid4
 from fastapi import HTTPException, status
 
 from backend.models import Observation, ObservationCreate, ObservationListResponse
-from backend.database_utils.lancedb_manager import get_lancedb_connection
+from backend.database_utils.lancedb_manager import get_lancedb_manager
 
 
 class ObservationService:
@@ -12,7 +12,7 @@ class ObservationService:
 
     def __init__(self):
         self.table_name = "observations"
-        self.db = get_lancedb_connection()
+        self.db = get_lancedb_manager()
 
     async def create_observation(
         self, observation_data: ObservationCreate, user_id: str | None = None
@@ -81,7 +81,7 @@ class ObservationService:
         try:
             table = self.db.open_table(self.table_name)
             query = {}
-            
+
             if user_id:
                 query["user_id"] = user_id
             if species_id:
@@ -89,10 +89,10 @@ class ObservationService:
 
             # Convert query to LanceDB format
             where = " AND ".join([f"{k} = '{v}'" for k, v in query.items()])
-            
+
             results = table.search().where(where).limit(limit).offset(offset).to_list()
             total = len(results)  # This is a simple count, for pagination you might want a count query
-            
+
             observations = [Observation(**item) for item in results]
             return ObservationListResponse(count=total, observations=observations)
 
