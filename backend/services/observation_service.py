@@ -32,7 +32,6 @@ class ObservationService:
             Created observation with generated fields
         """
         try:
-            # Convert to dict and add metadata
             observation_dict = observation_data.dict()
             observation_dict["id"] = str(uuid4())
             observation_dict["user_id"] = user_id
@@ -40,14 +39,11 @@ class ObservationService:
             observation_dict["created_at"] = current_time
             observation_dict["updated_at"] = current_time
 
-            # Get or create table
             try:
                 table = self.db.open_table(self.table_name)
             except Exception:
-                # Create table with schema if it doesn't exist
                 table = self.db.create_table(self.table_name, data=[observation_dict], mode="overwrite")
             else:
-                # Table exists, insert new record
                 table.add([observation_dict])
 
             return Observation(**observation_dict)
@@ -85,11 +81,10 @@ class ObservationService:
             if species_id:
                 query["species_id"] = species_id
 
-            # Convert query to LanceDB format
             where = " AND ".join([f"{k} = '{v}'" for k, v in query.items()])
 
             results = table.search().where(where).limit(limit).offset(offset).to_list()
-            total = len(results)  # This is a simple count, for pagination you might want a count query
+            total = len(results)
 
             observations = [Observation(**item) for item in results]
             return ObservationListResponse(count=total, observations=observations)
@@ -100,11 +95,9 @@ class ObservationService:
             )
 
 
-# Singleton instance
 observation_service = None
 
 
-# Async function to initialize the service
 async def get_observation_service():
     global observation_service
     if observation_service is None:

@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 
 
-# --- Species Models ---
 class SpeciesBase(BaseModel):
     id: str
     scientific_name: str
@@ -13,7 +12,6 @@ class SpeciesBase(BaseModel):
 
 class SpeciesDetail(SpeciesBase):
     description: Optional[str] = None
-    # These are stored as JSON strings in DB, parsed back here
     key_characteristics: Optional[List[str]] = None
     geographic_regions: Optional[List[str]] = None
     related_diseases: Optional[List[str]] = None
@@ -22,23 +20,20 @@ class SpeciesDetail(SpeciesBase):
 
 class SpeciesListResponse(BaseModel):
     count: int
-    species: List[SpeciesBase]  # Return only basic info for list
+    species: List[SpeciesBase]
 
 
-# --- Filter Options Model ---
 class FilterOptions(BaseModel):
     species: List[str]
     regions: List[str]
     data_sources: List[str]
 
 
-# --- GeoJSON Models (Simplified for API response) ---
-# We'll reconstruct GeoJSON FeatureCollection on the backend side
 
 
 class GeoJSONGeometry(BaseModel):
     type: str
-    coordinates: Any  # Can be [lon, lat] or nested lists for polygons
+    coordinates: Any
 
 
 class GeoJSONFeature(BaseModel):
@@ -52,22 +47,21 @@ class GeoJSONFeatureCollection(BaseModel):
     features: List[GeoJSONFeature]
 
 
-# Observation Model
 class ObservationBase(BaseModel):
     species_id: str
     count: int = Field(..., gt=0, description="Number of observed specimens")
-    location: Dict[str, float]  # {lat: float, lng: float}
-    observed_at: str  # ISO 8601 datetime string
+    location: Dict[str, float]
+    observed_at: str
     notes: Optional[str] = None
     image_url: Optional[str] = None
-    user_id: Optional[str] = None  # Will be populated from auth token
+    user_id: Optional[str] = None
     metadata: Optional[Dict[str, Any]] = {}
 
 
 class Observation(ObservationBase):
     id: str
-    created_at: str  # ISO 8601 datetime string
-    updated_at: str  # ISO 8601 datetime string
+    created_at: str
+    updated_at: str
 
 
 class ObservationCreate(ObservationBase):
@@ -79,7 +73,6 @@ class ObservationListResponse(BaseModel):
     observations: List[Observation]
 
 
-# Disease Models
 class DiseaseBase(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
@@ -88,7 +81,7 @@ class DiseaseBase(BaseModel):
     prevention: Optional[str] = None
     prevalence: Optional[str] = None
     image_url: Optional[str] = None
-    vectors: Optional[List[str]] = []  # List of vector species IDs
+    vectors: Optional[List[str]] = []
 
 
 class Disease(DiseaseBase):

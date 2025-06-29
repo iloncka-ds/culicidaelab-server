@@ -17,10 +17,8 @@ class TestMapVisualizationPage:
 
     def test_page_renders(self, solara_test):
         """Test that the map visualization page renders without errors."""
-        # Act
         solara.display(Page())
-        
-        # Assert
+
         html = solara_test.get_html()
         assert "Map Visualization" in html or "Визуализация на карте" in html
 
@@ -29,45 +27,35 @@ class TestMapVisualizationPage:
     @patch('frontend.pages.map_visualization.legend_component.LegendDisplay')
     def test_components_initialized(self, mock_legend, mock_filter, mock_map, solara_test):
         """Test that all required components are initialized."""
-        # Arrange
         mock_map.return_value = solara.HTML("MapComponent")
         mock_filter.return_value = solara.HTML("FilterControls")
         mock_legend.return_value = solara.HTML("LegendDisplay")
-        
-        # Act
+
         solara.display(Page())
         html = solara_test.get_html()
-        
-        # Assert
-        # Check if components are present (mocked as simple strings)
+
         assert "MapComponent" in html
         assert "FilterControls" in html
         assert "LegendDisplay" in html
 
     def test_panel_state_management(self, solara_test):
         """Test that panel states are managed correctly."""
-        # This would test the state management of filter and legend panels
         pass
 
     def test_locale_selector_present(self, solara_test):
         """Test that the locale selector is present in the app bar."""
-        # Act
         solara.display(Page())
         html = solara_test.get_html()
-        
-        # Assert
+
         assert "LocaleSelector" in str(html) or "language" in str(html).lower()
 
     @patch('frontend.pages.map_visualization.load_themes')
     def test_theme_loading(self, mock_load_themes):
         """Test that themes are loaded correctly."""
-        # Arrange
         mock_theme = MagicMock()
         mock_load_themes.return_value = mock_theme
-        
-        # Act
+
         solara.display(Page())
-        
-        # Assert
+
         mock_load_themes.assert_called_once()
-        assert mock_load_themes.call_args[0][0] is not None  # Theme object is passed
+        assert mock_load_themes.call_args[0][0] is not None

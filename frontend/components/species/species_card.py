@@ -4,9 +4,6 @@ from solara.alias import rv
 
 from typing import Dict, Any
 
-# Assuming these are correctly defined in your project structure
-# from ..config import load_themes # Not used in this snippet directly, but kept for context
-# Relative imports for config and state
 from ...config import (
     COLOR_PRIMARY,
     FONT_HEADINGS,
@@ -16,13 +13,10 @@ from ...config import (
 from ...state import selected_species_item_id
 import i18n
 
-# English translations
 i18n.add_translation("actions.view_details", "View Details", locale="en")
 
-# Russian translations
 i18n.add_translation("actions.view_details", "Читать далее", locale="ru")
 
-# Configure i18n
 i18n.set("locale", "ru")
 i18n.set("fallback", "en")
 
@@ -38,7 +32,7 @@ def SpeciesCard(species: Dict[str, Any]):
     with rv.Card(
         class_="ma-2 pa-3",
         hover=True,
-        style="cursor: pointer; ...",  # Add pointer cursor
+        style="cursor: pointer; ...",
     ):
         with solara.Row(style="align-items: center; flex-grow:1;"):
             if species.get("image_url"):
@@ -55,8 +49,6 @@ def SpeciesCard(species: Dict[str, Any]):
 
             with solara.Column(align="start", style="overflow: hidden;"):
                 species_id = species.get("id")
-                # Wrap the entire content in a Link for better UX
-                # with solara.Link(path_or_route=f"/species/{species_id}"):
                 solara.Markdown(
                     f"#### {species.get('scientific_name', 'N/A')}",
                     style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY}; text-decoration: none;",
@@ -67,7 +59,6 @@ def SpeciesCard(species: Dict[str, Any]):
                     style="font-size: 0.9em; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
                 )
 
-                # Keep status chip outside the link for better UX
                 status = str(species.get("vector_status", "Unknown")).lower()
                 status_color, text_c = "grey", "black"
                 if status == "high":

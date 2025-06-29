@@ -15,16 +15,16 @@ from frontend.state import (
     current_map_bounds_reactive,
     current_map_zoom_reactive,
     observations_data_reactive,
-    observations_loading_reactive,  # Renamed to match filter_panel.py's variable
-    selected_date_range_reactive,  # Added for date filtering
+    observations_loading_reactive,
+    selected_date_range_reactive,
 )
 from frontend.config import (
     DEFAULT_MAP_CENTER,
     DEFAULT_MAP_ZOOM,
-    SPECIES_COLORS,  # This is a fallback, dynamic generation is preferred
+    SPECIES_COLORS,
     OBSERVATIONS_ENDPOINT,
     API_BASE_URL,
-    generate_species_colors,  # Import the generator
+    generate_species_colors,
 
 )
 from frontend.state import all_available_species_reactive, observations_loading_reactive
@@ -33,7 +33,6 @@ async def fetch_geojson_data(
     url: str, params: dict, loading_reactive: solara.Reactive[bool]
 ) -> Optional[Dict[str, Any]]:
     loading_reactive.value = True
-    # print(f"[DEBUG] fetch_geojson_data called for {url} with params {params}")
     try:
         async with httpx.AsyncClient() as client:
             response = await client.get(url, params=params, timeout=30.0)
@@ -73,8 +72,8 @@ class LeafletMapManager:
         )
         self.map_instance.add_layer(osm_layer)
         self.observations_layer_group = L.LayerGroup(name="Observation Layers", layers=[])
-        self.observations_layer_group.name = "Observations"  # Used by LayersControl
-        self.map_instance.add_layer(self.observations_layer_group)  # Add it so it's part of control
+        self.observations_layer_group.name = "Observations"
+        self.map_instance.add_layer(self.observations_layer_group)
 
         self.layers_control = L.LayersControl(position="topright")
         self.map_instance.add_control(self.layers_control)
@@ -84,17 +83,13 @@ class LeafletMapManager:
         self.map_instance.observe(self._handle_map_bounds_change, names=["bounds"])
         self.map_instance.observe(self._handle_map_zoom_change, names=["zoom"])
 
-        # Dynamic color generation for species
-        self.species_color_map = SPECIES_COLORS.copy()  # Start with fallback
+        self.species_color_map = SPECIES_COLORS.copy()
         if all_available_species_reactive.value:
             self.species_color_map = generate_species_colors(all_available_species_reactive.value)
 
     def _handle_map_bounds_change(self, change):
-        # print(f"[DEBUG Map bounds changed] change: {change}")
         if change["name"] == "bounds" and change["new"]:
             new_bounds = change["new"]
-            # new_bounds from ipyleaflet should be: ((south, west), (north, east))
-            # Example: ((40.0, -3.0), (60.0, 30.0))
             if (
                 isinstance(new_bounds, tuple)
                 and len(new_bounds) == 2
@@ -129,11 +124,10 @@ class LeafletMapManager:
         return html_content
 
     def _get_species_color(self, species_name: Optional[str]) -> str:
-        # Regenerate map if all_available_species has changed, ensuring color consistency
         if all_available_species_reactive.value:
             self.species_color_map = generate_species_colors(all_available_species_reactive.value)
 
-        return self.species_color_map.get(species_name, "rgba(128,128,128,0.7)")  # Default grey
+        return self.species_color_map.get(species_name, "rgba(128,128,128,0.7)")
 
     def update_observations_layer(self, observations_json: Optional[Dict[str, Any]]) -> None:
         self.observations_layer_group.clear_layers()
@@ -146,17 +140,17 @@ class LeafletMapManager:
             props = obs.get("properties", {})
             geometry = obs.get("geometry", {})
             if not geometry or geometry.get("type") != "Point" or not geometry.get("coordinates"):
-                continue  # Skip if no valid point geometry
+                continue
 
             coords = geometry["coordinates"]
             species = props.get("species")
-            marker_color = self._get_species_color(species)  # Uses dynamic color map
+            marker_color = self._get_species_color(species)
 
             marker = L.CircleMarker(
-                location=(coords[1], coords[0]),  # Lat, Lon for ipyleaflet
+                location=(coords[1], coords[0]),
                 radius=7,
-                color=marker_color,  # Outline
-                fill_color=marker_color,  # Fill
+                color=marker_color,
+                fill_color=marker_color,
                 fill_opacity=0.8,
                 weight=1,
                 name=str(species) if species else "Observation",
@@ -164,7 +158,6 @@ class LeafletMapManager:
             popup_html = self._create_popup_html(props, title_key="species")
             marker.popup = HTML(popup_html)
 
-            # Capture props for click handler correctly
             def on_marker_click(p_captured=props, **event_kwargs):
                 selected_map_feature_info.set(p_captured)
 
@@ -172,8 +165,7 @@ class LeafletMapManager:
             markers.append(marker)
 
         if markers:
-            # Using MarkerCluster for performance with many points
-            marker_cluster = L.MarkerCluster(markers=markers, name="Observations")  # Name for LayersControl
+            marker_cluster = L.MarkerCluster(markers=markers, name="Observations")
             self.observations_layer_group.add_layer(marker_cluster)
 
     def get_widget(self):
@@ -184,7 +176,7 @@ class LeafletMapManager:
 def MapDisplay():
     map_manager = solara.use_memo(
         LeafletMapManager, [all_available_species_reactive.value]
-    )  # Recreate if all species change
+    )
 
     async def load_observations_data_task():
         if not show_observed_data_reactive.value:
@@ -193,41 +185,32 @@ def MapDisplay():
             return
 
         species_list = selected_species_reactive.value
-        if not species_list:  # If no species are selected via filter, don't fetch
+        if not species_list:
             observations_data_reactive.value = None
             observations_loading_reactive.value = False
             return
 
         params = {"species": ",".join(species_list)}
 
-        # Add date range from global reactive state
         s_date_obj, e_date_obj = selected_date_range_reactive.value
         if s_date_obj:
             params["start_date"] = s_date_obj.strftime("%Y-%m-%d")
         if e_date_obj:
             params["end_date"] = e_date_obj.strftime("%Y-%m-%d")
 
-        # Add Bbox if API is to be filtered by current map view (optional enhancement)
-        # current_bounds = current_map_bounds_reactive.value
-        # if current_bounds and len(current_bounds) == 2:
-        #    # L.Map bounds are [[south, west], [north, east]]
-        #    # min_lat = current_bounds[0][0], min_lon = current_bounds[0][1]
-        #    # max_lat = current_bounds[1][0], max_lon = current_bounds[1][1]
-        #    params["bbox"] = f"{current_bounds[0][1]},{current_bounds[0][0]},{current_bounds[1][1]},{current_bounds[1][0]}"
 
         data = await fetch_geojson_data(OBSERVATIONS_ENDPOINT, params, observations_loading_reactive)
         if data is not None:
             observations_data_reactive.value = data
         else:
-            observations_data_reactive.value = None  # Clear data on fetch error
+            observations_data_reactive.value = None
 
     solara.lab.use_task(
         load_observations_data_task,
         dependencies=[
             selected_species_reactive.value,
             show_observed_data_reactive.value,
-            selected_date_range_reactive.value,  # Added date range dependency
-            # current_map_bounds_reactive.value, # Add if map extent should trigger reload with bbox
+            selected_date_range_reactive.value,
         ],
     )
 
@@ -238,8 +221,8 @@ def MapDisplay():
         _update_map_layers_effect,
         [
             observations_data_reactive.value,
-            show_observed_data_reactive.value,  # Ensure layer is cleared/shown on visibility change
-            all_available_species_reactive.value,  # Ensure colors update if species list changes
+            show_observed_data_reactive.value,
+            all_available_species_reactive.value,
         ],
     )
 

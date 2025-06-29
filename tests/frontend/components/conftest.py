@@ -6,7 +6,6 @@ from unittest.mock import MagicMock
 import sys
 from pathlib import Path
 
-# Add the frontend directory to the Python path
 frontend_path = Path(__file__).parent.parent.parent / "frontend"
 sys.path.insert(0, str(frontend_path))
 
@@ -26,7 +25,7 @@ def mock_vuetify():
         def __init__(self, *args, **kwargs):
             self.children = kwargs.get('children', [])
             self.props = kwargs
-    
+
     mock = MagicMock()
     mock.AppBar = MockVuetifyComponent
     mock.AppBarNavIcon = MockVuetifyComponent

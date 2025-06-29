@@ -7,10 +7,8 @@ import sys
 from pathlib import Path
 import json
 
-# Import the component to test
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "frontend"))
 
-# Mock the solara and other modules before importing the component
 with patch.dict('sys.modules', {
     'solara': MagicMock(),
     'solara.lab': MagicMock(),
@@ -49,7 +47,7 @@ def mock_observations_data():
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [12.4923, 41.8902]  # lon, lat
+                    "coordinates": [12.4923, 41.8902]
                 }
             },
             {
@@ -61,7 +59,7 @@ def mock_observations_data():
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [12.5, 41.9]  # lon, lat
+                    "coordinates": [12.5, 41.9]
                 }
             }
         ]
@@ -89,110 +87,88 @@ def map_manager(mock_leaflet_map):
 
 def test_map_manager_initialization(map_manager, mock_leaflet_map):
     """Test that the map manager initializes correctly."""
-    # Verify the map was created with the correct defaults
     map_component.L.Map.assert_called_once()
-    
-    # Check that the OSM layer was added
-    assert mock_leaflet_map.add_layer.call_count >= 1  # At least OSM layer
-    
-    # Check that the observations layer group was created
+
+    assert mock_leaflet_map.add_layer.call_count >= 1
+
     assert hasattr(map_manager, 'observations_layer_group')
-    
-    # Check that controls were added
-    assert mock_leaflet_map.add_control.call_count >= 2  # Layers control and scale control
+
+    assert mock_leaflet_map.add_control.call_count >= 2
 
 
 def test_handle_map_bounds_change(map_manager, mock_leaflet_map):
     """Test that map bounds changes are handled correctly."""
-    # Setup test data
     test_bounds = ((40.0, -3.0), (60.0, 30.0))
     change_event = {'name': 'bounds', 'new': test_bounds}
-    
-    # Trigger the bounds change
+
     map_manager._handle_map_bounds_change(change_event)
-    
-    # Verify the reactive variable was updated
+
     assert current_map_bounds_reactive.value == test_bounds
 
 
 def test_handle_map_zoom_change(map_manager):
     """Test that map zoom changes are handled correctly."""
-    # Setup test data
     test_zoom = 8
     change_event = {'name': 'zoom', 'new': test_zoom}
-    
-    # Trigger the zoom change
+
     map_manager._handle_map_zoom_change(change_event)
-    
-    # Verify the reactive variable was updated
+
     assert current_map_zoom_reactive.value == test_zoom
 
 
 def test_create_popup_html(map_manager):
     """Test that popup HTML is generated correctly."""
-    # Test data
     props = {
         'name': 'Test Location',
         'count': 5,
         'date': '2023-01-15',
-        'geometry': {'type': 'Point'},  # Should be excluded
-        'style': {'color': 'red'},  # Should be excluded
+        'geometry': {'type': 'Point'},
+        'style': {'color': 'red'},
     }
-    
-    # Generate the popup HTML
+
     html = map_manager._create_popup_html(props)
-    
-    # Verify the content
+
     assert '<h4>Test Location</h4>' in html
     assert 'Count: 5' in html
     assert 'Date: 2023-01-15' in html
-    assert 'geometry' not in html  # Should be excluded
-    assert 'style' not in html  # Should be excluded
+    assert 'geometry' not in html
+    assert 'style' not in html
 
 
 @patch('components.map_module.map_component.generate_species_colors')
 def test_get_species_color(mock_generate_colors, map_manager):
     """Test that species colors are retrieved correctly."""
-    # Setup test data
     test_species = ['Culex pipiens', 'Aedes aegypti']
     test_colors = {
         'Culex pipiens': '#FF0000',
         'Aedes aegypti': '#00FF00'
     }
-    
-    # Configure the mock
+
     mock_generate_colors.return_value = test_colors
     all_available_species_reactive.value = test_species
-    
-    # Test getting a color for a known species
+
     color = map_manager._get_species_color('Culex pipiens')
     assert color == '#FF0000'
-    
-    # Test getting a color for an unknown species (should return default)
+
     default_color = map_manager._get_species_color('Unknown Species')
     assert default_color == 'rgba(128,128,128,0.7)'
 
 
 def test_update_observations_layer(map_manager, mock_observations_data):
     """Test that the observations layer is updated correctly."""
-    # Setup test data
     map_manager.observations_layer_group.clear_layers = MagicMock()
     map_manager.observations_layer_group.add_layer = MagicMock()
-    
-    # Test with observations data
+
     show_observed_data_reactive.value = True
     map_manager.update_observations_layer(mock_observations_data)
-    
-    # Verify the layer group was cleared and markers were added
+
     map_manager.observations_layer_group.clear_layers.assert_called_once()
-    assert map_manager.observations_layer_group.add_layer.call_count == 1  # Should add marker cluster
-    
-    # Test with observations disabled
+    assert map_manager.observations_layer_group.add_layer.call_count == 1
+
     show_observed_data_reactive.value = False
     map_manager.observations_layer_group.clear_layers.reset_mock()
     map_manager.update_observations_layer(mock_observations_data)
-    
-    # Verify the layer group was cleared but no markers were added
+
     map_manager.observations_layer_group.clear_layers.assert_called_once()
     map_manager.observations_layer_group.add_layer.assert_not_called()
 
@@ -206,26 +182,19 @@ async def test_map_display_component(
     mock_use_effect, mock_use_task, mock_use_memo, mock_map_manager_class, mock_fetch, mock_observations_data
 ):
     """Test the MapDisplay component integration."""
-    # Setup mocks
     mock_map_manager = MagicMock()
     mock_map_manager_class.return_value = mock_map_manager
     mock_use_memo.return_value = mock_map_manager
     mock_fetch.return_value = mock_observations_data
-    
-    # Import here to avoid circular imports
+
     from components.map_module.map_component import MapDisplay
-    
-    # Call the component
+
     MapDisplay()
-    
-    # Verify the map manager was created
+
     mock_map_manager_class.assert_called_once()
-    
-    # Verify use_memo was called with the correct dependencies
+
     mock_use_memo.assert_called_once()
-    
-    # Verify use_task was set up
+
     mock_use_task.assert_called_once()
-    
-    # Verify use_effect was set up for layer updates
+
     assert mock_use_effect.call_count >= 1

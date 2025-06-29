@@ -16,7 +16,6 @@ from ...config import (
 )
 import i18n
 
-# Add translations
 i18n.add_translation("disease_gallery.title", "Vector-Borne Disease Gallery", locale="en")
 i18n.add_translation("disease_gallery.search.placeholder", "Search disease...", locale="en")
 i18n.add_translation("disease_gallery.search.button", "Search", locale="en")
@@ -24,7 +23,6 @@ i18n.add_translation("disease_gallery.error.load", "Could not load diseases: %{e
 i18n.add_translation("disease_gallery.messages.no_results", "No diseases found matching your criteria.", locale="en")
 i18n.add_translation("disease_gallery.messages.initializing", "Initializing disease data or an unexpected issue occurred.", locale="en")
 
-# Russian translations
 i18n.add_translation("disease_gallery.title", "Трансмиссивные заболевания", locale="ru")
 i18n.add_translation("disease_gallery.search.placeholder", "Поиск заболеваний...", locale="ru")
 i18n.add_translation("disease_gallery.search.button", "Поиск", locale="ru")

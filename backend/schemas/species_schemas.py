@@ -16,10 +16,10 @@ class SpeciesBase(BaseModel):
 
 
 class Species(SpeciesBase):
-    id: str  # From LanceDB document ID or a dedicated field
+    id: str
 
     class Config:
-        from_attributes = True  # formerly orm_mode
+        from_attributes = True
 
 
 class FilterOptionsResponse(BaseModel):

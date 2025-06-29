@@ -9,7 +9,6 @@ from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
 from frontend.components.species.species_card import SpeciesCard
 import i18n
 
-# Add translations
 i18n.add_translation("disease.gallery_link", "Go to Disease Gallery", locale="en")
 i18n.add_translation("disease.error.load", "Could not load disease details: %{error}", locale="en")
 i18n.add_translation("disease.error.no_id", "No disease ID specified in the URL.", locale="en")
@@ -24,7 +23,6 @@ i18n.add_translation("disease.messages.no_description", "No description availabl
 i18n.add_translation("disease.messages.no_vectors", "No known vector species for this disease.", locale="en")
 i18n.add_translation("disease.errors.vector_load", "Could not load vector species: %{error}", locale="en")
 
-# Russian translations
 i18n.add_translation("disease.gallery_link", "К списку заболеваний", locale="ru")
 i18n.add_translation("disease.error.load", "Не удалось загрузить данные: %{error}", locale="ru")
 i18n.add_translation("disease.error.no_id", "Идентификатор заболевания не указан.", locale="ru")
@@ -87,11 +85,9 @@ def DiseaseDetailPageComponent():
                     set_disease_data(data)
                     set_error(None)
 
-                    # Fetch related vector species if the disease data contains vectors IDs
                     if vectors_ids := data.get("vectors", []):
                         set_vectors_loading(True)
                         try:
-                            # We'll need to implement a fetch for each vector or create a batch API endpoint
                             vector_species = []
                             for vector_id in vectors_ids:
                                 vector_data = await fetch_api_data(f"{SPECIES_LIST_ENDPOINT}/{vector_id}")
@@ -131,8 +127,6 @@ def DiseaseDetailPageComponent():
 
         return cleanup
 
-    # The dependency for the effect is 'disease_id'. When route_current changes
-    # such that 'disease_id' changes, this effect will re-run.
     solara.use_effect(_fetch_disease_detail_effect, [disease_id])
 
     with solara.Column(align="center", classes=["pa-4"], style="max-width: 900px; margin: auto;"):
@@ -174,7 +168,7 @@ def DiseaseDetailPageComponent():
                         rv.Img(
                             src=disease_data["image_url"],
                             width="100%",
-                            max_width="350px",  # constrain image size
+                            max_width="350px",
                             style="border-radius: 8px; object-fit:cover; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
                         )
                     else:

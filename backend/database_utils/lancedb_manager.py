@@ -3,10 +3,8 @@ import pyarrow as pa
 import os
 from typing import Optional, List, Dict, Any
 
-LANCEDB_URI = os.environ.get("LANCEDB_URI", ".lancedb")  # Default to local dir
+LANCEDB_URI = os.environ.get("LANCEDB_URI", ".lancedb")
 
-# Define PyArrow schemas for our tables
-# These need to match the structure of your data when inserting
 SPECIES_SCHEMA = pa.schema(
     [
         pa.field("id", pa.string(), nullable=False),
@@ -33,24 +31,21 @@ DISEASES_SCHEMA = pa.schema(
         pa.field("prevention", pa.string()),
         pa.field("prevalence", pa.string()),
         pa.field("image_url", pa.string()),
-        pa.field("vectors", pa.list_(pa.string())),  # List of species IDs
+        pa.field("vectors", pa.list_(pa.string())),
     ]
 )
 
 FILTER_OPTIONS_SCHEMA = pa.schema(
-    [  # Store each option type in its own table for simplicity
+    [
         pa.field("name", pa.string(), nullable=False)
     ]
-)  # Separate tables for regions, data_sources
+)
 
 MAP_LAYERS_SCHEMA = pa.schema(
     [
-        pa.field("layer_type", pa.string(), nullable=False),  # 'distribution', 'observations', etc.
-        pa.field("layer_name", pa.string()),  # e.g., "Default Observations Layer"
-        # Storing the entire GeoJSON FeatureCollection string.
-        # Filtering by species/bbox will happen in Python after retrieval.
+        pa.field("layer_type", pa.string(), nullable=False),
+        pa.field("layer_name", pa.string()),
         pa.field("geojson_data", pa.string(), nullable=False),
-        # We can add a field for all species present in this geojson_data to aid initial filtering
         pa.field("contained_species", pa.list_(pa.string())),
     ]
 )
@@ -59,7 +54,7 @@ MAP_LAYERS_SCHEMA = pa.schema(
 class LanceDBManager:
     def __init__(self, uri: str = LANCEDB_URI):
         self.uri = uri
-        self.db = None  # Initialized in connect
+        self.db = None
 
     async def connect(self):
         """Connects to the LanceDB database."""
@@ -69,11 +64,7 @@ class LanceDBManager:
 
     async def close(self):
         """Closes the LanceDB connection."""
-        # LanceDB async connection doesn't have an explicit close in current versions.
-        # Connections are typically managed per operation or globally.
-        # For now, this method is a placeholder.
         if self.db:
-            # await self.db.close() # If future versions support it
             print("LanceDB connection implicitly managed.")
             self.db = None
 
@@ -89,7 +80,7 @@ class LanceDBManager:
             if table_name not in table_names:
                 if schema:
                     print(f"Table '{table_name}' not found. Creating with provided schema.")
-                    return await self.db.create_table(table_name, schema=schema, mode="create")  # or "overwrite"
+                    return await self.db.create_table(table_name, schema=schema, mode="create")
                 else:
                     print(f"Table '{table_name}' not found and no schema provided for creation.")
                     return None
@@ -111,12 +102,10 @@ class LanceDBManager:
             raise
 
 
-# Global instance (can be managed with FastAPI lifespan events or dependencies)
 lancedb_manager = LanceDBManager()
 
 
 async def get_lancedb_manager():
-    # Ensures connection is established before use in routers
     if not lancedb_manager.db:
         await lancedb_manager.connect()
     return lancedb_manager

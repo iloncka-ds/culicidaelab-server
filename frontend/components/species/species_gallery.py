@@ -22,7 +22,6 @@ from ...config import (
 )
 import i18n
 
-# Add translations
 i18n.add_translation("species_gallery.title", "Mosquito Species Gallery", locale="en")
 i18n.add_translation("species_gallery.search.placeholder", "Search by name...", locale="en")
 i18n.add_translation("species_gallery.search.button", "Search", locale="en")
@@ -32,7 +31,6 @@ i18n.add_translation(
     "species_gallery.messages.initializing", "Initializing species data or an unexpected issue occurred.", locale="en"
 )
 
-# Russian translations
 i18n.add_translation("species_gallery.title", "База данных эпидемиологически опасных видов комаров", locale="ru")
 i18n.add_translation("species_gallery.search.placeholder", "Поиск по названию...", locale="ru")
 i18n.add_translation("species_gallery.search.button", "Поиск", locale="ru")

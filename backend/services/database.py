@@ -3,7 +3,7 @@ from backend.config import settings
 from functools import lru_cache
 
 
-@lru_cache()  # Cache the connection per DB path
+@lru_cache()
 def get_db():
     """Connects to the LanceDB database."""
     try:
@@ -21,8 +21,5 @@ def get_table(db: lancedb.DBConnection, table_name: str):
     try:
         return db.open_table(table_name)
     except Exception as e:
-        # Catching generic Exception as LanceDB errors might vary
         print(f"Error opening table '{table_name}': {e}")
-        # You might want to check if the error means "table not found" specifically
-        # For now, re-raise or return None/handle appropriately in services
         raise ValueError(f"Table '{table_name}' not found or error opening.")

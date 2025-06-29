@@ -6,7 +6,6 @@ from backend.models import GeoJSONFeatureCollection
 
 router = APIRouter()
 
-# Define allowed layer types
 VALID_LAYER_TYPES = ["distribution", "observations", "modeled", "breeding_sites"]
 
 
@@ -36,7 +35,7 @@ async def get_geographic_layer(
         try:
             coords = [float(c.strip()) for c in bbox.split(",")]
             if len(coords) == 4:
-                bbox_filter = (coords[0], coords[1], coords[2], coords[3])  # min_lon, min_lat, max_lon, max_lat
+                bbox_filter = (coords[0], coords[1], coords[2], coords[3])
             else:
                 raise ValueError("Bounding box must have 4 coordinates.")
         except ValueError as e:
@@ -44,7 +43,6 @@ async def get_geographic_layer(
                 status_code=400, detail=f"Invalid bbox format: {e}. Use min_lon,min_lat,max_lon,max_lat"
             )
 
-    # Validate date strings if provided (basic validation, service can do more)
     if start_date and not geo_service.is_valid_date_str(start_date):
         raise HTTPException(status_code=400, detail="Invalid start_date format. Use YYYY-MM-DD")
     if end_date and not geo_service.is_valid_date_str(end_date):

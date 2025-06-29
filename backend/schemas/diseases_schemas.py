@@ -10,14 +10,14 @@ class DiseaseBase(BaseModel):
     prevention: Optional[str] = None
     prevalence: Optional[str] = None
     image_url: Optional[str] = None
-    vectors: Optional[List[str]] = []  # List of vector species IDs
+    vectors: Optional[List[str]] = []
 
 
 class Disease(DiseaseBase):
-    id: str  # From database document ID or a dedicated field
+    id: str
 
     class Config:
-        from_attributes = True  # formerly orm_mode
+        from_attributes = True
 
 
 class DiseaseListResponse(BaseModel):
