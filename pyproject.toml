@@ -7,7 +7,6 @@ requires-python = ">=3.11.0"
 dependencies = [
     "anywidget>=0.9.18",
     "colorcet>=3.1.0",
-    "culicidaelab",
     "fastapi>=0.115.12",
     "httpx>=0.28.1",
     "ipyleaflet>=0.19.2",
@@ -40,6 +39,9 @@ dev = [
     "pytest-cov>=6.0.0",
     "ruff>=0.7.4",
 ]
+
+[tool.uv.sources]
+culicidaelab-server = { workspace = true }
 
 [tool.mypy]
 
