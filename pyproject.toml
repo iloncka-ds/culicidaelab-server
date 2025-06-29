@@ -41,9 +41,5 @@ dev = [
     "ruff>=0.7.4",
 ]
 
-[tool.uv.sources]
-culicidaelab-server = { workspace = true }
-culicidaelab = { git = "https://github.com/iloncka-ds/culicidaelab.git", rev = "add94f7af783c6684e7f30d18476987695820901" }
-
 [tool.mypy]
 
