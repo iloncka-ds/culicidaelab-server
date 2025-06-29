@@ -1,9 +1,8 @@
 import json
 import random
 from datetime import datetime, timedelta
-import uuid
 
-# --- Species Data ---
+
 species_list = [
     {
         "id": "aedes_albopictus",
@@ -95,7 +94,6 @@ with open("sample_species.json", "w") as f:
     json.dump(species_list, f, indent=2)
 print("Generated sample_species.json")
 
-# --- Filter Options ---
 regions = [
     "Asia",
     "Europe",
@@ -110,7 +108,7 @@ data_sources = ["GBIF", "iNaturalist", "VectorBase", "Local Survey Team A", "Res
 
 filter_options = {
     "species": [s["scientific_name"] for s in species_list],
-    "regions": list(set(regions)),  # Unique regions
+    "regions": list(set(regions)),
     "data_sources": data_sources,
 }
 with open("sample_filter_options.json", "w") as f:
@@ -118,12 +116,8 @@ with open("sample_filter_options.json", "w") as f:
 print("Generated sample_filter_options.json")
 
 
-# --- Map Layers Data (Simplified GeoJSON-like structures) ---
-# For a real app, this would come from GIS data or complex simulations
 
-# Bounding Box for Europe (approx)
 europe_bbox = {"min_lon": -10, "max_lon": 40, "min_lat": 35, "max_lat": 70}
-# Bounding Box for SE Asia (approx)
 se_asia_bbox = {"min_lon": 90, "max_lon": 140, "min_lat": -10, "max_lat": 30}
 
 
@@ -134,54 +128,16 @@ def random_point_in_bbox(bbox):
 def random_date(start_days_ago=365, end_days_ago=0):
     return (datetime.now() - timedelta(days=random.randint(end_days_ago, start_days_ago))).strftime("%Y-%m-%d")
 
-
-# 1. Distribution Data
-distribution_data = []
-distribution_statuses = ["established", "detected", "absent", "native_established"]
-# Simple example: one polygon per species in a general region
-# In reality, these would be complex MultiPolygons
 species_regions_map = {
     "Aedes albopictus": europe_bbox,
     "Aedes aegypti": se_asia_bbox,
     "Culex pipiens": europe_bbox,
-    "Anopheles gambiae": {"min_lon": -20, "max_lon": 50, "min_lat": -35, "max_lat": 15},  # Africa
+    "Anopheles gambiae": {"min_lon": -20, "max_lon": 50, "min_lat": -35, "max_lat": 15},
     "Culiseta annulata": europe_bbox,
 }
-for s in species_list:
-    species_name = s["scientific_name"]
-    bbox = species_regions_map.get(species_name, europe_bbox)  # Default to Europe
-    # Simplified polygon (just the bounding box corners for this example)
-    coords = [
-        [bbox["min_lon"], bbox["min_lat"]],
-        [bbox["max_lon"], bbox["min_lat"]],
-        [bbox["max_lon"], bbox["max_lat"]],
-        [bbox["min_lon"], bbox["max_lat"]],
-        [bbox["min_lon"], bbox["min_lat"]],
-    ]
-    distribution_data.append(
-        {
-            "type": "Feature",
-            "properties": {
-                "name": f"{species_name} Distribution Area",
-                "species": species_name,
-                "distribution_status": random.choice(distribution_statuses),
-                "source": random.choice(data_sources),
-                "last_updated": random_date(),
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [coords],  # GeoJSON polygons have an outer array
-            },
-        }
-    )
-with open("sample_distribution.geojson", "w") as f:
-    json.dump({"type": "FeatureCollection", "features": distribution_data}, f, indent=2)
-print("Generated sample_distribution.geojson")
 
-
-# 2. Observations Data
 observations_data = []
-for _ in range(100):  # Generate 100 observations
+for _ in range(100):
     species_obj = random.choice(species_list)
     species_name = species_obj["scientific_name"]
     bbox = species_regions_map.get(species_name, europe_bbox)
@@ -200,7 +156,7 @@ for _ in range(100):  # Generate 100 observations
             },
             "geometry": {
                 "type": "Point",
-                "coordinates": point,  # [lon, lat]
+                "coordinates": point,
             },
         }
     )
@@ -209,83 +165,16 @@ with open("sample_observations.geojson", "w") as f:
 print("Generated sample_observations.geojson")
 
 
-# 3. Modeled Probability Data (e.g., a raster or contour lines represented as GeoJSON)
-# For simplicity, we'll use a few large polygons with probability values
-modeled_data = []
-for s in species_list:
-    species_name = s["scientific_name"]
-    bbox = species_regions_map.get(species_name, europe_bbox)
-    # Create a couple of overlapping "hotspot" polygons
-    for i in range(2):
-        sub_min_lon = random.uniform(bbox["min_lon"], (bbox["min_lon"] + bbox["max_lon"]) / 2)
-        sub_max_lon = random.uniform((bbox["min_lon"] + bbox["max_lon"]) / 2, bbox["max_lon"])
-        sub_min_lat = random.uniform(bbox["min_lat"], (bbox["min_lat"] + bbox["max_lat"]) / 2)
-        sub_max_lat = random.uniform((bbox["min_lat"] + bbox["max_lat"]) / 2, bbox["max_lat"])
-
-        coords = [
-            [sub_min_lon, sub_min_lat],
-            [sub_max_lon, sub_min_lat],
-            [sub_max_lon, sub_max_lat],
-            [sub_min_lon, sub_max_lat],
-            [sub_min_lon, sub_min_lat],
-        ]
-        modeled_data.append(
-            {
-                "type": "Feature",
-                "properties": {
-                    "species": species_name,
-                    "probability": round(random.uniform(0.1, 0.95), 2),
-                    "model_id": f"model_v{random.randint(1,3)}",
-                    "run_date": random_date(start_days_ago=90, end_days_ago=7),
-                },
-                "geometry": {"type": "Polygon", "coordinates": [coords]},
-            }
-        )
-with open("sample_modeled.geojson", "w") as f:
-    json.dump({"type": "FeatureCollection", "features": modeled_data}, f, indent=2)
-print("Generated sample_modeled.geojson")
-
-
-# 4. Breeding Sites Data
-breeding_sites_data = []
-site_types = ["Stormdrain (Water)", "Stormdrain (Dry)", "Container", "Tire", "Natural Pool", "Catch Basin"]
-for _ in range(70):  # Generate 70 breeding sites
-    species_obj = random.choice(species_list)  # Some sites might be associated with a species
-    species_found = random.choice(
-        [None, species_obj["scientific_name"], random.choice(species_list)["scientific_name"]]
-    )  # Can be empty
-    bbox = random.choice([europe_bbox, se_asia_bbox])  # Sites can be anywhere
-    point = random_point_in_bbox(bbox)
-    breeding_sites_data.append(
-        {
-            "type": "Feature",
-            "properties": {
-                "site_id": f"bs_{uuid.uuid4().hex[:8]}",
-                "site_type": random.choice(site_types),
-                "last_inspected": random_date(start_days_ago=60, end_days_ago=1),
-                "water_present": random.choice([True, False, None]),
-                "larvae_present": random.choice([True, False]) if random.random() > 0.3 else None,
-                "species_identified": species_found if random.random() > 0.5 else None,
-                "treatment_applied": random.choice([None, "BTI", "Methoprene", "Source Reduction"]),
-                "condition": random.choice(["Good", "Needs Cleaning", "Overgrown"]),
-            },
-            "geometry": {"type": "Point", "coordinates": point},
-        }
-    )
-with open("sample_breeding_sites.geojson", "w") as f:
-    json.dump({"type": "FeatureCollection", "features": breeding_sites_data}, f, indent=2)
-print("Generated sample_breeding_sites.geojson")
-
 diseases_data_list = [
     {
-        "id": "dengue_fever",  # Using descriptive string IDs
+        "id": "dengue_fever",
         "name": "Dengue Fever",
         "description": "Viral infection causing high fever, severe headache, and joint/muscle pain.",
         "symptoms": "High fever, severe headache, pain behind the eyes, joint and muscle pain, rash, mild bleeding",
         "treatment": "No specific treatment. Rest, fluids, pain relievers (avoiding aspirin). Severe cases require hospitalization.",
         "prevention": "Avoid mosquito bites, eliminate breeding sites, use repellents, wear protective clothing",
         "prevalence": "Tropical and subtropical regions, affecting up to 400 million people annually",
-        "image_url": "assets/images/dengue.jpg",  # Placeholder or relative path
+        "image_url": "assets/images/dengue.jpg",
         "vectors": ["aedes_aegypti", "aedes_albopictus"],
     },
     {
@@ -296,7 +185,7 @@ diseases_data_list = [
         "treatment": "Antimalarial drugs based on the type of malaria and severity. Early treatment is essential.",
         "prevention": "Antimalarial medications, insecticide-treated bed nets, indoor residual spraying, eliminating breeding sites",
         "prevalence": "Tropical and subtropical regions, particularly in Africa, with over 200 million cases annually",
-        "image_url": "assets/images/malaria.jpg",  # Placeholder or relative path
+        "image_url": "assets/images/malaria.jpg",
         "vectors": ["anopheles_gambiae"],
     },
     {
@@ -307,7 +196,7 @@ diseases_data_list = [
         "treatment": "No specific treatment. Rest, fluids, acetaminophen for pain and fever.",
         "prevention": "Avoid mosquito bites, use repellents, wear protective clothing, practice safe sex",
         "prevalence": "Tropical and subtropical regions, with outbreaks in the Americas, Africa, and Asia",
-        "image_url": "assets/images/zika.jpg",  # Placeholder or relative path
+        "image_url": "assets/images/zika.jpg",
         "vectors": ["aedes_aegypti", "aedes_albopictus"],
     },
     {
@@ -318,8 +207,8 @@ diseases_data_list = [
         "treatment": "No specific vaccine or treatment. Supportive care for severe cases.",
         "prevention": "Avoid mosquito bites, use repellents, eliminate standing water.",
         "prevalence": "Africa, Europe, Middle East, North America, West Asia. Outbreaks occur sporadically.",
-        "image_url": "assets/images/west_nile.jpg",  # Placeholder or relative path
-        "vectors": ["culex_pipiens"],  # Add other Culex species if relevant
+        "image_url": "assets/images/west_nile.jpg",
+        "vectors": ["culex_pipiens"],
     },
     {
         "id": "chikungunya",
@@ -329,7 +218,7 @@ diseases_data_list = [
         "treatment": "No specific antiviral treatment. Symptomatic relief for pain and fever.",
         "prevention": "Avoid mosquito bites, eliminate breeding sites, use repellents.",
         "prevalence": "Africa, Asia, Europe, Indian and Pacific Oceans, Americas. Has caused large outbreaks.",
-        "image_url": "assets/images/chikungunya.jpg",  # Placeholder or relative path
+        "image_url": "assets/images/chikungunya.jpg",
         "vectors": ["aedes_aegypti", "aedes_albopictus"],
     },
 ]

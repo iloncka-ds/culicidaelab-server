@@ -12,13 +12,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 JSON_FILES_DIR = (BASE_DIR / "../data/sample_data").resolve()
-# Adjust paths if your JSON files are elsewhere relative to this script
-DATA_DIR = (BASE_DIR / "../data").resolve() # Assuming JSON files are in culicidaelab_server/data/
-# If running from culicidaelab_server/backend/database:
-# DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "data")
-# For script to be run from culicidaelab_server/ (where sample files are generated)
-# This assumes `generate_sample_data.py` was run from the project root.
-# JSON_FILES_DIR = Path("../../data/sample_data")
+DATA_DIR = (BASE_DIR / "../data").resolve()
 
 
 async def populate_species_table(manager: LanceDBManager):
@@ -29,7 +23,6 @@ async def populate_species_table(manager: LanceDBManager):
     with open(file_path, "r") as f:
         species_data = json.load(f)
 
-    # Ensure data matches schema (e.g., lists for list fields)
     for s in species_data:
         s["key_characteristics"] = s.get("key_characteristics", [])
         s["geographic_regions"] = s.get("geographic_regions", [])
@@ -49,7 +42,6 @@ async def populate_filter_options_tables(manager: LanceDBManager):
 
     regions = [{"name": r} for r in options_data.get("regions", [])]
     data_sources = [{"name": ds} for ds in options_data.get("data_sources", [])]
-    # Species for filter options will be read directly from the 'species' table by the API
 
     if regions:
         await manager.create_or_overwrite_table("regions", regions, FILTER_OPTIONS_SCHEMA)
@@ -84,9 +76,9 @@ async def populate_map_layers_table(manager: LanceDBManager):
         all_map_layer_data.append(
             {
                 "layer_type": layer_type,
-                "layer_name": f"Default {layer_type.title()} Layer",  # Or generate a more specific name
-                "geojson_data": json.dumps(geojson_collection),  # Store as string
-                "contained_species": sorted(list(contained_species_set)),  # Store as list of strings
+                "layer_name": f"Default {layer_type.title()} Layer",
+                "geojson_data": json.dumps(geojson_collection),
+                "contained_species": sorted(list(contained_species_set)),
             }
         )
 
@@ -101,29 +93,25 @@ async def populate_diseases_table(manager: LanceDBManager):
     with open(file_path, "r") as f:
         diseases_data = json.load(f)
 
-    # Ensure data matches schema (e.g., vectors is a list)
     for d in diseases_data:
         d["vectors"] = d.get("vectors", [])
-        # Ensure all fields defined in schema are present, defaulting if necessary
         for field in DISEASES_SCHEMA.names:
             if field not in d:
                 if DISEASES_SCHEMA.field(field).type == pa.list_(pa.string()):
                     d[field] = []
                 elif DISEASES_SCHEMA.field(field).type == pa.string():
-                    d[field] = None  # Or "" depending on preference for nullable strings
-                # Add other type checks if necessary
+                    d[field] = None
 
     await manager.create_or_overwrite_table("diseases", diseases_data, DISEASES_SCHEMA)
     print("Diseases table populated.")
 
 async def main():
-    # Ensure the .lancedb directory exists or adjust LANCEDB_URI
-    lancedb_dir = DATA_DIR/".lancedb"  # Default, relative to where this script is run
+    lancedb_dir = DATA_DIR/".lancedb"
     if not os.path.exists(lancedb_dir):
         os.makedirs(lancedb_dir, exist_ok=True)
 
-    manager = LanceDBManager(uri=lancedb_dir)  # Use local directory for DB files
-    await manager.connect()  # Explicit connect for setup script
+    manager = LanceDBManager(uri=lancedb_dir)
+    await manager.connect()
 
     print("Populating LanceDB...")
     await populate_species_table(manager)
@@ -131,15 +119,7 @@ async def main():
     await populate_map_layers_table(manager)
     await populate_diseases_table(manager)
     print("LanceDB population complete.")
-    # No explicit close needed for current LanceDB versions for local FS
 
 
 if __name__ == "__main__":
-    # First, ensure generate_sample_data.py has been run in the project root
-    # to create the .json files.
-    # This script should ideally be run from the `culicidaelab_server/backend/database` directory
-    # or adjust JSON_FILES_DIR accordingly.
-    # For simplicity, let's assume it's run from project root after generate_sample_data.py
-    # For this example, let's assume you run this from the project root `culicidaelab-server/`
-    # $ python backend/database/populate_lancedb.py
     asyncio.run(main())

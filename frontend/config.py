@@ -28,7 +28,6 @@ def load_themes(theme):
     This function should be called at application startup to ensure consistent theming.
     """
     try:
-        # Apply themes directly using attribute access - LIGHT THEME
         theme.themes.light.primary = "#009688"
         theme.themes.light.secondary = "#B2DFDB"
         theme.themes.light.accent = "#00796B"
@@ -37,15 +36,14 @@ def load_themes(theme):
         theme.themes.light.success = "#1ABC9C"
         theme.themes.light.warning = "#F1C40F"
 
-        # Apply themes directly using attribute access - DARK THEME
         theme.themes.dark.primary = "#009688"
         theme.themes.dark.secondary = "#B2DFDB"
         theme.themes.dark.accent = "#00796B"
-        theme.themes.dark.error = "#E74C3C"  # Error color for dark theme (red)
-        theme.themes.dark.info = "#3498DB"  # Info color for dark theme (blue)
-        theme.themes.dark.success = "#1ABC9C"  # Success color (teal)
+        theme.themes.dark.error = "#E74C3C"
+        theme.themes.dark.info = "#3498DB"
+        theme.themes.dark.success = "#1ABC9C"
 
-        theme.themes.dark.warning = "#F1C40F"  # Warning color for dark theme (amber)
+        theme.themes.dark.warning = "#F1C40F"
 
         print("Theme applied successfully")
     except Exception as e:
@@ -61,13 +59,11 @@ def _hex_to_rgba(hex_color: str, alpha: float) -> str:
 
 
 def generate_species_colors(species_list: List[str], alpha: float = 0.9) -> Dict[str, str]:
-    palette_name = "glasbey_bw"  # A good categorical palette from colorcet
+    palette_name = "glasbey_bw"
     try:
-        # colorcet.palette contains lists of hex color strings
         colors_hex = cc.palette[palette_name]
 
     except KeyError:
-        # Absolute fallback (simple distinct colors)
         colors_hex = [
             "#E6194B",
             "#3CB44B",
@@ -94,7 +90,7 @@ def generate_species_colors(species_list: List[str], alpha: float = 0.9) -> Dict
     num_colors = len(colors_hex)
     species_color_map = {}
     for i, species_name in enumerate(species_list):
-        hex_color = colors_hex[i % num_colors]  # Cycle through colors if more species than palette colors
+        hex_color = colors_hex[i % num_colors]
         species_color_map[species_name] = _hex_to_rgba(hex_color, alpha)
     return species_color_map
 
@@ -110,11 +106,8 @@ SPECIES_COLORS = generate_species_colors(DEFAULT_SPECIES_LIST_FOR_COLORS)
 
 DEFAULT_MAP_CENTER = (40.416775, -3.703790)
 DEFAULT_MAP_ZOOM = 5
-# disease_id = None
 API_BASE_URL = "http://localhost:8000/api"
-# SPECIES_DISTRIBUTION_ENDPOINT = f"{API_BASE_URL}/geo/distribution"
 OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/geo/observations"
-# MODELED_PROBABILITY_ENDPOINT = f"{API_BASE_URL}/geo/modeled_probability"
 SPECIES_INFO_ENDPOINT = f"{API_BASE_URL}/species_info"
 DISEASE_LIST_ENDPOINT = f"{API_BASE_URL}/diseases"
 DISEASE_DETAIL_ENDPOINT_TEMPLATE = f"{API_BASE_URL}/diseases/{{disease_id}}"
@@ -123,7 +116,6 @@ FILTER_OPTIONS_ENDPOINT = f"{API_BASE_URL}/filter_options"
 SPECIES_LIST_ENDPOINT = f"{API_BASE_URL}/species"
 SPECIES_DETAIL_ENDPOINT_TEMPLATE = f"{API_BASE_URL}/species/{{species_id}}"
 
-# Configuration constants for the application
 FONT_HEADINGS = "Montserrat, sans-serif"
 FONT_BODY = "Open Sans, sans-serif"
 COLOR_PRIMARY = "primary"
@@ -133,7 +125,6 @@ COLOR_SUCCESS = "#4CAF50"
 COLOR_WARNING = "#FF9800"
 COLOR_ERROR = "#F44336"
 
-# API endpoints
 
 PREDICTION_ENDPOINT = f"{API_BASE_URL}/predict_species/"
 STORE_OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"

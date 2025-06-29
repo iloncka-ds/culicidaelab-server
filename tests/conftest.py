@@ -7,7 +7,6 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-# Add the backend directory to Python path
 sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
 
 from backend.main import app
@@ -25,8 +24,7 @@ def mock_image_data():
     """Create a mock image file in memory."""
     from PIL import Image
     import io
-    
-    # Create a simple 10x10 red image
+
     img = Image.new('RGB', (10, 10), color='red')
     img_byte_arr = io.BytesIO()
     img.save(img_byte_arr, format='PNG')
@@ -37,7 +35,7 @@ def mock_image_data():
 def mock_prediction_result():
     """Create a mock prediction result."""
     from backend.services.prediction_service import PredictionResult
-    
+
     return PredictionResult(
         scientific_name="Aedes aegypti",
         probabilities={"Aedes aegypti": 0.95, "Culex pipiens": 0.05},
@@ -52,7 +50,7 @@ def mock_prediction_result():
 def mock_species_detail():
     """Create a mock species detail object."""
     from backend.models import SpeciesDetail
-    
+
     return SpeciesDetail(
         id="aedes_aegypti",
         scientific_name="Aedes aegypti",

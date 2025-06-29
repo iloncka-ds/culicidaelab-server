@@ -1,11 +1,9 @@
 import solara
 import i18n
 
-# Supported locales with their display names
 LOCALES = {
     "en": "English",
     "ru": "Русский",
-    # Add more locales as needed
 }
 
 
@@ -28,7 +26,6 @@ def LocaleSelector():
                 label="",
                 value=current_locale.value,
                 values=list(LOCALES.keys()),
-                # value_names=[LOCALES[code] for code in LOCALES],
                 on_value=lambda new_locale: (set_locale(new_locale), current_locale.set(new_locale)),
                 dense=True,
                 style="max-width: 50px;",

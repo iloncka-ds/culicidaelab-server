@@ -10,7 +10,6 @@ from ...state import selected_species_item_id
 from frontend.components.diseases.disease_card import DiseaseCard
 import i18n
 
-# Add translations
 i18n.add_translation("species.gallery_link", "Go to Species Gallery", locale="en")
 i18n.add_translation("species.error.load", "Could not load species details: %{error}", locale="en")
 i18n.add_translation("species.error.no_id", "No species ID specified.", locale="en")
@@ -31,7 +30,6 @@ i18n.add_translation(
     "species.messages.disease_unavailable", "Information on related diseases is currently unavailable.", locale="en"
 )
 
-# Russian translations
 i18n.add_translation("species.gallery_link", "К списку видов", locale="ru")
 i18n.add_translation("species.error.load", "Ошибка загрузки данных: %{error}", locale="ru")
 i18n.add_translation("species.error.no_id", "Идентификатор вида не указан.", locale="ru")
@@ -84,7 +82,7 @@ def SpeciesDetailPageComponent():
             set_diseases_loading(False)
             set_diseases_error(None)
 
-            disease_ids_to_fetch = []  # Initialize here
+            disease_ids_to_fetch = []
 
             try:
                 url = SPECIES_DETAIL_ENDPOINT_TEMPLATE.format(species_id=species_id)
@@ -137,11 +135,11 @@ def SpeciesDetailPageComponent():
                                 f"DEBUG: SPECIES_DETAIL.PY: Task cancelled before setting related_diseases_data for species {species_id}."
                             )
 
-                        set_diseases_loading(False)  # Moved inside 'if disease_ids_to_fetch'
+                        set_diseases_loading(False)
                     else:
                         print(f"DEBUG: SPECIES_DETAIL.PY: No related disease IDs found for species {species_id}.")
                         set_related_diseases_data([])
-                        set_diseases_loading(False)  # Ensure it's false if no IDs
+                        set_diseases_loading(False)
 
             except asyncio.CancelledError:
                 print(f"DEBUG: SPECIES_DETAIL.PY Effect _async_task for {species_id} was cancelled.")
@@ -154,8 +152,8 @@ def SpeciesDetailPageComponent():
             finally:
                 if not (task_ref[0] and task_ref[0].cancelled()):
                     set_loading(False)
-                    if disease_ids_to_fetch:  # Only if we attempted to load them
-                        set_diseases_loading(False)  # Redundant if already set, but safe
+                    if disease_ids_to_fetch:
+                        set_diseases_loading(False)
                 print(
                     f"DEBUG: SPECIES_DETAIL.PY Effect: Fetch process finished for {species_id}. Loading states: species_loading={loading}, diseases_loading={diseases_loading}"
                 )

@@ -4,9 +4,9 @@ from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, status
 from backend.services.prediction_service import prediction_service, PredictionResult
 from backend.services.observation_service import observation_service
 from backend.models import Observation, ObservationCreate, ObservationListResponse
-from backend.dependencies import get_current_user_id  # Assuming you have auth setup
 
-router = APIRouter(prefix="/api/v1", tags=["predictions"])
+
+router = APIRouter()
 
 
 @router.post(
@@ -30,14 +30,7 @@ async def predict_species(
     Raises:
         HTTPException: If prediction fails or file is invalid
     """
-    # Validate file
-    if not file:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="No file provided"
-        )
 
-    # Check file type
     content_type = file.content_type
     if not content_type or not content_type.startswith("image/"):
         raise HTTPException(
@@ -46,7 +39,6 @@ async def predict_species(
         )
 
     try:
-        # Read file content
         contents = await file.read()
         if not contents:
             raise HTTPException(
@@ -54,7 +46,6 @@ async def predict_species(
                 detail="Empty file"
             )
 
-        # Get prediction
         result, error = await prediction_service.predict_species(contents, file.filename)
 
         if error:
@@ -89,11 +80,11 @@ async def predict_species(
 )
 async def create_observation(
     observation: ObservationCreate,
-    user_id: str = Depends(get_current_user_id),
+    user_id: str = "default_user_id",
 ) -> Observation:
     """
     Create a new observation record.
-    
+
     This endpoint allows authenticated users to submit mosquito observation data.
     The observation will be associated with the authenticated user.
     """
@@ -118,19 +109,18 @@ async def get_observations(
     species_id: Optional[str] = None,
     limit: int = 100,
     offset: int = 0,
-    user_id: str = Depends(get_current_user_id),
+    user_id: str = "default_user_id",
 ) -> ObservationListResponse:
     """
     Get a list of observations, optionally filtered by species.
-    
+
     Only returns observations for the authenticated user unless the user has admin privileges.
     """
     try:
-        # In a real implementation, you might want to add admin checks here
         return await observation_service.get_observations(
             user_id=user_id,
             species_id=species_id,
-            limit=min(limit, 1000),  # Enforce max limit
+            limit=min(limit, 1000),
             offset=max(offset, 0),
         )
     except HTTPException:

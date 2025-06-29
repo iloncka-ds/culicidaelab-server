@@ -2,14 +2,12 @@
 import solara
 import httpx
 
-from typing import List, Tuple, Optional, Dict, Any, cast  # Add Dict, Any, cast
+from typing import List, Tuple, Optional, Dict, Any, cast
 
 from datetime import date, timedelta
 
-# Import new endpoint from config
-from .config import FILTER_OPTIONS_ENDPOINT  # Assuming relative import within the package
+from .config import FILTER_OPTIONS_ENDPOINT
 
-# --- API Helper ---
 async def fetch_api_data(
     url: str,
     params: Optional[Dict[str, Any]] = None,
@@ -54,13 +52,6 @@ async def fetch_api_data(
         if loading_reactive:
             loading_reactive.value = False
 
-# # --- Filter States ---
-# selected_species_reactive = solara.reactive(cast(List[str], []))  # Ensure type hint
-# selected_date_range_reactive = solara.reactive(
-#     cast(Tuple[Optional[Any], Optional[Any]], [dt.date.today(), dt.date.today() + dt.timedelta(days=1)])
-# )
-# --- Filter State ---
-# Default date range: last 30 days up to today
 default_end_date = date.today()
 default_start_date = default_end_date - timedelta(days=365)
 
@@ -71,21 +62,17 @@ selected_date_range_reactive: solara.Reactive[Tuple[Optional[date], Optional[dat
 )
 selected_region_reactive: solara.Reactive[Optional[str]] = solara.reactive(None)
 selected_data_source_reactive: solara.Reactive[Optional[str]] = solara.reactive(None)
-# More specific Any for date
 selected_region_reactive = solara.reactive(cast(Optional[str], None))
 selected_data_source_reactive = solara.reactive(cast(Optional[str], None))
 selected_species_item_id = solara.reactive(None)
 
-# --- Layer Visibility ---
-show_observed_data_reactive = solara.reactive(True) # TRUE
-show_modeled_data_reactive = solara.reactive(False)  # Default off as it can be heavy
+show_observed_data_reactive = solara.reactive(True)
+show_modeled_data_reactive = solara.reactive(False)
 show_distribution_status_reactive = solara.reactive(True)
-show_breeding_sites_reactive = solara.reactive(False)  # From map DETAILED PLAN
+show_breeding_sites_reactive = solara.reactive(False)
 
 
-# --- Map Interaction State ---
-# Example: current center and zoom of the map
-DEFAULT_MAP_CENTER = (20, 0)  # Default latitude and longitude
+DEFAULT_MAP_CENTER = (20, 0)
 DEFAULT_MAP_ZOOM = 3
 current_map_center_reactive: solara.Reactive[Tuple[float, float]] = solara.reactive(DEFAULT_MAP_CENTER)
 current_map_zoom_reactive: solara.Reactive[int] = solara.reactive(DEFAULT_MAP_ZOOM)
@@ -93,22 +80,18 @@ current_map_bounds_reactive: solara.Reactive[Optional[Tuple[Tuple[float, float],
     solara.reactive(None)
 )
 
-# For info panel when a feature (polygon, marker) is clicked
 selected_map_feature_info = solara.reactive(None)
 
 
-# --- Data States ---
-# These would be populated by API calls. GeoJSON is a common format.
-distribution_data_reactive = solara.reactive(None)  # GeoJSON dictionary
-observations_data_reactive = solara.reactive(None)  # GeoJSON dictionary
-modeled_data_reactive = solara.reactive(None)  # GeoJSON for heatmap/contours
-breeding_sites_data_reactive = solara.reactive(None)  # GeoJSON for breeding sites
+distribution_data_reactive = solara.reactive(None)
+observations_data_reactive = solara.reactive(None)
+modeled_data_reactive = solara.reactive(None)
+breeding_sites_data_reactive = solara.reactive(None)
 
 
-all_available_species_reactive = solara.reactive(cast(List[str], []))  # Start empty
-all_available_regions_reactive = solara.reactive(cast(List[str], []))  # Start empty
-all_available_data_sources_reactive = solara.reactive(cast(List[str], []))  # Start empty
-# --- Reactive States for Species Database Page ---
+all_available_species_reactive = solara.reactive(cast(List[str], []))
+all_available_regions_reactive = solara.reactive(cast(List[str], []))
+all_available_data_sources_reactive = solara.reactive(cast(List[str], []))
 species_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
 species_list_loading_reactive = solara.reactive(False)
 species_list_error_reactive = solara.reactive(cast(Optional[str], None))
@@ -116,7 +99,6 @@ species_list_error_reactive = solara.reactive(cast(Optional[str], None))
 filter_options_loading_reactive = solara.reactive(False)
 filter_options_error_reactive = solara.reactive(cast(Optional[str], None))
 
-# --- Reactive States for Disease Database Page ---
 selected_disease_item_id = solara.reactive(None)
 disease_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
 disease_list_loading_reactive = solara.reactive(False)
@@ -130,12 +112,11 @@ async def fetch_filter_options():
     filter_options_error_reactive.value = None
     try:
         async with httpx.AsyncClient() as client:
-            print(f"Fetching filter options from {FILTER_OPTIONS_ENDPOINT}")  # Debug
+            print(f"Fetching filter options from {FILTER_OPTIONS_ENDPOINT}")
             response = await client.get(FILTER_OPTIONS_ENDPOINT, timeout=10.0)
             response.raise_for_status()
             data = response.json()
 
-            # Ensure keys exist in the response before assigning
             all_available_species_reactive.value = data.get("species", [])
             all_available_regions_reactive.value = data.get("regions", [])
             all_available_data_sources_reactive.value = data.get("data_sources", [])
@@ -149,7 +130,6 @@ async def fetch_filter_options():
         err_msg = f"HTTP error fetching filter options: {e.response.status_code} - {e.response.text}"
         print(err_msg)
         filter_options_error_reactive.value = err_msg
-        # Keep existing (empty) lists or set them to empty on error
         all_available_species_reactive.value = []
         all_available_regions_reactive.value = []
         all_available_data_sources_reactive.value = []

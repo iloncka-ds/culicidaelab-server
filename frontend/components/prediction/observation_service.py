@@ -14,16 +14,16 @@ async def submit_observation_data(observation_payload: Dict[str, Any]) -> Option
     Args:
         observation_payload: Dictionary containing observation data with the following structure:
             {
-                "species_id": str,  # Required: ID of the observed species
-                "count": int,       # Required: Number of specimens observed
-                "location": {       # Required: Observation location
-                    "lat": float,   # Latitude
-                    "lng": float    # Longitude
+                "species_id": str,
+                "count": int,
+                "location": {
+                    "lat": float,
+                    "lng": float
                 },
-                "observed_at": str,  # ISO 8601 datetime string
-                "notes": Optional[str],  # Optional notes
-                "image_url": Optional[str],  # Optional URL to observation image
-                "metadata": Dict[str, Any]  # Optional additional metadata
+                "observed_at": str,
+                "notes": Optional[str],
+                "image_url": Optional[str],
+                "metadata": Dict[str, Any]
             }
     Returns:
         Optional[str]: Error message if submission failed, None if successful
@@ -46,7 +46,7 @@ async def submit_observation_data(observation_payload: Dict[str, Any]) -> Option
                 error_detail = response.json().get("detail", "Unknown error")
                 return f"Failed to submit observation: {error_detail}"
 
-            return None  # Success
+            return None
 
     except httpx.HTTPStatusError as e:
         return f"HTTP error: {str(e)}"

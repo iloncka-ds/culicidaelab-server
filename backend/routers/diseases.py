@@ -37,11 +37,9 @@ async def get_disease_vectors_endpoint(disease_id: str, db: lancedb.DBConnection
     """
     Retrieve vector species associated with a specific disease.
     """
-    # First check if the disease exists
     disease_detail = disease_service.get_disease_by_id(db, disease_id)
     if not disease_detail:
         raise HTTPException(status_code=404, detail="Disease not found")
 
-    # Get the vector species
     vector_species = species_service.get_vector_species(db, disease_id=disease_id)
     return vector_species

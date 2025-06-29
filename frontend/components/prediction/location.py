@@ -6,11 +6,11 @@ from typing import Optional, cast
 @solara.component
 def LocationComponent(
     latitude: Optional[float],
-    set_latitude: callable,  # Parent's state setter: (value: Optional[float]) -> None
+    set_latitude: callable,
     longitude: Optional[float],
-    set_longitude: callable,  # Parent's state setter: (value: Optional[float]) -> None
-    initial_lat: Optional[float] = 20.0,  # Default initial view latitude
-    initial_lon: Optional[float] = 0.0,  # Default initial view longitude
+    set_longitude: callable,
+    initial_lat: Optional[float] = 20.0,
+    initial_lon: Optional[float] = 0.0,
     initial_zoom: int = 2,
 ):
     """
@@ -28,7 +28,6 @@ def LocationComponent(
             center=map_center_init,
             zoom=map_zoom_init,
             scroll_wheel_zoom=True,
-            # layout={"height": "400px"} # Ensure map has height
         ),
         [],
     )
@@ -61,7 +60,7 @@ def LocationComponent(
 
         if map_widget.center != (lat, lon):
             map_widget.center = (lat, lon)
-        if map_widget.zoom < 10:  # Zoom in if marker is placed/moved
+        if map_widget.zoom < 10:
             map_widget.zoom = 10
 
     def _remove_marker():
@@ -71,10 +70,9 @@ def LocationComponent(
                 current_marker.unobserve(_handle_marker_location_changed, names=["location"])
                 map_widget.remove_layer(current_marker)
             except Exception as e:
-                print(f"Error removing marker: {e}")  # Solara log
+                print(f"Error removing marker: {e}")
             set_marker_object(None)
 
-    # Effect to sync marker with parent state (latitude, longitude props)
     def sync_marker_with_state_effect():
         if latitude is not None and longitude is not None:
             _create_or_update_marker(latitude, longitude)
@@ -83,14 +81,13 @@ def LocationComponent(
 
     solara.use_effect(sync_marker_with_state_effect, [latitude, longitude])
 
-    # Setup map click listener
     solara.use_effect(
         lambda: map_widget.on_interaction(_handle_map_click)
         or (lambda: map_widget.on_interaction(_handle_map_click, remove=True)),
         [map_widget],
     )
 
-    with solara.Column(style={"min-height": "300px"}):  # Ensure map and inputs fit
+    with solara.Column(style={"min-height": "300px"}):
         solara.Markdown("#### Select Location", style="margin-bottom: 10px;")
         with solara.Row(gap="10px", style={"align-items": "center", "margin-bottom": "10px;"}):
             solara.InputFloat(
@@ -108,7 +105,6 @@ def LocationComponent(
                 clearable=True,
             )
 
-        # Ensure Leaflet map resizes correctly and has a fixed height
         solara.HTML(
             tag="div", unsafe_innerHTML="<style>.leaflet-container { height: 350px !important; width: 100%; }</style>"
         )

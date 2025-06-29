@@ -23,12 +23,9 @@ class NavRoute(solara.Route):
 def Layout(children: List[solara.Element] = []):
     route_current, routes_all = solara.use_route()
 
-    # navbar_color = "#22c55e"  # The green color we want
 
     with solara.AppLayout(
         title="CulicidaeLab",
-        # color="primary",  # This may not work as expected with theme conflicts
-        # style=f"background-color: {navbar_color}; color: white;"  # Force green background
     ) as main_app_layout:
 
         for route_obj in routes_all:
@@ -48,7 +45,6 @@ def Layout(children: List[solara.Element] = []):
                     style="width: 100%; text-transform: none; font-weight: normal; margin-bottom: 4px; ",
                 )
 
-        # The children (current page from router) are rendered here by AppLayout
         for child_component in children:
             child_component()
 
