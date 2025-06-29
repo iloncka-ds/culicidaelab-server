@@ -1,7 +1,7 @@
 [project]
 name = "culicidaelab-server"
 version = "0.1.0"
-description = "Add your awesome app description here"
+description = "CulicidaeLab server"
 readme = "README.md"
 requires-python = ">=3.11.0"
 dependencies = [
