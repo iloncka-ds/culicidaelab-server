@@ -65,7 +65,7 @@ def AppInitializer():
     initialized, set_initialized = solara.use_state(False)
 
     if not initialized:
-        solara.lab.use_task(fetch_filter_options)
+        solara.lab.use_task(fetch_filter_options)  # noqa: SH102
         set_initialized(True)
     setup_i18n()
     return None

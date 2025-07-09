@@ -19,6 +19,7 @@ dependencies = [
     "python-dotenv>=1.1.0",
     "python-i18n[yaml]>=0.3.9",
     "python-multipart>=0.0.20",
+    "sam2==1.1.0",
     "shapely>=2.1.0",
     "solara[assets]==1.37.1",
 ]

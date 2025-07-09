@@ -5,7 +5,7 @@ from backend.config import settings
 from culicidaelab import MosquitoClassifier
 
 from pydantic import BaseModel
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, Optional, Tuple
 from pathlib import Path
 from PIL import Image
 import io
@@ -29,8 +29,8 @@ class PredictionService:
         """Initialize the prediction service."""
         self.model = None
         self.model_loaded = False
-        self.model_path = Path(settings.CLASSIFIER_MODEL_PATH) if hasattr(settings, "CLASSIFIER_MODEL_PATH") else None
-        self.config_manager = None
+        self.model_path = Path(settings.classifier_model_path)
+        self.settings = settings.classifier_settings
 
     async def load_model(self):
         """Load the mosquito classifier model if not already loaded."""
@@ -38,7 +38,7 @@ class PredictionService:
             return self.model
 
         try:
-            self.model = MosquitoClassifier(settings, load_model=True)
+            self.model = MosquitoClassifier(self.settings, load_model=True)
             self.model_loaded = True
             print(f"Mosquito classifier model loaded successfully from {self.model_path}")
         except Exception as e:
@@ -95,20 +95,20 @@ class PredictionService:
                     scientific_name=top_species,
                     probabilities={species: float(conf) for species, conf in predictions},
                     id=f"species_{hash(top_species) % 10000:04d}",
-                    model_id=f"model_{self.model.arch}",
+                    model_id=f"model_{self.settings.predictors.classifier.      model_arch}",
                     confidence=float(top_confidence),
                     image_url_species=f"https://via.placeholder.com/300x200.png?text={top_species.replace(' ', '+')}",
                 )
                 return result, None
             else:
-                return await self._mock_prediction(filename)
+                return await self._mock_prediction()
 
         except Exception as e:
             error_msg = f"Error predicting species: {str(e)}"
             print(error_msg)
             return None, error_msg
 
-    async def _mock_prediction(self, filename: str) -> Tuple[PredictionResult, None]:
+    async def _mock_prediction(self) -> Tuple[PredictionResult, None]:
         """
         Generate mock prediction when the model is unavailable.
         This ensures the frontend can still function for testing.
