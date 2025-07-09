@@ -205,7 +205,7 @@ def MapDisplay():
         else:
             observations_data_reactive.value = None
 
-    solara.lab.use_task(
+    solara.lab.use_task(  # noqa: SH101
         load_observations_data_task,
         dependencies=[
             selected_species_reactive.value,

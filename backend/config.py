@@ -7,16 +7,22 @@ import pathlib
 
 BACKEND_DIR = pathlib.Path(__file__).parent.resolve()
 
-def get_predictor_settings():
+def get_predictor_model_path():
     settings = get_settings()
-    classifier_conf = settings.get_config("predictors.classifier")
-    return classifier_conf
-class Settings(BaseSettings):
+    model_path = settings.get_model_weights_path("segmenter")
+
+    return model_path
+
+def get_predictor_settings():
+    return get_settings()
+
+class AppSettings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
         case_sensitive=False,
         env_prefix="CULICIDAELAB_",
         extra="ignore",
+
     )
 
     APP_NAME: str = "CulicidaeLab API"
@@ -24,5 +30,15 @@ class Settings(BaseSettings):
     DATABASE_PATH: str = str(BACKEND_DIR / "data" / ".lancedb")
     print(DATABASE_PATH)
     BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:8765", "http://127.0.0.1:8765"]
-    CLASSIFIER_CONFIG: dict = get_predictor_settings()
-settings = Settings()
+
+    @property
+    def classifier_settings(self):
+        """Returns the fully initialized settings object from the culicidaelab library."""
+        return get_predictor_settings()
+
+    @property
+    def classifier_model_path(self) -> str:
+        """Returns the path to the classifier model weights."""
+        return get_predictor_model_path()
+
+settings = AppSettings()
