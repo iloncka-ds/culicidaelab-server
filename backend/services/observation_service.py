@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from fastapi import HTTPException, status
 
-from backend.models import Observation, ObservationCreate, ObservationListResponse
+from backend.schemas.observation_schemas import Observation, ObservationCreate, ObservationListResponse
 from backend.database_utils.lancedb_manager import get_lancedb_manager
 
 
