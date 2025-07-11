@@ -15,7 +15,7 @@ i18n.add_translation("actions.view_details", "View Details", locale="en")
 
 i18n.add_translation("actions.view_details", "Читать далее", locale="ru")
 
-i18n.set("locale", "ru")
+# i18n.set("locale", "ru")
 i18n.set("fallback", "en")
 
 @solara.component
