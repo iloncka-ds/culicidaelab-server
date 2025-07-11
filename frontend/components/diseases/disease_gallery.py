@@ -31,7 +31,8 @@ i18n.add_translation("disease_gallery.messages.no_results", "Информаци�
 i18n.add_translation("disease_gallery.messages.initializing", "Инициализация данных или непредвиденная ошибка.", locale="ru")
 
 @solara.component
-def DiseaseGalleryPageComponent():
+def DiseaseGalleryPageComponent(rerender_trigger: int):
+
     search_query, set_search_query = solara.use_state("")
 
     def _load_disease_list_data_effect() -> Optional[Callable[[], None]]:

@@ -40,12 +40,17 @@ class ObservationService:
             observation_dict["updated_at"] = current_time
 
             try:
-                table = self.db.open_table(self.table_name)
+                table = await self.db.open_table(self.table_name)
+                await table.add([observation_dict])
             except Exception:
-                table = self.db.create_table(self.table_name, data=[observation_dict], mode="overwrite")
-            else:
-                table.add([observation_dict])
+                # If table doesn't exist, create it
+                table = await self.db.create_table(
+                    self.table_name, 
+                    data=[observation_dict], 
+                    mode="overwrite"
+                )
 
+            # Convert back to Pydantic model for response
             return Observation(**observation_dict)
 
         except Exception as e:
@@ -73,20 +78,25 @@ class ObservationService:
             List of observations matching the criteria
         """
         try:
-            table = self.db.open_table(self.table_name)
-            query = {}
-
+            # Open the table
+            table = await self.db.open_table(self.table_name)
+            
+            # Build query conditions
+            conditions = []
             if user_id:
-                query["user_id"] = user_id
+                conditions.append(f"user_id = '{user_id}'")
             if species_id:
-                query["species_id"] = species_id
-
-            where = " AND ".join([f"{k} = '{v}'" for k, v in query.items()])
-
-            results = table.search().where(where).limit(limit).offset(offset).to_list()
-            total = len(results)
-
-            observations = [Observation(**item) for item in results]
+                conditions.append(f"species_id = '{species_id}'")
+                
+            # Execute query
+            query = " AND ".join(conditions) if conditions else None
+            results = await table.search().where(query).limit(limit).offset(offset).to_list()
+            
+            # Get total count for pagination
+            total = len(results) if results else 0
+            
+            # Convert to Pydantic models
+            observations = [Observation(**item) for item in results] if results else []
             return ObservationListResponse(count=total, observations=observations)
 
         except Exception as e:
@@ -99,7 +109,15 @@ observation_service = None
 
 
 async def get_observation_service():
+    """Get or initialize the observation service.
+    
+    This function ensures the service is properly initialized before use.
+    
+    Returns:
+        ObservationService: An initialized instance of ObservationService
+    """
     global observation_service
     if observation_service is None:
-        observation_service = await ObservationService().initialize()
+        observation_service = ObservationService()
+        await observation_service.initialize()
     return observation_service
