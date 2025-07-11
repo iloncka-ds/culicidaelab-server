@@ -40,6 +40,6 @@ def Page():
     with solara.AppBarTitle():
         solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
     if selected_disease_item_id.value is None:
-        DiseaseGalleryPageComponent(rerender_trigger)
+        DiseaseGalleryPageComponent()
     else:
-        DiseaseDetailPageComponent(rerender_trigger)
+        DiseaseDetailPageComponent()
