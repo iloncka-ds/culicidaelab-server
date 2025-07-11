@@ -68,46 +68,60 @@ def _db_record_to_species_detail(record: dict) -> SpeciesDetail:
 def get_all_species(
     db: lancedb.DBConnection, search: Optional[str] = None, limit: int = 100
 ) -> List[SpeciesBase]:
-    """Gets a list of species, optionally filtered by search term."""
+    """
+    Gets a list of species, optionally filtered by search term.
+    
+    Args:
+        db: LanceDB connection
+        search: Optional search term to filter species by name
+        limit: Maximum number of results to return (default: 100)
+        
+    Returns:
+        List of SpeciesBase objects. Returns an empty list on error.
+    """
     try:
         tbl = get_table(db, "species")
+        if tbl is None:
+            print("Error: 'species' table not found in the database")
+            return []
 
-        if search:
-            search_lower = search.lower()
-            try:
-                query = (
-                    tbl.search()
-                    .limit(limit * 5)
-                )
-                all_potential_species = query.to_list()
-
-                filtered_species = [
-                    r
-                    for r in all_potential_species
-                    if (r.get("scientific_name") and search_lower in str(r.get("scientific_name")).lower())
-                    or (r.get("common_name") and search_lower in str(r.get("common_name")).lower())
-                ][:limit]
-                return [SpeciesBase(**_extract_base_fields(r)) for r in filtered_species]
-
-            except Exception as e:
-                print(f"Warning: LanceDB search/filtering might have issues, falling back to broader fetch: {e}")
-                all_species_raw = tbl.to_list()
-                filtered_species = [
-                    r
-                    for r in all_species_raw
-                    if (r.get("scientific_name") and search_lower in str(r.get("scientific_name")).lower())
-                    or (r.get("common_name") and search_lower in str(r.get("common_name")).lower())
-                ][:limit]
-                return [SpeciesBase(**_extract_base_fields(r)) for r in filtered_species]
-        else:
-            results = tbl.search().limit(limit).to_list()
-            return [SpeciesBase(**_extract_base_fields(r)) for r in results]
-
+        try:
+            if search:
+                search_lower = search.lower()
+                # First try with search optimization
+                try:
+                    query = tbl.search().limit(limit * 5)
+                    all_potential_species = query.to_list()
+                    
+                    filtered_species = [
+                        r for r in all_potential_species
+                        if (r.get("scientific_name") and search_lower in str(r.get("scientific_name")).lower())
+                        or (r.get("common_name") and search_lower in str(r.get("common_name")).lower())
+                    ][:limit]
+                    return [SpeciesBase(**_extract_base_fields(r)) for r in filtered_species]
+                except Exception as e:
+                    print(f"Warning: Search optimization failed, falling back to full table scan: {e}")
+                    all_species_raw = tbl.to_list()
+                    filtered_species = [
+                        r for r in all_species_raw
+                        if (r.get("scientific_name") and search_lower in str(r.get("scientific_name")).lower())
+                        or (r.get("common_name") and search_lower in str(r.get("common_name")).lower())
+                    ][:limit]
+                    return [SpeciesBase(**_extract_base_fields(r)) for r in filtered_species]
+            else:
+                # No search term, just get all species up to limit
+                results = tbl.search().limit(limit).to_list()
+                return [SpeciesBase(**_extract_base_fields(r)) for r in results]
+                
+        except Exception as e:
+            print(f"Error querying species data: {e}")
+            return []
+            
     except Exception as e:
-        print(f"Error getting all species: {e}")
+        print(f"Critical error in get_all_species: {e}")
         import traceback
-
         traceback.print_exc()
+        return []
         return []
 
 
