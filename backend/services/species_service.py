@@ -3,7 +3,7 @@ from typing import List, Optional, Dict, Any
 import lancedb
 from backend.services.database import get_table
 
-from backend.models import SpeciesDetail, SpeciesBase
+from backend.schemas.species_schemas import SpeciesDetail, SpeciesBase
 from backend.services import disease_service
 
 

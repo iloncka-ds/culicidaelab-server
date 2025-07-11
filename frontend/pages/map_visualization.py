@@ -16,15 +16,20 @@ from pathlib import Path
 
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    i18n.set("locale", "ru")
     i18n.set("fallback", "en")
+
 
 @solara.component
 def Page():
+    _, set_rerender_trigger = solara.use_state(0)
+
+    def force_rerender():
+        set_rerender_trigger(lambda x: x + 1)
+
     setup_i18n()
     with solara.AppBar():
         solara.v.Spacer()
-        LocaleSelector()
+        LocaleSelector(on_change=force_rerender)
     with solara.AppBarTitle():
         solara.Text(i18n.t("map.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
     theme = load_themes(solara.lab.theme)
