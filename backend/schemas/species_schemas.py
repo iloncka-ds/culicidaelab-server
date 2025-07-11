@@ -14,6 +14,22 @@ class SpeciesBase(BaseModel):
     related_diseases_info: Optional[List[str]] = []
     habitat_preferences: Optional[List[str]] = []
 
+# class SpeciesBase(BaseModel):
+#     id: str
+#     scientific_name: str
+#     common_name: Optional[str] = None
+#     vector_status: Optional[str] = None
+#     image_url: Optional[str] = None
+
+
+class SpeciesDetail(SpeciesBase):
+    description: Optional[str] = None
+    # These are stored as JSON strings in DB, parsed back here
+    key_characteristics: Optional[List[str]] = None
+    geographic_regions: Optional[List[str]] = None
+    related_diseases: Optional[List[str]] = None
+    habitat_preferences: Optional[List[str]] = None
+
 
 class Species(SpeciesBase):
     id: str
