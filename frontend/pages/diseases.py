@@ -4,6 +4,7 @@ from frontend.components.diseases.disease_gallery import DiseaseGalleryPageCompo
 from frontend.components.diseases.disease_detail import DiseaseDetailPageComponent
 
 from ..state import selected_disease_item_id
+from ..config import load_themes
 from frontend.components.common.locale_selector import LocaleSelector
 import i18n
 from pathlib import Path
@@ -16,6 +17,9 @@ def setup_i18n():
 
 @solara.component
 def Page():
+    theme = load_themes(solara.lab.theme)
+    heading_style = f"font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+
     rerender_trigger, set_rerender_trigger = solara.use_state(0)
 
     def force_rerender():

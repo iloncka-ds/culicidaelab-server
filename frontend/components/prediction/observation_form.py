@@ -3,6 +3,7 @@ import asyncio
 from datetime import datetime
 import solara
 from ...config import FONT_HEADINGS
+import i18n
 
 from .observation_service import submit_observation_data
 
@@ -103,7 +104,8 @@ def ObservationFormComponent(
         set_is_submitting(False)
 
     solara.Markdown(
-        "### Submit Observation Details", style=f"margin-top:10px; margin-bottom:10px; font-family: {FONT_HEADINGS};"
+        f"### {i18n.t("prediction.observation_form.submit_details")} ",
+        style=f"margin-top:10px; margin-bottom:10px; font-family: {FONT_HEADINGS};",
     )
 
     with solara.Card(style="padding: 15px; margin-top: 5px;"):

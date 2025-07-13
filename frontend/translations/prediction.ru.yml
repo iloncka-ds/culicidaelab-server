@@ -1,6 +1,6 @@
 ru:
   app_title: "CulicidaeLab"
-  page_title: "Определение вида комаров и загрузка наблюдений"
+  page_title: "Определение видов комаров и загрузка наблюдений"
   cards:
     upload:
       title: "1. Загрузите изображение комара"
@@ -25,3 +25,12 @@ ru:
     prediction_details: "### Детали определения вида"
   buttons:
     submit_another: "Добавить новое наблюдение"
+  file_upload:
+      subtitle: "Загрузите фото комара, чтобы определить его вид с помощью ИИ."
+      drag_image: "Поместите сюда файл с фото..."
+  location:
+    selected_location: "Выбрана локация"
+    select_location: "Выбрать локацию"
+    error_remove_marking: "Ошибка при удалении маркера: %{e}"
+    latitude: "Широта"
+    longitude: "Долгота"

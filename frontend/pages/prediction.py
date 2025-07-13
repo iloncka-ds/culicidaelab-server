@@ -5,7 +5,7 @@ import base64
 from typing import Dict, Any, Optional, cast
 import asyncio
 
-from ..config import FONT_HEADINGS, COLOR_PRIMARY
+from ..config import load_themes
 from frontend.components.prediction.file_upload import FileUploadComponent, upload_and_predict
 from frontend.components.prediction.location import LocationComponent
 from frontend.components.prediction.observation_form import ObservationFormComponent
@@ -19,8 +19,12 @@ def setup_i18n():
     i18n.set("fallback", "en")
 
 
+
 @solara.component
 def Page():
+    theme = load_themes(solara.lab.theme)
+    heading_style = f"font-size: 1.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+
     _, set_rerender_trigger = solara.use_state(0)
 
     def force_rerender():
@@ -109,7 +113,7 @@ def Page():
 
     solara.Markdown(
         i18n.t("prediction.page_title"),
-        style=f"font-family: {FONT_HEADINGS}; color: {COLOR_PRIMARY}; text-align: center; margin-bottom:20px;",
+        style=heading_style,
     )
 
     if page_error_message:
@@ -204,9 +208,7 @@ def Page():
             )
 
             if file_data_state:
-                solara.Markdown(
-                    i18n.t("prediction.labels.uploaded_image"), style=f"font-family:{FONT_HEADINGS}; margin-top:20px;"
-                )
+                solara.Markdown(i18n.t("prediction.labels.uploaded_image"), style=heading_style)
                 try:
                     img_bytes = file_data_state
                     b64_img = base64.b64encode(img_bytes).decode("utf-8")
@@ -231,7 +233,7 @@ def Page():
             if prediction_result_state:
                 solara.Markdown(
                     i18n.t("prediction.labels.prediction_details"),
-                    style=f"font-family:{FONT_HEADINGS}; margin-top:30px;",
+                    style=heading_style,
                 )
                 SpeciesCard(species=prediction_result_state)
             else:
@@ -240,7 +242,7 @@ def Page():
             solara.Button(
                 i18n.t("prediction.buttons.submit_another"),
                 on_click=reset_to_new_submission,
-                color=COLOR_PRIMARY,
+                color={theme.themes.light.primary},
                 icon_name="mdi-plus-circle-outline",
                 style="margin-top: 30px; padding: 10px 20px; font-size:1.1em;",
             )

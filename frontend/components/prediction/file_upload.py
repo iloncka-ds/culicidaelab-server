@@ -4,7 +4,7 @@ from typing import Optional, Dict, Any, Tuple
 import aiohttp
 
 from ...config import FONT_BODY, COLOR_TEXT, API_BASE_URL
-
+import i18n
 
 async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     """
@@ -64,12 +64,12 @@ def FileUploadComponent(
     Displays an optional `upload_error_message`.
     """
     solara.Markdown(
-        "Upload an image of a mosquito to predict its species.",
+        i18n.t("prediction.file_upload.subtitle"),
         style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-bottom: 20px;",
     )
 
     solara.FileDrop(
-        label="Drag and drop an image here...",
+        label=i18n.t("prediction.file_upload.drag_image"),
         on_file=on_file_selected,
         lazy=False,
     )

@@ -4,6 +4,7 @@ from frontend.components.species.species_gallery import SpeciesGalleryPageCompon
 from frontend.components.species.species_detail import SpeciesDetailPageComponent
 
 from ..state import selected_species_item_id
+
 from frontend.components.common.locale_selector import LocaleSelector
 import i18n
 from pathlib import Path
@@ -15,6 +16,7 @@ def setup_i18n():
 
 @solara.component
 def Page():
+
     _, set_rerender_trigger = solara.use_state(0)
 
     def force_rerender():
