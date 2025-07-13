@@ -5,3 +5,15 @@ ru:
       title: "Фильтры"
     legend:
       title: "Описание"
+  filter_controls:
+    loading_options: "Загрузка опций фильтра..."
+    species_label: "Виды"
+    species_select: "Выберите вид"
+    species_none_available: "Виды недоступны"
+    date_range_label: "Диапазон дат"
+    apply_button: "Применить фильтры дат"
+    loading_data: "Загрузка данных..."
+  legend:
+    observed_species_title: "Наблюдаемые виды"
+    no_species_in_view: "Нет видов в текущем представлении"
+    no_active_layers: "Нет активных слоев для отображения легенды. Включите слои на панели управления."

@@ -32,14 +32,14 @@ i18n.add_translation("disease_gallery.messages.initializing", "Инициали�
 
 @solara.component
 def DiseaseGalleryPageComponent():
-
     search_query, set_search_query = solara.use_state("")
+    current_locale = i18n.get("locale")
 
     def _load_disease_list_data_effect() -> Optional[Callable[[], None]]:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
         async def _async_load_task():
-            params = {}
+            params = {"lang": current_locale}
             if search_query:
                 params["search"] = search_query
 
@@ -85,28 +85,28 @@ def DiseaseGalleryPageComponent():
 
         return cleanup
 
-    solara.use_effect(_load_disease_list_data_effect, [search_query])
+    solara.use_effect(_load_disease_list_data_effect, [search_query, current_locale])
 
     displayed_diseases = disease_list_data_reactive.value
 
     with solara.Column(style="padding-bottom: 20px; min-height: calc(100vh - 120px);"):
         solara.Markdown(
             f"# {i18n.t('disease_gallery.title')}",
-            style=f"font-family: {FONT_HEADINGS}; text-align:center; margin-bottom:20px;"
+            style=f"font-family: {FONT_HEADINGS}; text-align:center; margin-bottom:20px;",
         )
         with solara.Row(
             classes=["pa-2 ma-2 elevation-1"],
             style="border-radius: 6px; background-color: var(--solara-card-background-color); align-items: center; gap: 10px; position: sticky; top: 0px; z-index:10; margin-bottom:10px;",
         ):
             solara.InputText(
-                label=i18n.t('disease_gallery.search.placeholder'),
+                label=i18n.t("disease_gallery.search.placeholder"),
                 value=search_query,
                 on_value=set_search_query,
                 continuous_update=False,
                 style="flex-grow: 1;",
             )
             solara.Button(
-                i18n.t('disease_gallery.search.button'),
+                i18n.t("disease_gallery.search.button"),
                 icon_name="mdi-magnify",
                 outlined=True,
                 color=COLOR_PRIMARY,
@@ -117,14 +117,12 @@ def DiseaseGalleryPageComponent():
             solara.SpinnerSolara(size="60px")
         elif disease_list_error_reactive.value:
             solara.Error(
-                i18n.t('disease_gallery.error.load', error=disease_list_error_reactive.value),
+                i18n.t("disease_gallery.error.load", error=disease_list_error_reactive.value),
                 icon="mdi-alert-circle-outline",
             )
         elif not displayed_diseases:
             solara.Info(
-                i18n.t('disease_gallery.messages.no_results'),
-                icon="mdi-information-outline",
-                style="margin: 16px;"
+                i18n.t("disease_gallery.messages.no_results"), icon="mdi-information-outline", style="margin: 16px;"
             )
         elif displayed_diseases:
             with solara.ColumnsResponsive(
@@ -139,7 +137,7 @@ def DiseaseGalleryPageComponent():
                     DiseaseCard(disease_item)
         else:
             solara.Info(
-                i18n.t('disease_gallery.messages.initializing'),
+                i18n.t("disease_gallery.messages.initializing"),
                 icon="mdi-information-outline",
                 style="margin: 16px;",
             )

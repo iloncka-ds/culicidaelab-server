@@ -3,7 +3,7 @@ import solara.lab
 from solara.alias import rv
 from typing import List, Optional, cast, Dict, Any, Callable
 import asyncio
-from ...config import DISEASE_DETAIL_ENDPOINT_TEMPLATE, SPECIES_LIST_ENDPOINT
+from ...config import DISEASE_DETAIL_ENDPOINT_TEMPLATE, SPECIES_LIST_ENDPOINT, DISEASE_VECTORS_ENDPOINT_TEMPLATE
 from ...state import fetch_api_data, selected_disease_item_id
 from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
 from frontend.components.species.species_card import SpeciesCard
@@ -47,6 +47,7 @@ def DiseaseDetailPageComponent():
     vectors_loading, set_vectors_loading = solara.use_state(False)
     error, set_error = solara.use_state(cast(Optional[str], None))
     vectors_error, set_vectors_error = solara.use_state(cast(Optional[str], None))
+    current_locale = i18n.get("locale")
 
     print(f"DEBUG: DISEASE_DETAIL.PY - Initializing for disease_id: '{disease_id}'")
 
@@ -66,10 +67,13 @@ def DiseaseDetailPageComponent():
             set_disease_data(None)
             set_error(None)
             set_loading(True)
+            set_vectors_data([])
+            set_vectors_error(None)
             try:
                 url = DISEASE_DETAIL_ENDPOINT_TEMPLATE.format(disease_id=disease_id)
-                print(f"DEBUG: DISEASE_DETAIL.PY Effect: Fetching URL: {url}")
-                data = await fetch_api_data(url)
+                params = {"lang": current_locale}
+                print(f"DEBUG: DISEASE_DETAIL.PY Effect: Fetching URL: {url} with params {params}")
+                data = await fetch_api_data(url, params=params)
 
                 current_task = task_ref[0]
                 if current_task and current_task.cancelled():
@@ -85,21 +89,23 @@ def DiseaseDetailPageComponent():
                     set_disease_data(data)
                     set_error(None)
 
-                    if vectors_ids := data.get("vectors", []):
-                        set_vectors_loading(True)
-                        try:
-                            vector_species = []
-                            for vector_id in vectors_ids:
-                                vector_data = await fetch_api_data(f"{SPECIES_LIST_ENDPOINT}/{vector_id}")
-                                if vector_data:
-                                    vector_species.append(vector_data)
-
+                    # Now, fetch the associated vectors using the new endpoint.
+                    set_vectors_loading(True)
+                    try:
+                        vectors_url = DISEASE_VECTORS_ENDPOINT_TEMPLATE.format(disease_id=disease_id)
+                        vectors_params = {"lang": current_locale}
+                        vector_species = await fetch_api_data(vectors_url, params=vectors_params)
+                        if vector_species is not None:
                             set_vectors_data(vector_species)
-                        except Exception as e:
-                            print(f"DEBUG: DISEASE_DETAIL.PY Effect: Error fetching vector data: {e}")
-                            set_vectors_error(f"Could not load vector species: {str(e)}")
-                        finally:
-                            set_vectors_loading(False)
+                        else:
+                            set_vectors_data([])  # Ensure it's an empty list on failure
+                            set_vectors_error("Failed to load vector data, or none exist.")
+
+                    except Exception as e:
+                        print(f"DEBUG: DISEASE_DETAIL.PY Effect: Error fetching vector data: {e}")
+                        set_vectors_error(f"Could not load vector species: {str(e)}")
+                    finally:
+                        set_vectors_loading(False)
 
             except asyncio.CancelledError:
                 print(f"DEBUG: DISEASE_DETAIL.PY Effect _async_task for {disease_id} was cancelled.")
@@ -127,7 +133,7 @@ def DiseaseDetailPageComponent():
 
         return cleanup
 
-    solara.use_effect(_fetch_disease_detail_effect, [disease_id])
+    solara.use_effect(_fetch_disease_detail_effect, [disease_id, current_locale])
 
     with solara.Column(align="center", classes=["pa-4"], style="max-width: 900px; margin: auto;"):
         solara.Button(

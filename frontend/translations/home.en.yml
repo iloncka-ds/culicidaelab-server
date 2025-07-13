@@ -11,7 +11,7 @@ en:
   footer: |
     ---
     CulicidaeLab development is supported by a grant from the
-    [Innovation Assistance Foundation (Фонд содействия инновациям)](https://fasie.ru/).
+    [Foundation for Assistance to Small Innovative Enterprises (FASIE)](https://fasie.ru/).
   cards:
     predict:
       title: "Predict Mosquito Species"

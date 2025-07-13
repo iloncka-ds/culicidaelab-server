@@ -4,15 +4,12 @@ from solara.alias import rv
 import datetime
 from typing import List, Optional, Dict, Any, cast, Tuple
 import asyncio
+import i18n
 
 from frontend.state import (
     selected_species_reactive,
     selected_date_range_reactive,
-    selected_region_reactive,
-    selected_data_source_reactive,
     all_available_species_reactive,
-    all_available_regions_reactive,
-    all_available_data_sources_reactive,
     filter_options_loading_reactive,
     filter_options_error_reactive,
     fetch_filter_options,
@@ -46,9 +43,7 @@ def FilterControls():
     initial_start_dt, initial_end_dt = selected_date_range_reactive.value
     start_date, set_start_date = solara.use_state(initial_start_dt)
     end_date, set_end_date = solara.use_state(initial_end_dt)
-
-    solara.lab.use_task(fetch_filter_options, dependencies=[])
-
+    solara.lab.use_task(fetch_filter_options, dependencies=[i18n.get("locale")])
     apply_filters_task_ref = solara.use_ref(None)
 
     async def handle_apply_filters_click():
@@ -73,7 +68,6 @@ def FilterControls():
         if current_end_date_obj:
             params["end_date"] = current_end_date_obj.strftime("%Y-%m-%d")
 
-
         if show_observed_data_reactive.value:
             apply_filters_task_ref.current = asyncio.create_task(fetch_observations_data_for_panel(params))
             try:
@@ -95,51 +89,51 @@ def FilterControls():
 
     solara.use_effect(_cleanup_apply_filters_task, [])
 
+    # THIS IS THE FIX:
+    # The state variable is declared in the component's render scope.
     initial_load_done = solara.use_reactive(False)
 
-    async def initial_load_observations():
+    async def initial_load_observations_task():
+        # The async task can now safely access the state variable
+        # from its parent scope without violating hook rules.
         if not initial_load_done.value and show_observed_data_reactive.value and selected_species_reactive.value:
-            params: Dict[str, Any] = {}
-            if selected_species_reactive.value:
-                params["species"] = ",".join(selected_species_reactive.value)
-
-            s_date_obj, e_date_obj = selected_date_range_reactive.value
-            if s_date_obj:
-                params["start_date"] = s_date_obj.strftime("%Y-%m-%d")
-            if e_date_obj:
-                params["end_date"] = e_date_obj.strftime("%Y-%m-%d")
-
-            await fetch_observations_data_for_panel(params)
+            await handle_apply_filters_click()
             initial_load_done.value = True
-    initial_load_observations()
+
+    solara.lab.use_task(initial_load_observations_task, dependencies=[])
 
     with solara.Column(style="padding: 10px;"):
-
         if filter_options_loading_reactive.value:
             solara.ProgressLinear(True)
             solara.Text(
-                "Loading filter options...", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;"
+                i18n.t("map.filter_controls.loading_options"),
+                style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;",
             )
 
         if filter_options_error_reactive.value:
             solara.Error(filter_options_error_reactive.value)
 
-        solara.Markdown("##### Species", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
+        solara.Markdown(
+            f"##### {i18n.t('map.filter_controls.species_label')}",
+            style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;",
+        )
         if all_available_species_reactive.value:
             solara.SelectMultiple(
-                label="Select Species",
+                label=i18n.t("map.filter_controls.species_select"),
                 values=selected_species_reactive,
                 all_values=all_available_species_reactive.value,
                 style="max-width: 400px; margin-bottom: 10px;",
             )
         else:
             solara.Text(
-                "No species available", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;"
+                i18n.t("map.filter_controls.species_none_available"),
+                style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;",
             )
 
-
-
-        solara.Markdown("##### Date Range", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;")
+        solara.Markdown(
+            f"##### {i18n.t('map.filter_controls.date_range_label')}",
+            style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;",
+        )
 
         def set_local_dates_from_picker(
             new_dates_value: Optional[Tuple[Optional[datetime.date], Optional[datetime.date]]],
@@ -152,11 +146,14 @@ def FilterControls():
                 set_end_date(None)
 
         current_date_range_for_picker = (start_date, end_date)
-        solara.lab.InputDateRange(value=current_date_range_for_picker, on_value=set_local_dates_from_picker)
+        solara.lab.InputDateRange(
+            value=current_date_range_for_picker,
+            on_value=set_local_dates_from_picker,
+        )
 
         with solara.Row(style="margin-top: 15px;"):
             solara.Button(
-                "Apply Date Filters",
+                i18n.t("map.filter_controls.apply_button"),
                 on_click=lambda: asyncio.create_task(handle_apply_filters_click()),
                 color=COLOR_BUTTON_PRIMARY_BG,
                 style=f"color: white; font-family: {FONT_BODY};",
@@ -166,5 +163,6 @@ def FilterControls():
                 with solara.Row(style="align-items: center; margin-left: 10px;"):
                     solara.ProgressLinear()
                     solara.Text(
-                        "Loading data...", style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;"
+                        i18n.t("map.filter_controls.loading_data"),
+                        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;",
                     )

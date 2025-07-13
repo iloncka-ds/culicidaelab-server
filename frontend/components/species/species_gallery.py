@@ -42,12 +42,13 @@ i18n.add_translation("species_gallery.messages.initializing", "Инициали�
 @solara.component
 def SpeciesGalleryPageComponent():
     search_query, set_search_query = solara.use_state("")
+    current_locale = i18n.get("locale")
 
     def _load_species_list_data_effect() -> Optional[Callable[[], None]]:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
         async def _async_load_task():
-            params = {}
+            params = {"lang": current_locale}
             if search_query:
                 params["search"] = search_query
 
@@ -93,7 +94,7 @@ def SpeciesGalleryPageComponent():
 
         return cleanup
 
-    solara.use_effect(_load_species_list_data_effect, [search_query])
+    solara.use_effect(_load_species_list_data_effect, [search_query, current_locale])
 
     displayed_species = species_list_data_reactive.value
 

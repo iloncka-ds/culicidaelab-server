@@ -11,22 +11,17 @@ import frontend.pages.species as species
 import frontend.pages.prediction as prediction
 import frontend.pages.diseases as diseases
 
-
 from frontend.state import (
     fetch_filter_options,
 )
 
 
-
-
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent / "translations"))
-    i18n.set("locale", "en")
+    i18n.set("locale", "ru")
     i18n.set("fallback", "en")
     i18n.set("skip_locale_root_data", True)
     i18n.set("filename_format", "{namespace}.{locale}.{format}")
-
-
 
 
 routes = [
@@ -55,41 +50,31 @@ routes = [
             )
         ],
     ),
-
 ]
 
 
 @solara.component
 def AppInitializer():
     """A component to handle one-time app initialization tasks."""
-    initialized, set_initialized = solara.use_state(False)
-
-    if not initialized:
-        solara.lab.use_task(fetch_filter_options)  # noqa: SH102
-        set_initialized(True)
+    # This component is now only responsible for setting up i18n.
+    # Data fetching that depends on locale is moved to the Layout.
     setup_i18n()
     return None
 
 
 @solara.component
 def Layout(children: List[solara.Element]):
-
     AppInitializer()
 
+    # Fetch filter options whenever the language changes.
+    solara.lab.use_task(fetch_filter_options, dependencies=[i18n.get("locale")])
 
     return solara.AppLayout(
         title="CulicidaeLab",
         children=children,
-
     )
-
-
-
-
-
 
 
 @solara.component
 def Page():
-
     return Layout()
