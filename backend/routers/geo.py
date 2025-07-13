@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Query, HTTPException, Path
 from typing import Optional, List, Tuple
 import lancedb
 from backend.services import database, geo_service
-from backend.models import GeoJSONFeatureCollection
+from backend.schemas.geo_schemas import GeoJSONFeatureCollection
 
 router = APIRouter()
 

@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 import pytest
 import lancedb
 
-from backend.models import FilterOptions
+from backend.schemas.filter_schemas import FilterOptions
 from backend.services.filter_service import get_filter_options
 
 

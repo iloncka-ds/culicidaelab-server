@@ -1,12 +1,15 @@
 import json
 import asyncio
 import os
+import pyarrow as pa
 from backend.database_utils.lancedb_manager import (
     LanceDBManager,
     SPECIES_SCHEMA,
-    FILTER_OPTIONS_SCHEMA,
-    MAP_LAYERS_SCHEMA,
     DISEASES_SCHEMA,
+    REGIONS_SCHEMA,
+    DATA_SOURCES_SCHEMA,
+
+    MAP_LAYERS_SCHEMA,
 )
 from pathlib import Path
 
@@ -14,6 +17,25 @@ BASE_DIR = Path(__file__).resolve().parent
 JSON_FILES_DIR = (BASE_DIR / "../data/sample_data").resolve()
 DATA_DIR = (BASE_DIR / "../data").resolve()
 
+async def populate_regions_table(manager: LanceDBManager):
+    file_path = os.path.join(JSON_FILES_DIR, "sample_regions.json")
+    if not os.path.exists(file_path):
+        print(f"Error: {file_path} not found.")
+        return
+    with open(file_path, "r") as f:
+        regions_data = json.load(f)
+    await manager.create_or_overwrite_table("regions", regions_data, REGIONS_SCHEMA)
+
+
+async def populate_data_sources_table(manager: LanceDBManager):
+    file_path = os.path.join(JSON_FILES_DIR, "sample_data_sources.json")
+    if not os.path.exists(file_path):
+        print(f"Error: {file_path} not found.")
+        return
+    with open(file_path, "r") as f:
+        data_sources = json.load(f)
+    if data_sources:
+        await manager.create_or_overwrite_table("data_sources", data_sources, DATA_SOURCES_SCHEMA)
 
 async def populate_species_table(manager: LanceDBManager):
     file_path = os.path.join(JSON_FILES_DIR, "sample_species.json")
@@ -23,38 +45,23 @@ async def populate_species_table(manager: LanceDBManager):
     with open(file_path, "r") as f:
         species_data = json.load(f)
 
+    # Ensure all list fields exist to match schema
     for s in species_data:
-        s["key_characteristics"] = s.get("key_characteristics", [])
-        s["geographic_regions"] = s.get("geographic_regions", [])
-        s["related_diseases"] = s.get("related_diseases", [])
-        s["habitat_preferences"] = s.get("habitat_preferences", [])
+        for field_name in SPECIES_SCHEMA.names:
+            if field_name not in s:
+                field_obj = SPECIES_SCHEMA.field(field_name)
+                if pa.types.is_list(field_obj.type):
+                    s[field_name] = []
 
     await manager.create_or_overwrite_table("species", species_data, SPECIES_SCHEMA)
 
 
-async def populate_filter_options_tables(manager: LanceDBManager):
-    file_path = os.path.join(JSON_FILES_DIR, "sample_filter_options.json")
-    if not os.path.exists(file_path):
-        print(f"Error: {file_path} not found.")
-        return
-    with open(file_path, "r") as f:
-        options_data = json.load(f)
-
-    regions = [{"name": r} for r in options_data.get("regions", [])]
-    data_sources = [{"name": ds} for ds in options_data.get("data_sources", [])]
-
-    if regions:
-        await manager.create_or_overwrite_table("regions", regions, FILTER_OPTIONS_SCHEMA)
-    if data_sources:
-        await manager.create_or_overwrite_table("data_sources", data_sources, FILTER_OPTIONS_SCHEMA)
-
-
 async def populate_map_layers_table(manager: LanceDBManager):
     layer_files_info = {
-        "distribution": "sample_distribution.geojson",
+        # "distribution": "sample_distribution.geojson",
         "observations": "sample_observations.geojson",
-        "modeled": "sample_modeled.geojson",
-        "breeding_sites": "sample_breeding_sites.geojson",
+        # "modeled": "sample_modeled.geojson",
+        # "breeding_sites": "sample_breeding_sites.geojson",
     }
 
     all_map_layer_data = []
@@ -85,6 +92,7 @@ async def populate_map_layers_table(manager: LanceDBManager):
     if all_map_layer_data:
         await manager.create_or_overwrite_table("map_layers", all_map_layer_data, MAP_LAYERS_SCHEMA)
 
+
 async def populate_diseases_table(manager: LanceDBManager):
     file_path = JSON_FILES_DIR / "sample_diseases.json"
     if not file_path.exists():
@@ -94,7 +102,6 @@ async def populate_diseases_table(manager: LanceDBManager):
         diseases_data = json.load(f)
 
     for d in diseases_data:
-        d["vectors"] = d.get("vectors", [])
         for field in DISEASES_SCHEMA.names:
             if field not in d:
                 if DISEASES_SCHEMA.field(field).type == pa.list_(pa.string()):
@@ -105,19 +112,22 @@ async def populate_diseases_table(manager: LanceDBManager):
     await manager.create_or_overwrite_table("diseases", diseases_data, DISEASES_SCHEMA)
     print("Diseases table populated.")
 
+
 async def main():
-    lancedb_dir = DATA_DIR/".lancedb"
+    lancedb_dir = DATA_DIR / ".lancedb"
     if not os.path.exists(lancedb_dir):
         os.makedirs(lancedb_dir, exist_ok=True)
 
-    manager = LanceDBManager(uri=lancedb_dir)
+    manager = LanceDBManager(uri=str(lancedb_dir))
     await manager.connect()
 
     print("Populating LanceDB...")
     await populate_species_table(manager)
-    await populate_filter_options_tables(manager)
+    await populate_regions_table(manager)
+    await populate_data_sources_table(manager)
     await populate_map_layers_table(manager)
     await populate_diseases_table(manager)
+
     print("LanceDB population complete.")
 
 

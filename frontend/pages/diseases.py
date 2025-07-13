@@ -8,20 +8,10 @@ from frontend.components.common.locale_selector import LocaleSelector
 import i18n
 from pathlib import Path
 
-# def setup_i18n():
-#     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-#     i18n.set("fallback", "en")
+def setup_i18n():
+    i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
+    i18n.set("fallback", "en")
 
-@solara.component
-def I18nSetup():
-    def setup():
-        # Avoid adding the path multiple times
-        translation_path = str(Path(__file__).parent.parent / "translations")
-        if translation_path not in i18n.load_path:
-            i18n.load_path.append(translation_path)
-        i18n.set("fallback", "en")
-
-    solara.use_memo(setup, [])
 
 
 @solara.component
@@ -31,8 +21,9 @@ def Page():
     def force_rerender():
         set_rerender_trigger(lambda x: x + 1)
 
-    # setup_i18n()
-    I18nSetup()
+
+    setup_i18n()
+
     with solara.AppBar():
         solara.v.Spacer()
         LocaleSelector(on_change=force_rerender)

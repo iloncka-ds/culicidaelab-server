@@ -49,7 +49,7 @@ def mock_prediction_result():
 @pytest.fixture
 def mock_species_detail():
     """Create a mock species detail object."""
-    from backend.models import SpeciesDetail
+    from backend.schemas.species_schemas import SpeciesDetail
 
     return SpeciesDetail(
         id="aedes_aegypti",

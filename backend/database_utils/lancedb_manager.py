@@ -9,37 +9,62 @@ SPECIES_SCHEMA = pa.schema(
     [
         pa.field("id", pa.string(), nullable=False),
         pa.field("scientific_name", pa.string()),
-        pa.field("common_name", pa.string()),
-        pa.field("vector_status", pa.string()),
         pa.field("image_url", pa.string()),
-        pa.field("description", pa.string()),
-        pa.field("key_characteristics", pa.list_(pa.string())),
+        pa.field("vector_status", pa.string()),
+        # Localized fields
+        pa.field("common_name_en", pa.string()),
+        pa.field("common_name_ru", pa.string()),
+        pa.field("description_en", pa.string()),
+        pa.field("description_ru", pa.string()),
+        pa.field("key_characteristics_en", pa.list_(pa.string())),
+        pa.field("key_characteristics_ru", pa.list_(pa.string())),
+        pa.field("habitat_preferences_en", pa.list_(pa.string())),
+        pa.field("habitat_preferences_ru", pa.list_(pa.string())),
+        # Relational and non-translated fields
         pa.field("geographic_regions", pa.list_(pa.string())),
         pa.field("related_diseases", pa.list_(pa.string())),
         pa.field("related_diseases_info", pa.list_(pa.string())),
-        pa.field("habitat_preferences", pa.list_(pa.string())),
     ]
 )
 
 DISEASES_SCHEMA = pa.schema(
     [
         pa.field("id", pa.string(), nullable=False),
-        pa.field("name", pa.string()),
-        pa.field("description", pa.string()),
-        pa.field("symptoms", pa.string()),
-        pa.field("treatment", pa.string()),
-        pa.field("prevention", pa.string()),
-        pa.field("prevalence", pa.string()),
         pa.field("image_url", pa.string()),
+        # Localized fields
+        pa.field("name_en", pa.string()),
+        pa.field("name_ru", pa.string()),
+        pa.field("description_en", pa.string()),
+        pa.field("description_ru", pa.string()),
+        pa.field("symptoms_en", pa.string()),
+        pa.field("symptoms_ru", pa.string()),
+        pa.field("treatment_en", pa.string()),
+        pa.field("treatment_ru", pa.string()),
+        pa.field("prevention_en", pa.string()),
+        pa.field("prevention_ru", pa.string()),
+        pa.field("prevalence_en", pa.string()),
+        pa.field("prevalence_ru", pa.string()),
+        # Relational field
         pa.field("vectors", pa.list_(pa.string())),
     ]
 )
 
-FILTER_OPTIONS_SCHEMA = pa.schema(
+REGIONS_SCHEMA = pa.schema(
     [
-        pa.field("name", pa.string(), nullable=False)
+        pa.field("id", pa.string(), nullable=False),
+        pa.field("name_en", pa.string()),
+        pa.field("name_ru", pa.string()),
     ]
 )
+
+DATA_SOURCES_SCHEMA = pa.schema(
+    [
+        pa.field("id", pa.string(), nullable=False),
+        pa.field("name_en", pa.string()),
+        pa.field("name_ru", pa.string()),
+    ]
+)
+
 
 MAP_LAYERS_SCHEMA = pa.schema(
     [

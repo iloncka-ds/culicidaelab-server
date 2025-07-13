@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 import pytest
 import lancedb
 
-from backend.models import GeoJSONFeature
+from backend.schemas.geo_schemas import GeoJSONFeature
 from backend.services.geo_service import (
     is_valid_date_str,
     _db_record_to_geojson_feature,
