@@ -1,7 +1,6 @@
 import colorcet as cc
 from typing import List, Dict
 
-
 COLOR_PRIMARY = "#21908C"
 COLOR_SECONDARY = "#ADDC30"
 COLOR_ACCENT = "#DBF3AD"
@@ -17,8 +16,6 @@ DISTRIBUTION_STATUS_COLORS = {
     "unknown": "rgba(200, 200, 200, 0.5)",
     "native_established": "rgba(51, 160, 44, 0.7)",
 }
-
-
 
 
 def load_themes(theme):
@@ -49,6 +46,7 @@ def load_themes(theme):
     except Exception as e:
         print(f"Error applying theme: {e}")
     return theme
+
 
 def _hex_to_rgba(hex_color: str, alpha: float) -> str:
     hex_color = hex_color.lstrip("#")
@@ -111,6 +109,7 @@ OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/geo/observations"
 SPECIES_INFO_ENDPOINT = f"{API_BASE_URL}/species_info"
 DISEASE_LIST_ENDPOINT = f"{API_BASE_URL}/diseases"
 DISEASE_DETAIL_ENDPOINT_TEMPLATE = f"{API_BASE_URL}/diseases/{{disease_id}}"
+DISEASE_VECTORS_ENDPOINT_TEMPLATE = f"{API_BASE_URL}/diseases/{{disease_id}}/vectors"
 BREEDING_SITES_ENDPOINT = f"{API_BASE_URL}/geo/breeding_sites"
 FILTER_OPTIONS_ENDPOINT = f"{API_BASE_URL}/filter_options"
 SPECIES_LIST_ENDPOINT = f"{API_BASE_URL}/species"
@@ -124,7 +123,6 @@ COLOR_SECONDARY = "#1976D2"
 COLOR_SUCCESS = "#4CAF50"
 COLOR_WARNING = "#FF9800"
 COLOR_ERROR = "#F44336"
-
 
 PREDICTION_ENDPOINT = f"{API_BASE_URL}/predict_species/"
 STORE_OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"
