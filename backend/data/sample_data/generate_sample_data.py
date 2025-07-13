@@ -2,119 +2,143 @@ import json
 import random
 from datetime import datetime, timedelta
 
+import json
+import random
+from datetime import datetime, timedelta
 
+# --- SPECIES DATA ---
 species_list = [
     {
         "id": "aedes_albopictus",
         "scientific_name": "Aedes albopictus",
-        "common_name": "Asian Tiger Mosquito",
         "vector_status": "High",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Aedes_albopictus_PCSL_00000090_00.jpg/640px-Aedes_albopictus_PCSL_00000090_00.jpg",
-        "description": "Known for its black and white striped legs and body. A significant vector for dengue, chikungunya, and Zika. Active during the day.",
-        "key_characteristics": [
+        "common_name_en": "Asian Tiger Mosquito",
+        "common_name_ru": "Азиатский тигровый комар",
+        "description_en": "Known for its black and white striped legs and body. A significant vector for dengue, chikungunya, and Zika. Active during the day.",
+        "description_ru": "Известен своими черно-белыми полосатыми ногами и телом. Является значимым переносчиком денге, чикунгуньи и Зика. Активен в дневное время.",
+        "key_characteristics_en": [
             "Distinct white stripe on dorsal thorax",
             "Bites aggressively during the day",
             "Black and white striped legs",
         ],
-        "geographic_regions": ["Asia", "Europe", "Americas", "Africa", "Oceania"],
-        "related_diseases": ["dengue", "chikungunya", "zika_virus"],
-        "related_diseases_info": [],
-        "habitat_preferences": ["Artificial containers", "Tree holes", "Urban and suburban areas"],
-    },
-    {
-        "id": "aedes_aegypti",
-        "scientific_name": "Aedes aegypti",
-        "common_name": "Yellow Fever Mosquito",
-        "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Aedes_Aegypti_Feeding.jpg/640px-Aedes_Aegypti_Feeding.jpg",
-        "description": "Primary vector for yellow fever, dengue, chikungunya, and Zika. Prefers urban habitats and human blood.",
-        "key_characteristics": [
-            "Lyre-shaped silver markings on thorax",
-            "Prefers to feed on humans",
-            "Dark body with white markings",
+        "key_characteristics_ru": [
+            "Отчетливая белая полоса на спинной части груди",
+            "Агрессивно кусает днем",
+            "Черно-белые полосатые ноги",
         ],
-        "geographic_regions": ["Tropics Worldwide", "Subtropics Worldwide"],
-        "related_diseases": ["yellow_fever", "dengue", "chikungunya", "zika_virus"],
+        "habitat_preferences_en": ["Artificial containers", "Tree holes", "Urban and suburban areas"],
+        "habitat_preferences_ru": ["Искусственные контейнеры", "Дупла деревьев", "Городские и пригородные зоны"],
+        "geographic_regions": ["asia", "europe", "americas", "africa", "oceania"],
+        "related_diseases": ["dengue_fever", "chikungunya", "zika_virus"],
         "related_diseases_info": [],
-        "habitat_preferences": ["Water storage containers", "Flower pots", "Discarded tires", "Indoors"],
-    },
-    {
-        "id": "culex_pipiens",
-        "scientific_name": "Culex pipiens",
-        "common_name": "Common House Mosquito",
-        "vector_status": "Medium",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/CulexPipiens.jpg/640px-CulexPipiens.jpg",
-        "description": "Vector for West Nile virus and St. Louis encephalitis. Often breeds in stagnant, polluted water. Bites at dusk and night.",
-        "key_characteristics": [
-            "Brownish body with crossbands on abdomen",
-            "Primarily bites at dusk and night",
-            "Rounded abdomen tip",
-        ],
-        "geographic_regions": ["Worldwide (Temperate and Tropical)"],
-        "related_diseases": ["west_nile_virus", "st_louis_encephalitis", "avian_malaria"],
-        "related_diseases_info": [],
-        "habitat_preferences": ["Stagnant water (ditches, ponds, catch basins)", "Polluted water sources"],
     },
     {
         "id": "anopheles_gambiae",
         "scientific_name": "Anopheles gambiae",
-        "common_name": "African Malaria Mosquito",
         "vector_status": "High",
         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Anopheles_gambiae_NIAID.jpg/640px-Anopheles_gambiae_NIAID.jpg",
-        "description": "One of the primary vectors of malaria in sub-Saharan Africa. Prefers to feed on humans and rest indoors.",
-        "key_characteristics": [
+        "common_name_en": "African Malaria Mosquito",
+        "common_name_ru": "Африканский малярийный комар",
+        "description_en": "One of the primary vectors of malaria in sub-Saharan Africa. Prefers to feed on humans and rest indoors.",
+        "description_ru": "Один из основных переносчиков малярии в странах Африки к югу от Сахары. Предпочитает питаться кровью людей и отдыхать в помещениях.",
+        "key_characteristics_en": [
             "Palps as long as proboscis",
             "Spotted wings (in some Anopheles)",
             "Rests with abdomen pointing upwards",
         ],
-        "geographic_regions": ["Sub-Saharan Africa"],
+        "key_characteristics_ru": [
+            "Щупики такой же длины, как и хоботок",
+            "Пятнистые крылья (у некоторых видов Anopheles)",
+            "В состоянии покоя брюшко направлено вверх",
+        ],
+        "habitat_preferences_en": ["Clean, shallow, sunlit water bodies", "Temporary pools", "Rice paddies"],
+        "habitat_preferences_ru": ["Чистые, мелководные, освещенные солнцем водоемы", "Временные лужи", "Рисовые поля"],
+        "geographic_regions": ["sub_saharan_africa"],
         "related_diseases": ["malaria"],
         "related_diseases_info": [],
-        "habitat_preferences": ["Clean, shallow, sunlit water bodies", "Temporary pools", "Rice paddies"],
-    },
-    {
-        "id": "culiseta_annulata",
-        "scientific_name": "Culiseta annulata",
-        "common_name": "Banded Mosquito",
-        "vector_status": "Low",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Culiseta.annulata.jpg/640px-Culiseta.annulata.jpg",
-        "description": "A large mosquito with banded legs and abdomen. Less significant as a disease vector to humans compared to others.",
-        "key_characteristics": ["Large size", "Banded legs and abdomen", "Dark wing scales"],
-        "geographic_regions": ["Europe", "North Africa", "Asia Minor"],
-        "related_diseases": [],
-        "related_diseases_info": ["Potentially some arboviruses (minor role)"],
-        "habitat_preferences": [
-            "Various water bodies, including slightly brackish",
-            "Caves",
-            "Cellars (for overwintering)",
-        ],
     },
 ]
-with open("sample_species.json", "w") as f:
-    json.dump(species_list, f, indent=2)
+with open("sample_species.json", "w", encoding="utf-8") as f:
+    json.dump(species_list, f, indent=2, ensure_ascii=False)
 print("Generated sample_species.json")
 
-regions = [
-    "Asia",
-    "Europe",
-    "Americas",
-    "Africa",
-    "Oceania",
-    "Tropics Worldwide",
-    "Subtropics Worldwide",
-    "Sub-Saharan Africa",
+
+# --- REGIONS DATA ---
+regions_data = [
+    {"id": "asia", "name_en": "Asia", "name_ru": "Азия"},
+    {"id": "europe", "name_en": "Europe", "name_ru": "Европа"},
+    {"id": "americas", "name_en": "Americas", "name_ru": "Америка"},
+    {"id": "africa", "name_en": "Africa", "name_ru": "Африка"},
+    {"id": "oceania", "name_en": "Oceania", "name_ru": "Океания"},
+    {"id": "sub_saharan_africa", "name_en": "Sub-Saharan Africa", "name_ru": "Африка к югу от Сахары"},
 ]
-data_sources = ["GBIF", "iNaturalist", "VectorBase", "Local Survey Team A", "Research Study XYZ"]
+with open("sample_regions.json", "w", encoding="utf-8") as f:
+    json.dump(regions_data, f, indent=2, ensure_ascii=False)
+print("Generated sample_regions.json")
+
+# --- DATA SOURCES DATA ---
+data_sources = [
+    {"id": "gbif", "name_en": "GBIF", "name_ru": "GBIF"},
+    {"id": "inatuarlist", "name_en": "iNaturalist", "name_ru": "iNaturalist"},
+    {"id": "vectorbase", "name_en": "VectorBase", "name_ru": "VectorBase"},
+    {"id": "local_survey_a", "name_en": "Local Survey Team A", "name_ru": "Местная исследовательская группа А"},
+    {"id": "research_xyz", "name_en": "Research Study XYZ", "name_ru": "Научное исследование XYZ"},
+]
+with open("sample_data_sources.json", "w", encoding="utf-8") as f:
+    json.dump(data_sources, f, indent=2, ensure_ascii=False)
+print("Generated sample_data_sources.json")
+
+
+# --- DISEASES DATA ---
+diseases_data_list = [
+    {
+        "id": "dengue_fever",
+        "name_en": "Dengue Fever",
+        "name_ru": "Лихорадка денге",
+        "description_en": "Viral infection causing high fever, severe headache, and joint/muscle pain.",
+        "description_ru": "Вирусная инфекция, вызывающая высокую температуру, сильную головную боль и боли в суставах/мышцах.",
+        "symptoms_en": "High fever, severe headache, pain behind the eyes, joint and muscle pain, rash, mild bleeding",
+        "symptoms_ru": "Высокая температура, сильная головная боль, боль за глазами, боли в суставах и мышцах, сыпь, легкое кровотечение",
+        "treatment_en": "No specific treatment. Rest, fluids, pain relievers (avoiding aspirin). Severe cases require hospitalization.",
+        "treatment_ru": "Специфического лечения нет. Покой, обильное питье, обезболивающие (избегая аспирина). Тяжелые случаи требуют госпитализации.",
+        "prevention_en": "Avoid mosquito bites, eliminate breeding sites, use repellents, wear protective clothing",
+        "prevention_ru": "Избегать укусов комаров, уничтожать места их размножения, использовать репелленты, носить защитную одежду",
+        "prevalence_en": "Tropical and subtropical regions, affecting up to 400 million people annually",
+        "prevalence_ru": "Тропические и субтропические регионы, ежегодно поражает до 400 миллионов человек",
+        "image_url": "assets/images/dengue.jpg",
+        "vectors": ["aedes_aegypti", "aedes_albopictus"],
+    },
+    {
+        "id": "malaria",
+        "name_en": "Malaria",
+        "name_ru": "Малярия",
+        "description_en": "Parasitic infection causing cycles of fever, chills, and sweating.",
+        "description_ru": "Паразитарная инфекция, вызывающая циклы лихорадки, озноба и потоотделения.",
+        "symptoms_en": "Fever, chills, sweating, headache, nausea, vomiting, body aches, general malaise",
+        "symptoms_ru": "Лихорадка, озноб, потливость, головная боль, тошнота, рвота, ломота в теле, общее недомогание",
+        "treatment_en": "Antimalarial drugs based on the type of malaria and severity. Early treatment is essential.",
+        "treatment_ru": "Противомалярийные препараты в зависимости от типа малярии и тяжести заболевания. Крайне важно раннее лечение.",
+        "prevention_en": "Antimalarial medications, insecticide-treated bed nets, indoor residual spraying, eliminating breeding sites",
+        "prevention_ru": "Противомалярийные препараты, обработанные инсектицидами сетки для кроватей, опрыскивание помещений инсектицидами, уничтожение мест размножения",
+        "prevalence_en": "Tropical and subtropical regions, particularly in Africa, with over 200 million cases annually",
+        "prevalence_ru": "Тропические и субтропические регионы, особенно в Африке, с более чем 200 миллионами случаев в год",
+        "image_url": "assets/images/malaria.jpg",
+        "vectors": ["anopheles_gambiae"],
+    },
+]
+with open("sample_diseases.json", "w", encoding="utf-8") as f:
+    json.dump(diseases_data_list, f, indent=2, ensure_ascii=False)
+print(f"Generated {'sample_diseases.json'}")
 
 filter_options = {
     "species": [s["scientific_name"] for s in species_list],
-    "regions": list(set(regions)),
+    "regions": [r["id"] for r in regions_data],
     "data_sources": data_sources,
 }
 with open("sample_filter_options.json", "w") as f:
     json.dump(filter_options, f, indent=2)
 print("Generated sample_filter_options.json")
-
 
 
 europe_bbox = {"min_lon": -10, "max_lon": 40, "min_lat": 35, "max_lat": 70}
@@ -127,6 +151,7 @@ def random_point_in_bbox(bbox):
 
 def random_date(start_days_ago=365, end_days_ago=0):
     return (datetime.now() - timedelta(days=random.randint(end_days_ago, start_days_ago))).strftime("%Y-%m-%d")
+
 
 species_regions_map = {
     "Aedes albopictus": europe_bbox,
@@ -165,64 +190,3 @@ with open("sample_observations.geojson", "w") as f:
 print("Generated sample_observations.geojson")
 
 
-diseases_data_list = [
-    {
-        "id": "dengue_fever",
-        "name": "Dengue Fever",
-        "description": "Viral infection causing high fever, severe headache, and joint/muscle pain.",
-        "symptoms": "High fever, severe headache, pain behind the eyes, joint and muscle pain, rash, mild bleeding",
-        "treatment": "No specific treatment. Rest, fluids, pain relievers (avoiding aspirin). Severe cases require hospitalization.",
-        "prevention": "Avoid mosquito bites, eliminate breeding sites, use repellents, wear protective clothing",
-        "prevalence": "Tropical and subtropical regions, affecting up to 400 million people annually",
-        "image_url": "assets/images/dengue.jpg",
-        "vectors": ["aedes_aegypti", "aedes_albopictus"],
-    },
-    {
-        "id": "malaria",
-        "name": "Malaria",
-        "description": "Parasitic infection causing cycles of fever, chills, and sweating.",
-        "symptoms": "Fever, chills, sweating, headache, nausea, vomiting, body aches, general malaise",
-        "treatment": "Antimalarial drugs based on the type of malaria and severity. Early treatment is essential.",
-        "prevention": "Antimalarial medications, insecticide-treated bed nets, indoor residual spraying, eliminating breeding sites",
-        "prevalence": "Tropical and subtropical regions, particularly in Africa, with over 200 million cases annually",
-        "image_url": "assets/images/malaria.jpg",
-        "vectors": ["anopheles_gambiae"],
-    },
-    {
-        "id": "zika_virus",
-        "name": "Zika Virus",
-        "description": "Viral infection that can cause birth defects if contracted during pregnancy.",
-        "symptoms": "Mild fever, rash, joint pain, conjunctivitis, muscle pain, headache. Often asymptomatic.",
-        "treatment": "No specific treatment. Rest, fluids, acetaminophen for pain and fever.",
-        "prevention": "Avoid mosquito bites, use repellents, wear protective clothing, practice safe sex",
-        "prevalence": "Tropical and subtropical regions, with outbreaks in the Americas, Africa, and Asia",
-        "image_url": "assets/images/zika.jpg",
-        "vectors": ["aedes_aegypti", "aedes_albopictus"],
-    },
-    {
-        "id": "west_nile_virus",
-        "name": "West Nile Virus",
-        "description": "Viral infection primarily transmitted by Culex mosquitoes, can cause neurological disease.",
-        "symptoms": "Often asymptomatic. Febrile illness (fever, headache, body aches), skin rash, swollen lymph glands. Severe cases: encephalitis, meningitis.",
-        "treatment": "No specific vaccine or treatment. Supportive care for severe cases.",
-        "prevention": "Avoid mosquito bites, use repellents, eliminate standing water.",
-        "prevalence": "Africa, Europe, Middle East, North America, West Asia. Outbreaks occur sporadically.",
-        "image_url": "assets/images/west_nile.jpg",
-        "vectors": ["culex_pipiens"],
-    },
-    {
-        "id": "chikungunya",
-        "name": "Chikungunya",
-        "description": "Viral illness transmitted by Aedes mosquitoes, causing severe joint pain.",
-        "symptoms": "Sudden onset of fever, severe joint pain (often debilitating), muscle pain, headache, nausea, fatigue, rash.",
-        "treatment": "No specific antiviral treatment. Symptomatic relief for pain and fever.",
-        "prevention": "Avoid mosquito bites, eliminate breeding sites, use repellents.",
-        "prevalence": "Africa, Asia, Europe, Indian and Pacific Oceans, Americas. Has caused large outbreaks.",
-        "image_url": "assets/images/chikungunya.jpg",
-        "vectors": ["aedes_aegypti", "aedes_albopictus"],
-    },
-]
-with open( "sample_diseases.json", "w") as f:
-    json.dump(diseases_data_list, f, indent=2)
-
-print(f"Generated {'sample_diseases.json'}")

@@ -7,7 +7,7 @@ from pydantic import HttpUrl, ValidationError
 
 from backend.services.prediction_service import prediction_service, PredictionResult
 from backend.services.observation_service import get_observation_service
-from backend.models import Observation, ObservationCreate, ObservationListResponse
+from backend.schemas.observation_schemas import Observation, ObservationCreate, ObservationListResponse
 
 
 router = APIRouter()
@@ -82,13 +82,13 @@ async def predict_species(
     status_code=status.HTTP_201_CREATED,
     summary="Submit a new observation",
     description="""Submit a new mosquito observation with species, location, and other details.
-    
+
     Required fields:
     - species_id: ID of the observed species
     - count: Number of specimens (must be > 0)
     - location: Object with 'lat' and 'lng' as numbers
     - observed_at: ISO 8601 datetime string (e.g., '2024-01-01T12:00:00Z')
-    
+
     Optional fields:
     - notes: String (max 1000 chars)
     - image_url: Valid HTTP/HTTPS URL
@@ -101,14 +101,14 @@ async def create_observation(
 ) -> Observation:
     """
     Create a new observation record with proper validation.
-    
+
     Args:
         observation_data: Dictionary containing observation data
         user_id: Optional user ID (must be a valid UUID if provided)
-        
+
     Returns:
         Created observation record
-        
+
     Raises:
         HTTP 400: If input validation fails
         HTTP 500: If there's a server error
@@ -117,7 +117,7 @@ async def create_observation(
         # Generate a UUID if none provided
         if not user_id:
             user_id = str(uuid4())
-        
+
         # Validate user_id if provided
         if user_id != "default_user_id":
             try:
@@ -127,7 +127,7 @@ async def create_observation(
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="user_id must be a valid UUID"
                 )
-        
+
         # Ensure location has required fields
         location = observation_data.get('location', {})
         if not isinstance(location, dict) or 'lat' not in location or 'lng' not in location:
@@ -135,7 +135,7 @@ async def create_observation(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="location must be an object with 'lat' and 'lng' fields"
             )
-            
+
         # Ensure observed_at is in the correct format
         if 'observed_at' in observation_data:
             if isinstance(observation_data['observed_at'], str):
@@ -147,7 +147,7 @@ async def create_observation(
                         status_code=status.HTTP_400_BAD_REQUEST,
                         detail="observed_at must be a valid ISO 8601 datetime string"
                     )
-        
+
         # Validate image_url if provided
         if 'image_url' in observation_data and observation_data['image_url']:
             try:
@@ -159,14 +159,14 @@ async def create_observation(
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="image_url must be a valid URL"
                 )
-        
+
         # Create the Pydantic model which will do additional validation
         observation = ObservationCreate(**observation_data)
-        
+
         # Get the service and create the observation
         service = await get_observation_service()
         return await service.create_observation(observation, user_id)
-        
+
     except HTTPException:
         raise
     except ValidationError as e:
@@ -177,7 +177,7 @@ async def create_observation(
             if 'input' in error_dict and isinstance(error_dict['input'], datetime):
                 error_dict['input'] = error_dict['input'].isoformat()
             errors.append(error_dict)
-            
+
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=errors

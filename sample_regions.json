@@ -1,0 +1,32 @@
+[
+  {
+    "id": "asia",
+    "name_en": "Asia",
+    "name_ru": "Азия"
+  },
+  {
+    "id": "europe",
+    "name_en": "Europe",
+    "name_ru": "Европа"
+  },
+  {
+    "id": "americas",
+    "name_en": "Americas",
+    "name_ru": "Америка"
+  },
+  {
+    "id": "africa",
+    "name_en": "Africa",
+    "name_ru": "Африка"
+  },
+  {
+    "id": "oceania",
+    "name_en": "Oceania",
+    "name_ru": "Океания"
+  },
+  {
+    "id": "sub_saharan_africa",
+    "name_en": "Sub-Saharan Africa",
+    "name_ru": "Африка к югу от Сахары"
+  }
+]

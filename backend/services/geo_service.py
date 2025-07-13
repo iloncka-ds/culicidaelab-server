@@ -2,7 +2,7 @@ import json
 from typing import List, Optional, Tuple, Dict, Any
 import lancedb
 from backend.services.database import get_table
-from backend.models import GeoJSONFeatureCollection, GeoJSONFeature, GeoJSONGeometry
+from backend.schemas.geo_schemas import GeoJSONFeatureCollection, GeoJSONFeature, GeoJSONGeometry
 from shapely.geometry import box, Point, shape
 from datetime import datetime
 

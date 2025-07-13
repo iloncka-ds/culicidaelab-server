@@ -1,11 +1,16 @@
 from pydantic import BaseModel
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
+
+
+class GeoJSONGeometry(BaseModel):
+    type: str
+    coordinates: Any
 
 
 class GeoJSONFeature(BaseModel):
     type: str = "Feature"
     properties: Dict[str, Any]
-    geometry: Dict[str, Any]
+    geometry: GeoJSONGeometry
 
 
 class GeoJSONFeatureCollection(BaseModel):

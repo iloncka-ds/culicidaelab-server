@@ -1,0 +1,27 @@
+[
+  {
+    "id": "gbif",
+    "name_en": "GBIF",
+    "name_ru": "GBIF"
+  },
+  {
+    "id": "inatuarlist",
+    "name_en": "iNaturalist",
+    "name_ru": "iNaturalist"
+  },
+  {
+    "id": "vectorbase",
+    "name_en": "VectorBase",
+    "name_ru": "VectorBase"
+  },
+  {
+    "id": "local_survey_a",
+    "name_en": "Local Survey Team A",
+    "name_ru": "Местная исследовательская группа А"
+  },
+  {
+    "id": "research_xyz",
+    "name_en": "Research Study XYZ",
+    "name_ru": "Научное исследование XYZ"
+  }
+]

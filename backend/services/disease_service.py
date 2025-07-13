@@ -1,50 +1,53 @@
 import lancedb
 from typing import List, Dict, Any, Optional
-import json
 import traceback
 
 from backend.services.database import get_table
 from backend.schemas.diseases_schemas import Disease
 
 
-def _db_record_to_disease_model(record: Dict[str, Any]) -> Disease:
+def _db_record_to_disease_model(record: Dict[str, Any], lang: str) -> Disease:
     """Converts a database dictionary record to a Disease Pydantic model."""
+    fallback_lang = "en"
     return Disease(
         id=record.get("id", ""),
-        name=record.get("name"),
-        description=record.get("description"),
-        symptoms=record.get("symptoms"),
-        treatment=record.get("treatment"),
-        prevention=record.get("prevention"),
-        prevalence=record.get("prevalence"),
         image_url=record.get("image_url"),
+        # Mapped fields
+        name=record.get(f"name_{lang}", record.get(f"name_{fallback_lang}")),
+        description=record.get(f"description_{lang}", record.get(f"description_{fallback_lang}")),
+        symptoms=record.get(f"symptoms_{lang}", record.get(f"symptoms_{fallback_lang}")),
+        treatment=record.get(f"treatment_{lang}", record.get(f"treatment_{fallback_lang}")),
+        prevention=record.get(f"prevention_{lang}", record.get(f"prevention_{fallback_lang}")),
+        prevalence=record.get(f"prevalence_{lang}", record.get(f"prevalence_{fallback_lang}")),
         vectors=record.get("vectors", []),
     )
 
 
-def get_all_diseases(db: lancedb.DBConnection, search: Optional[str] = None, limit: int = 50) -> List[Disease]:
+def get_all_diseases(
+    db: lancedb.DBConnection, lang: str, search: Optional[str] = None, limit: int = 50
+) -> List[Disease]:
     """
     Retrieve a list of diseases, optionally filtered by search term.
     """
     try:
         tbl = get_table(db, "diseases")
         if tbl is None:
-            print(f"Error: Table 'diseases' not found or could not be accessed.")
             return []
 
-        query_parts = []
+        query = tbl.search()
         if search:
             search_lower = search.lower().replace("'", "''")
-            query_parts.append(f"LOWER(name) LIKE '%{search_lower}%'")
-            query_parts.append(f"LOWER(description) LIKE '%{search_lower}%'")
-            query_parts.append(f"LOWER(symptoms) LIKE '%{search_lower}%'")
+            # Search across all localized text fields
+            search_query = (
+                f"LOWER(name_en) LIKE '%{search_lower}%' OR "
+                f"LOWER(name_es) LIKE '%{search_lower}%' OR "
+                f"LOWER(description_en) LIKE '%{search_lower}%' OR "
+                f"LOWER(description_es) LIKE '%{search_lower}%'"
+            )
+            query = query.where(search_query)
 
-            full_query = " OR ".join(query_parts)
-            results_raw = tbl.search().where(full_query).limit(limit).to_list()
-        else:
-            results_raw = tbl.search().limit(limit).to_list()
-
-        return [_db_record_to_disease_model(r) for r in results_raw]
+        results_raw = query.limit(limit).to_list()
+        return [_db_record_to_disease_model(r, lang) for r in results_raw]
 
     except Exception as e:
         print(f"Error getting all diseases: {e}")
@@ -52,21 +55,20 @@ def get_all_diseases(db: lancedb.DBConnection, search: Optional[str] = None, lim
         return []
 
 
-def get_disease_by_id(db: lancedb.DBConnection, disease_id: str) -> Optional[Disease]:
+def get_disease_by_id(db: lancedb.DBConnection, disease_id: str, lang: str) -> Optional[Disease]:
     """
     Retrieve detailed information for a specific disease by ID.
     """
     try:
         tbl = get_table(db, "diseases")
         if tbl is None:
-            print(f"Error: Table 'diseases' not found or could not be accessed for ID {disease_id}.")
             return None
 
         sanitized_id = disease_id.replace("'", "''")
         result_raw = tbl.search().where(f"id = '{sanitized_id}'").limit(1).to_list()
 
-        if result_raw and len(result_raw) > 0:
-            return _db_record_to_disease_model(result_raw[0])
+        if result_raw:
+            return _db_record_to_disease_model(result_raw[0], lang)
         return None
 
     except Exception as e:
@@ -75,39 +77,19 @@ def get_disease_by_id(db: lancedb.DBConnection, disease_id: str) -> Optional[Dis
         return None
 
 
-def get_diseases_by_vector(db: lancedb.DBConnection, vector_id: str) -> List[Disease]:
+def get_diseases_by_vector(db: lancedb.DBConnection, vector_id: str, lang: str) -> List[Disease]:
     """
     Retrieve a list of diseases associated with a specific vector species ID.
-    The 'vectors' field in the 'diseases' table is expected to be a list of strings (species IDs).
     """
     try:
         tbl = get_table(db, "diseases")
         if tbl is None:
-            print(f"Error: Table 'diseases' not found or could not be accessed for vector '{vector_id}'.")
             return []
-
         sanitized_vector_id = vector_id.replace("'", "''")
-
         query = f"array_has(vectors, '{sanitized_vector_id}')"
-
         results_raw = tbl.search().where(query).to_list()
-
-        return [_db_record_to_disease_model(r) for r in results_raw]
+        return [_db_record_to_disease_model(r, lang) for r in results_raw]
 
     except Exception as e:
         print(f"Error getting diseases by vector '{vector_id}': {e}")
-        print("Attempting fallback with Python-based filtering if array_has failed...")
-        traceback.print_exc()
-
-        try:
-            all_diseases_raw = tbl.search().to_list()
-            filtered_diseases = [
-                _db_record_to_disease_model(r)
-                for r in all_diseases_raw
-                if r.get("vectors") and vector_id in r["vectors"]
-            ]
-            return filtered_diseases
-        except Exception as fallback_e:
-            print(f"Fallback Python filtering also failed for vector '{vector_id}': {fallback_e}")
-            traceback.print_exc()
-            return []
+        return []
