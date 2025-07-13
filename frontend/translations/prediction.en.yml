@@ -37,3 +37,6 @@ en:
     longitude: "Longitude"
   observation_form:
     submit_details: "Submit Observation Details"
+    info_location: "Selected Location: Lat: %{current_latitude:.4f}, Lon: %{current_longitude:.4f}"
+    warning_location: "Location not set. Please select on map or enter coordinates."
+    observation_date: "Observation Date *"

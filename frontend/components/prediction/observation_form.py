@@ -111,20 +111,24 @@ def ObservationFormComponent(
     with solara.Card(style="padding: 15px; margin-top: 5px;"):
         if current_latitude is not None and current_longitude is not None:
             solara.Info(
-                f"Selected Location: Lat: {current_latitude:.4f}, Lon: {current_longitude:.4f}",
+                f"{i18n.t("prediction.observation_form.info_location")}",
                 dense=True,
                 style="margin-bottom:10px;",
             )
         else:
             solara.Warning(
-                "Location not set. Please select on map or enter coordinates.",
+                i18n.t("prediction.observation_form.warning_location"),
                 dense=True,
                 icon=True,
                 style="margin-bottom:10px;",
             )
 
         if use_date_picker and DatePickerComponent:
-            DatePickerComponent(label="Observation Date *", value=obs_date_obj_state[0], on_value=obs_date_obj_state[1])
+            DatePickerComponent(
+                label=i18n.t("prediction.observation_form.observation_date"),
+                value=obs_date_obj_state[0],
+                on_value=obs_date_obj_state[1],
+            )
         else:
             solara.InputText("Date (YYYY-MM-DD) *", value=obs_date_str, on_value=set_obs_date_str)
 
