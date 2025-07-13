@@ -1,12 +1,12 @@
-
 import solara
 import httpx
-
+import i18n
 from typing import List, Tuple, Optional, Dict, Any, cast
 
 from datetime import date, timedelta
 
 from .config import FILTER_OPTIONS_ENDPOINT
+
 
 async def fetch_api_data(
     url: str,
@@ -52,6 +52,7 @@ async def fetch_api_data(
         if loading_reactive:
             loading_reactive.value = False
 
+
 default_end_date = date.today()
 default_start_date = default_end_date - timedelta(days=365)
 
@@ -71,7 +72,6 @@ show_modeled_data_reactive = solara.reactive(False)
 show_distribution_status_reactive = solara.reactive(True)
 show_breeding_sites_reactive = solara.reactive(False)
 
-
 DEFAULT_MAP_CENTER = (20, 0)
 DEFAULT_MAP_ZOOM = 3
 current_map_center_reactive: solara.Reactive[Tuple[float, float]] = solara.reactive(DEFAULT_MAP_CENTER)
@@ -82,16 +82,14 @@ current_map_bounds_reactive: solara.Reactive[Optional[Tuple[Tuple[float, float],
 
 selected_map_feature_info = solara.reactive(None)
 
-
 distribution_data_reactive = solara.reactive(None)
 observations_data_reactive = solara.reactive(None)
 modeled_data_reactive = solara.reactive(None)
 breeding_sites_data_reactive = solara.reactive(None)
 
-
 all_available_species_reactive = solara.reactive(cast(List[str], []))
-all_available_regions_reactive = solara.reactive(cast(List[str], []))
-all_available_data_sources_reactive = solara.reactive(cast(List[str], []))
+all_available_regions_reactive = solara.reactive(cast(List[Dict[str, str]], []))
+all_available_data_sources_reactive = solara.reactive(cast(List[Dict[str, str]], []))
 species_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
 species_list_loading_reactive = solara.reactive(False)
 species_list_error_reactive = solara.reactive(cast(Optional[str], None))
@@ -104,16 +102,18 @@ disease_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
 disease_list_loading_reactive = solara.reactive(False)
 disease_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
+
 async def fetch_filter_options():
     """Fetches species, regions, and data sources for filter dropdowns."""
     if filter_options_loading_reactive.value:
         return
+    lang = i18n.get("locale")
     filter_options_loading_reactive.value = True
     filter_options_error_reactive.value = None
     try:
         async with httpx.AsyncClient() as client:
-            print(f"Fetching filter options from {FILTER_OPTIONS_ENDPOINT}")
-            response = await client.get(FILTER_OPTIONS_ENDPOINT, timeout=10.0)
+            print(f"Fetching filter options from {FILTER_OPTIONS_ENDPOINT} for lang='{lang}'")
+            response = await client.get(FILTER_OPTIONS_ENDPOINT, params={"lang": lang}, timeout=10.0)
             response.raise_for_status()
             data = response.json()
 
@@ -142,6 +142,7 @@ async def fetch_filter_options():
         all_available_data_sources_reactive.value = []
     finally:
         filter_options_loading_reactive.value = False
+
 
 distribution_loading_reactive = solara.reactive(False)
 observations_loading_reactive = solara.reactive(False)
