@@ -5,7 +5,7 @@ from typing import List, Optional, cast, Dict, Any, Callable
 import asyncio
 from ...config import DISEASE_DETAIL_ENDPOINT_TEMPLATE, SPECIES_LIST_ENDPOINT, DISEASE_VECTORS_ENDPOINT_TEMPLATE
 from ...state import fetch_api_data, selected_disease_item_id
-from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
+from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT, load_themes
 from frontend.components.species.species_card import SpeciesCard
 import i18n
 
@@ -40,6 +40,8 @@ i18n.add_translation("disease.errors.vector_load", "Ошибка загрузк�
 
 @solara.component
 def DiseaseDetailPageComponent():
+    theme = load_themes(solara.lab.theme)
+    heading_style = f"font-size: 1.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     disease_id = selected_disease_item_id.value
     disease_data, set_disease_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
     vectors_data, set_vectors_data = solara.use_state(cast(List[Dict[str, Any]], []))
@@ -72,20 +74,20 @@ def DiseaseDetailPageComponent():
             try:
                 url = DISEASE_DETAIL_ENDPOINT_TEMPLATE.format(disease_id=disease_id)
                 params = {"lang": current_locale}
-                print(f"DEBUG: DISEASE_DETAIL.PY Effect: Fetching URL: {url} with params {params}")
+                # print(f"DEBUG: DISEASE_DETAIL.PY Effect: Fetching URL: {url} with params {params}")
                 data = await fetch_api_data(url, params=params)
 
                 current_task = task_ref[0]
                 if current_task and current_task.cancelled():
-                    print(f"DEBUG: DISEASE_DETAIL.PY Effect task for {disease_id} was cancelled post-await.")
+                    # print(f"DEBUG: DISEASE_DETAIL.PY Effect task for {disease_id} was cancelled post-await.")
                     return
 
                 if data is None:
-                    print(f"DEBUG: DISEASE_DETAIL.PY Effect: No data returned for {disease_id}")
+                    # print(f"DEBUG: DISEASE_DETAIL.PY Effect: No data returned for {disease_id}")
                     set_error(f"Details for '{disease_id}' not found or an API error occurred.")
                     set_disease_data(None)
                 else:
-                    print(f"DEBUG: DISEASE_DETAIL.PY Effect: Data received for {disease_id}: {data}")
+                    # print(f"DEBUG: DISEASE_DETAIL.PY Effect: Data received for {disease_id}: {data}")
                     set_disease_data(data)
                     set_error(None)
 
@@ -102,31 +104,31 @@ def DiseaseDetailPageComponent():
                             set_vectors_error("Failed to load vector data, or none exist.")
 
                     except Exception as e:
-                        print(f"DEBUG: DISEASE_DETAIL.PY Effect: Error fetching vector data: {e}")
+                        # print(f"DEBUG: DISEASE_DETAIL.PY Effect: Error fetching vector data: {e}")
                         set_vectors_error(f"Could not load vector species: {str(e)}")
                     finally:
                         set_vectors_loading(False)
 
             except asyncio.CancelledError:
-                print(f"DEBUG: DISEASE_DETAIL.PY Effect _async_task for {disease_id} was cancelled.")
+                # print(f"DEBUG: DISEASE_DETAIL.PY Effect _async_task for {disease_id} was cancelled.")
                 raise
             except Exception as e:
-                print(f"DEBUG: DISEASE_DETAIL.PY Effect: Unexpected error in _async_task for {disease_id}: {e}")
+                # print(f"DEBUG: DISEASE_DETAIL.PY Effect: Unexpected error in _async_task for {disease_id}: {e}")
                 set_error(f"An unexpected error occurred: {str(e)}")
                 set_disease_data(None)
             finally:
                 set_loading(False)
-                print(
-                    f"DEBUG: DISEASE_DETAIL.PY Effect: Fetch process finished for {disease_id}. Loading state: {loading}"
-                )
+                # print(
+                #     f"DEBUG: DISEASE_DETAIL.PY Effect: Fetch process finished for {disease_id}. Loading state: {loading}"
+                # )
 
         task_ref[0] = asyncio.create_task(_async_task())
-        print(f"DEBUG: DISEASE_DETAIL.PY _fetch_disease_detail_effect for ID: '{disease_id}' - Task created.")
+        # print(f"DEBUG: DISEASE_DETAIL.PY _fetch_disease_detail_effect for ID: '{disease_id}' - Task created.")
 
         def cleanup():
             current_task = task_ref[0]
             if current_task and not current_task.done():
-                print(f"DEBUG: DISEASE_DETAIL.PY Cleanup: Cancelling task for ID {disease_id}")
+                # print(f"DEBUG: DISEASE_DETAIL.PY Cleanup: Cancelling task for ID {disease_id}")
                 current_task.cancel()
             else:
                 print(f"DEBUG: DISEASE_DETAIL.PY Cleanup: Task for ID {disease_id} already done or no task found.")
@@ -163,8 +165,8 @@ def DiseaseDetailPageComponent():
         else:
             solara.Title(i18n.t("disease.title", name=disease_data.get("name")))
             solara.Markdown(
-                f"# {disease_data.get('name', 'N/A')}",
-                style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-bottom: 20px;",
+                f"{disease_data.get('name', 'N/A')}",
+                style=heading_style,
             )
             rv.Divider(style="margin: 15px 0;")
 

@@ -19,6 +19,7 @@ from ...config import (
     SPECIES_LIST_ENDPOINT,
     SPECIES_DETAIL_ENDPOINT_TEMPLATE,
     API_BASE_URL,
+    load_themes
 )
 import i18n
 
@@ -41,6 +42,9 @@ i18n.add_translation("species_gallery.messages.initializing", "Инициали�
 
 @solara.component
 def SpeciesGalleryPageComponent():
+    theme = load_themes(solara.lab.theme)
+    heading_style = f"font-size: 1.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+
     search_query, set_search_query = solara.use_state("")
     current_locale = i18n.get("locale")
 
@@ -100,8 +104,8 @@ def SpeciesGalleryPageComponent():
 
     with solara.Column(style="padding-bottom: 20px; min-height: calc(100vh - 120px);"):
         solara.Markdown(
-            f"# {i18n.t('species_gallery.title')}",
-            style=f"font-family: {FONT_HEADINGS}; text-align:center; margin-bottom:20px;",
+            f"{i18n.t('species_gallery.title')}",
+            style=heading_style,
         )
         with solara.Row(
             classes=["pa-2 ma-2 elevation-1"],

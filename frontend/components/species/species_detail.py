@@ -3,7 +3,7 @@ import solara.lab
 from solara.alias import rv
 from typing import List, Optional, cast, Dict, Any, Callable
 import asyncio
-from ...config import SPECIES_DETAIL_ENDPOINT_TEMPLATE, DISEASE_DETAIL_ENDPOINT_TEMPLATE
+from ...config import SPECIES_DETAIL_ENDPOINT_TEMPLATE, DISEASE_DETAIL_ENDPOINT_TEMPLATE, load_themes
 from ...state import fetch_api_data
 from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
 from ...state import selected_species_item_id
@@ -47,6 +47,8 @@ i18n.add_translation("species.messages.disease_unavailable", "Информаци
 
 @solara.component
 def SpeciesDetailPageComponent():
+    theme = load_themes(solara.lab.theme)
+    heading_style = f"font-size: 1.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     species_id = selected_species_item_id.value
     router = solara.use_router()
 
@@ -209,8 +211,8 @@ def SpeciesDetailPageComponent():
             _species_data = species_data
             solara.Title(i18n.t("species.title", name=_species_data.get("scientific_name")))
             solara.Markdown(
-                f"# {_species_data.get('scientific_name', 'N/A')}",
-                style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-bottom: 5px;",
+                f"{_species_data.get('scientific_name', 'N/A')}",
+                style=heading_style,
             )
             if common_name := _species_data.get("common_name"):
                 solara.Text(

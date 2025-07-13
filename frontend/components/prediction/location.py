@@ -1,7 +1,7 @@
 import solara
 import ipyleaflet as L
 from typing import Optional, cast
-
+import i18n
 
 @solara.component
 def LocationComponent(
@@ -53,7 +53,7 @@ def LocationComponent(
             if current_marker.location != (lat, lon):
                 current_marker.location = (lat, lon)
         else:
-            new_marker = L.Marker(location=(lat, lon), draggable=True, title="Selected location")
+            new_marker = L.Marker(location=(lat, lon), draggable=True, title=i18n.t("prediction.location.selected_location"))
             new_marker.observe(_handle_marker_location_changed, names=["location"])
             map_widget.add_layer(new_marker)
             set_marker_object(new_marker)
@@ -70,7 +70,7 @@ def LocationComponent(
                 current_marker.unobserve(_handle_marker_location_changed, names=["location"])
                 map_widget.remove_layer(current_marker)
             except Exception as e:
-                print(f"Error removing marker: {e}")
+                print(i18n.t("prediction.location.error_remove_marking"))
             set_marker_object(None)
 
     def sync_marker_with_state_effect():
@@ -88,17 +88,17 @@ def LocationComponent(
     )
 
     with solara.Column(style={"min-height": "300px"}):
-        solara.Markdown("#### Select Location", style="margin-bottom: 10px;")
+        solara.Markdown(f"#### {i18n.t("prediction.location.select_location")}", style="margin-bottom: 10px;")
         with solara.Row(gap="10px", style={"align-items": "center", "margin-bottom": "10px;"}):
             solara.InputFloat(
-                label="Latitude",
+                label=i18n.t("prediction.location.latitude"),
                 value=latitude,
                 on_value=lambda v: _update_parent_coordinates(v, longitude),
                 continuous_update=False,
                 clearable=True,
             )
             solara.InputFloat(
-                label="Longitude",
+                label=i18n.t("prediction.location.longitude"),
                 value=longitude,
                 on_value=lambda v: _update_parent_coordinates(latitude, v),
                 continuous_update=False,
