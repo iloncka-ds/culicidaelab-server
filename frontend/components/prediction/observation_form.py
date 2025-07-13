@@ -130,12 +130,20 @@ def ObservationFormComponent(
                 on_value=obs_date_obj_state[1],
             )
         else:
-            solara.InputText("Date (YYYY-MM-DD) *", value=obs_date_str, on_value=set_obs_date_str)
+            solara.InputText(i18n.t("prediction.observation_form.input_date"),
+                            value=obs_date_str,
+                            on_value=set_obs_date_str)
 
-        solara.InputInt("Count observed *", value=obs_count, on_value=set_obs_count, style="margin-top: 10px;")
-        solara.InputText("Observer ID", value=obs_observer_id, on_value=set_obs_observer_id, style="margin-top: 10px;")
+        solara.InputInt(i18n.t("prediction.observation_form.input_count"),
+        value=obs_count,
+        on_value=set_obs_count,
+        style="margin-top: 10px;")
+        solara.InputText(i18n.t("prediction.observation_form.input_observer"),
+                        value=obs_observer_id,
+                        on_value=set_obs_observer_id,
+                        style="margin-top: 10px;")
         solara.InputInt(
-            "Location Accuracy (meters)",
+            i18n.t("prediction.observation_form.input_accuracy"),
             value=obs_location_accuracy_m,
             on_value=set_obs_location_accuracy_m,
             style="margin-top: 10px;",
