@@ -1,4 +1,5 @@
 import solara
+import i18n
 from typing import Dict, List, Optional
 
 from frontend.state import (
@@ -39,15 +40,12 @@ def LegendDisplay():
     with solara.Column(
         style="padding: 8px; background: rgba(255,255,255,0.9); border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
     ):
-        solara.Markdown(
-            "## Map Legend", style=f"font-family: {FONT_HEADINGS}; color: {COLOR_TEXT}; margin-bottom: 10px;"
-        )
 
 
         if show_observed_data_reactive.value and observations_data_reactive.value:
             has_content = True
             solara.Markdown(
-                "#### Observed Species",
+                f"#### {i18n.t('map.legend.observed_species_title')}",
                 style=f"font-family: {FONT_HEADINGS}; color: {COLOR_TEXT}; margin-top: 10px; margin-bottom: 5px;",
             )
 
@@ -57,7 +55,7 @@ def LegendDisplay():
 
             if not display_species:
                 solara.Text(
-                    "No species in current data view",
+                    i18n.t("map.legend.no_species_in_view"),
                     style=f"font-size: 0.9em; font-style: italic; font-family: {FONT_BODY}; color: {COLOR_TEXT};",
                 )
             else:
@@ -76,10 +74,8 @@ def LegendDisplay():
 
             solara.Markdown("", style="margin-top: 5px; margin-bottom: 5px;")
 
-
-
         if not has_content:
             solara.Info(
-                "No active layers with legends to display. Toggle layers using the Layer Control panel.",
+                i18n.t("map.legend.no_active_layers"),
                 style=f"font-family: {FONT_BODY};",
             )

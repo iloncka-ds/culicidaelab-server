@@ -14,6 +14,7 @@ from frontend.components.common.locale_selector import LocaleSelector
 import i18n
 from pathlib import Path
 
+
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
     i18n.set("fallback", "en")
@@ -54,6 +55,8 @@ def Page():
     }
 
     map_interactive_items = [filter_item, legend_item]
+    with solara.Div(style="width: 100%; flex-grow: 1; min-height: 300px; display: flex; flex-direction: column;"):
+        map_component.MapDisplay()
 
     with solara.Column(style="width: 100%; height: 100vh; display: flex; flex-direction: column; overflow: hidden;"):
         with solara.Div(style="width: 100%; flex-shrink: 0; padding: 5px 0;"):
@@ -78,5 +81,4 @@ def Page():
                                 with rv.ExpansionPanelContent(class_="pt-2"):
                                     item_data["component"]()
 
-        with solara.Div(style="width: 100%; flex-grow: 1; min-height: 300px; display: flex; flex-direction: column;"):
-            map_component.MapDisplay()
+

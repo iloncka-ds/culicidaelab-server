@@ -5,3 +5,15 @@ en:
       title: "Filters"
     legend:
       title: "Legend"
+  filter_controls:
+    loading_options: "Loading filter options..."
+    species_label: "Species"
+    species_select: "Select Species"
+    species_none_available: "No species available"
+    date_range_label: "Date Range"
+    apply_button: "Apply Date Filters"
+    loading_data: "Loading data..."
+  legend:
+    observed_species_title: "Observed Species"
+    no_species_in_view: "No species in current data view"
+    no_active_layers: "No active layers with legends to display. Toggle layers using the Layer Control panel."

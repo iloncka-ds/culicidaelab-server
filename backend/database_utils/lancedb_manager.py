@@ -75,6 +75,19 @@ MAP_LAYERS_SCHEMA = pa.schema(
     ]
 )
 
+OBSERVATIONS_SCHEMA = pa.schema(
+    [
+        pa.field("type", pa.string()),
+        pa.field("species", pa.string()),
+        pa.field("observation_date", pa.string()),
+        pa.field("count", pa.int64()),
+        pa.field("observer_id", pa.string()),
+        pa.field("location_accuracy_m", pa.float64()),
+        pa.field("notes", pa.string()),
+        pa.field("geometry_type", pa.string()),
+        pa.field("coordinates", pa.list_(pa.float64())),
+    ]
+)
 
 class LanceDBManager:
     def __init__(self, uri: str = LANCEDB_URI):

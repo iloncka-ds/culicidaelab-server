@@ -56,6 +56,7 @@ def SpeciesDetailPageComponent():
     related_diseases_data, set_related_diseases_data = solara.use_state(cast(List[Dict[str, Any]], []))
     diseases_loading, set_diseases_loading = solara.use_state(False)
     diseases_error, set_diseases_error = solara.use_state(cast(Optional[str], None))
+    current_locale = i18n.get("locale")
 
     print(f"DEBUG: SPECIES_DETAIL.PY - Initializing for species_id: '{species_id}'")
 
@@ -86,8 +87,9 @@ def SpeciesDetailPageComponent():
 
             try:
                 url = SPECIES_DETAIL_ENDPOINT_TEMPLATE.format(species_id=species_id)
-                print(f"DEBUG: SPECIES_DETAIL.PY Effect: Fetching URL: {url}")
-                data = await fetch_api_data(url)
+                params = {"lang": current_locale}
+                print(f"DEBUG: SPECIES_DETAIL.PY Effect: Fetching URL: {url} with params {params}")
+                data = await fetch_api_data(url, params=params)
 
                 current_task_check_one = task_ref[0]
                 if current_task_check_one and current_task_check_one.cancelled():
@@ -120,8 +122,11 @@ def SpeciesDetailPageComponent():
                                 raise asyncio.CancelledError
 
                             disease_url = DISEASE_DETAIL_ENDPOINT_TEMPLATE.format(disease_id=disease_id_to_fetch)
-                            print(f"DEBUG: SPECIES_DETAIL.PY: Fetching related disease from URL: {disease_url}")
-                            disease_item_data = await fetch_api_data(disease_url)
+                            disease_params = {"lang": current_locale}
+                            print(
+                                f"DEBUG: SPECIES_DETAIL.PY: Fetching related disease from URL: {disease_url} with params {disease_params}"
+                            )
+                            disease_item_data = await fetch_api_data(disease_url, params=disease_params)
                             if disease_item_data:
                                 fetched_diseases_list.append(disease_item_data)
                             else:
@@ -171,7 +176,7 @@ def SpeciesDetailPageComponent():
 
         return cleanup
 
-    solara.use_effect(_fetch_species_detail_effect, [species_id])
+    solara.use_effect(_fetch_species_detail_effect, [species_id, current_locale])
 
     with solara.Column(align="center", classes=["pa-4"], style="max-width: 900px; margin: auto;"):
         solara.Button(
