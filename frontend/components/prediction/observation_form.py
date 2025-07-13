@@ -148,10 +148,15 @@ def ObservationFormComponent(
             on_value=set_obs_location_accuracy_m,
             style="margin-top: 10px;",
         )
-        solara.InputText("Notes (optional)", value=obs_notes, on_value=set_obs_notes, style="margin-top: 10px;")
+        solara.InputText(
+            i18n.t("prediction.observation_form.input_notes"),
+            value=obs_notes,
+            on_value=set_obs_notes,
+            style="margin-top: 10px;",
+        )
 
         solara.Button(
-            "Submit Observation",
+            i18n.t("prediction.observation_form.submit_observation"),
             on_click=lambda: asyncio.create_task(handle_submit()),
             color="green",
             disabled=is_submitting or not prediction or current_latitude is None or current_longitude is None,

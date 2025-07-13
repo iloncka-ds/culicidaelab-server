@@ -44,3 +44,5 @@ en:
     input_count: "Count observed *"
     input_observer: "Observer ID"
     input_accuracy: "Location Accuracy (meters)"
+    input_notes: "Notes (optional)"
+    submit_observation: "Submit Observation"
