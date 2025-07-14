@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Any, Callable
+from typing import Optional, Dict, Any
 import asyncio
 from datetime import datetime
 import solara
@@ -15,8 +15,8 @@ def ObservationFormComponent(
     file_name: Optional[str],
     current_latitude: Optional[float],
     current_longitude: Optional[float],
-    on_submit_success: Callable,
-    on_submit_error: Callable,
+    on_submit_success: callable,
+    on_submit_error: callable,
 ):
     """
     Form for submitting observation details along with a prediction.
@@ -44,20 +44,12 @@ def ObservationFormComponent(
         error_messages = []
         if not current_user_id.value:
             error_messages.append("User ID could not be identified for this session.")
-        if not prediction:
-            error_messages.append("Prediction data is missing.")
+        if not prediction or not prediction.get("scientific_name"):
+            error_messages.append("Prediction data with a species name is missing.")
         if not file_name:
             error_messages.append("Image file name is missing.")
         if current_latitude is None or current_longitude is None:
             error_messages.append("Latitude and Longitude are required.")
-        else:
-            try:
-                lat = float(current_latitude)
-                lon = float(current_longitude)
-                if not (-90 <= lat <= 90 and -180 <= lon <= 180):
-                    error_messages.append("Invalid latitude or longitude values.")
-            except ValueError:
-                error_messages.append("Latitude and Longitude must be valid numbers.")
 
         date_to_submit = obs_date_obj_state[0].strftime("%Y-%m-%d") if use_date_picker else obs_date_str
         if not date_to_submit:
@@ -68,22 +60,20 @@ def ObservationFormComponent(
             except ValueError:
                 error_messages.append("Invalid date format (YYYY-MM-DD).")
 
-        predicted_species_id = prediction.get("id") if prediction else None
-        if not predicted_species_id:
-            error_messages.append("Predicted species ID is missing from prediction data.")
-
         if error_messages:
             on_submit_error(". ".join(error_messages))
             return
 
         set_is_submitting(True)
+
+        # Construct payload matching the backend's Observation Pydantic schema
         observation_payload = {
             "species_scientific_name": prediction.get("scientific_name"),
             "count": obs_count,
             "location": {"lat": float(current_latitude), "lng": float(current_longitude)},
-            "observed_at": f"{date_to_submit}T12:00:00Z",
+            "observed_at": f"{date_to_submit}T12:00:00Z",  # Send as full ISO 8601 string
             "notes": obs_notes.strip() or None,
-            # +++ USE THE PERSISTENT USER ID FROM GLOBAL STATE +++
+            # "user_id": obs_observer_id or "anonymous_user",
             "user_id": current_user_id.value,
             "location_accuracy_m": obs_location_accuracy_m,
             "data_source": "culicidaelab-web-app",
@@ -92,6 +82,8 @@ def ObservationFormComponent(
             "confidence": prediction.get("confidence"),
             "metadata": {"prediction_details": prediction},
         }
+
+        # Clean the payload of any None values for optional fields
         observation_payload = {k: v for k, v in observation_payload.items() if v is not None}
 
         submission_error = await submit_observation_data(observation_payload)
@@ -109,11 +101,14 @@ def ObservationFormComponent(
 
     with solara.Card(style="padding: 15px; margin-top: 5px;"):
         if current_latitude is not None and current_longitude is not None:
-            label = f'{i18n.t("prediction.observation_form.info_location_lat")}'+ \
-                f'{current_latitude:.4f}'+ \
-                f'{i18n.t("prediction.observation_form.info_location_lon")}' + \
-                f'{current_longitude:.4f}'
-            solara.Info(label,
+            label = (
+                f'{i18n.t("prediction.observation_form.info_location_lat")}'
+                + f"{current_latitude:.4f}"
+                + f'{i18n.t("prediction.observation_form.info_location_lon")}'
+                + f"{current_longitude:.4f}"
+            )
+            solara.Info(
+                label,
                 dense=True,
                 style="margin-bottom:10px;",
             )
@@ -132,18 +127,22 @@ def ObservationFormComponent(
                 on_value=obs_date_obj_state[1],
             )
         else:
-            solara.InputText(i18n.t("prediction.observation_form.input_date"),
-                            value=obs_date_str,
-                            on_value=set_obs_date_str)
+            solara.InputText(
+                i18n.t("prediction.observation_form.input_date"), value=obs_date_str, on_value=set_obs_date_str
+            )
 
-        solara.InputInt(i18n.t("prediction.observation_form.input_count"),
-        value=obs_count,
-        on_value=set_obs_count,
-        style="margin-top: 10px;")
-        # solara.InputText(i18n.t("prediction.observation_form.input_observer"),
-        #                 value=obs_observer_id,
-        #                 on_value=set_obs_observer_id,
-        #                 style="margin-top: 10px;")
+        solara.InputInt(
+            i18n.t("prediction.observation_form.input_count"),
+            value=obs_count,
+            on_value=set_obs_count,
+            style="margin-top: 10px;",
+        )
+        # solara.InputText(
+        #     i18n.t("prediction.observation_form.input_observer"),
+        #     value=obs_observer_id,
+        #     on_value=set_obs_observer_id,
+        #     style="margin-top: 10px;",
+        # )
         solara.InputInt(
             i18n.t("prediction.observation_form.input_accuracy"),
             value=obs_location_accuracy_m,
@@ -160,7 +159,6 @@ def ObservationFormComponent(
         solara.Button(
             i18n.t("prediction.observation_form.submit_observation"),
             on_click=lambda: asyncio.create_task(handle_submit()),
-
             disabled=is_submitting or not prediction or current_latitude is None or current_longitude is None,
             loading=is_submitting,
             style="margin-top: 20px; width: 100%;",

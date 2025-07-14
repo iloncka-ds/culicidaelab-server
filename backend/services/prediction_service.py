@@ -11,15 +11,6 @@ from PIL import Image
 import io
 import numpy as np
 from backend.schemas.prediction_schemas import PredictionResult
-class PredictionResult(BaseModel):
-    """Model for prediction results."""
-
-    scientific_name: str
-    probabilities: Dict[str, float]
-    id: str
-    model_id: str
-    confidence: float
-    image_url_species: Optional[str] = None
 
 
 class PredictionService:
@@ -44,22 +35,6 @@ class PredictionService:
         except Exception as e:
             print(f"Error loading mosquito classifier model: {e}")
             self.model_loaded = False
-        #     from culicidaelab.core.config_manager import ConfigManager
-        #     from culicidaelab.classifier.mosquito_classifier import MosquitoClassifier
-
-        #     config_path = Path(settings.CLASSIFIER_CONFIG_PATH) if hasattr(settings, "CLASSIFIER_CONFIG_PATH") else None
-        #     if not config_path or not config_path.exists():
-        #         raise FileNotFoundError(f"Classifier config not found at {config_path}")
-
-        #     self.config_manager = ConfigManager(config_path)
-        #     self.model = MosquitoClassifier(
-        #         model_path=self.model_path, config_manager=self.config_manager, load_model=True
-        #     )
-        #     self.model_loaded = True
-        #     print(f"Mosquito classifier model loaded successfully from {self.model_path}")
-        # except Exception as e:
-        #     print(f"Error loading mosquito classifier model: {e}")
-        #     self.model_loaded = False
 
     async def predict_species(
         self, image_data: bytes, filename: str

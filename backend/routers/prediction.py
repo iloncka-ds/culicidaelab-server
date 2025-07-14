@@ -1,14 +1,14 @@
 from datetime import datetime
 from typing import Optional
 from uuid import UUID, uuid4
+import json
 
-from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, status
+from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, status, Form
 from pydantic import HttpUrl, ValidationError
 
 from backend.services.prediction_service import prediction_service, PredictionResult
 from backend.services.observation_service import get_observation_service
 from backend.schemas.observation_schemas import Observation, ObservationListResponse
-
 
 router = APIRouter()
 
@@ -38,30 +38,22 @@ async def predict_species(
     content_type = file.content_type
     if not content_type or not content_type.startswith("image/"):
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"File must be an image, got {content_type}"
+            status_code=status.HTTP_400_BAD_REQUEST, detail=f"File must be an image, got {content_type}"
         )
 
     try:
         contents = await file.read()
         if not contents:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Empty file"
-            )
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Empty file")
 
         result, error = await prediction_service.predict_species(contents, file.filename)
 
         if error:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Prediction failed: {error}"
-            )
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Prediction failed: {error}")
 
         if not result:
             raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Prediction failed with no specific error"
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Prediction failed with no specific error"
             )
 
         return result
@@ -69,11 +61,7 @@ async def predict_species(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Prediction failed: {str(e)}"
-        )
-
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Prediction failed: {str(e)}")
 
 
 @router.post(
@@ -81,111 +69,91 @@ async def predict_species(
     response_model=Observation,
     status_code=status.HTTP_201_CREATED,
     summary="Submit a new observation",
-    description="""Submit a new mosquito observation with species, location, and other details.
-
-    Required fields:
-    - species_id: ID of the observed species
-    - count: Number of specimens (must be > 0)
-    - location: Object with 'lat' and 'lng' as numbers
-    - observed_at: ISO 8601 datetime string (e.g., '2024-01-01T12:00:00Z')
-
-    Optional fields:
-    - notes: String (max 1000 chars)
-    - image_url: Valid HTTP/HTTPS URL
-    - metadata: Additional key-value pairs
+    description="""
+    Submit a new mosquito observation.
+    - For **web** source: `observation_data` should be a JSON string with all details.
+    - For **mobile** source: `observation_data` is a JSON string with observation details,
+      and an image `file` should be uploaded for prediction. The predicted species will
+      override any species info in the `observation_data`.
     """,
 )
 async def create_observation(
-    observation_data: dict,
-    user_id: str = None,
+    observation_data_str: str = Form(..., alias="observation_data"),
+    source: str = Form(..., description="The source of the observation, e.g., 'web' or 'mobile'"),
+    file: Optional[UploadFile] = File(None),
 ) -> Observation:
     """
-    Create a new observation record with proper validation.
-
-    Args:
-        observation_data: Dictionary containing observation data
-        user_id: Optional user ID (must be a valid UUID if provided)
-
-    Returns:
-        Created observation record
-
-    Raises:
-        HTTP 400: If input validation fails
-        HTTP 500: If there's a server error
+    Create a new observation record, with different handling based on the source.
     """
     try:
-        # Generate a UUID if none provided
-        if not user_id:
-            user_id = str(uuid4())
+        observation_data = json.loads(observation_data_str)
 
-        # Validate user_id if provided
-        if user_id != "default_user_id":
-            try:
-                UUID(user_id)
-            except ValueError:
+        if source == "mobile":
+            if not file:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="user_id must be a valid UUID"
+                    detail="File upload is required for source 'mobile'.",
                 )
+            contents = await file.read()
+            if not contents:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Empty file uploaded.")
 
-        # Ensure location has required fields
-        location = observation_data.get('location', {})
-        if not isinstance(location, dict) or 'lat' not in location or 'lng' not in location:
+            # Run prediction
+            prediction_result, error = await prediction_service.predict_species(contents, file.filename)
+            if error:
+                raise HTTPException(status_code=500, detail=f"Prediction failed: {error}")
+            if not prediction_result:
+                raise HTTPException(status_code=500, detail="Prediction failed without a specific error.")
+
+            # Update observation data with prediction results
+            observation_data["species_scientific_name"] = prediction_result.scientific_name
+            observation_data["model_id"] = prediction_result.model_id
+            observation_data["confidence"] = prediction_result.confidence
+            observation_data["image_filename"] = file.filename
+            observation_data.setdefault("metadata", {})["prediction"] = prediction_result.model_dump()
+
+        # --- Validation (adapted from original function) ---
+        user_id = observation_data.get("user_id")
+        if user_id:
+            try:
+                UUID(user_id)
+            except (ValueError, TypeError):
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="user_id must be a valid UUID")
+        else:
+            observation_data["user_id"] = str(uuid4())
+
+        location = observation_data.get("location", {})
+        if not isinstance(location, dict) or "lat" not in location or "lng" not in location:
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="location must be an object with 'lat' and 'lng' fields"
+                status_code=status.HTTP_400_BAD_REQUEST, detail="location must be an object with 'lat' and 'lng' fields"
             )
 
-        # Ensure observed_at is in the correct format
-        if 'observed_at' in observation_data:
-            if isinstance(observation_data['observed_at'], str):
-                try:
-                    # Convert string to datetime
-                    observation_data['observed_at'] = observation_data['observed_at'].replace('Z', '+00:00')
-                except (ValueError, TypeError):
-                    raise HTTPException(
-                        status_code=status.HTTP_400_BAD_REQUEST,
-                        detail="observed_at must be a valid ISO 8601 datetime string"
-                    )
-
-        # Validate image_url if provided
-        if 'image_url' in observation_data and observation_data['image_url']:
+        if "observed_at" in observation_data and isinstance(observation_data["observed_at"], str):
             try:
-                # Create an HttpUrl instance which will validate the URL
-                # If invalid, this will raise a ValidationError
-                HttpUrl(observation_data['image_url'])
+                observation_data["observed_at"] = observation_data["observed_at"].replace("Z", "+00:00")
+                datetime.fromisoformat(observation_data["observed_at"])
             except (ValueError, TypeError):
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="image_url must be a valid URL"
+                    detail="observed_at must be a valid ISO 8601 datetime string",
                 )
 
-        # Create the Pydantic model which will do additional validation
+        # Create Pydantic model
         observation = Observation(**observation_data)
 
-        # Get the service and create the observation
+        # Get service and save
         service = await get_observation_service()
-        return await service.create_observation(observation, user_id)
+        return await service.create_observation(observation)
 
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid JSON format in observation_data.")
+    except ValidationError as e:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=e.errors())
     except HTTPException:
         raise
-    except ValidationError as e:
-        # Convert any datetime objects in the error details to ISO format strings
-        errors = []
-        for error in e.errors():
-            error_dict = dict(error)
-            if 'input' in error_dict and isinstance(error_dict['input'], datetime):
-                error_dict['input'] = error_dict['input'].isoformat()
-            errors.append(error_dict)
-
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=errors
-        )
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to create observation: {str(e)}"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to create observation: {str(e)}"
         )
 
 
@@ -218,6 +186,5 @@ async def get_observations(
         raise
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to retrieve observations: {str(e)}"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to retrieve observations: {str(e)}"
         )
