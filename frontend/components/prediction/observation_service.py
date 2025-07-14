@@ -9,24 +9,25 @@ from ...config import API_BASE_URL
 
 async def submit_observation_data(observation_payload: Dict[str, Any]) -> Optional[str]:
     """
-    Submit observation data to the backend API.
+        Submit observation data to the backend API.
 
-    Args:
-        observation_payload: Dictionary containing observation data with the following structure:
-            {
-                "species_id": str,
-                "count": int,
-                "location": {
-                    "lat": float,
-                    "lng": float
-                },
-                "observed_at": str,
-                "notes": Optional[str],
-                "image_url": Optional[str],
-                "metadata": Dict[str, Any]
-            }
-    Returns:
-        Optional[str]: Error message if submission failed, None if successful
+        Args:
+            observation_payload: Dictionary containing observation data with the following structure:
+                {
+                    "species_id": str,
+                    "count": int,
+                    "location": {
+                        "lat": float,
+                        "lng": float
+                    },
+                    "observed_at": str,
+                    "notes": Optional[str],
+                    "image_url": Optional[str],
+                    "metadata": Dict[str, Any]
+                }
+
+        Returns:
+            Optional[str]: Error message if submission failed, None if successful
     """
     if not API_BASE_URL:
         return "API URL is not configured"

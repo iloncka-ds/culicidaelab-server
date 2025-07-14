@@ -84,6 +84,10 @@ OBSERVATIONS_SCHEMA = pa.schema(
         pa.field("observer_id", pa.string()),
         pa.field("location_accuracy_m", pa.float64()),
         pa.field("notes", pa.string()),
+        pa.field("data_source", pa.string()),
+        pa.field("image_filename", pa.string()),
+        pa.field("model_id", pa.string()),
+        pa.field("confidence", pa.float64()),
         pa.field("geometry_type", pa.string()),
         pa.field("coordinates", pa.list_(pa.float64())),
     ]

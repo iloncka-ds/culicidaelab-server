@@ -88,7 +88,7 @@ def LocationComponent(
     )
 
     with solara.Column(style={"min-height": "300px"}):
-        solara.Markdown(f"#### {i18n.t("prediction.location.select_location")}", style="margin-bottom: 10px;")
+        solara.Markdown(f'#### {i18n.t("prediction.location.select_location")}', style="margin-bottom: 10px;")
         with solara.Row(gap="10px", style={"align-items": "center", "margin-bottom": "10px;"}):
             solara.InputFloat(
                 label=i18n.t("prediction.location.latitude"),

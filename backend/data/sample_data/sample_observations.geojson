@@ -4,428 +4,19 @@
     {
       "type": "Feature",
       "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-09-22",
-        "count": 3,
-        "observer_id": "obs_382",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          32.87192611654048,
-          35.555188498429395
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2025-06-07",
-        "count": 16,
-        "observer_id": "obs_263",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -19.252565544624343,
-          -23.558779999453172
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-03-21",
-        "count": 3,
-        "observer_id": "obs_140",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          19.225257360352792,
-          14.745029863740228
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-02-20",
-        "count": 4,
-        "observer_id": "obs_681",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -3.147370635939108,
-          -7.275118167369591
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-21",
-        "count": 20,
-        "observer_id": "obs_432",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -11.806004023520456,
-          -11.24114619681838
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-03",
-        "count": 17,
-        "observer_id": "obs_613",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          32.6616099718841,
-          -23.48579909733445
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-02-06",
-        "count": 20,
-        "observer_id": "obs_275",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          32.64162472233633,
-          55.51239273317323
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-12-09",
-        "count": 20,
-        "observer_id": "obs_294",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          40.33735439490127,
-          -0.21214499722056246
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-04-05",
-        "count": 7,
-        "observer_id": "obs_261",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -6.16391460083305,
-          42.96221989999085
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-08-22",
-        "count": 15,
-        "observer_id": "obs_575",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.4198004315660704,
-          -1.0019489073349916
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-08-25",
-        "count": 2,
-        "observer_id": "obs_288",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.5092394499590789,
-          54.52001875818244
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-10-25",
-        "count": 10,
-        "observer_id": "obs_609",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 50,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          8.373690437596295,
-          40.79153344569097
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-09-27",
-        "count": 12,
-        "observer_id": "obs_125",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -11.841905709843605,
-          6.514385118294342
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-07-26",
-        "count": 13,
-        "observer_id": "obs_906",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 50,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.358427415855548,
-          53.88949126009325
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-02-09",
-        "count": 10,
-        "observer_id": "obs_659",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -18.14276327911076,
-          -0.10518766685335379
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-09-17",
-        "count": 18,
-        "observer_id": "obs_962",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.44930833625705,
-          3.8512702425004193
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
         "observation_date": "2025-01-25",
-        "count": 8,
-        "observer_id": "obs_392",
+        "count": 9,
+        "observer_id": "obs_924",
         "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
         },
-        "location_accuracy_m": 10,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.880522387772302,
-          36.201696146336424
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-09-09",
-        "count": 16,
-        "observer_id": "obs_811",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          29.91771862090598,
-          60.3968981477312
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-07-15",
-        "count": 15,
-        "observer_id": "obs_635",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
+        "image_filename": "obs_230.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9830867140284155
         },
         "location_accuracy_m": null,
         "notes": "Adult female found."
@@ -433,31 +24,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -2.7903495960545257,
-          -24.922127962356452
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-05-31",
-        "count": 2,
-        "observer_id": "obs_828",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 100,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          25.122802576514026,
-          41.306962612662055
+          35.06056308963137,
+          -33.04076028978182
         ]
       }
     },
@@ -465,160 +33,27 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2024-12-18",
-        "count": 9,
-        "observer_id": "obs_770",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          18.333506246651602,
-          -14.202411454740723
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-07-17",
-        "count": 14,
-        "observer_id": "obs_515",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          30.924189268533453,
-          64.7275512865437
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-08-08",
-        "count": 13,
-        "observer_id": "obs_906",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          20.794648567807457,
-          -25.043676955875828
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-15",
-        "count": 1,
-        "observer_id": "obs_978",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          26.321861137386286,
-          -4.029586723809238
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-05-11",
-        "count": 3,
-        "observer_id": "obs_842",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 100,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          32.37603956665641,
-          -20.952792921822862
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-03-14",
-        "count": 5,
-        "observer_id": "obs_828",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          19.419280790908495,
-          -8.324570461329081
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-04-02",
-        "count": 1,
+        "observation_date": "2024-08-25",
+        "count": 12,
         "observer_id": "obs_366",
         "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
         },
-        "location_accuracy_m": null,
+        "image_filename": "obs_985.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.5925884831879356
+        },
+        "location_accuracy_m": 10,
         "notes": "Larvae collected."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          17.54422803043779,
-          46.44070697741263
+          -5.378365416556983,
+          0.5486055227612923
         ]
       }
     },
@@ -626,68 +61,27 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2025-07-07",
-        "count": 5,
-        "observer_id": "obs_958",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.117253743100104,
-          13.122547167650794
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-02-06",
-        "count": 13,
-        "observer_id": "obs_798",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          27.671162698955747,
-          49.495210922129594
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-06-07",
-        "count": 6,
-        "observer_id": "obs_547",
+        "observation_date": "2024-11-10",
+        "count": 7,
+        "observer_id": "obs_376",
         "data_source": {
           "id": "vectorbase",
           "name_en": "VectorBase",
           "name_ru": "VectorBase"
         },
-        "location_accuracy_m": 10,
-        "notes": ""
+        "image_filename": "obs_658.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.39758352705339295
+        },
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -8.124104386264966,
-          61.87488227160619
+          39.00203100980037,
+          -29.62247290517194
         ]
       }
     },
@@ -695,36 +89,74 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes albopictus",
-        "observation_date": "2024-07-21",
+        "observation_date": "2024-09-18",
         "count": 17,
-        "observer_id": "obs_780",
+        "observer_id": "obs_222",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_161.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.711241236198255
+        },
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.932337872900995,
+          61.02520222227333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-09-09",
+        "count": 3,
+        "observer_id": "obs_207",
         "data_source": {
           "id": "research_xyz",
           "name_en": "Research Study XYZ",
           "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
         },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
+        "image_filename": "obs_841.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.3635326894519748
+        },
+        "location_accuracy_m": null,
+        "notes": "Larvae collected."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.018628166430716,
-          67.1299169950161
+          5.297511207002724,
+          -26.428550679631055
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-24",
-        "count": 4,
-        "observer_id": "obs_501",
+        "species": "Aedes albopictus",
+        "observation_date": "2025-06-13",
+        "count": 11,
+        "observer_id": "obs_750",
         "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_579.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.032002129162195914
         },
         "location_accuracy_m": 10,
         "notes": "Larvae collected."
@@ -732,8 +164,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          42.30737906735781,
-          11.641408722825837
+          11.75818157490033,
+          52.29058000708669
         ]
       }
     },
@@ -741,91 +173,27 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2025-02-13",
-        "count": 17,
-        "observer_id": "obs_767",
+        "observation_date": "2024-09-21",
+        "count": 7,
+        "observer_id": "obs_937",
         "data_source": {
           "id": "gbif",
           "name_en": "GBIF",
           "name_ru": "GBIF"
         },
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          16.266317247922473,
-          -12.966651070043163
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-10-13",
-        "count": 6,
-        "observer_id": "obs_341",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        "image_filename": "obs_617.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.8289723582035629
         },
-        "location_accuracy_m": null,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -9.022840420770601,
-          -28.636549778450394
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-07-16",
-        "count": 11,
-        "observer_id": "obs_649",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.7935794787680273,
-          55.31663836372036
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-06",
-        "count": 13,
-        "observer_id": "obs_887",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": null,
+        "location_accuracy_m": 100,
         "notes": "Adult female found."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -11.13551829195178,
-          -24.011072231510074
+          13.432272335456524,
+          -11.914366686892937
         ]
       }
     },
@@ -833,36 +201,46 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes albopictus",
-        "observation_date": "2024-11-17",
-        "count": 17,
-        "observer_id": "obs_990",
+        "observation_date": "2024-09-12",
+        "count": 18,
+        "observer_id": "obs_293",
         "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
         },
-        "location_accuracy_m": null,
-        "notes": "Near standing water."
+        "image_filename": "obs_580.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.5918702059321846
+        },
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          39.27739202485574,
-          56.56243171709412
+          14.401266563431879,
+          48.10497064997747
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-11-07",
-        "count": 11,
-        "observer_id": "obs_337",
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-06-09",
+        "count": 14,
+        "observer_id": "obs_636",
         "data_source": {
           "id": "inatuarlist",
           "name_en": "iNaturalist",
           "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_669.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.10181949985973926
         },
         "location_accuracy_m": 10,
         "notes": "Larvae collected."
@@ -870,8 +248,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -2.6639974390247536,
-          63.186701499741964
+          5.2469522039314285,
+          -26.179726764860895
         ]
       }
     },
@@ -879,68 +257,55 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2024-07-20",
+        "observation_date": "2024-12-04",
+        "count": 18,
+        "observer_id": "obs_896",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_552.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.7047329585548173
+        },
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          45.415365791417685,
+          -20.51870528636491
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-21",
         "count": 12,
-        "observer_id": "obs_486",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": null,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          49.45155192145019,
-          -15.827032289019119
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-03-29",
-        "count": 9,
-        "observer_id": "obs_648",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -3.479115870987865,
-          -32.68035941534359
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-09-17",
-        "count": 2,
-        "observer_id": "obs_967",
+        "observer_id": "obs_995",
         "data_source": {
           "id": "research_xyz",
           "name_en": "Research Study XYZ",
           "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
         },
-        "location_accuracy_m": null,
+        "image_filename": "obs_206.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.5316873488568535
+        },
+        "location_accuracy_m": 100,
         "notes": "Larvae collected."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          46.18806278755204,
-          -32.037438294890585
+          35.67160511015182,
+          50.800528426099
         ]
       }
     },
@@ -948,266 +313,18 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2024-11-12",
-        "count": 5,
-        "observer_id": "obs_949",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.564150343434484,
-          5.983044478878902
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-07-31",
-        "count": 20,
-        "observer_id": "obs_176",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          12.31543248102389,
-          50.60272309605647
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-09-25",
-        "count": 7,
-        "observer_id": "obs_359",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          17.98826906919583,
-          4.463091720290919
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-07-04",
-        "count": 11,
-        "observer_id": "obs_792",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          8.733717644129115,
-          -25.786929365415816
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
         "observation_date": "2024-12-05",
-        "count": 4,
-        "observer_id": "obs_444",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.88094523953385,
-          52.04614926154247
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-03-26",
-        "count": 11,
-        "observer_id": "obs_218",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          34.825587833487326,
-          -5.85966946261739
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-09-05",
-        "count": 3,
-        "observer_id": "obs_189",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": null,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          32.19246782805142,
-          36.01647677875799
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-07-13",
-        "count": 3,
-        "observer_id": "obs_940",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          41.363794994532384,
-          -32.81549918716828
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-08-20",
-        "count": 14,
-        "observer_id": "obs_704",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 10,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          39.2963609609259,
-          -16.36010523191447
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-05-09",
         "count": 13,
-        "observer_id": "obs_942",
+        "observer_id": "obs_309",
         "data_source": {
           "id": "inatuarlist",
           "name_en": "iNaturalist",
           "name_ru": "iNaturalist"
         },
-        "location_accuracy_m": null,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.989348590012842,
-          36.85159418363515
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-08-05",
-        "count": 7,
-        "observer_id": "obs_360",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 50,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.805154869052334,
-          35.15482204434633
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-02-21",
-        "count": 8,
-        "observer_id": "obs_583",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
+        "image_filename": "obs_217.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.1898755414252068
         },
         "location_accuracy_m": 5,
         "notes": ""
@@ -1215,77 +332,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.6253424338923,
-          46.24587939423462
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-03-11",
-        "count": 19,
-        "observer_id": "obs_552",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -17.828559702048615,
-          3.450187487067808
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-05-30",
-        "count": 11,
-        "observer_id": "obs_649",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -11.19797472863595,
-          -9.452757756797368
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-08-29",
-        "count": 5,
-        "observer_id": "obs_570",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": null,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          17.957112296513216,
-          3.834402214368396
+          -6.872770341101887,
+          0.19536262432173856
         ]
       }
     },
@@ -1293,68 +341,27 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes albopictus",
-        "observation_date": "2024-08-02",
-        "count": 5,
-        "observer_id": "obs_540",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.6367851182763715,
-          63.2826772380619
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-02-04",
-        "count": 14,
-        "observer_id": "obs_781",
+        "observation_date": "2025-04-08",
+        "count": 20,
+        "observer_id": "obs_691",
         "data_source": {
           "id": "research_xyz",
           "name_en": "Research Study XYZ",
           "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
         },
-        "location_accuracy_m": 100,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          42.174167582491,
-          -12.82834527876108
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-02-01",
-        "count": 6,
-        "observer_id": "obs_275",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
+        "image_filename": "obs_771.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.398778310537963
         },
-        "location_accuracy_m": null,
+        "location_accuracy_m": 5,
         "notes": "Near standing water."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.4344372852111213,
-          13.929132285594939
+          33.681697201543344,
+          64.18398242945602
         ]
       }
     },
@@ -1362,22 +369,55 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes albopictus",
-        "observation_date": "2025-02-06",
-        "count": 17,
-        "observer_id": "obs_929",
+        "observation_date": "2024-12-29",
+        "count": 20,
+        "observer_id": "obs_155",
         "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
         },
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
+        "image_filename": "obs_931.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.6451224014631975
+        },
+        "location_accuracy_m": 5,
+        "notes": ""
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          12.229061152631363,
-          57.464098215626095
+          -1.2178351341042255,
+          35.238880283462144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-01-02",
+        "count": 15,
+        "observer_id": "obs_489",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_362.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.8811347980960705
+        },
+        "location_accuracy_m": 5,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.71729126947755,
+          54.47659044902452
         ]
       }
     },
@@ -1385,105 +425,46 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2024-07-20",
+        "observation_date": "2025-05-26",
+        "count": 3,
+        "observer_id": "obs_115",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_118.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.4782471486025256
+        },
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          42.87485958087583,
+          -11.376308957038642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-10-01",
         "count": 9,
-        "observer_id": "obs_884",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          11.855187326266048,
-          -28.887765249749627
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-01-03",
-        "count": 2,
-        "observer_id": "obs_616",
+        "observer_id": "obs_791",
         "data_source": {
           "id": "gbif",
           "name_en": "GBIF",
           "name_ru": "GBIF"
         },
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          26.020177674762408,
-          46.68557735373361
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-09-11",
-        "count": 17,
-        "observer_id": "obs_644",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          19.476775434322654,
-          53.55282305150159
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-11-08",
-        "count": 18,
-        "observer_id": "obs_374",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.57339628109886,
-          -6.794385879852818
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-08-20",
-        "count": 18,
-        "observer_id": "obs_531",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        "image_filename": "obs_253.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.2177182710662665
         },
         "location_accuracy_m": 50,
         "notes": "Near standing water."
@@ -1491,8 +472,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          23.166673676911998,
-          48.4277568899646
+          34.38812033702947,
+          -23.83816115746159
         ]
       }
     },
@@ -1500,68 +481,27 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes albopictus",
-        "observation_date": "2024-07-17",
+        "observation_date": "2024-10-18",
         "count": 10,
-        "observer_id": "obs_267",
+        "observer_id": "obs_173",
         "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
         },
-        "location_accuracy_m": 100,
+        "image_filename": "obs_926.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.5573078194766362
+        },
+        "location_accuracy_m": null,
         "notes": "Larvae collected."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1.7000506656585674,
-          45.29498905431906
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-06",
-        "count": 4,
-        "observer_id": "obs_301",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -13.579373800141685,
-          -3.635561308773884
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-23",
-        "count": 18,
-        "observer_id": "obs_729",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          25.796059171220946,
-          -17.4193936072406
+          30.391762430085407,
+          35.10248230470885
         ]
       }
     },
@@ -1569,91 +509,27 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes albopictus",
-        "observation_date": "2025-01-08",
-        "count": 13,
-        "observer_id": "obs_962",
+        "observation_date": "2024-09-27",
+        "count": 1,
+        "observer_id": "obs_423",
         "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
         },
-        "location_accuracy_m": 50,
+        "image_filename": "obs_266.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9823564570925228
+        },
+        "location_accuracy_m": null,
         "notes": ""
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1.9801155423183587,
-          58.83556263017192
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-09-28",
-        "count": 5,
-        "observer_id": "obs_672",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          39.41970584268918,
-          36.21027908653774
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-06-24",
-        "count": 11,
-        "observer_id": "obs_437",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          46.76557868094319,
-          -4.198715709418046
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-07-12",
-        "count": 14,
-        "observer_id": "obs_318",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          7.8642013603876215,
-          61.0568612496273
+          24.66202534930641,
+          63.358710643244066
         ]
       }
     },
@@ -1663,20 +539,25 @@
         "species": "Anopheles gambiae",
         "observation_date": "2025-06-23",
         "count": 4,
-        "observer_id": "obs_691",
+        "observer_id": "obs_954",
         "data_source": {
           "id": "gbif",
           "name_en": "GBIF",
           "name_ru": "GBIF"
         },
+        "image_filename": "obs_378.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.7113935407645834
+        },
         "location_accuracy_m": 50,
-        "notes": "Larvae collected."
+        "notes": ""
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1.6781503916984057,
-          8.701290367845559
+          33.959973444763875,
+          -33.62792835797171
         ]
       }
     },
@@ -1684,321 +565,27 @@
       "type": "Feature",
       "properties": {
         "species": "Anopheles gambiae",
-        "observation_date": "2025-03-10",
-        "count": 7,
-        "observer_id": "obs_810",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          44.385658071777016,
-          -31.93662032390738
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-03-12",
-        "count": 4,
-        "observer_id": "obs_803",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 100,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          35.395061720793514,
-          48.150374391138
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-10-23",
-        "count": 6,
-        "observer_id": "obs_117",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.7393638120685146,
-          38.89445900989004
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-09-01",
-        "count": 6,
-        "observer_id": "obs_102",
+        "observation_date": "2025-04-04",
+        "count": 2,
+        "observer_id": "obs_610",
         "data_source": {
           "id": "inatuarlist",
           "name_en": "iNaturalist",
           "name_ru": "iNaturalist"
         },
-        "location_accuracy_m": 5,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          18.672385967032294,
-          36.1317083957407
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-08-24",
-        "count": 16,
-        "observer_id": "obs_601",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 50,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.869588727630358,
-          49.43954422427837
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-10-23",
-        "count": 1,
-        "observer_id": "obs_509",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          19.026030332072,
-          55.09756155536485
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-01-17",
-        "count": 5,
-        "observer_id": "obs_237",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.1297991589620544,
-          -27.875563042539145
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-07-25",
-        "count": 6,
-        "observer_id": "obs_293",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": null,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          14.767037672622706,
-          -24.662398458507415
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-02-22",
-        "count": 10,
-        "observer_id": "obs_639",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          21.79491169211426,
-          46.031148035967135
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-02-18",
-        "count": 3,
-        "observer_id": "obs_499",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -5.328462744177822,
-          -34.59732516964149
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-08-26",
-        "count": 3,
-        "observer_id": "obs_640",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        "image_filename": "obs_879.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.9760127572858219
         },
         "location_accuracy_m": 100,
-        "notes": ""
+        "notes": "Near standing water."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          17.244568783192506,
-          12.419736295621313
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-10-27",
-        "count": 3,
-        "observer_id": "obs_125",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          14.63199360887863,
-          -23.46781944310339
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-26",
-        "count": 14,
-        "observer_id": "obs_756",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          18.668362398321513,
-          -25.988280374455766
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-03-11",
-        "count": 6,
-        "observer_id": "obs_589",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          46.833232903553906,
-          -30.154152395847277
+          41.715602448220885,
+          -17.63505158971134
         ]
       }
     },
@@ -2006,183 +593,83 @@
       "type": "Feature",
       "properties": {
         "species": "Aedes albopictus",
-        "observation_date": "2024-08-16",
-        "count": 9,
-        "observer_id": "obs_527",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          18.46865804159365,
-          41.00181269362423
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-02-01",
-        "count": 1,
-        "observer_id": "obs_563",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          16.34933130555263,
-          42.569934075573826
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-11-10",
-        "count": 19,
-        "observer_id": "obs_118",
-        "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -7.479607734735703,
-          -6.6097770833611165
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-07-29",
-        "count": 9,
-        "observer_id": "obs_525",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.936104859488623,
-          -27.126476271515767
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2024-10-07",
-        "count": 9,
-        "observer_id": "obs_379",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": null,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -4.984957216509148,
-          -34.091776082697066
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-08-06",
-        "count": 3,
-        "observer_id": "obs_953",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
-        },
-        "location_accuracy_m": 100,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.5392286425183705,
-          39.452310830164215
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-10-24",
-        "count": 3,
-        "observer_id": "obs_816",
-        "data_source": {
-          "id": "inatuarlist",
-          "name_en": "iNaturalist",
-          "name_ru": "iNaturalist"
-        },
-        "location_accuracy_m": 5,
-        "notes": "Larvae collected."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          1.2749584848847668,
-          58.889107951221106
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-04-02",
-        "count": 19,
+        "observation_date": "2025-04-28",
+        "count": 12,
         "observer_id": "obs_661",
         "data_source": {
-          "id": "gbif",
-          "name_en": "GBIF",
-          "name_ru": "GBIF"
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
         },
-        "location_accuracy_m": 100,
-        "notes": "Adult female found."
+        "image_filename": "obs_339.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.3171537386722181
+        },
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          48.523827835931016,
-          -2.086800907036242
+          5.296973953525745,
+          53.44023529345418
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-05-18",
+        "count": 4,
+        "observer_id": "obs_819",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_706.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.34695224041252637
+        },
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.9122057941286883,
+          -32.70681272156503
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-05-28",
+        "count": 14,
+        "observer_id": "obs_390",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_985.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.8390677082884584
+        },
+        "location_accuracy_m": 50,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.833389121530367,
+          68.14931984288773
         ]
       }
     },
@@ -2191,104 +678,17 @@
       "properties": {
         "species": "Aedes albopictus",
         "observation_date": "2025-05-02",
-        "count": 2,
-        "observer_id": "obs_692",
-        "data_source": {
-          "id": "local_survey_a",
-          "name_en": "Local Survey Team A",
-          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          12.578944575335303,
-          52.528651807348695
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-03-02",
-        "count": 5,
-        "observer_id": "obs_245",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 10,
-        "notes": "Adult female found."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          34.10071230104451,
-          11.057894522070129
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2025-06-24",
-        "count": 7,
-        "observer_id": "obs_839",
+        "count": 17,
+        "observer_id": "obs_237",
         "data_source": {
           "id": "gbif",
           "name_en": "GBIF",
           "name_ru": "GBIF"
         },
-        "location_accuracy_m": 5,
-        "notes": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -1.3920277670979324,
-          67.70753119230164
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Aedes albopictus",
-        "observation_date": "2024-12-06",
-        "count": 2,
-        "observer_id": "obs_683",
-        "data_source": {
-          "id": "vectorbase",
-          "name_en": "VectorBase",
-          "name_ru": "VectorBase"
-        },
-        "location_accuracy_m": 50,
-        "notes": "Near standing water."
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          3.0970665364784686,
-          58.26113084405822
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "species": "Anopheles gambiae",
-        "observation_date": "2025-05-11",
-        "count": 14,
-        "observer_id": "obs_106",
-        "data_source": {
-          "id": "research_xyz",
-          "name_en": "Research Study XYZ",
-          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        "image_filename": "obs_198.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.09376047910831642
         },
         "location_accuracy_m": 100,
         "notes": ""
@@ -2296,8 +696,2108 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -9.479531471585771,
-          9.995113176373152
+          14.44781303036893,
+          42.75858466396693
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-05-10",
+        "count": 8,
+        "observer_id": "obs_991",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_787.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.1582543655369636
+        },
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.712834645656635,
+          45.916288627160874
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-12-30",
+        "count": 20,
+        "observer_id": "obs_277",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_175.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.5481246391786759
+        },
+        "location_accuracy_m": 5,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.8695072821706766,
+          -29.167683747860853
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-08-27",
+        "count": 20,
+        "observer_id": "obs_742",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_103.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.36794524796933537
+        },
+        "location_accuracy_m": 50,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.4415036512645,
+          40.31690043597735
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-04-01",
+        "count": 19,
+        "observer_id": "obs_933",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_885.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.33121003424679496
+        },
+        "location_accuracy_m": 50,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.049364448555753,
+          -11.879578149323947
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-04-27",
+        "count": 9,
+        "observer_id": "obs_749",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_941.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.6409869177250004
+        },
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.881335628211875,
+          48.734608100111494
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-02-10",
+        "count": 18,
+        "observer_id": "obs_145",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_181.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.7100653892519921
+        },
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.844172106445775,
+          65.46425884441058
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-11-19",
+        "count": 4,
+        "observer_id": "obs_249",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_327.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.9183978437665019
+        },
+        "location_accuracy_m": 50,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.7316520510849,
+          -28.39407279434639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-11-01",
+        "count": 12,
+        "observer_id": "obs_106",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_962.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.043316496583053476
+        },
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.389307699312567,
+          46.20524576177462
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-05-09",
+        "count": 10,
+        "observer_id": "obs_371",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_647.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.4652390607114302
+        },
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.829087931701956,
+          47.10230342835756
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-07-14",
+        "count": 3,
+        "observer_id": "obs_771",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_553.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.8411623905300459
+        },
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.04701890228275,
+          49.41061203812693
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-07-14",
+        "count": 5,
+        "observer_id": "obs_576",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_578.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.5029242675590201
+        },
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          42.04691643244279,
+          -10.466295177675626
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-07-03",
+        "count": 16,
+        "observer_id": "obs_123",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_963.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.462008891219711
+        },
+        "location_accuracy_m": 100,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.100713937788647,
+          48.9817476437435
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-11-29",
+        "count": 15,
+        "observer_id": "obs_483",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_669.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.11636400907575728
+        },
+        "location_accuracy_m": 5,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.013152366018634,
+          59.672218291403574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-10-27",
+        "count": 20,
+        "observer_id": "obs_450",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_415.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.407098209109392
+        },
+        "location_accuracy_m": 5,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.280681228699187,
+          -4.344833716453376
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-12-22",
+        "count": 6,
+        "observer_id": "obs_704",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_764.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.8426660159023287
+        },
+        "location_accuracy_m": 10,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.060777983686506,
+          -31.442614074788775
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-09-05",
+        "count": 2,
+        "observer_id": "obs_256",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_987.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.24908482859363856
+        },
+        "location_accuracy_m": 10,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.130841880369267,
+          65.75333185128396
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-07-30",
+        "count": 3,
+        "observer_id": "obs_160",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_695.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.37823133330213976
+        },
+        "location_accuracy_m": 100,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.14671915676439,
+          -12.151517777523338
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-11-06",
+        "count": 3,
+        "observer_id": "obs_702",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_346.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.2136313565015624
+        },
+        "location_accuracy_m": 50,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -8.68705890482295,
+          36.68530801850882
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-06-18",
+        "count": 14,
+        "observer_id": "obs_910",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_525.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.8980916561876655
+        },
+        "location_accuracy_m": 100,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.725978273415954,
+          48.961946256057246
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-01-28",
+        "count": 11,
+        "observer_id": "obs_962",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_934.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.48431010187398404
+        },
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.70233325327246,
+          69.4290189478821
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-04-15",
+        "count": 3,
+        "observer_id": "obs_566",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_265.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.1998416099419945
+        },
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -17.9323730039206,
+          -14.94869524203871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-03-26",
+        "count": 18,
+        "observer_id": "obs_109",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_611.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.47646321507782663
+        },
+        "location_accuracy_m": 50,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.23732323010939,
+          52.059875720077656
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-04-03",
+        "count": 3,
+        "observer_id": "obs_694",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_481.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.8602229478205825
+        },
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.298631699826642,
+          51.25020233692709
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-12-05",
+        "count": 9,
+        "observer_id": "obs_946",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_380.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.14310462667423185
+        },
+        "location_accuracy_m": 100,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.7851109063549355,
+          64.86182593065355
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-01-12",
+        "count": 6,
+        "observer_id": "obs_407",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_383.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.408718613225989
+        },
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.296546569386212,
+          58.62470846697836
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-03-15",
+        "count": 3,
+        "observer_id": "obs_533",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_144.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9192122447564594
+        },
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.806052046759007,
+          -0.08205928897697135
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-05-19",
+        "count": 11,
+        "observer_id": "obs_471",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_606.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.8395325954036037
+        },
+        "location_accuracy_m": 50,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.8936207139463761,
+          59.09850726298034
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-05-17",
+        "count": 17,
+        "observer_id": "obs_482",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_892.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.5100644580131558
+        },
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.644055648634286,
+          60.852024877941844
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-03-01",
+        "count": 1,
+        "observer_id": "obs_354",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_193.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.426772160210126
+        },
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -10.31428133136586,
+          7.663675214959895
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-10-07",
+        "count": 11,
+        "observer_id": "obs_860",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_249.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.656336389970281
+        },
+        "location_accuracy_m": 50,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.972252300652436,
+          3.0442817566543994
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-08-16",
+        "count": 11,
+        "observer_id": "obs_370",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_452.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.06078997158777322
+        },
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.465169122787458,
+          56.41506330356903
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-08-26",
+        "count": 13,
+        "observer_id": "obs_585",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_154.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.40839092977181135
+        },
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.686394656171544,
+          57.32368274090892
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-04-29",
+        "count": 9,
+        "observer_id": "obs_366",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_298.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.11204844859948004
+        },
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          47.50327574918427,
+          13.323679217167772
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-04-06",
+        "count": 17,
+        "observer_id": "obs_597",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_324.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.7857520868925285
+        },
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.091384405608387,
+          65.56737880054018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-01-29",
+        "count": 2,
+        "observer_id": "obs_795",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_683.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.6371697335007092
+        },
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.19006785762368,
+          48.425314689691355
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-01-26",
+        "count": 18,
+        "observer_id": "obs_499",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_488.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.6215559984705806
+        },
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.93441915858645,
+          -1.047844855207181
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-10-04",
+        "count": 16,
+        "observer_id": "obs_472",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_197.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.4068550360253357
+        },
+        "location_accuracy_m": 50,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.706146235673366,
+          49.82240282248133
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-11-07",
+        "count": 18,
+        "observer_id": "obs_755",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_655.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.0021742577358322412
+        },
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.414585173272606,
+          54.564563563711936
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-11-21",
+        "count": 4,
+        "observer_id": "obs_838",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_705.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.028709676784888893
+        },
+        "location_accuracy_m": 50,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.78949968267766,
+          46.32583921586285
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-09-27",
+        "count": 4,
+        "observer_id": "obs_132",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_668.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.33885451794211063
+        },
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.547926158483861,
+          -33.178292863833335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-12-17",
+        "count": 17,
+        "observer_id": "obs_477",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_880.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.12049551428289651
+        },
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.202931230934496,
+          1.0407725105065495
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-10-16",
+        "count": 9,
+        "observer_id": "obs_485",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_406.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.41029048745509333
+        },
+        "location_accuracy_m": 10,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.37445751216697,
+          41.21814584620882
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-08-10",
+        "count": 2,
+        "observer_id": "obs_848",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_183.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.5304346636059226
+        },
+        "location_accuracy_m": 100,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.444590213882016,
+          -20.85513355508586
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-06-12",
+        "count": 4,
+        "observer_id": "obs_941",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_214.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.21280785310142736
+        },
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          40.6895032916865,
+          -16.730284643997862
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-07-13",
+        "count": 17,
+        "observer_id": "obs_743",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_659.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.4031069371611272
+        },
+        "location_accuracy_m": 50,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.659285827133292,
+          -27.02276176434939
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-09-01",
+        "count": 16,
+        "observer_id": "obs_845",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_710.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.45592679573244155
+        },
+        "location_accuracy_m": 5,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.01926886840023,
+          -23.226849490911153
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-06-04",
+        "count": 12,
+        "observer_id": "obs_230",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_782.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.6872685697812518
+        },
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.48059136206779,
+          -0.4401915380994481
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-06-25",
+        "count": 15,
+        "observer_id": "obs_734",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_414.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.2150599754810968
+        },
+        "location_accuracy_m": 100,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.0681323946821912,
+          2.3505770058201207
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-01-28",
+        "count": 6,
+        "observer_id": "obs_472",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_771.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.35467191670785136
+        },
+        "location_accuracy_m": 10,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.137659155640911,
+          -32.22289010667986
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-05-06",
+        "count": 14,
+        "observer_id": "obs_707",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_448.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.5671350465112812
+        },
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -17.838556226092834,
+          -8.36540438643442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-08-26",
+        "count": 5,
+        "observer_id": "obs_634",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_351.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.9420231889706968
+        },
+        "location_accuracy_m": null,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.87482689227053,
+          13.801801403708012
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-07-17",
+        "count": 10,
+        "observer_id": "obs_683",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_302.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.7338049068681092
+        },
+        "location_accuracy_m": null,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.568182779100232,
+          45.51151414402151
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-01-15",
+        "count": 9,
+        "observer_id": "obs_764",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_223.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.3956500359938996
+        },
+        "location_accuracy_m": 5,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          47.996269186414594,
+          -26.519149447868337
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-06-18",
+        "count": 5,
+        "observer_id": "obs_350",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_113.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.798905522660486
+        },
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.9670826518652902,
+          54.83033719770194
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-08-10",
+        "count": 12,
+        "observer_id": "obs_948",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_539.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.14634545955073952
+        },
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.998791403842265,
+          64.77837424392298
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-10-09",
+        "count": 2,
+        "observer_id": "obs_832",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_729.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9214783388084725
+        },
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.7100577462292303,
+          63.71664290210836
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-05-29",
+        "count": 13,
+        "observer_id": "obs_349",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_897.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.267936381647221
+        },
+        "location_accuracy_m": null,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2863882963099122,
+          -20.963015687177382
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-07-31",
+        "count": 5,
+        "observer_id": "obs_997",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_925.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.3060103780377845
+        },
+        "location_accuracy_m": null,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -9.511684139094802,
+          68.85151178680194
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-07-26",
+        "count": 8,
+        "observer_id": "obs_917",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_567.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9677139827319534
+        },
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -10.277440555458385,
+          -31.819064611812294
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-02-06",
+        "count": 16,
+        "observer_id": "obs_145",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_492.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.699087819856186
+        },
+        "location_accuracy_m": 50,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.262835599113924,
+          35.45268350931518
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2024-10-05",
+        "count": 8,
+        "observer_id": "obs_402",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_101.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.6475694635131358
+        },
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          42.165752892828785,
+          -9.367805323071291
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-06-06",
+        "count": 15,
+        "observer_id": "obs_912",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_218.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.2269912832961245
+        },
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.919043417055311,
+          -4.150834377540566
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-04-01",
+        "count": 8,
+        "observer_id": "obs_516",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_694.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.6798495981701789
+        },
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.33351223227374,
+          -1.670945439721642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-05-11",
+        "count": 9,
+        "observer_id": "obs_733",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_125.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.860825526173759
+        },
+        "location_accuracy_m": 10,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.457598357549497,
+          51.01149589921063
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-05-18",
+        "count": 19,
+        "observer_id": "obs_348",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_760.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.49141275185863975
+        },
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          41.30650003166578,
+          12.702849444728685
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-05-26",
+        "count": 18,
+        "observer_id": "obs_969",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_682.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.725516383737345
+        },
+        "location_accuracy_m": null,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.883655987683177,
+          -25.270528166586
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-03-17",
+        "count": 2,
+        "observer_id": "obs_546",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_997.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.6680436140194947
+        },
+        "location_accuracy_m": 10,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.013468333557579,
+          -14.597330388059046
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-05-12",
+        "count": 16,
+        "observer_id": "obs_300",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_414.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.8396440141690068
+        },
+        "location_accuracy_m": 10,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.21862008593361,
+          56.31508219133515
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-03-12",
+        "count": 2,
+        "observer_id": "obs_520",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_181.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.03246634553144123
+        },
+        "location_accuracy_m": null,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.655166674057065,
+          59.55681432501188
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-06-17",
+        "count": 5,
+        "observer_id": "obs_887",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_830.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.3237730372058767
+        },
+        "location_accuracy_m": 5,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.554282218178584,
+          67.98645384208919
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2025-01-30",
+        "count": 12,
+        "observer_id": "obs_208",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_110.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.9484765778384187
+        },
+        "location_accuracy_m": 100,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.00649777447606,
+          61.008590129496454
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-06-30",
+        "count": 10,
+        "observer_id": "obs_385",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_942.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.2312326690482308
+        },
+        "location_accuracy_m": 100,
+        "notes": "Near standing water."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -18.704313339911867,
+          0.9317531833608896
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-03-18",
+        "count": 2,
+        "observer_id": "obs_239",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_195.jpg",
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.9399055835801208
+        },
+        "location_accuracy_m": 5,
+        "notes": "Adult female found."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.82508530631617,
+          11.854207084963136
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Anopheles gambiae",
+        "observation_date": "2025-01-12",
+        "count": 2,
+        "observer_id": "obs_797",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_495.jpg",
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.6176968469922571
+        },
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.698684487413551,
+          -6.5928758678184245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "species": "Aedes albopictus",
+        "observation_date": "2024-09-10",
+        "count": 12,
+        "observer_id": "obs_551",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_345.jpg",
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.8695012882021697
+        },
+        "location_accuracy_m": 10,
+        "notes": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.66117316891432,
+          62.80987605796132
         ]
       }
     }

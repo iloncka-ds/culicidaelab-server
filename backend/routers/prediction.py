@@ -7,7 +7,7 @@ from pydantic import HttpUrl, ValidationError
 
 from backend.services.prediction_service import prediction_service, PredictionResult
 from backend.services.observation_service import get_observation_service
-from backend.schemas.observation_schemas import Observation, ObservationCreate, ObservationListResponse
+from backend.schemas.observation_schemas import Observation, ObservationListResponse
 
 
 router = APIRouter()
@@ -161,7 +161,7 @@ async def create_observation(
                 )
 
         # Create the Pydantic model which will do additional validation
-        observation = ObservationCreate(**observation_data)
+        observation = Observation(**observation_data)
 
         # Get the service and create the observation
         service = await get_observation_service()

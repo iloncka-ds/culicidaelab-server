@@ -7,6 +7,45 @@ from datetime import date, timedelta
 
 from .config import FILTER_OPTIONS_ENDPOINT
 
+current_user_id: solara.Reactive[Optional[str]] = solara.reactive(None)
+
+
+@solara.component
+def use_persistent_user_id():
+    """
+    A hook to get or create a user ID.
+
+    Tries to use persistent localStorage first. If that fails (e.g., due to
+    browser privacy settings), it falls back to a temporary, in-memory state
+    that lasts for the current session only.
+    """
+
+    # +++ START: Add error handling for storage access +++
+    try:
+        # Attempt to use persistent storage (localStorage)
+        user_id, set_user_id = solara.use_session_storage("culicidaelab_user_id", storage_type="local")
+    except Exception as e:
+        # This block runs if localStorage is disabled or inaccessible.
+        print(f"Warning: Could not access browser storage. Using a temporary session ID. Error: {e}")
+        # Fall back to a non-persistent, in-memory state for the user ID.
+        user_id, set_user_id = solara.use_state(None)
+    # +++ END: Add error handling for storage access +++
+
+    def initialize_user_id():
+        # This logic works for both persistent and transient state.
+        # If user_id is None, it means it's either the user's first visit
+        # or it's a new session with storage disabled.
+        if user_id is None:
+            new_id = str(uuid4())
+            set_user_id(new_id)
+            current_user_id.value = new_id
+        else:
+            # If the ID was retrieved successfully, set it to our global reactive variable.
+            if current_user_id.value != user_id:
+                current_user_id.value = user_id
+
+    # This effect runs once when the component is first rendered.
+    solara.use_effect(initialize_user_id, [])
 
 async def fetch_api_data(
     url: str,
