@@ -10,7 +10,7 @@ from pathlib import Path
 from PIL import Image
 import io
 import numpy as np
-
+from backend.schemas.prediction_schemas import PredictionResult
 class PredictionResult(BaseModel):
     """Model for prediction results."""
 

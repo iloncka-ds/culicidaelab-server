@@ -2,9 +2,6 @@ import json
 import random
 from datetime import datetime, timedelta
 
-import json
-import random
-from datetime import datetime, timedelta
 
 # --- SPECIES DATA ---
 species_list = [
@@ -175,15 +172,18 @@ for _ in range(100):
                 "observation_date": random_date(),
                 "count": random.randint(1, 20),
                 "observer_id": f"obs_{random.randint(100,999)}",
-                "data_source": random.choice(data_sources),
                 "location_accuracy_m": random.choice([None, 5, 10, 50, 100]),
                 "notes": random.choice(["", "Near standing water.", "Adult female found.", "Larvae collected."]),
-            },
+                "data_source": random.choice(data_sources),
+                "image_filename": f"obs_{random.randint(100,999)}.jpg",
+                "model_id": random.choice([None, "model_1", "model_2"]),
+                "confidence": random.uniform(0, 1),
             "geometry": {
                 "type": "Point",
                 "coordinates": point,
             },
         }
+            }
     )
 with open("sample_observations.geojson", "w") as f:
     json.dump({"type": "FeatureCollection", "features": observations_data}, f, indent=2)

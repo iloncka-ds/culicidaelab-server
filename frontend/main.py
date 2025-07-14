@@ -11,8 +11,10 @@ import frontend.pages.species as species
 import frontend.pages.prediction as prediction
 import frontend.pages.diseases as diseases
 
+
 from frontend.state import (
     fetch_filter_options,
+    use_persistent_user_id,
 )
 
 
@@ -65,7 +67,7 @@ def AppInitializer():
 @solara.component
 def Layout(children: List[solara.Element]):
     AppInitializer()
-
+    use_persistent_user_id()
     # Fetch filter options whenever the language changes.
     solara.lab.use_task(fetch_filter_options, dependencies=[i18n.get("locale")])
 

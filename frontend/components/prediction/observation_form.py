@@ -1,8 +1,9 @@
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Callable
 import asyncio
 from datetime import datetime
 import solara
 from ...config import FONT_HEADINGS
+from ...state import current_user_id
 import i18n
 
 from .observation_service import submit_observation_data
@@ -14,8 +15,8 @@ def ObservationFormComponent(
     file_name: Optional[str],
     current_latitude: Optional[float],
     current_longitude: Optional[float],
-    on_submit_success: callable,
-    on_submit_error: callable,
+    on_submit_success: Callable,
+    on_submit_error: Callable,
 ):
     """
     Form for submitting observation details along with a prediction.
@@ -23,7 +24,7 @@ def ObservationFormComponent(
     obs_date_str, set_obs_date_str = solara.use_state(datetime.now().date().strftime("%Y-%m-%d"))
     obs_count, set_obs_count = solara.use_state(1)
     obs_notes, set_obs_notes = solara.use_state("")
-    obs_observer_id, set_obs_observer_id = solara.use_state("user_01")
+    # obs_observer_id, set_obs_observer_id = solara.use_state("user_01")
     obs_location_accuracy_m, set_obs_location_accuracy_m = solara.use_state(50)
 
     is_submitting, set_is_submitting = solara.use_state(False)
@@ -41,6 +42,8 @@ def ObservationFormComponent(
 
     async def handle_submit():
         error_messages = []
+        if not current_user_id.value:
+            error_messages.append("User ID could not be identified for this session.")
         if not prediction:
             error_messages.append("Prediction data is missing.")
         if not file_name:
@@ -74,26 +77,22 @@ def ObservationFormComponent(
             return
 
         set_is_submitting(True)
-
-        payload_properties = {
-            "predicted_species_id": predicted_species_id,
-            "observation_date": date_to_submit,
-            "count": obs_count,
-            "observer_id": obs_observer_id or "anonymous_user",
-            "data_source": "field_app_v1",
-            "location_accuracy_m": obs_location_accuracy_m,
-            "notes": obs_notes.strip() or None,
-            "image_filename": file_name,
-            "confidence": prediction.get("confidence") if prediction else None,
-            "model_id": prediction.get("model_id") if prediction else None,
-        }
-        payload_properties = {k: v for k, v in payload_properties.items() if v is not None}
-
         observation_payload = {
-            "type": "Feature",
-            "properties": payload_properties,
-            "geometry": {"type": "Point", "coordinates": [float(current_longitude), float(current_latitude)]},
+            "species_scientific_name": prediction.get("scientific_name"),
+            "count": obs_count,
+            "location": {"lat": float(current_latitude), "lng": float(current_longitude)},
+            "observed_at": f"{date_to_submit}T12:00:00Z",
+            "notes": obs_notes.strip() or None,
+            # +++ USE THE PERSISTENT USER ID FROM GLOBAL STATE +++
+            "user_id": current_user_id.value,
+            "location_accuracy_m": obs_location_accuracy_m,
+            "data_source": "culicidaelab-web-app",
+            "image_filename": file_name,
+            "model_id": prediction.get("model_id"),
+            "confidence": prediction.get("confidence"),
+            "metadata": {"prediction_details": prediction},
         }
+        observation_payload = {k: v for k, v in observation_payload.items() if v is not None}
 
         submission_error = await submit_observation_data(observation_payload)
 
@@ -104,14 +103,17 @@ def ObservationFormComponent(
         set_is_submitting(False)
 
     solara.Markdown(
-        f"### {i18n.t("prediction.observation_form.submit_details")} ",
+        f'### {i18n.t("prediction.observation_form.submit_details")} ',
         style=f"margin-top:10px; margin-bottom:10px; font-family: {FONT_HEADINGS};",
     )
 
     with solara.Card(style="padding: 15px; margin-top: 5px;"):
         if current_latitude is not None and current_longitude is not None:
-            solara.Info(
-                f"{i18n.t("prediction.observation_form.info_location")}",
+            label = f'{i18n.t("prediction.observation_form.info_location_lat")}'+ \
+                f'{current_latitude:.4f}'+ \
+                f'{i18n.t("prediction.observation_form.info_location_lon")}' + \
+                f'{current_longitude:.4f}'
+            solara.Info(label,
                 dense=True,
                 style="margin-bottom:10px;",
             )
@@ -138,10 +140,10 @@ def ObservationFormComponent(
         value=obs_count,
         on_value=set_obs_count,
         style="margin-top: 10px;")
-        solara.InputText(i18n.t("prediction.observation_form.input_observer"),
-                        value=obs_observer_id,
-                        on_value=set_obs_observer_id,
-                        style="margin-top: 10px;")
+        # solara.InputText(i18n.t("prediction.observation_form.input_observer"),
+        #                 value=obs_observer_id,
+        #                 on_value=set_obs_observer_id,
+        #                 style="margin-top: 10px;")
         solara.InputInt(
             i18n.t("prediction.observation_form.input_accuracy"),
             value=obs_location_accuracy_m,
@@ -158,7 +160,7 @@ def ObservationFormComponent(
         solara.Button(
             i18n.t("prediction.observation_form.submit_observation"),
             on_click=lambda: asyncio.create_task(handle_submit()),
-            color="green",
+
             disabled=is_submitting or not prediction or current_latitude is None or current_longitude is None,
             loading=is_submitting,
             style="margin-top: 20px; width: 100%;",

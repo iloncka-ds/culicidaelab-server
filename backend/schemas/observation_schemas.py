@@ -8,25 +8,25 @@ from typing import Dict, Optional, Any, List
 from pydantic import BaseModel, Field
 
 
+class Location(BaseModel):
+    lat: float
+    lng: float
+
 class ObservationBase(BaseModel):
-    species_id: str
+    species_scientific_name: str
     count: int = Field(..., gt=0, description="Number of observed specimens")
-    location: Dict[str, float]
+    location: Location
     observed_at: str
     notes: Optional[str] = None
-    image_url: Optional[str] = None
     user_id: Optional[str] = None
-    metadata: Optional[Dict[str, Any]] = {}
-
+    location_accuracy_m: Optional[int] = None
+    data_source: Optional[str] = None
 
 class Observation(ObservationBase):
-    id: str
-    created_at: str
-    updated_at: str
-
-
-class ObservationCreate(ObservationBase):
-    pass
+    image_filename: Optional[str] = None
+    model_id: Optional[str] = None
+    confidence: Optional[float] = None
+    metadata: Optional[Dict[str, Any]] = {}
 
 
 class ObservationListResponse(BaseModel):
