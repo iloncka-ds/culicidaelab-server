@@ -110,19 +110,22 @@ async def populate_observations_table(manager: LanceDBManager):
             geom = feature.get("geometry", {})
             record = {
                 "type": feature.get("type"),
-                "species": props.get("species"),
-                "observation_date": props.get("observation_date"),
+                "species_scientific_name": props.get("species_scientific_name"),
+                "observed_at": props.get("observed_at"),
                 "count": props.get("count"),
                 "observer_id": props.get("observer_id"),
-                "data_source": str(props.get("data_source")),
+                "data_source": json.dumps(props.get("data_source")),
                 "location_accuracy_m": props.get("location_accuracy_m"),
                 "notes": props.get("notes"),
                 "geometry_type": geom.get("type"),
+                # Ensure coordinates is a non-empty list of floats to avoid NullType issues
                 "coordinates": geom.get("coordinates"),
                 "image_filename": props.get("image_filename"),
                 "model_id": props.get("model_id"),
                 "confidence": props.get("confidence"),
+                "metadata": json.dumps(props.get("metadata", {})),
             }
+
             observations_records.append(record)
 
     if observations_records:

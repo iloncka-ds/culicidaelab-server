@@ -13,6 +13,7 @@ class Location(BaseModel):
     lng: float
 
 class ObservationBase(BaseModel):
+    type: str = "Feature"
     species_scientific_name: str
     count: int = Field(..., gt=0, description="Number of observed specimens")
     location: Location

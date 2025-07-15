@@ -26,13 +26,16 @@ async def submit_observation_data(observation_data: Dict[str, Any]) -> Optional[
     Returns:
         Optional[str]: Error message if submission failed, None if successful.
     """
-    logger.debug("Called submit_observation_data with observation_data: %r", observation_data)
+    print("\n[DEBUG] Starting observation submission process")
+    print(f"[DEBUG] Raw observation data: {observation_data}")
+    print(f"[DEBUG] API_BASE_URL: {API_BASE_URL}")
+    
     if not API_BASE_URL:
-        logger.error("API_BASE_URL is not configured.")
+        print("[ERROR] API_BASE_URL is not configured.")
         return "API URL is not configured"
 
     url = f"{API_BASE_URL}/observations"
-    logger.debug("Submission URL: %s", url)
+    print(f"[DEBUG] Submission URL: {url}")
 
     # The web client sends the source and the observation data as a JSON string.
     # No file is sent from this form, as it was handled in the prediction step.
@@ -40,35 +43,37 @@ async def submit_observation_data(observation_data: Dict[str, Any]) -> Optional[
         "source": "web",
         "observation_data": json.dumps(observation_data),
     }
-    logger.debug("Prepared form_data for submission: %r", form_data)
+    print(f"[DEBUG] Prepared form_data for submission: {form_data}")
+    
     try:
         async with httpx.AsyncClient() as client:
-            logger.debug("Sending POST request to backend API.")
+            print("[DEBUG] Sending POST request to backend API...")
             response = await client.post(
                 url,
                 data=form_data,  # httpx automatically sets content-type to multipart/form-data
                 timeout=30.0,
             )
-            logger.debug("Received response: status_code=%d, content=%r", response.status_code, response.text)
+            print(f"[DEBUG] Received response: status_code={response.status_code}, content={response.text}")
 
             if response.status_code >= 400:
                 try:
                     error_detail = response.json().get("detail", "Unknown server error")
-                    logger.error("Backend returned error: %s", error_detail)
+                    print(f"[ERROR] Backend returned error: {error_detail}")
+                    return f"Failed to submit observation: {error_detail}"
                 except json.JSONDecodeError:
                     error_detail = response.text
-                    logger.error("Backend returned non-JSON error: %s", error_detail)
-                return f"Failed to submit observation: {error_detail}"
+                    print(f"[ERROR] Backend returned non-JSON error: {error_detail}")
+                    return f"Failed to submit observation: {error_detail}"
 
-            logger.info("Observation data submitted successfully.")
+            print("[DEBUG] Observation data submitted successfully.")
             return None
 
     except httpx.HTTPStatusError as e:
-        logger.error("HTTPStatusError during submission: %s", str(e))
+        print(f"[ERROR] HTTPStatusError during submission: {str(e)}")
         return f"HTTP error: {str(e)}"
     except httpx.RequestError as e:
-        logger.error("RequestError during submission: %s", str(e))
+        print(f"[ERROR] RequestError during submission: {str(e)}")
         return f"Request failed: {str(e)}"
     except Exception as e:
-        logger.exception("Unexpected exception during submission.")
+        print(f"[ERROR] Unexpected exception during submission: {str(e)}")
         return f"An unexpected error occurred: {str(e)}"

@@ -143,7 +143,7 @@ se_asia_bbox = {"min_lon": 90, "max_lon": 140, "min_lat": -10, "max_lat": 30}
 
 
 def random_point_in_bbox(bbox):
-    return [random.uniform(bbox["min_lon"], bbox["max_lon"]), random.uniform(bbox["min_lat"], bbox["max_lat"])]
+    return [random.uniform(bbox["min_lat"], bbox["max_lat"]), random.uniform(bbox["min_lon"], bbox["max_lon"])]
 
 
 def random_date(start_days_ago=365, end_days_ago=0):
@@ -168,8 +168,8 @@ for _ in range(100):
         {
             "type": "Feature",
             "properties": {
-                "species": species_name,
-                "observation_date": random_date(),
+                "species_scientific_name": species_name,
+                "observed_at": random_date(),
                 "count": random.randint(1, 20),
                 "observer_id": f"obs_{random.randint(100,999)}",
                 "location_accuracy_m": random.choice([None, 5, 10, 50, 100]),
@@ -178,12 +178,17 @@ for _ in range(100):
                 "image_filename": f"obs_{random.randint(100,999)}.jpg",
                 "model_id": random.choice([None, "model_1", "model_2"]),
                 "confidence": random.uniform(0, 1),
+                "metadata": {
+                    "model_id": random.choice([None, "model_1", "model_2"]),
+                    "confidence": random.uniform(0, 1),
+                    "species_scientific_name": species_name,
+                },
+            },
             "geometry": {
                 "type": "Point",
                 "coordinates": point,
             },
         }
-            }
     )
 with open("sample_observations.geojson", "w") as f:
     json.dump({"type": "FeatureCollection", "features": observations_data}, f, indent=2)

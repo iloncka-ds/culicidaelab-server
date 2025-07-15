@@ -78,18 +78,19 @@ MAP_LAYERS_SCHEMA = pa.schema(
 OBSERVATIONS_SCHEMA = pa.schema(
     [
         pa.field("type", pa.string()),
-        pa.field("species", pa.string()),
-        pa.field("observation_date", pa.string()),
-        pa.field("count", pa.int64()),
+        pa.field("species_scientific_name", pa.string()),
+        pa.field("observed_at", pa.string()),
+        pa.field("count", pa.int32()),  # Changed from int64 to int32 for better compatibility
         pa.field("observer_id", pa.string()),
-        pa.field("location_accuracy_m", pa.float64()),
+        pa.field("location_accuracy_m", pa.float32()),  # Changed from float64 to float32
         pa.field("notes", pa.string()),
         pa.field("data_source", pa.string()),
         pa.field("image_filename", pa.string()),
         pa.field("model_id", pa.string()),
-        pa.field("confidence", pa.float64()),
+        pa.field("confidence", pa.float64()),  # Changed from float64 to float32
         pa.field("geometry_type", pa.string()),
-        pa.field("coordinates", pa.list_(pa.float64())),
+        pa.field("coordinates", pa.list_(pa.float64())),  # Store coordinates as JSON string
+        pa.field("metadata", pa.string()),
     ]
 )
 
