@@ -11,8 +11,12 @@ from frontend.components.prediction.location import LocationComponent
 from frontend.components.prediction.observation_form import ObservationFormComponent
 from frontend.components.species.species_card import SpeciesCard
 from frontend.components.common.locale_selector import LocaleSelector
+from frontend.state import use_persistent_user_id, current_user_id
 import i18n
 from pathlib import Path
+
+i18n.add_translation("prediction.messages.error.submission", "Failed to submit observation: {error}. Please try again later.", locale="en")
+i18n.add_translation("prediction.messages.error.submission", "Не удалось отправить наблюдение: {error}. Пожалуйста, попробуйте позже.", locale="ru")
 
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
@@ -24,6 +28,11 @@ def setup_i18n():
 def Page():
     theme = load_themes(solara.lab.theme)
     heading_style = f"font-size: 1.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+
+    # Ensure user ID is initialized
+
+    use_persistent_user_id()
+    print(f"[DEBUG] Current user ID: {current_user_id.value}")
 
     _, set_rerender_trigger = solara.use_state(0)
 
@@ -66,7 +75,6 @@ def Page():
             set_page_success_message("")
         elif result:
             set_prediction_result_state(result)
-            set_page_success_message(i18n.t("prediction.messages.success.observation_recorded"))
         else:
             set_page_error_message(i18n.t("prediction.messages.error.generic", message="No result and no error"))
             set_page_success_message("")
@@ -103,13 +111,31 @@ def Page():
             return False
 
     def handle_observation_success():
-        set_page_success_message(i18n.t("prediction.messages.success.observation_submitted"))
+        print("[DEBUG] handle_observation_success called")
+        print(f"[DEBUG] Current view mode (before update): {view_mode}")
+        print(f"[DEBUG] Current page success message (before update): {page_success_message}")
+
+        # Don't set success message here, it's already set in prediction result handler
         set_page_error_message("")
         set_view_mode("results")
 
+        print(f"[DEBUG] View mode after update: {view_mode}")
+        print(f"[DEBUG] Page success message after update: {page_success_message}")
+        print(f"[DEBUG] Page error message after update: {page_error_message}")
+
     def handle_observation_error(error_msg: str):
-        set_page_error_message(i18n.t("prediction.messages.error.submission", error=error_msg))
+        print(f"[DEBUG] handle_observation_error called with error: {error_msg}")
+        print(f"[DEBUG] Current view mode: {view_mode}")
+        print(f"[DEBUG] Current page error message (before update): {page_error_message}")
+
+        translated_msg = i18n.t("prediction.messages.error.submission", error=error_msg)
+        print(f"[DEBUG] Translated error message: {translated_msg}")
+
+        set_page_error_message(translated_msg)
         set_page_success_message("")
+
+        print(f"[DEBUG] Page error message after update: {page_error_message}")
+        print(f"[DEBUG] Page success message after update: {page_success_message}")
 
     solara.Markdown(
         i18n.t("prediction.page_title"),
@@ -242,7 +268,7 @@ def Page():
             solara.Button(
                 i18n.t("prediction.buttons.submit_another"),
                 on_click=reset_to_new_submission,
-                color={theme.themes.light.primary},
+                color=theme.themes.light.primary,
                 icon_name="mdi-plus-circle-outline",
                 style="margin-top: 30px; padding: 10px 20px; font-size:1.1em;",
             )

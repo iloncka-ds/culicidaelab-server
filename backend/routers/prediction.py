@@ -105,12 +105,13 @@ async def create_observation(
             if not prediction_result:
                 raise HTTPException(status_code=500, detail="Prediction failed without a specific error.")
 
-            # Update observation data with prediction results
+            # Write metadata and update observation data with prediction results
+
             observation_data["species_scientific_name"] = prediction_result.scientific_name
             observation_data["model_id"] = prediction_result.model_id
             observation_data["confidence"] = prediction_result.confidence
             observation_data["image_filename"] = file.filename
-            observation_data.setdefault("metadata", {})["prediction"] = prediction_result.model_dump()
+
 
         # --- Validation (adapted from original function) ---
         user_id = observation_data.get("user_id")

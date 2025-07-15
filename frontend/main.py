@@ -10,13 +10,14 @@ import frontend.pages.map_visualization as map_visualization
 import frontend.pages.species as species
 import frontend.pages.prediction as prediction
 import frontend.pages.diseases as diseases
-
+import logging
 
 from frontend.state import (
     fetch_filter_options,
     use_persistent_user_id,
 )
 
+logging.basicConfig(level=logging.INFO)
 
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent / "translations"))

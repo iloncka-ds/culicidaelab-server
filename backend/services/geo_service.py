@@ -35,7 +35,7 @@ def get_geo_layer(
 
         query = tbl.search()
         if species_list:
-            species_filter = " OR ".join([f"species = '{s}'" for s in species_list])
+            species_filter = " OR ".join([f"species_scientific_name = '{s}'" for s in species_list])
             query = query.where(species_filter)
 
         all_records = query.limit(limit).to_list()
@@ -62,9 +62,9 @@ def get_geo_layer(
                     continue
 
             # Date Range Filter
-            if (start_date_obj or end_date_obj) and record.get("observation_date"):
+            if (start_date_obj or end_date_obj) and record.get("observed_at"):
                 try:
-                    record_date = datetime.strptime(record["observation_date"], "%Y-%m-%d").date()
+                    record_date = datetime.strptime(record["observed_at"], "%Y-%m-%d").date()
                     if start_date_obj and record_date < start_date_obj:
                         continue
                     if end_date_obj and record_date > end_date_obj:

@@ -1,0 +1,5 @@
+$efc51eb8-a03d-48d3-80d5-ee3e2bbfc3c2²”&type ÿÿÿÿÿÿÿÿÿ*string08Zdefault;species_scientific_name ÿÿÿÿÿÿÿÿÿ*string08Zdefault/observed_at ÿÿÿÿÿÿÿÿÿ*string08Zdefault(count ÿÿÿÿÿÿÿÿÿ*int3208Zdefault/observer_id ÿÿÿÿÿÿÿÿÿ*string08Zdefault6location_accuracy_m ÿÿÿÿÿÿÿÿÿ*float08Zdefault)notes ÿÿÿÿÿÿÿÿÿ*string08Zdefault/data_source ÿÿÿÿÿÿÿÿÿ*string08Zdefault2image_filename ÿÿÿÿÿÿÿÿÿ*string08Zdefault,model_id	 ÿÿÿÿÿÿÿÿÿ*string08Zdefault.
+confidence
+ ÿÿÿÿÿÿÿÿÿ*double08Zdefault1geometry_type ÿÿÿÿÿÿÿÿÿ*string08Zdefault-coordinates ÿÿÿÿÿÿÿÿÿ*list08Zdefaultitem *double08Zdefault,metadata ÿÿÿÿÿÿÿÿÿ*string08Zdefault"!
+lance.auto_cleanup.interval20"'
+lance.auto_cleanup.older_than14days
