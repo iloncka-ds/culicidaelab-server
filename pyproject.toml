@@ -7,6 +7,7 @@ requires-python = ">=3.11.0"
 dependencies = [
     "anywidget>=0.9.18",
     "colorcet>=3.1.0",
+    "culicidaelab",
     "fastapi>=0.115.12",
     "httpx>=0.28.1",
     "ipyleaflet>=0.19.2",
@@ -22,7 +23,6 @@ dependencies = [
     "sam2==1.1.0",
     "shapely>=2.1.0",
     "solara[assets]==1.37.1",
-
 ]
 [dependency-groups]
 dev = [
