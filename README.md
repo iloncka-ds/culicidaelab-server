@@ -120,5 +120,6 @@ This project is licensed under the Apache License 2.0 - see the `LICENSE` file f
 
 ## 🙏 Acknowledgments
 
-CulicidaeLab development is  supported by a grant from the **Innovation Assistance Foundation (Фонд содействия инновациям)**.
-[https://fasie.ru/](https://fasie.ru/)
+CulicidaeLab development is  supported by a grant from the **Foundation for Assistance to Small Innovative Enterprises (FASIE)
+[https://fasie.ru/](https://fasie.ru/)**.
+
