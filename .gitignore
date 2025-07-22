@@ -17,4 +17,4 @@ example*
 .qodo
 md_*
 tree-maker/
-backend/data/.lancedb
+backend/data/.lancedb/
