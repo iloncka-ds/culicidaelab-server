@@ -22,7 +22,7 @@ def LegendDisplay():
     has_content = False
 
     active_species_in_data: List[str] = []
-    all_species_colors: Dict[str, str] = {}
+    all_species_colors = SPECIES_COLORS
 
     if observations_data_reactive.value and "features" in observations_data_reactive.value:
         features = observations_data_reactive.value["features"]
@@ -32,10 +32,10 @@ def LegendDisplay():
                 observed_species.add(feature["properties"]["species"])
         active_species_in_data = list(observed_species)
 
-    if all_available_species_reactive.value:
-        all_species_colors = generate_species_colors(all_available_species_reactive.value)
-    else:
-        all_species_colors = SPECIES_COLORS
+    # if all_available_species_reactive.value:
+    #     all_species_colors = generate_species_colors(all_available_species_reactive.value)
+    # else:
+    #     all_species_colors = SPECIES_COLORS
 
     with solara.Column(
         style="padding: 8px; background: rgba(255,255,255,0.9); border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"

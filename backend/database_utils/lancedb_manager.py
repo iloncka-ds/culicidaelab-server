@@ -1,9 +1,9 @@
 import lancedb
 import pyarrow as pa
-import os
 from typing import Optional, List, Dict, Any
+from backend.config import settings
 
-LANCEDB_URI = os.environ.get("LANCEDB_URI", ".lancedb")
+
 
 SPECIES_SCHEMA = pa.schema(
     [
@@ -78,6 +78,7 @@ MAP_LAYERS_SCHEMA = pa.schema(
 OBSERVATIONS_SCHEMA = pa.schema(
     [
         pa.field("type", pa.string()),
+        pa.field("id", pa.string(), nullable=False),
         pa.field("species_scientific_name", pa.string()),
         pa.field("observed_at", pa.string()),
         pa.field("count", pa.int32()),  # Changed from int64 to int32 for better compatibility
@@ -95,7 +96,7 @@ OBSERVATIONS_SCHEMA = pa.schema(
 )
 
 class LanceDBManager:
-    def __init__(self, uri: str = LANCEDB_URI):
+    def __init__(self, uri: str = settings.DATABASE_PATH):
         self.uri = uri
         self.db = None
 
@@ -145,7 +146,7 @@ class LanceDBManager:
             raise
 
 
-lancedb_manager = LanceDBManager()
+lancedb_manager = LanceDBManager(settings.DATABASE_PATH)
 
 
 async def get_lancedb_manager():

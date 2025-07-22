@@ -1,6 +1,3 @@
-from datetime import datetime
-from uuid import uuid4
-
 import json
 from fastapi import HTTPException, status
 
@@ -39,7 +36,7 @@ class ObservationService:
                 data_source_value = json.dumps(data_source_value, ensure_ascii=False)
 
             record_to_save = {
-                # "type": "Feature",
+                "id": str(observation_data.id),
                 "species_scientific_name": observation_data.species_scientific_name,
                 "observed_at": observation_data.observed_at.split("T")[0],
                 "count": observation_data.count,
@@ -51,7 +48,7 @@ class ObservationService:
                 "model_id": observation_data.model_id,
                 "confidence": observation_data.confidence,
                 "geometry_type": "Point",
-                "coordinates": [observation_data.location.lat,observation_data.location.lng],
+                "coordinates": [observation_data.location.lat, observation_data.location.lng],
                 "metadata": metadata_value,
             }
             # Remove None values to avoid potential issues with LanceDB
@@ -79,6 +76,8 @@ class ObservationService:
         """
         Retrieve observations with optional filtering.
         """
+        # Add a version marker to be 100% sure the new code is running.
+        print("--- RUNNING FINAL CORRECTED VERSION of get_observations ---")
         try:
             print(
                 f"[DEBUG] get_observations called with user_id={user_id}, species_id={species_id}, "
@@ -86,53 +85,79 @@ class ObservationService:
             )
             table = await self.db.open_table(self.table_name)
 
+            # 1. Prepare conditions
             conditions = []
             if user_id and user_id != "default_user_id":
                 conditions.append(f"observer_id = '{user_id}'")
             if species_id:
                 conditions.append(f"species_scientific_name = '{species_id}'")
 
-            query_str = " AND ".join(conditions) if conditions else None
-            print(f"[DEBUG] Generated query string: {query_str}")
-            query = table.search()
-            if query_str:
-                query = query.where(query_str)
+            # 2. Execute the query differently based on whether filters exist
+            if conditions:
+                # If there are filters, build a .where() clause
+                query_str = " AND ".join(conditions)
+                print(f"[DEBUG] Executing query with filters: {query_str}")
+                results = await table.search().where(query_str).limit(limit).offset(offset).to_list()
+            else:
+                # If there are NO filters, get all records.
+                # We call to_arrow() first and then manually slice for limit/offset.
+                # This avoids the internal library bug completely.
+                print("[DEBUG] Executing query with no filters (getting all records).")
+                arrow_table = await table.to_arrow()
 
-            results = await query.limit(limit).offset(offset).to_list()
-            total = len(results) if results else 0
+                # Manually apply limit and offset
+                start = offset
+                end = offset + limit
+                paginated_table = arrow_table.slice(start, end - start)
+                results = paginated_table.to_pylist()
+
+            total = len(results)
             print(f"[DEBUG] Retrieved {total} observations from database")
 
-            # Map database records back to Pydantic models
+            # The mapping logic remains the same and is correct.
             observations = []
             if results:
                 for item in results:
-                    coords = item.get("location")
-                    location = None
-                    if coords and len(coords) == 2:
-                        location = Location(lat=coords[0], lng=coords[1])
+                    try:
+                        # Your existing, robust mapping logic here...
+                        location_data = item.get("coordinates")
+                        if isinstance(location_data, list) and len(location_data) == 2:
+                            location_obj = Location(lat=location_data[0], lng=location_data[1])
+                        else:
+                            print(f"[WARNING] Skipping observation with invalid location: {item.get('id')}")
+                            continue
 
-                    if location:
-                        observation_model_data = {
-                            "species_scientific_name": item.get("species_scientific_name"),
-                            "count": item.get("count"),
-                            "location": location,
-                            "observed_at": item.get("observed_at"),
-                            "notes": item.get("notes"),
-                            "user_id": item.get("user_id"),
-                            "location_accuracy_m": item.get("location_accuracy_m"),
-                            "data_source": item.get("data_source"),
-                            "image_filename": item.get("image_filename"),
-                            "model_id": item.get("model_id"),
-                            "confidence": item.get("confidence"),
-                            "metadata": item.get(
-                                "metadata"
-                            ),  # Metadata is not stored in the database per the current schema
-                        }
-                        observations.append(Observation(**observation_model_data))
+                        metadata_str = item.get("metadata", "{}")
+                        metadata_dict = {}
+                        if isinstance(metadata_str, str) and metadata_str.strip():
+                            try:
+                                metadata_dict = json.loads(metadata_str)
+                            except json.JSONDecodeError:
+                                print(f"[WARNING] Could not decode metadata for observation: {item.get('id')}")
+
+                        observation_model = Observation(
+                            id=item.get("id"),
+                            species_scientific_name=item.get("species_scientific_name"),
+                            count=item.get("count"),
+                            location=location_obj,
+                            observed_at=item.get("observed_at"),
+                            notes=item.get("notes"),
+                            user_id=item.get("user_id") or item.get("observer_id"),
+                            location_accuracy_m=item.get("location_accuracy_m"),
+                            data_source=item.get("data_source"),
+                            image_filename=item.get("image_filename"),
+                            model_id=item.get("model_id"),
+                            confidence=item.get("confidence"),
+                            metadata=metadata_dict,
+                        )
+                        observations.append(observation_model)
+                    except Exception as model_exc:
+                        print(f"[ERROR] Could not map record to Pydantic model for ID {item.get('id')}: {model_exc}")
 
             return ObservationListResponse(count=total, observations=observations)
 
         except Exception as e:
+            print(f"[CRITICAL] Unhandled error in get_observations: {repr(e)}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to retrieve observations: {str(e)}"
             )

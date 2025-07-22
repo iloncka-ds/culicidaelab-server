@@ -1,10 +1,12 @@
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from culicidaelab import get_settings
-
+from dotenv import load_dotenv
+import os
 import pathlib
 
 
+load_dotenv()
 BACKEND_DIR = pathlib.Path(__file__).parent.resolve()
 
 def get_predictor_model_path():
@@ -27,8 +29,8 @@ class AppSettings(BaseSettings):
 
     APP_NAME: str = "CulicidaeLab API"
     API_V1_STR: str = "/api"
-    DATABASE_PATH: str = str(BACKEND_DIR / "data" / ".lancedb")
-    print(DATABASE_PATH)
+    DATABASE_PATH: str = os.environ.get("CULICIDAELAB_DATABASE_PATH", ".lancedb")
+
     BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:8765", "http://127.0.0.1:8765"]
 
     @property

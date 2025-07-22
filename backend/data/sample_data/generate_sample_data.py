@@ -1,7 +1,7 @@
 import json
 import random
 from datetime import datetime, timedelta
-
+from uuid import uuid4
 
 # --- SPECIES DATA ---
 species_list = [
@@ -168,10 +168,11 @@ for _ in range(100):
         {
             "type": "Feature",
             "properties": {
+                "id": str(uuid4()),
                 "species_scientific_name": species_name,
                 "observed_at": random_date(),
                 "count": random.randint(1, 20),
-                "observer_id": f"obs_{random.randint(100,999)}",
+                "observer_id": str(uuid4()),
                 "location_accuracy_m": random.choice([None, 5, 10, 50, 100]),
                 "notes": random.choice(["", "Near standing water.", "Adult female found.", "Larvae collected."]),
                 "data_source": random.choice(data_sources),

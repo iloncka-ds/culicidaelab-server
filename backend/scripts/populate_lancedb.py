@@ -1,6 +1,7 @@
 import json
 import asyncio
 import os
+from pathlib import Path
 import pyarrow as pa
 from backend.database_utils.lancedb_manager import (
     LanceDBManager,
@@ -11,13 +12,12 @@ from backend.database_utils.lancedb_manager import (
     DATA_SOURCES_SCHEMA,
     MAP_LAYERS_SCHEMA,
 )
-from pathlib import Path
+
+from backend.config import settings
 
 BASE_DIR = Path(__file__).resolve().parent
 JSON_FILES_DIR = (BASE_DIR / "../data/sample_data").resolve()
 DATA_DIR = (BASE_DIR / "../data").resolve()
-
-
 
 
 async def populate_regions_table(manager: LanceDBManager):
@@ -110,6 +110,7 @@ async def populate_observations_table(manager: LanceDBManager):
             geom = feature.get("geometry", {})
             record = {
                 "type": feature.get("type"),
+                "id": props.get("id"),
                 "species_scientific_name": props.get("species_scientific_name"),
                 "observed_at": props.get("observed_at"),
                 "count": props.get("count"),
@@ -154,11 +155,10 @@ async def populate_diseases_table(manager: LanceDBManager):
 
 
 async def main():
-    lancedb_dir = DATA_DIR / ".lancedb"
-    if not os.path.exists(lancedb_dir):
-        os.makedirs(lancedb_dir, exist_ok=True)
+    if not os.path.exists(settings.DATABASE_PATH):
+        os.makedirs(settings.DATABASE_PATH, exist_ok=True)
 
-    manager = LanceDBManager(uri=str(lancedb_dir))
+    manager = LanceDBManager(uri=settings.DATABASE_PATH)
     await manager.connect()
 
     print("Populating LanceDB...")

@@ -4,9 +4,7 @@ import asyncio
 import json
 import os
 from typing import Any, List
-
-import pyarrow as pa
-
+from backend.config import settings
 from backend.database_utils.lancedb_manager import LanceDBManager
 
 
@@ -21,16 +19,12 @@ async def fetch_records(table_name: str, limit: int | None = None) -> List[dict[
         A list of dictionaries representing table rows.
     """
     # Resolve LanceDB directory relative to this script.
-    base_dir = os.path.dirname(__file__)
-    data_dir = os.path.abspath(os.path.join(base_dir, "../data"))
-    lancedb_dir = os.path.join(data_dir, ".lancedb")
-
-    manager = LanceDBManager(uri=lancedb_dir)
+    manager = LanceDBManager(uri=settings.DATABASE_PATH)
     await manager.connect()
 
     table = await manager.get_table(table_name)
     if table is None:
-        raise RuntimeError(f"Table '{table_name}' not found in LanceDB at {lancedb_dir}.")
+        raise RuntimeError(f"Table '{table_name}' not found in LanceDB at {settings.DATABASE_PATH}.")
 
     # Convert to PyArrow table then to list of dicts for convenience.
     arrow_table = await table.to_arrow()

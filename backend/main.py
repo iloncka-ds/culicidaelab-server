@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import settings
-from backend.routers import filters, species, geo, diseases, prediction
+from backend.routers import filters, species, geo, diseases, prediction, observation
 
 app = FastAPI(title=settings.APP_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json")
 
@@ -22,7 +22,7 @@ app.include_router(species.router, prefix=settings.API_V1_STR, tags=["Species"])
 app.include_router(diseases.router, prefix=settings.API_V1_STR, tags=["Diseases"])
 app.include_router(geo.router, prefix=settings.API_V1_STR, tags=["GeoData"])
 app.include_router(prediction.router, prefix=settings.API_V1_STR, tags=["Prediction"])
-
+app.include_router(observation.router, prefix=settings.API_V1_STR, tags=["Observation"])
 
 @app.get(f"{api_router_prefix}/", tags=["Root"])
 async def read_root():

@@ -6,7 +6,7 @@ in the Observation service endpoints.
 """
 from typing import Dict, Optional, Any, List
 from pydantic import BaseModel, Field
-
+from uuid import UUID, uuid4
 
 class Location(BaseModel):
     lat: float
@@ -24,6 +24,7 @@ class ObservationBase(BaseModel):
     data_source: Optional[str] = None
 
 class Observation(ObservationBase):
+    id: UUID = Field(default_factory=uuid4)
     image_filename: Optional[str] = None
     model_id: Optional[str] = None
     confidence: Optional[float] = None
