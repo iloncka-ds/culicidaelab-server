@@ -58,27 +58,17 @@ def Page():
     with solara.Div(style="width: 100%; flex-grow: 1; min-height: 300px; display: flex; flex-direction: column;"):
         map_component.MapDisplay()
 
-    with solara.Column(style="width: 100%; height: 100vh; display: flex; flex-direction: column; overflow: hidden;"):
-        with solara.Div(style="width: 100%; flex-shrink: 0; padding: 5px 0;"):
-            with solara.Row(
-                justify="space-around",
-                style="width: 100%;",
+
+    with solara.ColumnsResponsive(default=[12], small=[6]):
+        for item_data in map_interactive_items:
+            with rv.ExpansionPanels(
+                value=item_data["state_value"],
+                on_input=item_data["state_setter"],
             ):
-                for item_data in map_interactive_items:
-                    with solara.Column(
-                        align="stretch",
-                        style="min-width: 300px; flex-grow: 1; margin: 0 5px;",
-                    ):
-                        with rv.ExpansionPanels(
-                            value=item_data["state_value"],
-                            on_input=item_data["state_setter"],
-                        ):
-                            with rv.ExpansionPanel():
-                                with rv.ExpansionPanelHeader():
-                                    if item_data["icon"]:
-                                        rv.Icon(children=[item_data["icon"]], left=True, class_="mr-2")
-                                    solara.Text(item_data["title"])
-                                with rv.ExpansionPanelContent(class_="pt-2"):
-                                    item_data["component"]()
-
-
+                with rv.ExpansionPanel():
+                    with rv.ExpansionPanelHeader():
+                        if item_data["icon"]:
+                            rv.Icon(children=[item_data["icon"]], left=True, class_="mr-2")
+                        solara.Text(item_data["title"])
+                    with rv.ExpansionPanelContent(class_="pt-2"):
+                        item_data["component"]()
