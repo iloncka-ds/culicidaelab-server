@@ -157,7 +157,7 @@ def Page():
 
     if view_mode == "form":
         with solara.ColumnsResponsive(
-            6, large=[4, 4, 4], gutters_dense=True, style="max-width: 1200px; margin: 0 auto;"
+            default=[12], large=[4, 4, 4], gutters_dense=True, style="max-width: 1200px; margin: 0 auto;"
         ):
             with solara.Card(i18n.t("prediction.cards.upload.title"), margin=0, style="height: 100%;"):
                 FileUploadComponent(

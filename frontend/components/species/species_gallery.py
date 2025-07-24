@@ -43,7 +43,7 @@ i18n.add_translation("species_gallery.messages.initializing", "Инициали�
 @solara.component
 def SpeciesGalleryPageComponent():
     theme = load_themes(solara.lab.theme)
-    heading_style = f"font-size: 1.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    heading_style = f"font-size: 1.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
 
     search_query, set_search_query = solara.use_state("")
     current_locale = i18n.get("locale")
@@ -63,37 +63,26 @@ def SpeciesGalleryPageComponent():
                 error_reactive=species_list_error_reactive,
             )
 
-            print("---- Received Species List API Data ----")
-            print(data)
-            print("--------------------------------------")
-
             actual_species_list = []
             if isinstance(data, dict) and "species" in data and isinstance(data["species"], list):
                 actual_species_list = data["species"]
-                print(
-                    f"Page Effect: Setting species list from dict (count={data.get('count', len(actual_species_list))})"
-                )
             elif isinstance(data, list):
                 actual_species_list = data
-                print(f"Page Effect: Setting species list from direct list (count={len(actual_species_list)})")
             else:
-                print(f"Warning: Unexpected data format from species list API: {type(data)}. List empty.")
-                species_list_error_reactive.value = (
-                    species_list_error_reactive.value or "Unexpected data format from API."
-                )
+                if data is not None:
+                    species_list_error_reactive.value = (
+                        species_list_error_reactive.value or "Unexpected data format from API."
+                    )
 
             current_task = task_ref[0]
             if not (current_task and current_task.cancelled()):
                 species_list_data_reactive.value = actual_species_list
-            else:
-                print(f"Species list load task for search '{search_query}' was cancelled before setting data.")
 
         task_ref[0] = asyncio.create_task(_async_load_task())
 
         def cleanup():
             current_task = task_ref[0]
             if current_task and not current_task.done():
-                print(f"Cleaning up: Cancelling species list task for search '{search_query}'")
                 current_task.cancel()
 
         return cleanup
@@ -104,51 +93,56 @@ def SpeciesGalleryPageComponent():
 
     with solara.Column(style="padding-bottom: 20px; min-height: calc(100vh - 120px);"):
         solara.Markdown(
-            f"{i18n.t('species_gallery.title')}",
+            i18n.t("species_gallery.title"),
             style=heading_style,
         )
-        with solara.Row(
+        # Mobile-friendly search bar section
+        with solara.Div(
             classes=["pa-2 ma-2 elevation-1"],
-            style="border-radius: 6px; background-color: var(--solara-card-background-color); align-items: center; gap: 10px; position: sticky; top: 0px; z-index:10; margin-bottom:10px;",
+            style=f"border-radius: 6px; background-color: white; position: sticky; top: 0px; z-index:10; margin-bottom:10px;",
         ):
-            solara.InputText(
-                label=i18n.t("species_gallery.search.placeholder"),
-                value=search_query,
-                on_value=set_search_query,
-                continuous_update=False,
-                style="flex-grow: 1;",
-            )
-            solara.Button(
-                i18n.t("species_gallery.search.button"),
-                icon_name="mdi-magnify",
-                outlined=True,
-                color=COLOR_PRIMARY,
-                on_click=lambda: solara.Warning("Filter panel not yet implemented."),
-            )
+            # Use ColumnsResponsive to stack on small screens and align on larger screens
+            with solara.ColumnsResponsive(default=[12, "auto"], small=[8, 4], gutters="10px"):
+                solara.InputText(
+                    label=i18n.t("species_gallery.search.placeholder"),
+                    value=search_query,
+                    on_value=set_search_query,
+                    continuous_update=False,
+                )
+                solara.Button(
+                    i18n.t("species_gallery.search.button"),
+                    icon_name="mdi-magnify",
+                    outlined=True,
+                    color=COLOR_PRIMARY,
+                    on_click=lambda: solara.Warning("Filter panel not yet implemented."),
+                    style="width: 100%;",  # Ensure button takes full width of its column
+                )
 
         if species_list_loading_reactive.value:
             solara.SpinnerSolara(size="60px")
         elif species_list_error_reactive.value:
             solara.Error(
-                i18n.t("species_gallery.error.load", error=species_list_error_reactive.value),
+                i18n.t("species_gallery.error.load"),
                 icon="mdi-alert-circle-outline",
             )
         elif displayed_species:
-            if not displayed_species:
-                solara.Info(
-                    i18n.t("species_gallery.messages.no_results"), icon="mdi-information-outline", style="margin: 16px;"
-                )
-            else:
-                with solara.ColumnsResponsive(
-                    default=[3, 3, 3, 3],
-                    large=[4, 4, 4],
-                    medium=[6, 6],
-                    small=[12],
-                    gutters="16px",
-                    classes=["pa-2"],
-                ):
-                    for species_item in displayed_species:
-                        SpeciesCard(species_item)
+            with solara.ColumnsResponsive(
+                # Adjusted grid for better alignment across screen sizes
+                default=[12],
+                small=[6],
+                medium=[4],
+                large=[4],
+                gutters="16px",
+                classes=["pa-2"],
+            ):
+                for species_item in displayed_species:
+                    SpeciesCard(species_item)
+        elif not displayed_species and not species_list_loading_reactive.value:
+            solara.Info(
+                i18n.t("species_gallery.messages.no_results"),
+                icon="mdi-information-outline",
+                style="margin: 16px;",
+            )
         else:
             solara.Info(
                 i18n.t("species_gallery.messages.initializing"),
