@@ -1,7 +1,7 @@
 import solara
 import solara.lab
 
-from typing import List, Optional
+from typing import List
 
 import i18n
 from pathlib import Path
@@ -74,7 +74,7 @@ def Layout(children: List[solara.Element]):
 
     return solara.AppLayout(
         title="CulicidaeLab",
-        children=children,
+        children=children
     )
 
 

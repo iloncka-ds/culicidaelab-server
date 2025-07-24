@@ -5,12 +5,14 @@ from pathlib import Path
 from ..config import load_themes
 from frontend.components.common.locale_selector import LocaleSelector
 
+
 import i18n
 
 
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
     i18n.set("fallback", "en")
+
 
 @solara.component
 def Page():

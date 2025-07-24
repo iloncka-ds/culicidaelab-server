@@ -17,7 +17,7 @@ router = APIRouter()
     description="Submit a complete observation record. Prediction must be done beforehand.",
 )
 async def create_observation(
-    observation: Observation,  # <-- We expect a JSON body that maps directly to our Pydantic model
+    observation: Observation,
 ) -> Observation:
     """
     Create a new observation record from a complete data payload.
