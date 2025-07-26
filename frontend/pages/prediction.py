@@ -6,6 +6,7 @@ from typing import Dict, Any, Optional, cast
 import asyncio
 
 from ..config import load_themes
+from ..state import use_locale_effect
 from frontend.components.prediction.file_upload import FileUploadComponent, upload_and_predict
 from frontend.components.prediction.location import LocationComponent
 from frontend.components.prediction.observation_form import ObservationFormComponent
@@ -26,11 +27,11 @@ def Page():
     theme = load_themes(solara.lab.theme)
     heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555;"
-    # Ensure user ID is initialized
+    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
 
     use_persistent_user_id()
     print(f"[DEBUG] Current user ID: {current_user_id.value}")
-
+    use_locale_effect()
     _, set_rerender_trigger = solara.use_state(0)
 
     def force_rerender():
@@ -154,7 +155,8 @@ def Page():
 
     if view_mode == "form":
         with solara.ColumnsResponsive(
-            default=[12], large=[4, 4, 4], gutters_dense=True, style="max-width: 1200px; margin: 0 auto;"
+            default=[12], large=[4, 4, 4], gutters_dense=True,
+            style=page_style
         ):
             with solara.Card(i18n.t("prediction.cards.upload.title"), margin=0, style="height: 100%;"):
                 FileUploadComponent(
@@ -200,18 +202,18 @@ def Page():
                         icon="mdi-image-off-outline",
                         style="padding:10px;",
                     )
-                elif is_predicting_state:
+                elif is_predicting_state or not prediction_result_state:
                     solara.Info(
-                        i18n.t("prediction.messages.info.waiting_prediction"),
+                        i18n.t("prediction.messages.info.awaiting_prediction"),
                         icon="mdi-timer-sand",
                         style="padding:10px;",
                     )
-                elif not prediction_result_state:
-                    solara.Warning(
-                        i18n.t("prediction.messages.warning.no_prediction"),
-                        icon="mdi-alert-circle-outline",
-                        style="padding:10px;",
-                    )
+                # elif not prediction_result_state:
+                #     solara.Warning(
+                #         i18n.t("prediction.messages.warning.no_prediction"),
+                #         icon="mdi-alert-circle-outline",
+                #         style="padding:10px;",
+                #     )
                 else:
                     ObservationFormComponent(
                         prediction=prediction_result_state,
@@ -223,7 +225,7 @@ def Page():
                     )
 
     elif view_mode == "results":
-        with solara.Column(align="center", style="padding: 20px; max-width: 800px; margin: 0 auto;"):
+        with solara.Column(align="center", style=page_style):
             solara.Success(
                 page_success_message or i18n.t("prediction.messages.success.observation_recorded"),
                 icon="mdi-check-circle-outline",
@@ -232,7 +234,8 @@ def Page():
 
             if prediction_result_state:
 
-                with solara.ColumnsResponsive(default=[12], small=[6, 6], medium=[6, 6], large=[6, 6], gutters="20px"):
+                with solara.ColumnsResponsive(default=[12], small=[6, 6], medium=[6, 6], large=[6, 6],
+                                              gutters="20px", style=page_style):
                     # Column 1: Uploaded Image
                     with solara.VBox():
                         solara.Markdown(i18n.t("prediction.labels.uploaded_image"),

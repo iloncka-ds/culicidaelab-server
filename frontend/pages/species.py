@@ -4,6 +4,7 @@ from frontend.components.species.species_gallery import SpeciesGalleryPageCompon
 from frontend.components.species.species_detail import SpeciesDetailPageComponent
 
 from ..state import selected_species_item_id
+from ..state import current_locale, use_locale_effect
 
 from frontend.components.common.locale_selector import LocaleSelector
 import i18n
@@ -23,6 +24,7 @@ def Page():
         set_rerender_trigger(lambda x: x + 1)
 
     setup_i18n()
+    use_locale_effect()
     with solara.AppBar():
         solara.v.Spacer()
         LocaleSelector(on_change=force_rerender)

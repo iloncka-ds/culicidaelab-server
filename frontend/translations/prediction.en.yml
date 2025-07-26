@@ -16,7 +16,7 @@ en:
     info:
       awaiting_prediction: "File uploaded. Awaiting prediction results..."
       upload_first: "Please upload an image first to see observation options."
-      waiting_prediction: "Prediction in progress, please wait..."
+      
     warning:
       no_prediction: "Prediction has not been made or failed. Please check the file and try again."
       no_prediction_data: "No prediction data is available to display."

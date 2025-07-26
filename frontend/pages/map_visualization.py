@@ -10,6 +10,7 @@ from ..components.map_module import (
 )
 
 from ..config import load_themes
+from ..state import use_locale_effect
 from frontend.components.common.locale_selector import LocaleSelector
 import i18n
 from pathlib import Path
@@ -24,9 +25,10 @@ def setup_i18n():
 def Page():
     _, set_rerender_trigger = solara.use_state(0)
 
+    use_locale_effect()
     def force_rerender():
         set_rerender_trigger(lambda x: x + 1)
-
+    
     setup_i18n()
     with solara.AppBar():
         solara.v.Spacer()

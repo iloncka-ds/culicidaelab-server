@@ -4,6 +4,7 @@ from typing import Optional, Dict, Any, Tuple
 import aiohttp
 
 from ...config import FONT_BODY, COLOR_TEXT, API_BASE_URL
+from ...state import use_locale_effect
 import i18n
 
 async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
@@ -63,6 +64,7 @@ def FileUploadComponent(
     Calls `on_file_selected` with file_info upon successful file drop/selection.
     Displays an optional `upload_error_message`.
     """
+    use_locale_effect()
     solara.Markdown(
         i18n.t("prediction.file_upload.subtitle"),
         style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-bottom: 20px;",

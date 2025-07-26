@@ -4,7 +4,7 @@ import i18n
 from typing import List, Tuple, Optional, Dict, Any, cast
 import uuid
 from datetime import date, timedelta
-
+import i18n
 from .config import FILTER_OPTIONS_ENDPOINT
 
 current_user_id: solara.Reactive[Optional[str]] = solara.reactive(None)
@@ -16,7 +16,7 @@ def use_persistent_user_id():
     A hook to get or create a user ID.
     """
     user_id, set_user_id = solara.use_state(None)
-    
+
     def initialize_user_id():
         if user_id is None:
             new_id = str(uuid.uuid4())
@@ -25,8 +25,9 @@ def use_persistent_user_id():
         else:
             if current_user_id.value != user_id:
                 current_user_id.value = user_id
-    
+
     solara.use_effect(initialize_user_id, [])
+
 
 async def fetch_api_data(
     url: str,
@@ -168,3 +169,26 @@ distribution_loading_reactive = solara.reactive(False)
 observations_loading_reactive = solara.reactive(False)
 modeled_loading_reactive = solara.reactive(False)
 breeding_sites_loading_reactive = solara.reactive(False)
+
+def get_initial_locale() -> str:
+    """Gets the initial locale, e.g., from browser settings or a default."""
+    # Your logic to determine the default locale, e.g., 'en'
+    # This function should NOT use any Solara hooks.
+    i18n.set("fallback", "en")
+    return i18n.get("locale")
+
+# --- THIS IS THE FIX ---
+# Define current_locale as a reactive variable at the module level.
+# It is initialized once with the default locale.
+current_locale = solara.Reactive(get_initial_locale())
+
+# You can optionally create an effect to run when the locale changes.
+# This must be done inside a component, typically your main layout.
+def use_locale_effect():
+    def update_i18n_locale():
+        """This function will run whenever current_locale.value changes."""
+        print(f"Locale changed to: {current_locale.value}")
+        i18n.set("locale", current_locale.value)
+
+    # This effect hook listens for changes in the reactive variable
+    solara.use_effect(update_i18n_locale, [current_locale.value])

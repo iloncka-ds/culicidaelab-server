@@ -4,7 +4,7 @@ from solara.alias import rv
 from pathlib import Path
 from ..config import load_themes
 from frontend.components.common.locale_selector import LocaleSelector
-
+from ..state import current_locale, use_locale_effect
 
 import i18n
 
@@ -21,14 +21,15 @@ def Page():
         set_rerender_trigger(lambda x: x + 1)
     theme = load_themes(solara.lab.theme)
     setup_i18n()
+    use_locale_effect()
     with solara.AppBar():
         solara.v.Spacer()
         LocaleSelector(on_change=force_rerender)
     with solara.AppBarTitle():
         solara.Text(i18n.t("home.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
-    router = solara.use_router()
 
-    page_style = "padding: 2rem; max-width: 1200px; margin: auto;"
+
+    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     heading_style = f"font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555;"
     card_style = "display: flex; flex-direction: column; height: 100%;"

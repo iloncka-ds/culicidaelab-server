@@ -15,6 +15,8 @@ import logging
 from frontend.state import (
     fetch_filter_options,
     use_persistent_user_id,
+    use_locale_effect,
+    current_locale
 )
 
 logging.basicConfig(level=logging.INFO)
@@ -70,7 +72,7 @@ def Layout(children: List[solara.Element]):
     AppInitializer()
     use_persistent_user_id()
     # Fetch filter options whenever the language changes.
-    solara.lab.use_task(fetch_filter_options, dependencies=[i18n.get("locale")])
+    solara.lab.use_task(fetch_filter_options, dependencies=[current_locale.value])
 
     return solara.AppLayout(
         title="CulicidaeLab",

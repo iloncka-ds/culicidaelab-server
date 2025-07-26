@@ -10,7 +10,7 @@ from ...config import (
 
 )
 
-from ...state import selected_species_item_id
+from ...state import selected_species_item_id, current_locale
 import i18n
 
 i18n.add_translation("actions.view_details", "View Details", locale="en")

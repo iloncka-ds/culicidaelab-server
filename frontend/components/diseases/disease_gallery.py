@@ -4,7 +4,11 @@ from solara.alias import rv
 import httpx
 import asyncio
 from typing import Dict, Any, List, Optional, cast, Callable
-from ...state import fetch_api_data, disease_list_data_reactive, disease_list_loading_reactive, disease_list_error_reactive, selected_disease_item_id
+from ...state import (fetch_api_data, disease_list_data_reactive,
+                      disease_list_loading_reactive, disease_list_error_reactive,
+                      selected_disease_item_id,
+    use_locale_effect,
+    current_locale)
 from frontend.components.diseases.disease_card import DiseaseCard
 from ...config import (
     COLOR_PRIMARY,
@@ -31,15 +35,17 @@ i18n.add_translation("disease_gallery.messages.initializing", "Инициали�
 @solara.component
 def DiseaseGalleryPageComponent():
     theme = load_themes(solara.lab.theme)
+    use_locale_effect()
     heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     search_query, set_search_query = solara.use_state("")
-    current_locale = i18n.get("locale")
+    # current_locale = i18n.get("locale")
 
     def _load_disease_list_data_effect() -> Optional[Callable[[], None]]:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
         async def _async_load_task():
-            params = {"lang": current_locale}
+            params = {"lang": current_locale.value}
             if search_query:
                 params["search"] = search_query
 
@@ -74,7 +80,7 @@ def DiseaseGalleryPageComponent():
 
         return cleanup
 
-    solara.use_effect(_load_disease_list_data_effect, [search_query, current_locale])
+    solara.use_effect(_load_disease_list_data_effect, [search_query, current_locale.value])
 
     displayed_diseases = disease_list_data_reactive.value
 

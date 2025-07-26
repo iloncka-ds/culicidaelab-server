@@ -10,6 +10,8 @@ from ...state import (
     species_list_data_reactive,
     species_list_loading_reactive,
     species_list_error_reactive,
+    use_locale_effect,
+    current_locale
 )
 from frontend.components.species.species_card import SpeciesCard
 from ...config import (
@@ -31,6 +33,10 @@ i18n.add_translation("species_gallery.messages.no_results", "No species found ma
 i18n.add_translation(
     "species_gallery.messages.initializing", "Initializing species data or an unexpected issue occurred.", locale="en"
 )
+i18n.add_translation("species.status.high", "Vector Status: High", locale="en")
+i18n.add_translation("species.status.medium", "Vector Status: Medium", locale="en")
+i18n.add_translation("species.status.low", "Vector Status: Low", locale="en")
+i18n.add_translation("species.status.unknown", "Vector Status: Unknown", locale="en")
 
 i18n.add_translation("species_gallery.title", "База данных эпидемиологически опасных видов комаров", locale="ru")
 i18n.add_translation("species_gallery.search.placeholder", "Поиск по названию...", locale="ru")
@@ -38,21 +44,25 @@ i18n.add_translation("species_gallery.search.button", "Поиск", locale="ru")
 i18n.add_translation("species_gallery.error.load", "Ошибка загрузки видов: %{error}", locale="ru")
 i18n.add_translation("species_gallery.messages.no_results", "Виды по вашему запросу не найдены.", locale="ru")
 i18n.add_translation("species_gallery.messages.initializing", "Инициализация данных или непредвиденная ошибка.", locale="ru")
-
+i18n.add_translation("species.status.high", "Степень риска: Высокий", locale="ru")
+i18n.add_translation("species.status.medium", "Степень риска: Средний", locale="ru")
+i18n.add_translation("species.status.low", "Степень риска: Низкий", locale="ru")
+i18n.add_translation("species.status.unknown", "Степень риска: Неизвестно", locale="ru")
 
 @solara.component
 def SpeciesGalleryPageComponent():
     theme = load_themes(solara.lab.theme)
     heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
-
+    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     search_query, set_search_query = solara.use_state("")
-    current_locale = i18n.get("locale")
+    # current_locale = i18n.get("locale")
+    use_locale_effect()
 
     def _load_species_list_data_effect() -> Optional[Callable[[], None]]:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
         async def _async_load_task():
-            params = {"lang": current_locale}
+            params = {"lang": current_locale.value}
             if search_query:
                 params["search"] = search_query
 
@@ -87,7 +97,7 @@ def SpeciesGalleryPageComponent():
 
         return cleanup
 
-    solara.use_effect(_load_species_list_data_effect, [search_query, current_locale])
+    solara.use_effect(_load_species_list_data_effect, [search_query, current_locale.value])
 
     displayed_species = species_list_data_reactive.value
 

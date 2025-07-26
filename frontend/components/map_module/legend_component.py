@@ -7,6 +7,7 @@ from frontend.state import (
     selected_species_reactive,
     observations_data_reactive,
     all_available_species_reactive,
+    use_locale_effect
 )
 from frontend.config import (
     SPECIES_COLORS,
@@ -20,7 +21,7 @@ from frontend.config import (
 @solara.component
 def LegendDisplay():
     has_content = False
-
+    use_locale_effect()
     active_species_in_data: List[str] = []
     all_species_colors = SPECIES_COLORS
 

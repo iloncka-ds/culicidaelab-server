@@ -1,7 +1,7 @@
 import solara
 import i18n
 from typing import Optional, Callable
-
+from ...state import current_locale
 LOCALES = {
     "en": "English",
     "ru": "Русский",
@@ -9,9 +9,6 @@ LOCALES = {
 
 i18n.add_translation("common.locale_selector.tooltip", "Change language", locale="en")
 i18n.add_translation("common.locale_selector.tooltip", "Изменить язык", locale="ru")
-
-def get_current_locale() -> str:
-    return i18n.get("locale")
 
 
 def set_locale(locale: str):
@@ -25,13 +22,15 @@ def LocaleSelector(on_change: Optional[Callable[[], None]] = None):
     Args:
         on_change: A callback function that is called when the locale changes.
     """
-    current_locale, set_current_locale = solara.use_state(get_current_locale())
+
 
     def handle_locale_change(new_locale: str):
         # First, update the i18n library
-        set_locale(new_locale)
+
         # Second, update the component's own state
-        set_current_locale(new_locale)
+        current_locale.set(new_locale)
+        set_locale(new_locale)
+
         # Finally, trigger the parent's callback to force a re-render
         if on_change:
             on_change()

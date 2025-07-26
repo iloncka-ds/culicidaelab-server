@@ -15,6 +15,8 @@ from frontend.state import (
     fetch_filter_options,
     observations_data_reactive,
     show_observed_data_reactive,
+    use_locale_effect,
+    current_locale
 )
 from frontend.config import FONT_BODY, COLOR_TEXT, COLOR_BUTTON_PRIMARY_BG, OBSERVATIONS_ENDPOINT
 
@@ -43,9 +45,9 @@ def FilterControls():
     initial_start_dt, initial_end_dt = selected_date_range_reactive.value
     start_date, set_start_date = solara.use_state(initial_start_dt)
     end_date, set_end_date = solara.use_state(initial_end_dt)
-    solara.lab.use_task(fetch_filter_options, dependencies=[i18n.get("locale")])
+    solara.lab.use_task(fetch_filter_options, dependencies=[current_locale.value])
     apply_filters_task_ref = solara.use_ref(None)
-
+    use_locale_effect()
     async def handle_apply_filters_click():
         if apply_filters_task_ref.current and not apply_filters_task_ref.current.done():
             apply_filters_task_ref.current.cancel()

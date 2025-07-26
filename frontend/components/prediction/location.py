@@ -1,6 +1,7 @@
 import solara
 import ipyleaflet as L
 from typing import Optional, cast
+from ...state import use_locale_effect
 import i18n
 
 @solara.component
@@ -17,6 +18,7 @@ def LocationComponent(
     A map component for selecting or displaying a latitude and longitude.
     Updates parent state via `set_latitude` and `set_longitude`.
     """
+    use_locale_effect()
     marker_object, set_marker_object = solara.use_state(cast(Optional[L.Marker], None))
 
 

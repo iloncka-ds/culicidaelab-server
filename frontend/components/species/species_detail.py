@@ -6,7 +6,7 @@ import asyncio
 from ...config import SPECIES_DETAIL_ENDPOINT_TEMPLATE, DISEASE_DETAIL_ENDPOINT_TEMPLATE, load_themes
 from ...state import fetch_api_data
 from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT
-from ...state import selected_species_item_id
+from ...state import selected_species_item_id, use_locale_effect, current_locale
 from frontend.components.diseases.disease_card import DiseaseCard
 import i18n
 
@@ -27,14 +27,21 @@ i18n.add_translation(
     locale="en"
 )
 i18n.add_translation(
-    "species.messages.disease_unavailable", "Information on related diseases is currently unavailable.", locale="en"
+    "species.messages.disease_unavailable",
+    "Information on related diseases is currently unavailable.", locale="en"
 )
+
+i18n.add_translation("species.status.high", "Vector Status: High", locale="en")
+i18n.add_translation("species.status.medium", "Vector Status: Medium", locale="en")
+i18n.add_translation("species.status.low", "Vector Status: Low", locale="en")
+i18n.add_translation("species.status.unknown", "Vector Status: Unknown", locale="en")
+
 
 i18n.add_translation("species.gallery_link", "К списку видов", locale="ru")
 i18n.add_translation("species.error.load", "Ошибка загрузки данных: %{error}", locale="ru")
 i18n.add_translation("species.error.no_id", "Идентификатор вида не указан.", locale="ru")
 i18n.add_translation("species.error.not_found", 'Данные для вида "%{species_id}" не найдены.', locale="ru")
-i18n.add_translation("species.labels.vector_status", "Статус переносчика: %{status}", locale="ru")
+i18n.add_translation("species.labels.vector_status", "Статус переносчика", locale="ru")
 i18n.add_translation("species.sections.description", "Описание", locale="ru")
 i18n.add_translation("species.sections.characteristics", "Ключевые характеристики", locale="ru")
 i18n.add_translation("species.sections.distribution", "Географическое распространение", locale="ru")
@@ -44,21 +51,26 @@ i18n.add_translation("species.messages.no_diseases", "Связанные заб�
 i18n.add_translation("species.messages.disease_load_error", "Ошибка загрузки связанных заболеваний.", locale="ru")
 i18n.add_translation("species.messages.disease_unavailable", "Информация о заболеваниях недоступна.", locale="ru")
 
+i18n.add_translation("species.status.high", "Степень риска: Высокий", locale="ru")
+i18n.add_translation("species.status.medium", "Степень риска: Средний", locale="ru")
+i18n.add_translation("species.status.low", "Степень риска: Низкий", locale="ru")
+i18n.add_translation("species.status.unknown", "Степень риска: Неизвестно", locale="ru")
 
 @solara.component
 def SpeciesDetailPageComponent():
     theme = load_themes(solara.lab.theme)
     heading_style = f"font-size: 1.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     species_id = selected_species_item_id.value
     router = solara.use_router()
-
+    use_locale_effect()
     species_data, set_species_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
     loading, set_loading = solara.use_state(False)
     error, set_error = solara.use_state(cast(Optional[str], None))
     related_diseases_data, set_related_diseases_data = solara.use_state(cast(List[Dict[str, Any]], []))
     diseases_loading, set_diseases_loading = solara.use_state(False)
     diseases_error, set_diseases_error = solara.use_state(cast(Optional[str], None))
-    current_locale = i18n.get("locale")
+    # current_locale = i18n.get("locale")
 
     print(f"DEBUG: SPECIES_DETAIL.PY - Initializing for species_id: '{species_id}'")
 
@@ -89,7 +101,7 @@ def SpeciesDetailPageComponent():
 
             try:
                 url = SPECIES_DETAIL_ENDPOINT_TEMPLATE.format(species_id=species_id)
-                params = {"lang": current_locale}
+                params = {"lang": current_locale.value}
                 print(f"DEBUG: SPECIES_DETAIL.PY Effect: Fetching URL: {url} with params {params}")
                 data = await fetch_api_data(url, params=params)
 
@@ -124,7 +136,7 @@ def SpeciesDetailPageComponent():
                                 raise asyncio.CancelledError
 
                             disease_url = DISEASE_DETAIL_ENDPOINT_TEMPLATE.format(disease_id=disease_id_to_fetch)
-                            disease_params = {"lang": current_locale}
+                            disease_params = {"lang": current_locale.value}
                             print(
                                 f"DEBUG: SPECIES_DETAIL.PY: Fetching related disease from URL: {disease_url} with params {disease_params}"
                             )
@@ -178,9 +190,9 @@ def SpeciesDetailPageComponent():
 
         return cleanup
 
-    solara.use_effect(_fetch_species_detail_effect, [species_id, current_locale])
+    solara.use_effect(_fetch_species_detail_effect, [species_id, current_locale.value])
 
-    with solara.Column(align="center", classes=["pa-4"], style="max-width: 900px; margin: auto;"):
+    with solara.Column(align="center", classes=["pa-4"], style=page_style):
         solara.Button(
             i18n.t("species.gallery_link"),
             icon_name="mdi-arrow-left",
@@ -220,58 +232,54 @@ def SpeciesDetailPageComponent():
                 )
             rv.Divider(style_="margin: 15px 0;")
 
-            with solara.Row(style="margin-top:20px; gap: 20px;", justify="center"):
-                with solara.Column(align="center"):
-                    if _species_data.get("image_url"):
-                        rv.Img(
-                            src=_species_data["image_url"],
-                            width="100%",
-                            max_width="350px",
-                            style_="border-radius: 8px; object-fit:cover; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
-                        )
-                    else:
-                        rv.Icon(
-                            children=["mdi-image-off"],
-                            size="200px",
-                            color="grey",
-                            style_="display:block; margin:auto; width:100%; max-height:300px; border: 1px dashed #ccc; border-radius: 8px; padding: 20px;",
-                        )
+            with solara.Column(style="align: center;margin-top:20px; text-align: left;"):
 
-                    status_detail = str(_species_data.get("vector_status", "Unknown")).lower()
-
-                    status_color_detail, text_color_detail = "blue-grey", "white"
-                    if status_detail == "high":
-                        status_color_detail = "red"
-                    elif status_detail == "medium":
-                        status_color_detail = "orange"
-                    elif status_detail == "low":
-                        status_color_detail = "green"
-                    elif status_detail == "unknown":
-                        status_color_detail, text_color_detail = "grey", "black"
-                    rv.Chip(
-                        children=[
-                            i18n.t("species.labels.vector_status", status=_species_data.get("vector_status", "Unknown"))
-                        ],
-                        color=status_color_detail,
-                        text_color=text_color_detail,
-                        class_="mt-3 pa-2 elevation-1",
-                        style_="font-size: 1em;",
+                if _species_data.get("image_url"):
+                    rv.Img(
+                        src=_species_data["image_url"],
+                        width="100%",
+                        max_width="350px",
+                        style_="border-radius: 8px; object-fit:cover; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
                     )
 
-                with solara.Column():
-                    if desc := _species_data.get("description"):
-                        solara.Markdown(f"### {i18n.t('species.sections.description')}\n{desc}")
-                    else:
-                        solara.Text(i18n.t("species.messages.no_description"), style="font-style: italic; color: #777;")
 
-                    if chars := _species_data.get("key_characteristics"):
-                        solara.Markdown(f"### {i18n.t('species.sections.characteristics')}")
-                        with rv.List(dense=True, style_="padding-left:0; list-style-position: inside;"):
-                            for char_item in chars:
-                                rv.ListItem(children=[f"• {char_item}"], style_="padding-left:0; margin-bottom:2px;")
+                status_detail = str(_species_data.get("vector_status", "Unknown")).lower()
 
-                    if regions := _species_data.get("geographic_regions"):
-                        solara.Markdown(f"### {i18n.t('species.sections.distribution')}\n{', '.join(regions)}")
+                status_color_detail, text_color_detail = "blue-grey", "white"
+                if status_detail == "high":
+                    status_color_detail = "red"
+                elif status_detail == "medium":
+                    status_color_detail = "orange"
+                elif status_detail == "low":
+                    status_color_detail = "green"
+                elif status_detail == "unknown":
+                    status_color_detail, text_color_detail = "grey", "black"
+
+                translation_key = f"species.status.{status_detail}"
+                translated_status = i18n.t(translation_key)
+                rv.Chip(
+                    children=[
+                       translated_status
+                    ],
+                    color=status_color_detail,
+                    text_color=text_color_detail,
+                    class_="mt-3 pa-2 elevation-1",
+                    style_="font-size: 1em;",
+                )
+
+                if desc := _species_data.get("description"):
+                    solara.Markdown(f"### {i18n.t('species.sections.description')}\n{desc}")
+                else:
+                    solara.Text(i18n.t("species.messages.no_description"), style="font-style: italic; color: #777;")
+
+                if chars := _species_data.get("key_characteristics"):
+                    solara.Markdown(f"### {i18n.t('species.sections.characteristics')}")
+                    with rv.List(dense=True, style_="padding-left:0; list-style-position: inside;"):
+                        for char_item in chars:
+                            rv.ListItem(children=[f"• {char_item}"], style_="padding-left:0; margin-bottom:2px;")
+
+                if regions := _species_data.get("geographic_regions"):
+                    solara.Markdown(f"### {i18n.t('species.sections.distribution')}\n{', '.join(regions)}")
 
             solara.Markdown(
                 f"## {i18n.t('species.sections.diseases')}",
@@ -290,15 +298,7 @@ def SpeciesDetailPageComponent():
                     icon="mdi-alert-outline",
                 )
             elif related_diseases_data:
-                with solara.ColumnsResponsive(
-                    default=[12, 6, 4],
-                    small=[12],
-                    medium=[6, 6],
-                    large=[4, 4, 4],
-                    xlarge=[3, 3, 3, 3],
-                    gutters="16px",
-                    classes=["pa-2", "mt-2"],
-                ):
+                with solara.Row(justify="center", style="flex-wrap: wrap; gap: 16px;"):
                     for disease_item in related_diseases_data:
                         DiseaseCard(disease_item)
             else:

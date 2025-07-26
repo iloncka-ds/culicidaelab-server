@@ -16,7 +16,8 @@ from frontend.state import (
     current_map_zoom_reactive,
     observations_data_reactive,
     observations_loading_reactive,  # Renamed to match filter_panel.py's variable
-    selected_date_range_reactive,  # Added for date filtering
+    selected_date_range_reactive,
+    use_locale_effect
 )
 from frontend.config import (
     DEFAULT_MAP_CENTER,
@@ -176,7 +177,7 @@ class LeafletMapManager:
 def MapDisplay():
     # Get the list of species, defaulting to an empty list if not yet available.
     all_species = all_available_species_reactive.value or []
-
+    use_locale_effect()
     map_manager = solara.use_memo(
         lambda: LeafletMapManager(species_color_map=SPECIES_COLORS),
         dependencies=[tuple(all_species)],  # Depend on an immutable tuple of species

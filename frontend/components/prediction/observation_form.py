@@ -3,7 +3,7 @@ import asyncio
 from datetime import datetime
 import solara
 from ...config import FONT_HEADINGS
-from ...state import current_user_id
+from ...state import current_user_id, use_locale_effect
 import i18n
 
 from .observation_service import submit_observation_data
@@ -21,6 +21,7 @@ def ObservationFormComponent(
     """
     Form for submitting observation details along with a prediction.
     """
+    use_locale_effect()
     obs_date_str, set_obs_date_str = solara.use_state(datetime.now().date().strftime("%Y-%m-%d"))
     obs_count, set_obs_count = solara.use_state(1)
     obs_notes, set_obs_notes = solara.use_state("")
