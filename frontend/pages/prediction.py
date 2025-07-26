@@ -15,20 +15,17 @@ from frontend.state import use_persistent_user_id, current_user_id
 import i18n
 from pathlib import Path
 
-i18n.add_translation("prediction.messages.error.submission", "Failed to submit observation: {error}. Please try again later.", locale="en")
-i18n.add_translation("prediction.messages.error.submission", "Не удалось отправить наблюдение: {error}. Пожалуйста, попробуйте позже.", locale="ru")
 
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
     i18n.set("fallback", "en")
 
 
-
 @solara.component
 def Page():
     theme = load_themes(solara.lab.theme)
     heading_style = f"font-size: 1.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
-
+    sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555;"
     # Ensure user ID is initialized
 
     use_persistent_user_id()
@@ -233,35 +230,41 @@ def Page():
                 style="font-size:1.2em; margin-bottom:20px;",
             )
 
-            if file_data_state:
-                solara.Markdown(i18n.t("prediction.labels.uploaded_image"), style=heading_style)
-                try:
-                    img_bytes = file_data_state
-                    b64_img = base64.b64encode(img_bytes).decode("utf-8")
-                    content_type = "image/jpeg"
-                    if file_name_state and file_name_state.lower().endswith(".png"):
-                        content_type = "image/png"
-                    elif file_name_state and file_name_state.lower().endswith(".gif"):
-                        content_type = "image/gif"
-
-                    solara.HTML(
-                        tag="img",
-                        unsafe_innerHTML="",
-                        attributes={
-                            "src": f"data:{content_type};base64,{b64_img}",
-                            "style": "max-width: 100%; max-height: 400px; \
-                                border: 1px solid #ccc; margin-top:10px; border-radius: 4px;",
-                        },
-                    )
-                except Exception as e:
-                    solara.Error(i18n.t("prediction.messages.error.image_display", error=str(e)))
-
             if prediction_result_state:
-                solara.Markdown(
-                    i18n.t("prediction.labels.prediction_details"),
-                    style=heading_style,
-                )
-                SpeciesCard(species=prediction_result_state)
+
+                with solara.ColumnsResponsive(default=[12], small=[6, 6], medium=[6, 6], large=[6, 6], gutters="20px"):
+                    # Column 1: Uploaded Image
+                    with solara.VBox():
+                        solara.Markdown(i18n.t("prediction.labels.uploaded_image"),
+                                        style=sub_heading_style)
+                        try:
+                            img_bytes = file_data_state
+                            b64_img = base64.b64encode(img_bytes).decode("utf-8")
+                            content_type = "image/jpeg"
+                            if file_name_state and file_name_state.lower().endswith(".png"):
+                                content_type = "image/png"
+                            elif file_name_state and file_name_state.lower().endswith(".gif"):
+                                content_type = "image/gif"
+
+                            solara.HTML(
+                                tag="img",
+                                unsafe_innerHTML="",
+                                attributes={
+                                    "src": f"data:{content_type};base64,{b64_img}",
+                                    "style": "width: 100%; height: 100%; object-fit: cover; "
+                                            "border: 1px solid #ccc; border-radius: 4px;",
+                                },
+                            )
+                        except Exception as e:
+                            solara.Error(i18n.t("prediction.messages.error.image_display", error=str(e)))
+
+                    # Column 2: Prediction Details
+                    with solara.VBox():
+                        solara.Markdown(
+                            i18n.t("prediction.labels.prediction_details"),
+                            style=sub_heading_style,
+                        )
+                        SpeciesCard(species=prediction_result_state)
             else:
                 solara.Warning(i18n.t("prediction.messages.warning.no_prediction_data"), style="margin-top:20px;")
 

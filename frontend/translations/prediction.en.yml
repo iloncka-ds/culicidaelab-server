@@ -11,16 +11,23 @@ en:
       title: "3. Record Observation Details"
   messages:
     success:
-      upload_predicted: "Image uploaded & predicted: %{result}"
-      observation_recorded: "Observation recorded!"
+      upload_predicted: "File uploaded and prediction successful: %{result}"
+      observation_recorded: "Your observation has been successfully recorded."
     info:
-      upload_first: "Upload an image first to enable the observation form."
-      waiting_prediction: "Waiting for prediction to complete before enabling form..."
+      awaiting_prediction: "File uploaded. Awaiting prediction results..."
+      upload_first: "Please upload an image first to see observation options."
+      waiting_prediction: "Prediction in progress, please wait..."
     warning:
-      no_prediction: "Prediction failed or no result. Cannot submit observation without a prediction."
-      no_prediction_data: "No prediction data available for this observation."
+      no_prediction: "Prediction has not been made or failed. Please check the file and try again."
+      no_prediction_data: "No prediction data is available to display."
     error:
-      generic: "Error: %{message}"
+      submission: "Failed to submit observation: %{error}. Please try again later."
+      generic: "An error occurred: %{message}"
+      empty_file: "No file was selected. Please choose a file to upload."
+      missing_data: "File data is missing. Please try uploading the file again."
+      missing_name: "File name is missing. The uploaded file must have a name."
+      processing: "An error occurred while processing the file: %{error}"
+      image_display: "Could not display the image. Error: %{error}"
   labels:
     uploaded_image: "### Uploaded Image"
     prediction_details: "### Prediction Details"
