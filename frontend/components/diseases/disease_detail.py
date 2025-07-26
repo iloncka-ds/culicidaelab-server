@@ -41,7 +41,7 @@ i18n.add_translation("disease.errors.vector_load", "Ошибка загрузк�
 @solara.component
 def DiseaseDetailPageComponent():
     theme = load_themes(solara.lab.theme)
-    heading_style = f"font-size: 1.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    heading_style = f"font-size: 2.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     disease_id = selected_disease_item_id.value
     disease_data, set_disease_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
     vectors_data, set_vectors_data = solara.use_state(cast(List[Dict[str, Any]], []))

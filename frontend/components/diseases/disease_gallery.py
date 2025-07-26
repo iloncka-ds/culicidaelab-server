@@ -31,7 +31,7 @@ i18n.add_translation("disease_gallery.messages.initializing", "Инициали�
 @solara.component
 def DiseaseGalleryPageComponent():
     theme = load_themes(solara.lab.theme)
-    heading_style = f"font-size: 1.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     search_query, set_search_query = solara.use_state("")
     current_locale = i18n.get("locale")
 
@@ -79,8 +79,8 @@ def DiseaseGalleryPageComponent():
     displayed_diseases = disease_list_data_reactive.value
 
     with solara.Column(style="padding-bottom: 20px; min-height: calc(100vh - 120px);"):
-        solara.Markdown(
-            f"{i18n.t('disease_gallery.title')}",
+        solara.Text(
+            i18n.t('disease_gallery.title'),
             style=heading_style,
         )
 

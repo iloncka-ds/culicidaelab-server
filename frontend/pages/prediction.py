@@ -24,7 +24,7 @@ def setup_i18n():
 @solara.component
 def Page():
     theme = load_themes(solara.lab.theme)
-    heading_style = f"font-size: 1.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555;"
     # Ensure user ID is initialized
 
@@ -134,7 +134,7 @@ def Page():
         print(f"[DEBUG] Page error message after update: {page_error_message}")
         print(f"[DEBUG] Page success message after update: {page_success_message}")
 
-    solara.Markdown(
+    solara.Text(
         i18n.t("prediction.page_title"),
         style=heading_style,
     )
