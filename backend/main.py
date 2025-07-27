@@ -1,10 +1,22 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import settings
 from backend.routers import filters, species, geo, diseases, prediction, observation
+from services.cache_service import load_all_region_translations
+from backend.services.database import get_db
 
-app = FastAPI(title=settings.APP_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    db_conn = get_db()
+    supported_languages = ["en", "ru"]
+    # The loaded dictionary is stored in the app's state
+    app.state.REGION_TRANSLATIONS = load_all_region_translations(db_conn, supported_languages)
+    yield
+
+
+app = FastAPI(title=settings.APP_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json", lifespan=lifespan)
 
 if settings.BACKEND_CORS_ORIGINS:
     app.add_middleware(
@@ -14,6 +26,7 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
 
 api_router_prefix = settings.API_V1_STR.replace("/api", "")
 

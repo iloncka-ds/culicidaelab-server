@@ -13,11 +13,25 @@ def _get_list_field_from_record(value: Any) -> List[str]:
     return []
 
 
-def _db_record_to_species_detail(record: dict, lang: str) -> SpeciesDetail:
+def _db_record_to_species_detail(
+    record: dict, lang: str, region_translations: Dict[str, Dict[str, str]]
+) -> SpeciesDetail:
     """
-    Converts a raw dictionary record from LanceDB to a SpeciesDetail Pydantic model.
+    Converts a raw dictionary record to a SpeciesDetail Pydantic model.
+    It uses a provided in-memory dictionary for region translations,
+    achieving decoupling through dependency injection.
+
+    Args:
+        record: The raw data dictionary for the species.
+        lang: The target language for translation.
+        region_translations: The pre-loaded cache of region translations.
     """
     fallback_lang = "en"
+    geographic_region_ids = _get_list_field_from_record(record.get("geographic_regions"))
+    lang_specific_translations = region_translations.get(lang, {})
+    translated_geographic_regions = [
+        lang_specific_translations.get(region_id, region_id) for region_id in geographic_region_ids
+    ]
     return SpeciesDetail(
         id=str(record.get("id", "")),
         scientific_name=record.get("scientific_name"),
@@ -32,8 +46,7 @@ def _db_record_to_species_detail(record: dict, lang: str) -> SpeciesDetail:
         habitat_preferences=_get_list_field_from_record(
             record.get(f"habitat_preferences_{lang}", record.get(f"habitat_preferences_{fallback_lang}"))
         ),
-        # Unchanged fields
-        geographic_regions=_get_list_field_from_record(record.get("geographic_regions")),
+        geographic_regions=translated_geographic_regions,
         related_diseases=_get_list_field_from_record(record.get("related_diseases")),
     )
 
@@ -80,13 +93,14 @@ def get_all_species(
         return []
 
 
-def get_species_by_id(db: lancedb.DBConnection, species_id: str, lang: str) -> Optional[SpeciesDetail]:
+def get_species_by_id(db: lancedb.DBConnection, species_id: str,
+                      lang: str, region_translations: Dict[str, Dict[str, str]]) -> Optional[SpeciesDetail]:
     """Gets detailed information for a single species by its ID."""
     try:
         tbl = get_table(db, "species")
         result = tbl.search().where(f"id = '{species_id}'").limit(1).to_list()
         if result:
-            return _db_record_to_species_detail(result[0], lang)
+            return _db_record_to_species_detail(result[0], lang, region_translations)
         return None
     except Exception as e:
         print(f"Error getting species by ID '{species_id}': {e}")
