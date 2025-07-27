@@ -30,7 +30,7 @@ def Home():
     theme = load_themes(solara.lab.theme)
     setup_i18n()
     use_locale_effect()
-
+    router = solara.use_router()
     # with solara.AppBar():
     #     solara.v.Spacer()
     #     LocaleSelector()
