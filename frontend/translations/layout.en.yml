@@ -1,6 +1,6 @@
 en:
   home: "Home"
-  predict: "Predict Species"
-  map: "Map Visualization"
-  species: "Species Database"
+  predict: "Predict"
+  map: "Map"
+  species: "Species"
   diseases: "Diseases"

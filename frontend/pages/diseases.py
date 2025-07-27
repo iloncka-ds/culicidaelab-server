@@ -30,12 +30,12 @@ def Page():
 
     setup_i18n()
 
-    with solara.AppBar():
-        solara.v.Spacer()
-        LocaleSelector() # on_change=force_rerender
+    # with solara.AppBar():
+    #     solara.v.Spacer()
+    #     LocaleSelector() # on_change=force_rerender
 
-    with solara.AppBarTitle():
-        solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
+    # with solara.AppBarTitle():
+    #     solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
     if selected_disease_item_id.value is None:
         DiseaseGalleryPageComponent()
     else:

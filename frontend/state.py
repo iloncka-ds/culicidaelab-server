@@ -47,7 +47,7 @@ async def fetch_api_data(
             return response.json()
     except httpx.ReadTimeout:
         msg = f"Timeout fetching data from {url}."
-        if error_reactive:
+        if error_reactive.value:
             error_reactive.value = msg
         print(msg)
         return None
@@ -59,13 +59,13 @@ async def fetch_api_data(
         except Exception:
             pass
         msg = f"HTTP error {e.response.status_code} from {url}. Detail: {detail}"
-        if error_reactive:
+        if error_reactive.value:
             error_reactive.value = msg
         print(msg)
         return None
     except Exception as e:
         msg = f"Failed to fetch data from {url}: {e}"
-        if error_reactive:
+        if error_reactive.value:
             error_reactive.value = msg
         print(msg)
         return None
@@ -174,7 +174,7 @@ def get_initial_locale() -> str:
     """Gets the initial locale, e.g., from browser settings or a default."""
     # Your logic to determine the default locale, e.g., 'en'
     # This function should NOT use any Solara hooks.
-    # i18n.load_path.append(str(Path(__file__).parent / "translations"))
+    i18n.load_path.append(str(Path(__file__).parent / "translations"))
     # print(str(Path(__file__).parent / "translations"))
     i18n.set("fallback", "en")
     i18n.set("locale", "ru")

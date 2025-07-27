@@ -23,7 +23,7 @@ def setup_i18n():
 # }
 
 @solara.component
-def Page():
+def Home():
     # _, set_rerender_trigger = solara.use_state(0)
     # def force_rerender():
     #     set_rerender_trigger(lambda x: x + 1)
@@ -31,26 +31,11 @@ def Page():
     setup_i18n()
     use_locale_effect()
 
-    route_current, routes_all = solara.use_route()
-
-    print(route_current, routes_all)
-    with solara.AppBar():
-        # for r in routes_all:
-        #     # We only show top-level routes in the AppBar
-        #     if r.path:  # Exclude routes that are just for structure
-        #         with solara.Link(r):
-        #             solara.Button(
-        #                 label=r.label,
-        #                 icon_name=route_icons.get(r.path),
-        #                 text=True,
-        #                 outlined=False,
-        #                 classes=["mx-2"],
-        #                 color="primary" if route_current and route_current.path == r.path else None,
-        #             )
-        solara.v.Spacer()
-        LocaleSelector()  # on_change=force_rerender
-    with solara.AppBarTitle():
-        solara.Text(i18n.t("home.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
+    # with solara.AppBar():
+    #     solara.v.Spacer()
+    #     LocaleSelector()
+    # with solara.AppBarTitle():
+    #     solara.Text(i18n.t("home.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
 
 
     page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
@@ -94,43 +79,43 @@ def Page():
         },
     ]
 
-    with solara.Column(style=page_style):
-        solara.Text(i18n.t("home.welcome"), style=heading_style)
-        solara.Markdown(
-            i18n.t("home.intro"),
-            style=sub_heading_style,
-        )
+    # with solara.Column(style=page_style):
+    solara.Text(i18n.t("home.welcome"), style=heading_style)
+    solara.Markdown(
+        i18n.t("home.intro"),
+        style=sub_heading_style,
+    )
 
-        with solara.ColumnsResponsive(
-            small=12,
-            medium=6,
-            large=6,
-            gutters=True,
-            style="margin-bottom: 2rem;",
-        ):
-            for item in card_data:
-                with solara.Column():
-                    with solara.Card(
-                        title=item["title"],
-                        elevation=4,
-                        style=card_style,
-                        margin=2,
-                    ):
-                        with solara.Column(style=card_content_style):
-                            rv.Icon(name=item["icon"], size="4rem", color="primary", style_=icon_style)
-                            solara.Markdown(item["description"], style="flex-grow: 1; margin-bottom: 1rem;")
+    with solara.ColumnsResponsive(
+        small=12,
+        medium=6,
+        large=6,
+        gutters=True,
+        style="margin-bottom: 2rem;",
+    ):
+        for item in card_data:
+            with solara.Column():
+                with solara.Card(
+                    title=item["title"],
+                    elevation=4,
+                    style=card_style,
+                    margin=2,
+                ):
+                    with solara.Column(style=card_content_style):
+                        rv.Icon(name=item["icon"], size="4rem", color="primary", style_=icon_style)
+                        solara.Markdown(item["description"], style="flex-grow: 1; margin-bottom: 1rem;")
 
-                        with rv.CardActions(style_="justify-content: center; padding-bottom: 16px;"):
-                            solara.Button(
-                                label=item["button_label"],
-                                on_click=lambda link=item["link"]: router.push(link),
-                                color="primary",
-                                outlined=True,
-                                class_="px-4",
-                            )
+                    with rv.CardActions(style_="justify-content: center; padding-bottom: 16px;"):
+                        solara.Button(
+                            label=item["button_label"],
+                            on_click=lambda link=item["link"]: router.push(link),
+                            color="primary",
+                            outlined=True,
+                            class_="px-4",
+                        )
 
-        rv.Spacer(height="2rem")
+    rv.Spacer(height="2rem")
 
-        with solara.Div(style=footer_style):
-            solara.Markdown(i18n.t("home.disclaimer"))
-            solara.Markdown(i18n.t("home.footer"))
+    with solara.Div(style=footer_style):
+        solara.Markdown(i18n.t("home.disclaimer"))
+        solara.Markdown(i18n.t("home.footer"))

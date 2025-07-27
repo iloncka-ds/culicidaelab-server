@@ -31,11 +31,11 @@ def Page():
 
     setup_i18n()
     use_locale_effect()
-    with solara.AppBar():
-        solara.v.Spacer()
-        LocaleSelector() # on_change=force_rerender
-    with solara.AppBarTitle():
-        solara.Text(i18n.t("map.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
+    # with solara.AppBar():
+    #     solara.v.Spacer()
+    #     LocaleSelector() # on_change=force_rerender
+    # with solara.AppBarTitle():
+    #     solara.Text(i18n.t("map.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
     theme = load_themes(solara.lab.theme)
 
     filters_panel_value, set_filters_panel_value = solara.use_state(cast(Optional[List[int]], [0]))

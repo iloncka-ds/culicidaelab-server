@@ -38,11 +38,11 @@ def Page():
     #     set_rerender_trigger(lambda x: x + 1)
 
     setup_i18n()
-    with solara.AppBar():
-        solara.v.Spacer()
-        LocaleSelector() # on_change=force_rerender
-    with solara.AppBarTitle():
-        solara.Text(i18n.t("prediction.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
+    # with solara.AppBar():
+    #     solara.v.Spacer()
+    #     LocaleSelector() # on_change=force_rerender
+    # with solara.AppBarTitle():
+    #     solara.Text(i18n.t("prediction.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
 
     view_mode, set_view_mode = solara.use_state("form")
     file_data_state, set_file_data_state = solara.use_state(cast(Optional[bytes], None))

@@ -117,7 +117,7 @@ def SpeciesGalleryPageComponent():
                     label=i18n.t("species_gallery.search.placeholder"),
                     value=search_query,
                     on_value=set_search_query,
-                    continuous_update=False,
+                    continuous_update=True,
                 )
                 solara.Button(
                     i18n.t("species_gallery.search.button"),

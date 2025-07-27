@@ -26,11 +26,11 @@ def Page():
 
     setup_i18n()
     use_locale_effect()
-    with solara.AppBar():
-        solara.v.Spacer()
-        LocaleSelector() # on_change=force_rerender
-    with solara.AppBarTitle():
-        solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
+    # with solara.AppBar():
+    #     solara.v.Spacer()
+    #     LocaleSelector() # on_change=force_rerender
+    # with solara.AppBarTitle():
+    #     solara.Text("CulicidaeLab", style="font-size: 2rem; font-weight: bold; color: white;")
     if selected_species_item_id.value is None:
         SpeciesGalleryPageComponent()
     else:
