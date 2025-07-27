@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import settings
 from backend.routers import filters, species, geo, diseases, prediction, observation
-from services.cache_service import (
+from backend.services.cache_service import (
     load_all_region_translations,
     load_all_data_source_translations,
     load_all_species_names,

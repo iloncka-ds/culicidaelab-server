@@ -1,11 +1,10 @@
 
 from typing import List, Dict
 from fastapi import APIRouter, Depends, Query
-import lancedb
-from backend.services import database
+
 from backend.services import filter_service
 from backend.schemas.filter_schemas import FilterOptions
-from dependencies import get_species_cache, get_region_cache, get_data_source_cache
+from backend.dependencies import get_species_cache, get_region_cache, get_data_source_cache
 
 router = APIRouter()
 
