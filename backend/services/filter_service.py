@@ -1,47 +1,38 @@
-import lancedb
-from backend.services.database import get_table
+from typing import Dict, List
 from backend.schemas.filter_schemas import FilterOptions, RegionFilter, DataSourceFilter
 
 
-def get_filter_options(db: lancedb.DBConnection, lang: str) -> FilterOptions:
-    """Gets translated filter options (species, regions, data sources)."""
-    fallback_lang = "en"
+def get_filter_options(lang: str,
+                       species_names: List[str],
+                       region_translations: Dict[str, Dict[str, str]],
+                       data_source_translations: Dict[str, Dict[str, str]]) -> FilterOptions:
+    """
+    Constructs translated filter options from pre-loaded, cached data.
+    This function is completely stateless and performs no I/O.
 
-    species_names = []
-    regions = []
-    data_sources = []
+    Args:
+        lang: The target language code.
+        species_names: The cached list of all species scientific names.
+        region_translations: The cached dictionary of all region translations.
+        data_source_translations: The cached dictionary of all data source translations.
+    """
+    lang_specific_regions = region_translations.get(lang, {})
+    regions = sorted(
+        [
+            RegionFilter(id=region_id, name=translated_name)
+            for region_id, translated_name in lang_specific_regions.items()
+        ],
+        key=lambda x: x.name,
+    )
 
-    try:
-        # 1. Get Species (scientific_name is not translated)
-        species_tbl = get_table(db, "species")
-        species_results = species_tbl.search().select(["scientific_name"]).to_list()
-        species_names = sorted([r["scientific_name"] for r in species_results if r.get("scientific_name")])
-
-        # 2. Get Translated Regions
-        regions_tbl = get_table(db, "regions")
-        regions_res = regions_tbl.search().select(["id", f"name_{lang}", f"name_{fallback_lang}"]).to_list()
-        regions = sorted(
-            [
-                RegionFilter(id=r["id"], name=r.get(f"name_{lang}") or r.get(f"name_{fallback_lang}", r["id"]))
-                for r in regions_res
-                if r.get("id")
-            ],
-            key=lambda x: x.name,
-        )
-
-        # 3. Get Translated Data Sources
-        data_sources_tbl = get_table(db, "data_sources")
-        data_sources_res = data_sources_tbl.search().select(["id", f"name_{lang}", f"name_{fallback_lang}"]).to_list()
-        data_sources = sorted(
-            [
-                DataSourceFilter(id=r["id"], name=r.get(f"name_{lang}") or r.get(f"name_{fallback_lang}", r["id"]))
-                for r in data_sources_res
-                if r.get("id")
-            ],
-            key=lambda x: x.name,
-        )
-
-    except Exception as e:
-        print(f"Error getting filter options: {e}")
+    # 3. Process cached data sources for the requested language
+    lang_specific_data_sources = data_source_translations.get(lang, {})
+    data_sources = sorted(
+        [
+            DataSourceFilter(id=source_id, name=translated_name)
+            for source_id, translated_name in lang_specific_data_sources.items()
+        ],
+        key=lambda x: x.name,
+    )
 
     return FilterOptions(species=species_names, regions=regions, data_sources=data_sources)

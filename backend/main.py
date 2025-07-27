@@ -4,7 +4,11 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import settings
 from backend.routers import filters, species, geo, diseases, prediction, observation
-from services.cache_service import load_all_region_translations
+from services.cache_service import (
+    load_all_region_translations,
+    load_all_data_source_translations,
+    load_all_species_names,
+)
 from backend.services.database import get_db
 
 @asynccontextmanager
@@ -13,6 +17,8 @@ async def lifespan(app: FastAPI):
     supported_languages = ["en", "ru"]
     # The loaded dictionary is stored in the app's state
     app.state.REGION_TRANSLATIONS = load_all_region_translations(db_conn, supported_languages)
+    app.state.DATA_SOURCE_TRANSLATIONS = load_all_data_source_translations(db_conn, supported_languages)
+    app.state.SPECIES_NAMES = load_all_species_names(db_conn)
     yield
 
 
