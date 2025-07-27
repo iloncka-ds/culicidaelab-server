@@ -6,7 +6,7 @@ from backend.config import settings
 from backend.routers import filters, species, geo, diseases, prediction, observation
 from backend.services.cache_service import (
     load_all_region_translations,
-    load_all_data_source_translations,
+    load_all_datasource_translations,
     load_all_species_names,
 )
 from backend.services.database import get_db
@@ -17,8 +17,16 @@ async def lifespan(app: FastAPI):
     supported_languages = ["en", "ru"]
     # The loaded dictionary is stored in the app's state
     app.state.REGION_TRANSLATIONS = load_all_region_translations(db_conn, supported_languages)
-    app.state.DATA_SOURCE_TRANSLATIONS = load_all_data_source_translations(db_conn, supported_languages)
+    app.state.DATASOURCE_TRANSLATIONS = load_all_datasource_translations(db_conn, supported_languages)
     app.state.SPECIES_NAMES = load_all_species_names(db_conn)
+    print("\n" + "=" * 20 + " DEBUGGING APP STATE " + "=" * 20)
+    print(f"Has REGION_TRANSLATIONS: {hasattr(app.state, 'REGION_TRANSLATIONS')}")
+    print(f"Has DATASOURCE_TRANSLATIONS: {hasattr(app.state, 'DATASOURCE_TRANSLATIONS')}")
+    print(f"Has SPECIES_NAMES: {hasattr(app.state, 'SPECIES_NAMES')}")
+    print("=" * 60 + "\n")
+
+
+    print("Application startup: All caches initialized.")
     yield
 
 

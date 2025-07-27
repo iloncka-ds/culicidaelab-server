@@ -37,7 +37,7 @@ def load_all_region_translations(db: object, supported_langs: List[str]) -> Dict
     print("✅ Region translations loaded successfully.")
     return translations
 
-def load_all_data_source_translations(db: object, supported_langs: List[str]) -> Dict[str, Dict[str, str]]:
+def load_all_datasource_translations(db: object, supported_langs: List[str]) -> Dict[str, Dict[str, str]]:
     """
     Loads all data source translations from the database for all supported languages.
     """
