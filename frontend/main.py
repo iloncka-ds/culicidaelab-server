@@ -95,20 +95,20 @@ def Layout(children: List[solara.Element]):
                 for route in routes_all:
                     with solara.Link(route):
                         solara.Button(
-                            route.label, style=active_btn_style if route_current == route else inactive_btn_style
+                            i18n.t(route.label), style=active_btn_style if route_current == route else inactive_btn_style
                         )
             solara.v.Spacer()
             LocaleSelector()
         solara.Column(style=page_style, children=children)
 
 routes = [
-    solara.Route("/", component=home.Home, label=i18n.t("layout.home"), layout=Layout),
-    solara.Route("predict", component=prediction.Page, label=i18n.t("layout.predict")),
-    solara.Route("map", component=map_visualization.Page, label=i18n.t("layout.map")),
+    solara.Route("/", component=home.Home, label="layout.home", layout=Layout),
+    solara.Route("predict", component=prediction.Page, label="layout.predict"),
+    solara.Route("map", component=map_visualization.Page, label="layout.map"),
     solara.Route(
         "species",
         component=species.Page,
-        label=i18n.t("layout.species"),
+        label="layout.species",
         children=[
             solara.Route(
                 path=":species_id",
@@ -119,7 +119,7 @@ routes = [
     solara.Route(
         "diseases",
         component=diseases.Page,
-        label=i18n.t("layout.diseases"),
+        label="layout.diseases",
         children=[
             solara.Route(
                 path=":disease_id",
