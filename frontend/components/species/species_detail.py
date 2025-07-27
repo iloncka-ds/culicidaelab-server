@@ -56,6 +56,7 @@ i18n.add_translation("species.status.medium", "Степень риска: Сре
 i18n.add_translation("species.status.low", "Степень риска: Низкий", locale="ru")
 i18n.add_translation("species.status.unknown", "Степень риска: Неизвестно", locale="ru")
 
+
 @solara.component
 def SpeciesDetailPageComponent():
     theme = load_themes(solara.lab.theme)

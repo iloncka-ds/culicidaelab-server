@@ -21,10 +21,11 @@ from frontend.state import (
 
 logging.basicConfig(level=logging.INFO)
 
+
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent / "translations"))
-    i18n.set("locale", "ru")
-    i18n.set("fallback", "en")
+    # i18n.set("locale", "ru")
+    # i18n.set("fallback", "en")
     i18n.set("skip_locale_root_data", True)
     i18n.set("filename_format", "{namespace}.{locale}.{format}")
 
@@ -71,12 +72,14 @@ def AppInitializer():
 def Layout(children: List[solara.Element]):
     AppInitializer()
     use_persistent_user_id()
+    use_locale_effect()
     # Fetch filter options whenever the language changes.
     solara.lab.use_task(fetch_filter_options, dependencies=[current_locale.value])
 
     return solara.AppLayout(
         title="CulicidaeLab",
-        children=children
+        children=children,
+        # navigation=False,
     )
 
 

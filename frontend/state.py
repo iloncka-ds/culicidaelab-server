@@ -6,7 +6,7 @@ import uuid
 from datetime import date, timedelta
 import i18n
 from .config import FILTER_OPTIONS_ENDPOINT
-
+from pathlib import Path
 current_user_id: solara.Reactive[Optional[str]] = solara.reactive(None)
 
 
@@ -35,10 +35,10 @@ async def fetch_api_data(
     loading_reactive: Optional[solara.Reactive[bool]] = None,
     error_reactive: Optional[solara.Reactive[Optional[str]]] = None,
 ) -> Optional[Any]:
-    if loading_reactive:
-        loading_reactive.value = True
-    if error_reactive:
-        error_reactive.value = None
+    # if loading_reactive:
+    #     loading_reactive.value = True
+    # if error_reactive:
+    #     error_reactive.value = None
     try:
         async with httpx.AsyncClient() as client:
             print(f"Fetching data from {url} with params {params if params else ''}")
@@ -174,13 +174,19 @@ def get_initial_locale() -> str:
     """Gets the initial locale, e.g., from browser settings or a default."""
     # Your logic to determine the default locale, e.g., 'en'
     # This function should NOT use any Solara hooks.
+    # i18n.load_path.append(str(Path(__file__).parent / "translations"))
+    # print(str(Path(__file__).parent / "translations"))
     i18n.set("fallback", "en")
+    i18n.set("locale", "ru")
+    # i18n.set("skip_locale_root_data", True)
+    i18n.set("filename_format", "{namespace}.{locale}.{format}")
     return i18n.get("locale")
 
 # --- THIS IS THE FIX ---
 # Define current_locale as a reactive variable at the module level.
 # It is initialized once with the default locale.
 current_locale = solara.Reactive(get_initial_locale())
+
 
 # You can optionally create an effect to run when the locale changes.
 # This must be done inside a component, typically your main layout.

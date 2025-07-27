@@ -1,10 +1,11 @@
 import solara
 import i18n
 from typing import Optional, Callable
-from ...state import current_locale
+from ...state import current_locale, use_locale_effect
 LOCALES = {
-    "en": "English",
+
     "ru": "Русский",
+    "en": "English",
 }
 
 i18n.add_translation("common.locale_selector.tooltip", "Change language", locale="en")
@@ -23,7 +24,7 @@ def LocaleSelector(on_change: Optional[Callable[[], None]] = None):
         on_change: A callback function that is called when the locale changes.
     """
 
-
+    use_locale_effect()
     def handle_locale_change(new_locale: str):
         # First, update the i18n library
 
@@ -40,7 +41,7 @@ def LocaleSelector(on_change: Optional[Callable[[], None]] = None):
             solara.Text("🌐", style="font-size: 1.2rem; margin-right: 8px;")
             solara.Select(
                 label="",
-                value=current_locale,
+                value=current_locale.value,
                 values=list(LOCALES.keys()),
                 on_value=lambda new_locale: handle_locale_change(new_locale),
                 dense=True,

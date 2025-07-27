@@ -199,7 +199,7 @@ def MapDisplay():
         data = await fetch_geojson_data(OBSERVATIONS_ENDPOINT, params, observations_loading_reactive)
         observations_data_reactive.value = data if data is not None else None
 
-    solara.lab.use_task(
+    solara.lab.use_task( # noqa: SH101
         load_observations_data_task,
         dependencies=[
             selected_species_reactive.value,

@@ -11,20 +11,44 @@ import i18n
 
 def setup_i18n():
     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    i18n.set("fallback", "en")
+    # i18n.set("fallback", "ru")
 
+
+# route_icons = {
+#     "/": "mdi-home",
+#     "predict": "mdi-chart-bar",
+#     "map": "mdi-map",
+#     "species": "mdi-leaf",
+#     "diseases": "mdi-virus-outline",
+# }
 
 @solara.component
 def Page():
-    _, set_rerender_trigger = solara.use_state(0)
-    def force_rerender():
-        set_rerender_trigger(lambda x: x + 1)
+    # _, set_rerender_trigger = solara.use_state(0)
+    # def force_rerender():
+    #     set_rerender_trigger(lambda x: x + 1)
     theme = load_themes(solara.lab.theme)
     setup_i18n()
     use_locale_effect()
+
+    route_current, routes_all = solara.use_route()
+
+    print(route_current, routes_all)
     with solara.AppBar():
+        # for r in routes_all:
+        #     # We only show top-level routes in the AppBar
+        #     if r.path:  # Exclude routes that are just for structure
+        #         with solara.Link(r):
+        #             solara.Button(
+        #                 label=r.label,
+        #                 icon_name=route_icons.get(r.path),
+        #                 text=True,
+        #                 outlined=False,
+        #                 classes=["mx-2"],
+        #                 color="primary" if route_current and route_current.path == r.path else None,
+        #             )
         solara.v.Spacer()
-        LocaleSelector(on_change=force_rerender)
+        LocaleSelector()  # on_change=force_rerender
     with solara.AppBarTitle():
         solara.Text(i18n.t("home.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
 

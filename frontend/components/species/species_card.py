@@ -10,21 +10,29 @@ from ...config import (
 
 )
 
-from ...state import selected_species_item_id, current_locale
+from ...state import selected_species_item_id, current_locale, use_locale_effect
 import i18n
 
 i18n.add_translation("actions.view_details", "View Details", locale="en")
+i18n.add_translation("species.status.high", "Vector Status: High", locale="en")
+i18n.add_translation("species.status.medium", "Vector Status: Medium", locale="en")
+i18n.add_translation("species.status.low", "Vector Status: Low", locale="en")
+i18n.add_translation("species.status.unknown", "Vector Status: Unknown", locale="en")
 
 i18n.add_translation("actions.view_details", "Читать далее", locale="ru")
 
-i18n.set("locale", "ru")
-i18n.set("fallback", "en")
+i18n.add_translation("species.status.high", "Степень риска: Высокий", locale="ru")
+i18n.add_translation("species.status.medium", "Степень риска: Средний", locale="ru")
+i18n.add_translation("species.status.low", "Степень риска: Низкий", locale="ru")
+i18n.add_translation("species.status.unknown", "Степень риска: Неизвестно", locale="ru")
+# i18n.set("locale", "ru")
+# i18n.set("fallback", "en")
 
 
 @solara.component
 def SpeciesCard(species: Dict[str, Any]):
     router = solara.use_router()
-
+    use_locale_effect()
     def redirect_to_species(species_id):
         selected_species_item_id.set(species_id)
         router.push("species")
@@ -59,19 +67,26 @@ def SpeciesCard(species: Dict[str, Any]):
                     style="font-size: 0.9em; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
                 )
 
-                status = str(species.get("vector_status", "Unknown")).lower()
-                status_color, text_c = "grey", "black"
-                if status == "high":
-                    status_color, text_c = "red", "white"
-                elif status == "medium":
-                    status_color, text_c = "orange", "white"
-                elif status == "low":
-                    status_color, text_c = "green", "white"
+
+                status_detail = str(species.get("vector_status", "Unknown")).lower()
+
+                status_color_detail, text_color_detail = "blue-grey", "white"
+                if status_detail == "high":
+                    status_color_detail = "red"
+                elif status_detail == "medium":
+                    status_color_detail = "orange"
+                elif status_detail == "low":
+                    status_color_detail = "green"
+                elif status_detail == "unknown":
+                    status_color_detail, text_color_detail = "grey", "black"
+
+                translation_key = f"species.status.{status_detail}"
+                translated_status = i18n.t(translation_key)
                 rv.Chip(
                     small=True,
-                    children=[f"Vector: {species.get('vector_status', 'Unknown')}"],
-                    color=status_color,
+                    children=[translated_status],
+                    color=status_color_detail,
                     class_="mt-1",
-                    text_color=text_c,
+                    text_color=text_color_detail,
                 )
                 solara.Button(i18n.t('actions.view_details'), on_click=lambda: redirect_to_species(species_id))
