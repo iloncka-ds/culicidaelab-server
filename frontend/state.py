@@ -35,10 +35,10 @@ async def fetch_api_data(
     loading_reactive: Optional[solara.Reactive[bool]] = None,
     error_reactive: Optional[solara.Reactive[Optional[str]]] = None,
 ) -> Optional[Any]:
-    # if loading_reactive:
-    #     loading_reactive.value = True
-    # if error_reactive:
-    #     error_reactive.value = None
+    if loading_reactive is not None:
+        loading_reactive.value = True
+    if error_reactive is not None:
+        error_reactive.value = None
     try:
         async with httpx.AsyncClient() as client:
             print(f"Fetching data from {url} with params {params if params else ''}")
@@ -47,7 +47,7 @@ async def fetch_api_data(
             return response.json()
     except httpx.ReadTimeout:
         msg = f"Timeout fetching data from {url}."
-        if error_reactive.value:
+        if error_reactive is not None:
             error_reactive.value = msg
         print(msg)
         return None
@@ -59,18 +59,18 @@ async def fetch_api_data(
         except Exception:
             pass
         msg = f"HTTP error {e.response.status_code} from {url}. Detail: {detail}"
-        if error_reactive.value:
+        if error_reactive is not None:
             error_reactive.value = msg
         print(msg)
         return None
     except Exception as e:
         msg = f"Failed to fetch data from {url}: {e}"
-        if error_reactive.value:
+        if error_reactive is not None:
             error_reactive.value = msg
         print(msg)
         return None
     finally:
-        if loading_reactive:
+        if loading_reactive is not None:
             loading_reactive.value = False
 
 
