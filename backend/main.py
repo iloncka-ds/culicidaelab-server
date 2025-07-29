@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from backend.config import settings
 from backend.routers import filters, species, geo, diseases, prediction, observation
@@ -41,6 +42,7 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_headers=["*"],
     )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 api_router_prefix = settings.API_V1_STR.replace("/api", "")
 

@@ -2,10 +2,20 @@ import solara
 
 from frontend.components.species.species_gallery import SpeciesGalleryPageComponent
 from frontend.components.species.species_detail import SpeciesDetailPageComponent
-
+from frontend.config import theme
 from ..state import selected_species_item_id
 from ..state import current_locale, use_locale_effect
 
+from ..config import (
+    load_themes,
+    page_style,
+    heading_style,
+    sub_heading_style,
+    card_style,
+    card_content_style,
+    icon_style,
+    footer_style,
+)
 from frontend.components.common.locale_selector import LocaleSelector
 import i18n
 from pathlib import Path
@@ -24,7 +34,7 @@ def Page():
     # def force_rerender():
     #     set_rerender_trigger(lambda x: x + 1)
 
-    setup_i18n()
+    # setup_i18n()
     use_locale_effect()
     # with solara.AppBar():
     #     solara.v.Spacer()

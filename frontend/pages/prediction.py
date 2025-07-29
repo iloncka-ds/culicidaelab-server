@@ -5,7 +5,16 @@ import base64
 from typing import Dict, Any, Optional, cast
 import asyncio
 
-from ..config import load_themes
+from ..config import (
+    load_themes,
+    page_style,
+    heading_style,
+    sub_heading_style,
+    card_style,
+    card_content_style,
+    icon_style,
+    footer_style,
+)
 from ..state import use_locale_effect
 from frontend.components.prediction.file_upload import FileUploadComponent, upload_and_predict
 from frontend.components.prediction.location import LocationComponent
@@ -13,21 +22,22 @@ from frontend.components.prediction.observation_form import ObservationFormCompo
 from frontend.components.species.species_card import SpeciesCard
 from frontend.components.common.locale_selector import LocaleSelector
 from frontend.state import use_persistent_user_id, current_user_id
+from frontend.config import theme
 import i18n
 from pathlib import Path
 
 
-def setup_i18n():
-    i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    i18n.set("fallback", "ru")
+# def setup_i18n():
+#     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
+#     i18n.set("fallback", "ru")
 
 
 @solara.component
 def Page():
-    theme = load_themes(solara.lab.theme)
-    heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
-    sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555;"
-    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
+    # theme = load_themes(solara.lab.theme)
+    # heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    # sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555;"
+    # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
 
     use_persistent_user_id()
     print(f"[DEBUG] Current user ID: {current_user_id.value}")
@@ -37,7 +47,7 @@ def Page():
     # def force_rerender():
     #     set_rerender_trigger(lambda x: x + 1)
 
-    setup_i18n()
+    # setup_i18n()
     # with solara.AppBar():
     #     solara.v.Spacer()
     #     LocaleSelector() # on_change=force_rerender
@@ -158,7 +168,7 @@ def Page():
             default=[12], large=[4, 4, 4], gutters_dense=True,
             style=page_style
         ):
-            with solara.Card(i18n.t("prediction.cards.upload.title"), margin=0, style="height: 100%;"):
+            with solara.Card(i18n.t("prediction.cards.upload.title"), margin=0, style=card_style):  # "height: 100%;"
                 FileUploadComponent(
                     on_file_selected=handle_file_selected_from_component,
                     upload_error_message=file_upload_specific_error,
@@ -184,7 +194,7 @@ def Page():
                         style="margin-top:10px;",
                     )
 
-            with solara.Card(i18n.t("prediction.cards.location.title"), margin=0, style="height: 100%;"):
+            with solara.Card(i18n.t("prediction.cards.location.title"), margin=0, style=card_style):
                 LocationComponent(
                     latitude=latitude_state,
                     set_latitude=set_latitude_state,
@@ -195,7 +205,7 @@ def Page():
                     initial_zoom=1,
                 )
 
-            with solara.Card(i18n.t("prediction.cards.observation.title"), margin=0, style="height: 100%;"):
+            with solara.Card(i18n.t("prediction.cards.observation.title"), margin=0, style=card_style):
                 if not file_data_state:
                     solara.Info(
                         i18n.t("prediction.messages.info.upload_first"),

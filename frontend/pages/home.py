@@ -2,15 +2,15 @@ import solara
 import solara.routing
 from solara.alias import rv
 from pathlib import Path
-from ..config import load_themes
+from ..config import load_themes, page_style, heading_style, sub_heading_style, card_style, card_content_style, icon_style, footer_style
 from frontend.components.common.locale_selector import LocaleSelector
 from ..state import current_locale, use_locale_effect
-
+from frontend.config import theme
 import i18n
 
 
-def setup_i18n():
-    i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
+# def setup_i18n():
+#     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
     # i18n.set("fallback", "ru")
 
 
@@ -27,8 +27,8 @@ def Home():
     # _, set_rerender_trigger = solara.use_state(0)
     # def force_rerender():
     #     set_rerender_trigger(lambda x: x + 1)
-    theme = load_themes(solara.lab.theme)
-    setup_i18n()
+    # theme = load_themes(solara.lab.theme)
+    # setup_i18n()
     use_locale_effect()
     router = solara.use_router()
     # with solara.AppBar():
@@ -38,15 +38,7 @@ def Home():
     #     solara.Text(i18n.t("home.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
 
 
-    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
-    heading_style = f"font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
-    sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555;"
-    card_style = "display: flex; flex-direction: column; height: 100%;"
-    card_content_style = (
-        "padding: 16px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center;"
-    )
-    icon_style = "margin-bottom: 1rem;"
-    footer_style = "margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee; text-align: center; font-size: 0.9em; color: #666;"
+
 
     card_data = [
         {
@@ -81,6 +73,7 @@ def Home():
 
     # with solara.Column(style=page_style):
     solara.Text(i18n.t("home.welcome"), style=heading_style)
+    print(heading_style)
     solara.Markdown(
         i18n.t("home.intro"),
         style=sub_heading_style,
@@ -98,6 +91,7 @@ def Home():
                 with solara.Card(
                     title=item["title"],
                     elevation=4,
+                    # hover=True,
                     style=card_style,
                     margin=2,
                 ):
@@ -114,8 +108,8 @@ def Home():
                             class_="px-4",
                         )
 
-    rv.Spacer(height="2rem")
+    # rv.Spacer(height="2rem")
 
-    with solara.Div(style=footer_style):
-        solara.Markdown(i18n.t("home.disclaimer"))
-        solara.Markdown(i18n.t("home.footer"))
+    # with solara.Div(style=footer_style):
+    #     solara.Markdown(i18n.t("home.disclaimer"))
+    #     solara.Markdown(i18n.t("home.footer"))

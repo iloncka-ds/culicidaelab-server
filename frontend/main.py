@@ -1,5 +1,6 @@
 import solara
 import solara.lab
+from solara.alias import rv
 
 from typing import List
 
@@ -10,7 +11,20 @@ import frontend.pages.map_visualization as map_visualization
 import frontend.pages.species as species
 import frontend.pages.prediction as prediction
 import frontend.pages.diseases as diseases
-from frontend.config import load_themes
+from frontend.config import (
+    load_themes,
+    page_style,
+    heading_style,
+    sub_heading_style,
+    card_style,
+    card_content_style,
+    icon_style,
+    footer_style,
+    active_btn_style,
+    inactive_btn_style,
+    row_style,
+)
+
 from frontend.components.common.locale_selector import LocaleSelector
 
 import logging
@@ -43,29 +57,29 @@ def setup_i18n():
     i18n.set("skip_locale_root_data", True)
     i18n.set("filename_format", "{namespace}.{locale}.{format}")
 
-theme = load_themes(solara.lab.theme)
-active_btn_style = {
-    "box-shadow": "none",
-    "border-radius": "0px",
-    "background-color": f"{theme.themes.light.accent}",
-    "color": "white",
-}
-inactive_btn_style = {
-    "box-shadow": "none",
-    "border-radius": "0px",
-    "background-color": f"{theme.themes.light.primary}",
-    "color": "white",
-}
-row_style = {
-    "background-color": f"{theme.themes.light.primary}",
-    "color": f"{theme.themes.light.primary}",
-    "foreground-color": f"{theme.themes.light.primary}",
-    "margin-left": "16px",
-    "margin-right": "16px",
-    "gap": "0px",
-}
+# theme = load_themes(solara.lab.theme)
+# active_btn_style = {
+#     "box-shadow": "none",
+#     "border-radius": "0px",
+#     "background-color": f"{theme.themes.light.accent}",
+#     "color": "white",
+# }
+# inactive_btn_style = {
+#     "box-shadow": "none",
+#     "border-radius": "0px",
+#     "background-color": f"{theme.themes.light.primary}",
+#     "color": "white",
+# }
+# row_style = {
+#     "background-color": f"{theme.themes.light.primary}",
+#     "color": f"{theme.themes.light.primary}",
+#     "foreground-color": f"{theme.themes.light.primary}",
+#     "margin-left": "16px",
+#     "margin-right": "16px",
+#     "gap": "0px",
+# }
 
-page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
+# page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
 
 # @solara.component
 # def AppInitializer():
@@ -82,7 +96,7 @@ def Layout(children: List[solara.Element]):
     # setup_i18n()
     use_persistent_user_id()
     use_locale_effect()
-
+    theme = load_themes(solara.lab.theme)
     solara.lab.use_task(fetch_filter_options, dependencies=[current_locale.value])
     route_current, routes_all = solara.use_route()
     # with solara.Column():
@@ -99,7 +113,12 @@ def Layout(children: List[solara.Element]):
                         )
             solara.v.Spacer()
             LocaleSelector()
-        solara.Column(style=page_style, children=children)
+        with solara.Column(style=page_style, children=children):
+            rv.Spacer(height="2rem")
+
+            with solara.Div(style=footer_style):
+                solara.Markdown(i18n.t("home.disclaimer"))
+                solara.Markdown(i18n.t("home.footer"))
 
 routes = [
     solara.Route("/", component=home.Home, label="layout.home", layout=Layout),

@@ -21,7 +21,14 @@ from ...config import (
     SPECIES_LIST_ENDPOINT,
     SPECIES_DETAIL_ENDPOINT_TEMPLATE,
     API_BASE_URL,
-    load_themes
+    load_themes,
+    page_style,
+    heading_style,
+    sub_heading_style,
+    card_style,
+    card_content_style,
+    icon_style,
+    footer_style,
 )
 import i18n
 
@@ -52,8 +59,8 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 @solara.component
 def SpeciesGalleryPageComponent():
     theme = load_themes(solara.lab.theme)
-    heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
-    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
+    # heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     search_query, set_search_query = solara.use_state("")
     # current_locale = i18n.get("locale")
     use_locale_effect()

@@ -3,9 +3,24 @@ import solara.lab
 from solara.alias import rv
 from typing import List, Optional, cast, Dict, Any, Callable
 import asyncio
-from ...config import DISEASE_DETAIL_ENDPOINT_TEMPLATE, SPECIES_LIST_ENDPOINT, DISEASE_VECTORS_ENDPOINT_TEMPLATE
+
 from ...state import fetch_api_data, selected_disease_item_id, use_locale_effect, current_locale
-from ...config import COLOR_PRIMARY, FONT_HEADINGS, COLOR_TEXT, load_themes
+
+from ...config import (
+    COLOR_PRIMARY,
+    FONT_HEADINGS,
+    DISEASE_LIST_ENDPOINT,
+    DISEASE_DETAIL_ENDPOINT_TEMPLATE,
+    DISEASE_VECTORS_ENDPOINT_TEMPLATE,
+    load_themes,
+    page_style,
+    heading_style,
+    sub_heading_style,
+    card_style,
+    card_content_style,
+    icon_style,
+    footer_style,
+)
 from frontend.components.species.species_card import SpeciesCard
 import i18n
 
@@ -42,8 +57,8 @@ i18n.add_translation("disease.errors.vector_load", "Ошибка загрузк�
 def DiseaseDetailPageComponent():
     theme = load_themes(solara.lab.theme)
     use_locale_effect()
-    heading_style = f"font-size: 2.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
-    page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
+    # heading_style = f"font-size: 2.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
+    # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     disease_id = selected_disease_item_id.value
     disease_data, set_disease_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
     vectors_data, set_vectors_data = solara.use_state(cast(List[Dict[str, Any]], []))

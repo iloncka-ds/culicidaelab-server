@@ -3,7 +3,7 @@ import io
 from typing import Optional, Dict, Any, Tuple
 import aiohttp
 
-from ...config import FONT_BODY, COLOR_TEXT, API_BASE_URL
+from ...config import FONT_BODY, COLOR_TEXT, API_BASE_URL, sub_heading_style
 from ...state import use_locale_effect
 import i18n
 
@@ -65,9 +65,9 @@ def FileUploadComponent(
     Displays an optional `upload_error_message`.
     """
     use_locale_effect()
-    solara.Markdown(
+    solara.Text(
         i18n.t("prediction.file_upload.subtitle"),
-        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-bottom: 20px;",
+        style= f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-bottom: 20px;",
     )
 
     solara.FileDrop(

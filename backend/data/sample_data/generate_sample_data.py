@@ -2,60 +2,11 @@ import json
 import random
 from datetime import datetime, timedelta
 from uuid import uuid4
+from .species import species_list
+from .diseases import diseases_data_list
 
 # --- SPECIES DATA ---
-species_list = [
-    {
-        "id": "aedes_albopictus",
-        "scientific_name": "Aedes albopictus",
-        "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Aedes_albopictus_PCSL_00000090_00.jpg/640px-Aedes_albopictus_PCSL_00000090_00.jpg",
-        "common_name_en": "Asian Tiger Mosquito",
-        "common_name_ru": "Азиатский тигровый комар",
-        "description_en": "Known for its black and white striped legs and body. A significant vector for dengue, chikungunya, and Zika. Active during the day.",
-        "description_ru": "Известен своими черно-белыми полосатыми ногами и телом. Является значимым переносчиком денге, чикунгуньи и Зика. Активен в дневное время.",
-        "key_characteristics_en": [
-            "Distinct white stripe on dorsal thorax",
-            "Bites aggressively during the day",
-            "Black and white striped legs",
-        ],
-        "key_characteristics_ru": [
-            "Отчетливая белая полоса на спинной части груди",
-            "Агрессивно кусает днем",
-            "Черно-белые полосатые ноги",
-        ],
-        "habitat_preferences_en": ["Artificial containers", "Tree holes", "Urban and suburban areas"],
-        "habitat_preferences_ru": ["Искусственные контейнеры", "Дупла деревьев", "Городские и пригородные зоны"],
-        "geographic_regions": ["asia", "europe", "americas", "africa", "oceania"],
-        "related_diseases": ["dengue_fever", "chikungunya", "zika_virus"],
-        "related_diseases_info": [],
-    },
-    {
-        "id": "anopheles_gambiae",
-        "scientific_name": "Anopheles gambiae",
-        "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Anopheles_gambiae_NIAID.jpg/640px-Anopheles_gambiae_NIAID.jpg",
-        "common_name_en": "African Malaria Mosquito",
-        "common_name_ru": "Африканский малярийный комар",
-        "description_en": "One of the primary vectors of malaria in sub-Saharan Africa. Prefers to feed on humans and rest indoors.",
-        "description_ru": "Один из основных переносчиков малярии в странах Африки к югу от Сахары. Предпочитает питаться кровью людей и отдыхать в помещениях.",
-        "key_characteristics_en": [
-            "Palps as long as proboscis",
-            "Spotted wings (in some Anopheles)",
-            "Rests with abdomen pointing upwards",
-        ],
-        "key_characteristics_ru": [
-            "Щупики такой же длины, как и хоботок",
-            "Пятнистые крылья (у некоторых видов Anopheles)",
-            "В состоянии покоя брюшко направлено вверх",
-        ],
-        "habitat_preferences_en": ["Clean, shallow, sunlit water bodies", "Temporary pools", "Rice paddies"],
-        "habitat_preferences_ru": ["Чистые, мелководные, освещенные солнцем водоемы", "Временные лужи", "Рисовые поля"],
-        "geographic_regions": ["sub_saharan_africa"],
-        "related_diseases": ["malaria"],
-        "related_diseases_info": [],
-    },
-]
+
 with open("sample_species.json", "w", encoding="utf-8") as f:
     json.dump(species_list, f, indent=2, ensure_ascii=False)
 print("Generated sample_species.json")
@@ -88,42 +39,7 @@ print("Generated sample_data_sources.json")
 
 
 # --- DISEASES DATA ---
-diseases_data_list = [
-    {
-        "id": "dengue_fever",
-        "name_en": "Dengue Fever",
-        "name_ru": "Лихорадка денге",
-        "description_en": "Viral infection causing high fever, severe headache, and joint/muscle pain.",
-        "description_ru": "Вирусная инфекция, вызывающая высокую температуру, сильную головную боль и боли в суставах/мышцах.",
-        "symptoms_en": "High fever, severe headache, pain behind the eyes, joint and muscle pain, rash, mild bleeding",
-        "symptoms_ru": "Высокая температура, сильная головная боль, боль за глазами, боли в суставах и мышцах, сыпь, легкое кровотечение",
-        "treatment_en": "No specific treatment. Rest, fluids, pain relievers (avoiding aspirin). Severe cases require hospitalization.",
-        "treatment_ru": "Специфического лечения нет. Покой, обильное питье, обезболивающие (избегая аспирина). Тяжелые случаи требуют госпитализации.",
-        "prevention_en": "Avoid mosquito bites, eliminate breeding sites, use repellents, wear protective clothing",
-        "prevention_ru": "Избегать укусов комаров, уничтожать места их размножения, использовать репелленты, носить защитную одежду",
-        "prevalence_en": "Tropical and subtropical regions, affecting up to 400 million people annually",
-        "prevalence_ru": "Тропические и субтропические регионы, ежегодно поражает до 400 миллионов человек",
-        "image_url": "assets/images/dengue.jpg",
-        "vectors": ["aedes_aegypti", "aedes_albopictus"],
-    },
-    {
-        "id": "malaria",
-        "name_en": "Malaria",
-        "name_ru": "Малярия",
-        "description_en": "Parasitic infection causing cycles of fever, chills, and sweating.",
-        "description_ru": "Паразитарная инфекция, вызывающая циклы лихорадки, озноба и потоотделения.",
-        "symptoms_en": "Fever, chills, sweating, headache, nausea, vomiting, body aches, general malaise",
-        "symptoms_ru": "Лихорадка, озноб, потливость, головная боль, тошнота, рвота, ломота в теле, общее недомогание",
-        "treatment_en": "Antimalarial drugs based on the type of malaria and severity. Early treatment is essential.",
-        "treatment_ru": "Противомалярийные препараты в зависимости от типа малярии и тяжести заболевания. Крайне важно раннее лечение.",
-        "prevention_en": "Antimalarial medications, insecticide-treated bed nets, indoor residual spraying, eliminating breeding sites",
-        "prevention_ru": "Противомалярийные препараты, обработанные инсектицидами сетки для кроватей, опрыскивание помещений инсектицидами, уничтожение мест размножения",
-        "prevalence_en": "Tropical and subtropical regions, particularly in Africa, with over 200 million cases annually",
-        "prevalence_ru": "Тропические и субтропические регионы, особенно в Африке, с более чем 200 миллионами случаев в год",
-        "image_url": "assets/images/malaria.jpg",
-        "vectors": ["anopheles_gambiae"],
-    },
-]
+
 with open("sample_diseases.json", "w", encoding="utf-8") as f:
     json.dump(diseases_data_list, f, indent=2, ensure_ascii=False)
 print(f"Generated {'sample_diseases.json'}")
@@ -194,5 +110,3 @@ for _ in range(100):
 with open("sample_observations.geojson", "w") as f:
     json.dump({"type": "FeatureCollection", "features": observations_data}, f, indent=2)
 print("Generated sample_observations.geojson")
-
-
