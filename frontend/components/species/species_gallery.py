@@ -29,6 +29,7 @@ from ...config import (
     card_content_style,
     icon_style,
     footer_style,
+    gallery_search_div_style,
 )
 import i18n
 
@@ -58,12 +59,12 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 
 @solara.component
 def SpeciesGalleryPageComponent():
-    theme = load_themes(solara.lab.theme)
+    # theme = load_themes(solara.lab.theme)
     # heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     search_query, set_search_query = solara.use_state("")
     # current_locale = i18n.get("locale")
-    use_locale_effect()
+    # use_locale_effect()
 
     def _load_species_list_data_effect() -> Optional[Callable[[], None]]:
         task_ref = [cast(Optional[asyncio.Task], None)]
@@ -116,15 +117,15 @@ def SpeciesGalleryPageComponent():
         # Mobile-friendly search bar section
         with solara.Div(
             classes=["pa-2 ma-2 elevation-1"],
-            style=f"border-radius: 6px; background-color: white; position: sticky; top: 0px; z-index:10; margin-bottom:10px;",
+            style=gallery_search_div_style,
         ):
-            # Use ColumnsResponsive to stack on small screens and align on larger screens
+
             with solara.ColumnsResponsive(default=[12, "auto"], small=[8, 4], gutters="10px"):
                 solara.InputText(
                     label=i18n.t("species_gallery.search.placeholder"),
                     value=search_query,
                     on_value=set_search_query,
-                    continuous_update=True,
+                    continuous_update=False,
                 )
                 solara.Button(
                     i18n.t("species_gallery.search.button"),

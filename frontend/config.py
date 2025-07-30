@@ -157,3 +157,11 @@ row_style = {
     "margin-right": "16px",
     "gap": "0px",
 }
+gallery_search_div_style = {
+    "border-radius": "6px",
+    "background-color": "white",
+    "position": "sticky",
+    "top": "0px",
+    "z-index": "10",
+    "margin-bottom": "10px",
+}

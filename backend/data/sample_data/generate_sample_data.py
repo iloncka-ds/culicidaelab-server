@@ -2,8 +2,8 @@ import json
 import random
 from datetime import datetime, timedelta
 from uuid import uuid4
-from .species import species_list
-from .diseases import diseases_data_list
+from backend.data.sample_data.species import species_list
+from backend.data.sample_data.diseases import diseases_data_list
 
 # --- SPECIES DATA ---
 

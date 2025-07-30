@@ -3,7 +3,7 @@ species_list = [
         "id": "aedes_albopictus",
         "scientific_name": "Aedes albopictus",
         "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Aedes_albopictus_PCSL_00000090_00.jpg/640px-Aedes_albopictus_PCSL_00000090_00.jpg",
+        "image_url": "static\\images\\species\\aedes_albopictus",
         "common_name_en": "Asian Tiger Mosquito",
         "common_name_ru": "Азиатский тигровый комар",
         "description_en": "Known for its black and white striped legs and body. A significant vector for dengue, chikungunya, and Zika. Active during the day.",
@@ -11,24 +11,42 @@ species_list = [
         "key_characteristics_en": [
             "Distinct white stripe on dorsal thorax",
             "Bites aggressively during the day",
-            "Black and white striped legs",
+            "Black and white striped legs"
         ],
         "key_characteristics_ru": [
             "Отчетливая белая полоса на спинной части груди",
             "Агрессивно кусает днем",
-            "Черно-белые полосатые ноги",
+            "Черно-белые полосатые ноги"
         ],
-        "habitat_preferences_en": ["Artificial containers", "Tree holes", "Urban and suburban areas"],
-        "habitat_preferences_ru": ["Искусственные контейнеры", "Дупла деревьев", "Городские и пригородные зоны"],
-        "geographic_regions": ["asia", "europe", "americas", "africa", "oceania"],
-        "related_diseases": ["dengue_fever", "chikungunya", "zika_virus"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Artificial containers",
+            "Tree holes",
+            "Urban and suburban areas"
+        ],
+        "habitat_preferences_ru": [
+            "Искусственные контейнеры",
+            "Дупла деревьев",
+            "Городские и пригородные зоны"
+        ],
+        "geographic_regions": [
+            "asia",
+            "europe",
+            "americas",
+            "africa",
+            "oceania"
+        ],
+        "related_diseases": [
+            "dengue_fever",
+            "chikungunya",
+            "zika_virus"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "aedes_aegypti",
         "scientific_name": "Aedes aegypti",
         "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Aedes_aegypti_01.jpg/640px-Aedes_aegypti_01.jpg",
+        "image_url": "static\\images\\species\\aedes_aegypti",
         "common_name_en": "Yellow Fever Mosquito",
         "common_name_ru": "Комар желтой лихорадки",
         "description_en": "Primary vector for dengue fever, yellow fever, chikungunya, and Zika virus. Recognizable by white markings on legs and a lyre-shaped pattern on its thorax. Active mostly during the day.",
@@ -36,32 +54,43 @@ species_list = [
         "key_characteristics_en": [
             "Lyre-shaped marking on dorsal thorax",
             "White markings on legs",
-            "Bites aggressively during the day",
+            "Bites aggressively during the day"
         ],
         "key_characteristics_ru": [
             "Рисунок в форме лиры на спинной части груди",
             "Белые отметины на ногах",
-            "Агрессивно кусает днем",
+            "Агрессивно кусает днем"
         ],
         "habitat_preferences_en": [
             "Artificial containers",
             "Urban and suburban areas",
-            "Indoor and outdoor environments",
+            "Indoor and outdoor environments"
         ],
         "habitat_preferences_ru": [
             "Искусственные контейнеры",
             "Городские и пригородные зоны",
-            "Крытые и открытые пространства",
+            "Крытые и открытые пространства"
         ],
-        "geographic_regions": ["asia", "americas", "africa", "oceania"],
-        "related_diseases": ["dengue_fever", "yellow_fever", "chikungunya", "zika_virus", "filariasis"],
-        "related_diseases_info": [],
+        "geographic_regions": [
+            "asia",
+            "americas",
+            "africa",
+            "oceania"
+        ],
+        "related_diseases": [
+            "dengue_fever",
+            "yellow_fever",
+            "chikungunya",
+            "zika_virus",
+            "filariasis"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "aedes_canadensis",
         "scientific_name": "Aedes canadensis",
         "vector_status": "Moderate",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Aedes_canadensis_male_01.jpg/640px-Aedes_canadensis_male_01.jpg",
+        "image_url": "static\\images\\species\\aedes_canadensis",
         "common_name_en": "Canada Mosquito",
         "common_name_ru": "Канадский комар",
         "description_en": "A mosquito species found mainly in North America. Known to bite humans and animals. Can be a secondary vector for Eastern equine encephalitis virus.",
@@ -69,24 +98,36 @@ species_list = [
         "key_characteristics_en": [
             "Dark wings without distinct markings",
             "Prefers wooded habitats",
-            "Active at dusk and night",
+            "Active at dusk and night"
         ],
         "key_characteristics_ru": [
             "Темные крылья без отчетливых отметин",
             "Предпочитает лесные места обитания",
-            "Активен в сумерках и ночью",
+            "Активен в сумерках и ночью"
         ],
-        "habitat_preferences_en": ["Wooded areas", "Swamps", "Temporary pools"],
-        "habitat_preferences_ru": ["Лесные массивы", "Болота", "Временные водоемы"],
-        "geographic_regions": ["americas"],
-        "related_diseases": ["eastern_equine_encephalitis"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Wooded areas",
+            "Swamps",
+            "Temporary pools"
+        ],
+        "habitat_preferences_ru": [
+            "Лесные массивы",
+            "Болота",
+            "Временные водоемы"
+        ],
+        "geographic_regions": [
+            "americas"
+        ],
+        "related_diseases": [
+            "eastern_equine_encephalitis"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "aedes_dorsalis",
         "scientific_name": "Aedes dorsalis",
         "vector_status": "Moderate",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Aedes_dorsalis.jpg/640px-Aedes_dorsalis.jpg",
+        "image_url": "static\\images\\species\\aedes_dorsalis",
         "common_name_en": "Coastal Rock Pool Mosquito",
         "common_name_ru": "Береговой реликтовый комар",
         "description_en": "Common in coastal regions, breeds in brackish water pools. Known as a nuisance biter mostly active during twilight and dawn.",
@@ -94,24 +135,37 @@ species_list = [
         "key_characteristics_en": [
             "Prefers brackish water habitats",
             "Active at dawn and dusk",
-            "Small to medium size",
+            "Small to medium size"
         ],
         "key_characteristics_ru": [
             "Предпочитает обитать в солоноватых водоемах",
             "Активен на рассвете и в сумерках",
-            "Маленький или среднего размера",
+            "Маленький или среднего размера"
         ],
-        "habitat_preferences_en": ["Coastal rock pools", "Brackish water pools", "Salt marshes"],
-        "habitat_preferences_ru": ["Болота с солоноватой водой", "Прибрежные каменные лужи", "Соленые болота"],
-        "geographic_regions": ["americas", "europe"],
-        "related_diseases": ["california_encephalitis_virus"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Coastal rock pools",
+            "Brackish water pools",
+            "Salt marshes"
+        ],
+        "habitat_preferences_ru": [
+            "Болота с солоноватой водой",
+            "Прибрежные каменные лужи",
+            "Соленые болота"
+        ],
+        "geographic_regions": [
+            "americas",
+            "europe"
+        ],
+        "related_diseases": [
+            "california_encephalitis_virus"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "aedes_geniculatus",
         "scientific_name": "Aedes geniculatus",
         "vector_status": "Low",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Aedes_geniculatus_pupa_01.jpg/640px-Aedes_geniculatus_pupa_01.jpg",
+        "image_url": "static\\images\\species\\aedes_geniculatus",
         "common_name_en": "Treehole Mosquito",
         "common_name_ru": "Комар дупляр",
         "description_en": "Found commonly in Europe, breeds in tree holes and artificial containers. Not a major vector for human diseases but can be locally abundant.",
@@ -119,24 +173,37 @@ species_list = [
         "key_characteristics_en": [
             "Breeds in tree holes",
             "Dark body with white bands on legs",
-            "Prefers wooded habitats",
+            "Prefers wooded habitats"
         ],
         "key_characteristics_ru": [
             "Размножается в дуплах деревьев",
             "Темное тело с белыми полосами на ногах",
-            "Предпочитает лесные местообитания",
+            "Предпочитает лесные местообитания"
         ],
-        "habitat_preferences_en": ["Tree holes", "Artificial containers", "Wooded areas"],
-        "habitat_preferences_ru": ["Дупла деревьев", "Искусственные контейнеры", "Лесные массивы"],
-        "geographic_regions": ["europe"],
-        "related_diseases": ["yellow_fever", "chikungunya"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Tree holes",
+            "Artificial containers",
+            "Wooded areas"
+        ],
+        "habitat_preferences_ru": [
+            "Дупла деревьев",
+            "Искусственные контейнеры",
+            "Лесные массивы"
+        ],
+        "geographic_regions": [
+            "europe"
+        ],
+        "related_diseases": [
+            "yellow_fever",
+            "chikungunya"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "aedes_koreicus",
         "scientific_name": "Aedes koreicus",
         "vector_status": "Moderate",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Aedes_koreicus_mosquito_01.jpg/640px-Aedes_koreicus_mosquito_01.jpg",
+        "image_url": "static\\images\\species\\aedes_koreicus",
         "common_name_en": "Korean Bush Mosquito",
         "common_name_ru": "Корейский кустовой комар",
         "description_en": "Originally from East Asia, invasive in Europe. Potential vector for some arboviruses. Breeds in artificial and natural containers.",
@@ -144,45 +211,76 @@ species_list = [
         "key_characteristics_en": [
             "Black body with pale scales",
             "Larvae develop in artificial containers",
-            "Active during the day",
+            "Active during the day"
         ],
         "key_characteristics_ru": [
             "Черное тело с бледными чешуйками",
             "Личинки развиваются в искусственных контейнерах",
-            "Активен в дневное время",
+            "Активен в дневное время"
         ],
-        "habitat_preferences_en": ["Artificial containers", "Tree holes", "Urban and suburban areas"],
-        "habitat_preferences_ru": ["Искусственные контейнеры", "Дупла деревьев", "Городские и пригородные зоны"],
-        "geographic_regions": ["asia", "europe"],
-        "related_diseases": ["chikungunya", "zika_virus", "yellow_fever"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Artificial containers",
+            "Tree holes",
+            "Urban and suburban areas"
+        ],
+        "habitat_preferences_ru": [
+            "Искусственные контейнеры",
+            "Дупла деревьев",
+            "Городские и пригородные зоны"
+        ],
+        "geographic_regions": [
+            "asia",
+            "europe"
+        ],
+        "related_diseases": [
+            "chikungunya",
+            "zika_virus",
+            "yellow_fever"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "aedes_triseriatus",
         "scientific_name": "Aedes triseriatus",
         "vector_status": "Moderate",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Aedes_triseriatus_NIH.jpg/640px-Aedes_triseriatus_NIH.jpg",
+        "image_url": "static\\images\\species\\aedes_triseriatus",
         "common_name_en": "Eastern Treehole Mosquito",
         "common_name_ru": "Восточный дупляр",
         "description_en": "Native to North America, breeds in tree holes. Primary vector of La Crosse encephalitis virus. Bites during the day, especially in wooded areas.",
         "description_ru": "Родом из Северной Америки, размножается в дуплах деревьев. Основной переносчик вируса энцефалита Ла-Кросс. Кусает преимущественно днем, особенно в лесных районах.",
-        "key_characteristics_en": ["Breeds in tree holes", "Dark body with light bands on legs", "Daytime biter"],
+        "key_characteristics_en": [
+            "Breeds in tree holes",
+            "Dark body with light bands on legs",
+            "Daytime biter"
+        ],
         "key_characteristics_ru": [
             "Размножается в дуплах деревьев",
             "Темное тело со светлыми полосками на ногах",
-            "Кусает днем",
+            "Кусает днем"
         ],
-        "habitat_preferences_en": ["Tree holes", "Wooded areas", "Artificial containers"],
-        "habitat_preferences_ru": ["Дупла деревьев", "Лесные массивы", "Искусственные контейнеры"],
-        "geographic_regions": ["americas"],
-        "related_diseases": ["la_crosse_encephalitis"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Tree holes",
+            "Wooded areas",
+            "Artificial containers"
+        ],
+        "habitat_preferences_ru": [
+            "Дупла деревьев",
+            "Лесные массивы",
+            "Искусственные контейнеры"
+        ],
+        "geographic_regions": [
+            "americas"
+        ],
+        "related_diseases": [
+            "la_crosse_encephalitis"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "aedes_vexans",
         "scientific_name": "Aedes vexans",
         "vector_status": "Moderate",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Aedes_vexans_Talbalba.jpg/640px-Aedes_vexans_Talbalba.jpg",
+        "image_url": "static\\images\\species\\aedes_vexans",
         "common_name_en": "Inland Floodwater Mosquito",
         "common_name_ru": "Комар заливных луж",
         "description_en": "One of the most widespread mosquitoes worldwide. Breeds in temporary pools after rain. Can transmit several arboviruses such as West Nile virus.",
@@ -190,24 +288,40 @@ species_list = [
         "key_characteristics_en": [
             "White bands on tarsi",
             "Breeds in floodwaters and rain pools",
-            "Aggressive biter at dusk",
+            "Aggressive biter at dusk"
         ],
         "key_characteristics_ru": [
             "Белые полоски на лапках",
             "Размножается во временных лужах и заливных водоемах",
-            "Агрессивен в сумерках",
+            "Агрессивен в сумерках"
         ],
-        "habitat_preferences_en": ["Floodplains", "Temporary pools", "Wetlands"],
-        "habitat_preferences_ru": ["Поймы рек", "Временные водоемы", "Болотистые места"],
-        "geographic_regions": ["asia", "europe", "americas", "africa"],
-        "related_diseases": ["west_nile_virus", "rift_valley_fever"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Floodplains",
+            "Temporary pools",
+            "Wetlands"
+        ],
+        "habitat_preferences_ru": [
+            "Поймы рек",
+            "Временные водоемы",
+            "Болотистые места"
+        ],
+        "geographic_regions": [
+            "asia",
+            "europe",
+            "americas",
+            "africa"
+        ],
+        "related_diseases": [
+            "west_nile_virus",
+            "rift_valley_fever"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "anopheles_arabiensis",
         "scientific_name": "Anopheles arabiensis",
         "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Anopheles_arabiensis.png/640px-Anopheles_arabiensis.png",
+        "image_url": "static\\images\\species\\anopheles_arabiensis",
         "common_name_en": "Arabian Malaria Mosquito",
         "common_name_ru": "Арабский малярийный комар",
         "description_en": "Important malaria vector in Africa and the Middle East. Prefers sunlit temporary pools and bites both indoors and outdoors.",
@@ -215,62 +329,112 @@ species_list = [
         "key_characteristics_en": [
             "Long palps equal to proboscis",
             "Rest with abdomen raised",
-            "Prefers temporary water sources",
+            "Prefers temporary water sources"
         ],
         "key_characteristics_ru": [
             "Длинные щупики, как и хоботок",
             "В состоянии покоя брюшко поднято вверх",
-            "Предпочитает временные водоемы",
+            "Предпочитает временные водоемы"
         ],
-        "habitat_preferences_en": ["Temporary pools", "Irrigated fields", "Puddles"],
-        "habitat_preferences_ru": ["Временные лужи", "Орошаемые поля", "Лужи"],
-        "geographic_regions": ["africa", "sub_saharan_africa", "asia"],
-        "related_diseases": ["malaria"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Temporary pools",
+            "Irrigated fields",
+            "Puddles"
+        ],
+        "habitat_preferences_ru": [
+            "Временные лужи",
+            "Орошаемые поля",
+            "Лужи"
+        ],
+        "geographic_regions": [
+            "africa",
+            "sub_saharan_africa",
+            "asia"
+        ],
+        "related_diseases": [
+            "malaria"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "anopheles_freeborni",
         "scientific_name": "Anopheles freeborni",
         "vector_status": "Moderate",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Anopheles_freeborni_adult_female.jpg/640px-Anopheles_freeborni_adult_female.jpg",
+        "image_url": "static\\images\\species\\anopheles_freeborni",
         "common_name_en": "Western Malaria Mosquito",
         "common_name_ru": "Западный малярийный комар",
         "description_en": "Key malaria vector in the western United States. Prefers to breed in clean, sunlit, slow-moving water.",
         "description_ru": "Основной переносчик малярии на западе США. Предпочитает размножаться в чистых, солнечных, медленно текущих водоемах.",
-        "key_characteristics_en": ["Palps as long as proboscis", "Spotted wings", "Rest with abdomen elevated"],
+        "key_characteristics_en": [
+            "Palps as long as proboscis",
+            "Spotted wings",
+            "Rest with abdomen elevated"
+        ],
         "key_characteristics_ru": [
             "Щупики такой же длины, как и хоботок",
             "Пятнистые крылья",
-            "В состоянии покоя брюшко поднято вверх",
+            "В состоянии покоя брюшко поднято вверх"
         ],
-        "habitat_preferences_en": ["Slow-moving water", "Irrigation ditches", "Rice fields"],
-        "habitat_preferences_ru": ["Медленно текущие воды", "Ирригационные канавы", "Рисовые поля"],
-        "geographic_regions": ["americas"],
-        "related_diseases": ["malaria"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Slow-moving water",
+            "Irrigation ditches",
+            "Rice fields"
+        ],
+        "habitat_preferences_ru": [
+            "Медленно текущие воды",
+            "Ирригационные канавы",
+            "Рисовые поля"
+        ],
+        "geographic_regions": [
+            "americas"
+        ],
+        "related_diseases": [
+            "malaria"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "anopheles_sinensis",
         "scientific_name": "Anopheles sinensis",
         "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Anopheles_sinensis_Female.png/640px-Anopheles_sinensis_Female.png",
+        "image_url": "static\\images\\species\\anopheles_sinensis",
         "common_name_en": "Chinese Malaria Mosquito",
         "common_name_ru": "Китайский малярийный комар",
         "description_en": "Major malaria vector in East Asia. Breeds in rice paddies and slow-moving clean water.",
         "description_ru": "Главный переносчик малярии в Восточной Азии. Размножается на рисовых полях и в чистых медленных водоемах.",
-        "key_characteristics_en": ["Long palps like proboscis", "Spotted wings", "Prefers rice paddies"],
-        "key_characteristics_ru": ["Длинные щупики равны хоботку", "Крылья с пятнами", "Обитает на рисовых полях"],
-        "habitat_preferences_en": ["Rice paddies", "Slow-flowing rivers", "Lakes and marshes"],
-        "habitat_preferences_ru": ["Рисовые поля", "Медленно текущие реки", "Озера и болота"],
-        "geographic_regions": ["asia"],
-        "related_diseases": ["malaria"],
-        "related_diseases_info": [],
+        "key_characteristics_en": [
+            "Long palps like proboscis",
+            "Spotted wings",
+            "Prefers rice paddies"
+        ],
+        "key_characteristics_ru": [
+            "Длинные щупики равны хоботку",
+            "Крылья с пятнами",
+            "Обитает на рисовых полях"
+        ],
+        "habitat_preferences_en": [
+            "Rice paddies",
+            "Slow-flowing rivers",
+            "Lakes and marshes"
+        ],
+        "habitat_preferences_ru": [
+            "Рисовые поля",
+            "Медленно текущие реки",
+            "Озера и болота"
+        ],
+        "geographic_regions": [
+            "asia"
+        ],
+        "related_diseases": [
+            "malaria"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "culex_inatomii",
         "scientific_name": "Culex inatomii",
         "vector_status": "Low",
-        "image_url": "",
+        "image_url": "static\\images\\species\\culex_inatomii",
         "common_name_en": "Culex inatomii",
         "common_name_ru": "Culex inatomii",
         "description_en": "A lesser-known Culex species with limited documented vector status. Like other Culex mosquitoes, it likely breeds in stagnant water and may feed on birds or mammals.",
@@ -278,24 +442,36 @@ species_list = [
         "key_characteristics_en": [
             "Typical Culex morphology with slender body and long legs",
             "Breeds in stagnant water",
-            "Likely nocturnal feeder",
+            "Likely nocturnal feeder"
         ],
         "key_characteristics_ru": [
             "Типичная морфология Culex с изящным телом и длинными ногами",
             "Размножается в стоячей воде",
-            "Вероятно, питается ночью",
+            "Вероятно, питается ночью"
         ],
-        "habitat_preferences_en": ["Stagnant water bodies", "Marshes", "Artificial containers"],
-        "habitat_preferences_ru": ["Стоячие водоемы", "Болота", "Искусственные контейнеры"],
-        "geographic_regions": ["asia"],
-        "related_diseases": ["avian_malaria"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Stagnant water bodies",
+            "Marshes",
+            "Artificial containers"
+        ],
+        "habitat_preferences_ru": [
+            "Стоячие водоемы",
+            "Болота",
+            "Искусственные контейнеры"
+        ],
+        "geographic_regions": [
+            "asia"
+        ],
+        "related_diseases": [
+            "avian_malaria"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "culex_pipiens",
         "scientific_name": "Culex pipiens",
         "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Culex_pipiens_adult_male_01.jpg/640px-Culex_pipiens_adult_male_01.jpg",
+        "image_url": "static\\images\\species\\culex_pipiens",
         "common_name_en": "Common House Mosquito",
         "common_name_ru": "Обыкновенный комар",
         "description_en": "A widespread mosquito species known to vector West Nile virus, St. Louis encephalitis, and avian malaria. Prefers urban environments and breeds in stagnant, organically rich water.",
@@ -303,32 +479,42 @@ species_list = [
         "key_characteristics_en": [
             "Medium size with slender body",
             "Prefers to rest indoors",
-            "Breeds in polluted water",
+            "Breeds in polluted water"
         ],
         "key_characteristics_ru": [
             "Среднего размера с изящным телом",
             "Предпочитает отдыхать в помещениях",
-            "Размножается в загрязненной воде",
+            "Размножается в загрязненной воде"
         ],
         "habitat_preferences_en": [
             "Stagnant, organically rich water",
             "Urban and suburban areas",
-            "Sewers and drainage ditches",
+            "Sewers and drainage ditches"
         ],
         "habitat_preferences_ru": [
             "Стоячая вода с органическими веществами",
             "Городские и пригородные зоны",
-            "Канализации и водоотводные канавы",
+            "Канализации и водоотводные канавы"
         ],
-        "geographic_regions": ["asia", "europe", "americas", "africa", "oceania"],
-        "related_diseases": ["west_nile_virus", "st_louis_encephalitis", "avian_malaria"],
-        "related_diseases_info": [],
+        "geographic_regions": [
+            "asia",
+            "europe",
+            "americas",
+            "africa",
+            "oceania"
+        ],
+        "related_diseases": [
+            "west_nile_virus",
+            "st_louis_encephalitis",
+            "avian_malaria"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "culex_quinquefasciatus",
         "scientific_name": "Culex quinquefasciatus",
         "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Culex_quinquefasciatus_mosquito_pupae_CDC_11416.jpg/640px-Culex_quinquefasciatus_mosquito_pupae_CDC_11416.jpg",
+        "image_url": "static\\images\\species\\culex_quinquefasciatus",
         "common_name_en": "Southern House Mosquito",
         "common_name_ru": "Южный домовой комар",
         "description_en": "A major vector of West Nile virus, St. Louis encephalitis, and filariasis. Frequently breeds in organically rich, polluted water including sewers and ditches.",
@@ -336,24 +522,42 @@ species_list = [
         "key_characteristics_en": [
             "Prefers organically rich stagnant waters",
             "Lays eggs in rafts",
-            "Active mostly at night",
+            "Active mostly at night"
         ],
         "key_characteristics_ru": [
             "Предпочитает стоячие воды с большим содержанием органики",
             "Откладывает яйца компактными гроздьями",
-            "Активен преимущественно ночью",
+            "Активен преимущественно ночью"
         ],
-        "habitat_preferences_en": ["Sewers", "Ditches", "Agricultural seepage pits"],
-        "habitat_preferences_ru": ["Канализации", "Канавы", "Сельскохозяйственные сточные ямы"],
-        "geographic_regions": ["asia", "americas", "africa", "oceania"],
-        "related_diseases": ["west_nile_virus", "st_louis_encephalitis", "filariasis", "avian_malaria"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Sewers",
+            "Ditches",
+            "Agricultural seepage pits"
+        ],
+        "habitat_preferences_ru": [
+            "Канализации",
+            "Канавы",
+            "Сельскохозяйственные сточные ямы"
+        ],
+        "geographic_regions": [
+            "asia",
+            "americas",
+            "africa",
+            "oceania"
+        ],
+        "related_diseases": [
+            "west_nile_virus",
+            "st_louis_encephalitis",
+            "filariasis",
+            "avian_malaria"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "culex_tritaeniorhynchus",
         "scientific_name": "Culex tritaeniorhynchus",
         "vector_status": "High",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Culex_tritaeniorhynchus_-_female_2.jpg/640px-Culex_tritaeniorhynchus_-_female_2.jpg",
+        "image_url": "static\\images\\species\\culex_tritaeniorhynchus",
         "common_name_en": "Japanese Encephalitis Mosquito",
         "common_name_ru": "Комар японского энцефалита",
         "description_en": "Primary vector of Japanese encephalitis virus across Asia. Breeds mostly in rice paddies and prefers organically rich stagnant water.",
@@ -361,24 +565,37 @@ species_list = [
         "key_characteristics_en": [
             "Medium size with brownish body",
             "Prefers rice paddies for breeding",
-            "Active at dawn and dusk",
+            "Active at dawn and dusk"
         ],
         "key_characteristics_ru": [
             "Среднего размера с коричневатым телом",
             "Предпочитает рисовые поля для размножения",
-            "Активен на рассвете и в сумерках",
+            "Активен на рассвете и в сумерках"
         ],
-        "habitat_preferences_en": ["Rice paddies", "Flooded fields", "Organically rich stagnant water"],
-        "habitat_preferences_ru": ["Рисовые поля", "Затопленные поля", "Стоячие воды с органикой"],
-        "geographic_regions": ["asia"],
-        "related_diseases": ["japanese_encephalitis", "rift_valley_fever"],
-        "related_diseases_info": [],
+        "habitat_preferences_en": [
+            "Rice paddies",
+            "Flooded fields",
+            "Organically rich stagnant water"
+        ],
+        "habitat_preferences_ru": [
+            "Рисовые поля",
+            "Затопленные поля",
+            "Стоячие воды с органикой"
+        ],
+        "geographic_regions": [
+            "asia"
+        ],
+        "related_diseases": [
+            "japanese_encephalitis",
+            "rift_valley_fever"
+        ],
+        "related_diseases_info": []
     },
     {
         "id": "culiseta_annulata",
         "scientific_name": "Culiseta annulata",
         "vector_status": "Low",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Culiseta_annulata01.jpg/640px-Culiseta_annulata01.jpg",
+        "image_url": "static\\images\\species\\culiseta_annulata",
         "common_name_en": "Ringed Mosquito",
         "common_name_ru": "Кольчатый комар",
         "description_en": "Common in temperate regions of Europe and Asia. Found in cooler habitats, breeding in large bodies of water or marshes. Not a significant vector for human diseases.",
@@ -386,38 +603,65 @@ species_list = [
         "key_characteristics_en": [
             "Large mosquito with ringed legs",
             "Prefers cool climates",
-            "Breeds in permanent water bodies",
+            "Breeds in permanent water bodies"
         ],
         "key_characteristics_ru": [
             "Крупный комар с кольчатыми ногами",
             "Предпочитает прохладный климат",
-            "Размножается в постоянных водоемах",
+            "Размножается в постоянных водоемах"
         ],
-        "habitat_preferences_en": ["Marshes", "Large freshwaters", "Cool temperate regions"],
-        "habitat_preferences_ru": ["Болота", "Крупные пресноводные водоемы", "Прохладные умеренные районы"],
-        "geographic_regions": ["europe", "asia"],
+        "habitat_preferences_en": [
+            "Marshes",
+            "Large freshwaters",
+            "Cool temperate regions"
+        ],
+        "habitat_preferences_ru": [
+            "Болота",
+            "Крупные пресноводные водоемы",
+            "Прохладные умеренные районы"
+        ],
+        "geographic_regions": [
+            "europe",
+            "asia"
+        ],
         "related_diseases": [],
-        "related_diseases_info": [],
+        "related_diseases_info": []
     },
     {
         "id": "culiseta_longiareolata",
         "scientific_name": "Culiseta longiareolata",
         "vector_status": "Low",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Culiseta_longiareolata_female.jpg/640px-Culiseta_longiareolata_female.jpg",
+        "image_url": "static\\images\\species\\culiseta_longiareolata",
         "common_name_en": "Striped Mosquito",
         "common_name_ru": "Полосатый комар",
         "description_en": "Found in Europe, Asia, and parts of Africa. Breeds in stagnant and often polluted water. Not a known major vector of human pathogens but may play a role in local arbovirus cycles.",
         "description_ru": "Распространен в Европе, Азии и частях Африки. Размножается в стоячей и зачастую загрязненной воде. Не является известным основным переносчиком заболеваний человека, но может участвовать в локальных циклах арбовирусов.",
-        "key_characteristics_en": ["Black and white striped legs", "Prefers polluted stagnant water", "Medium sized"],
+        "key_characteristics_en": [
+            "Black and white striped legs",
+            "Prefers polluted stagnant water",
+            "Medium sized"
+        ],
         "key_characteristics_ru": [
             "Черно-белые полосатые ноги",
             "Предпочитает загрязненную стоячую воду",
-            "Среднего размера",
+            "Среднего размера"
         ],
-        "habitat_preferences_en": ["Stagnant water", "Polluted ponds", "Marshes"],
-        "habitat_preferences_ru": ["Стоячая вода", "Загрязненные пруды", "Болота"],
-        "geographic_regions": ["europe", "asia", "africa"],
+        "habitat_preferences_en": [
+            "Stagnant water",
+            "Polluted ponds",
+            "Marshes"
+        ],
+        "habitat_preferences_ru": [
+            "Стоячая вода",
+            "Загрязненные пруды",
+            "Болота"
+        ],
+        "geographic_regions": [
+            "europe",
+            "asia",
+            "africa"
+        ],
         "related_diseases": [],
-        "related_diseases_info": [],
-    },
+        "related_diseases_info": []
+    }
 ]

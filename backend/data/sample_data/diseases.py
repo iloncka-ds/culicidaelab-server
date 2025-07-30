@@ -13,8 +13,11 @@ diseases_data_list = [
         "prevention_ru": "Избегать укусов комаров, уничтожать места их размножения, использовать репелленты, носить защитную одежду",
         "prevalence_en": "Tropical and subtropical regions, affecting up to 400 million people annually",
         "prevalence_ru": "Тропические и субтропические регионы, ежегодно поражает до 400 миллионов человек",
-        "image_url": "assets/images/dengue.jpg",
-        "vectors": ["aedes_aegypti", "aedes_albopictus"],
+        "image_url": "static\\images\\diseases\\dengue_fever",
+        "vectors": [
+            "aedes_aegypti",
+            "aedes_albopictus"
+        ]
     },
     {
         "id": "malaria",
@@ -30,12 +33,12 @@ diseases_data_list = [
         "prevention_ru": "Противомалярийные препараты, обработанные инсектицидами сетки для кроватей, опрыскивание помещений инсектицидами, уничтожение мест размножения",
         "prevalence_en": "Tropical and subtropical regions, particularly in Africa, with over 200 million cases annually",
         "prevalence_ru": "Тропические и субтропические регионы, особенно в Африке, с более чем 200 миллионами случаев в год",
-        "image_url": "assets/images/malaria.jpg",
+        "image_url": "static\\images\\diseases\\malaria",
         "vectors": [
             "anopheles_arabiensis",
             "anopheles_freeborni",
-            "anopheles_sinensis",
-        ],
+            "anopheles_sinensis"
+        ]
     },
     {
         "id": "filariasis",
@@ -51,8 +54,11 @@ diseases_data_list = [
         "prevention_ru": "Использование москитных сеток, репеллентов, борьба с комарами и массовая профилактическая терапия в эндемичных регионах.",
         "prevalence_en": "Primarily tropical and subtropical regions; more than 120 million people infected globally; leading cause of disability.",
         "prevalence_ru": "В основном тропические и субтропические регионы; более 120 миллионов инфицированных во всем мире; ведущая причина инвалидизации.",
-        "image_url": "assets/images/filariasis.jpg",
-        "vectors": ["culex_quinquefasciatus", "aedes_aegypti"],
+        "image_url": "static\\images\\diseases\\filariasis",
+        "vectors": [
+            "culex_quinquefasciatus",
+            "aedes_aegypti"
+        ]
     },
     {
         "id": "japanese_encephalitis",
@@ -68,8 +74,10 @@ diseases_data_list = [
         "prevention_ru": "Вакцинация, предотвращение укусов комаров, меры по их уничтожению.",
         "prevalence_en": "Southeast and East Asia, Western Pacific; 68,000 symptomatic cases and 17,000 deaths per year.",
         "prevalence_ru": "Юго-Восточная и Восточная Азия, западная часть Тихого океана; 68,000 клинических случаев и 17,000 смертей в год.",
-        "image_url": "assets/images/japanese_encephalitis.jpg",
-        "vectors": ["culex_tritaeniorhynchus"],
+        "image_url": "static\\images\\diseases\\japanese_encephalitis",
+        "vectors": [
+            "culex_tritaeniorhynchus"
+        ]
     },
     {
         "id": "west_nile_virus",
@@ -85,8 +93,12 @@ diseases_data_list = [
         "prevention_ru": "Профилактика укусов комаров, борьба с переносчиками, индивидуальная защита (репелленты, одежда), москитные сетки.",
         "prevalence_en": "Found globally (Americas, Africa, Europe, Asia, Middle East); leading mosquito-borne disease in U.S.; incidence varies by year.",
         "prevalence_ru": "Распространен по всему миру (Америка, Африка, Европа, Азия, Ближний Восток); ведущая комариная инфекция в США; заболеваемость по годам различна.",
-        "image_url": "assets/images/west_nile_virus.jpg",
-        "vectors": ["culex_pipiens", "culex_quinquefasciatus", "aedes_vexans"],
+        "image_url": "static\\images\\diseases\\west_nile_virus",
+        "vectors": [
+            "culex_pipiens",
+            "culex_quinquefasciatus",
+            "aedes_vexans"
+        ]
     },
     {
         "id": "eastern_equine_encephalitis",
@@ -102,8 +114,10 @@ diseases_data_list = [
         "prevention_ru": "Борьба с комарами, профилактика укусов — репелленты, ограничение активности на открытом воздухе на рассвете и в сумерках.",
         "prevalence_en": "Rare, mainly in the USA (Atlantic and Gulf Coast); outbreaks sporadic; high fatality (30–75%).",
         "prevalence_ru": "Редко, преимущественно в США (атлантическое и заливное побережье); вспышки спорадические, высокая смертность (30–75%).",
-        "image_url": "assets/images/eastern_equine_encephalitis.jpg",
-        "vectors": ["aedes_canadensis"],
+        "image_url": "static\\images\\diseases\\eastern_equine_encephalitis",
+        "vectors": [
+            "aedes_canadensis"
+        ]
     },
     {
         "id": "chikungunya",
@@ -119,8 +133,11 @@ diseases_data_list = [
         "prevention_ru": "Предотвращение укусов комаров, репелленты, защитная одежда, уничтожение мест размножения; существуют вакцины, но пока применяются ограниченно.",
         "prevalence_en": "Outbreaks in Africa, Asia, Americas; endemic in many tropical versus subtropical regions; millions affected.",
         "prevalence_ru": "Вспышки в Африке, Азии, Америке; является эндемичной во многих тропических и субтропических регионах; миллионы затронутых.",
-        "image_url": "assets/images/chikungunya.jpg",
-        "vectors": ["aedes_aegypti", "aedes_albopictus"],
+        "image_url": "static\\images\\diseases\\chikungunya",
+        "vectors": [
+            "aedes_aegypti",
+            "aedes_albopictus"
+        ]
     },
     {
         "id": "rift_valley_fever",
@@ -136,8 +153,13 @@ diseases_data_list = [
         "prevention_ru": "Вакцинация животных, борьба с комарами, защитная одежда, осторожное обращение с животными.",
         "prevalence_en": "Africa and Arabian Peninsula; outbreaks in rainy seasons; sporadic imported cases elsewhere.",
         "prevalence_ru": "Африка и Аравийский полуостров; вспышки в сезон дождей; редко встречается в других регионах.",
-        "image_url": "assets/images/rift_valley_fever.jpg",
-        "vectors": ["culex_tritaeniorhynchus", "aedes_vexans", "culex_pipiens", "culex_quinquefasciatus"],
+        "image_url": "static\\images\\diseases\\rift_valley_fever",
+        "vectors": [
+            "culex_tritaeniorhynchus",
+            "aedes_vexans",
+            "culex_pipiens",
+            "culex_quinquefasciatus"
+        ]
     },
     {
         "id": "st_louis_encephalitis",
@@ -153,8 +175,11 @@ diseases_data_list = [
         "prevention_ru": "Профилактика укусов комаров, борьба с переносчиками, использование репеллентов и сеток.",
         "prevalence_en": "Americas; outbreaks mostly in US Midwest and South. Disease is rare but can be fatal (5–20% case fatality in severe forms).",
         "prevalence_ru": "Америка; вспышки преимущественно на Среднем Западе и Юге США. Болезнь встречается редко, но может привести к летальному исходу (5–20% при тяжелых формах).",
-        "image_url": "assets/images/st_louis_encephalitis.jpg",
-        "vectors": ["culex_pipiens", "culex_quinquefasciatus"],
+        "image_url": "static\\images\\diseases\\st_louis_encephalitis",
+        "vectors": [
+            "culex_pipiens",
+            "culex_quinquefasciatus"
+        ]
     },
     {
         "id": "avian_malaria",
@@ -170,8 +195,12 @@ diseases_data_list = [
         "prevention_ru": "Контроль комаров в вольерах и ограничение контакта с переносчиками.",
         "prevalence_en": "Worldwide except Antarctica; severe in species without evolved resistance, e.g., Hawaiian honeycreepers.",
         "prevalence_ru": "Известна по всему миру, кроме Антарктиды; особенно опасна для видов без адаптации — например, медососов Гавайев.",
-        "image_url": "assets/images/avian_malaria.jpg",
-        "vectors": ["culex_quinquefasciatus", "culex_pipiens", "culex_inatomii"],
+        "image_url": "static\\images\\diseases\\avian_malaria",
+        "vectors": [
+            "culex_quinquefasciatus",
+            "culex_pipiens",
+            "culex_inatomii"
+        ]
     },
     {
         "id": "yellow_fever",
@@ -187,8 +216,10 @@ diseases_data_list = [
         "prevention_ru": "Высокоэффективная вакцинация, борьба с комарами, индивидуальная защита; вакцинация обязательна для поездок в эндемичные регионы.",
         "prevalence_en": "Tropical Africa and South America; 200,000 cases, 30,000 deaths annually.",
         "prevalence_ru": "Тропики Африки и Южной Америки; ежегодно 200,000 случаев, 30,000 смертей.",
-        "image_url": "assets/images/yellow_fever.jpg",
-        "vectors": ["aedes_aegypti"],
+        "image_url": "static\\images\\diseases\\yellow_fever",
+        "vectors": [
+            "aedes_aegypti"
+        ]
     },
     {
         "id": "la_crosse_encephalitis",
@@ -204,8 +235,10 @@ diseases_data_list = [
         "prevention_ru": "Индивидуальная защита от укусов комаров, санитарные меры на приусадебных и лесных участках.",
         "prevalence_en": "United States (Midwest, Southeast); 70–130 cases per year; mostly affects children.",
         "prevalence_ru": "США (Средний Запад, Юго-Восток); 70–130 случаев ежегодно; в основном у детей.",
-        "image_url": "assets/images/la_crosse_encephalitis.jpg",
-        "vectors": ["aedes_triseriatus"],
+        "image_url": "static\\images\\diseases\\la_crosse_encephalitis",
+        "vectors": [
+            "aedes_triseriatus"
+        ]
     },
     {
         "id": "zika_virus",
@@ -221,7 +254,10 @@ diseases_data_list = [
         "prevention_ru": "Избегать укусов комаров, использовать средства защиты при половом контакте, особенно при беременности или планировании беременности.",
         "prevalence_en": "Global outbreaks in recent years, most notably Americas, Asia, Pacific; 2015–16 outbreak; currently endemic in some areas.",
         "prevalence_ru": "Глобальные вспышки в последние годы, особенно в Америке, Азии, на Тихоокеанских островах; самая крупная — в 2015–16; сейчас сохраняется в некоторых регионах.",
-        "image_url": "assets/images/zika_virus.jpg",
-        "vectors": ["aedes_aegypti", "aedes_albopictus"],
-    },
+        "image_url": "static\\images\\diseases\\zika_virus",
+        "vectors": [
+            "aedes_aegypti",
+            "aedes_albopictus"
+        ]
+    }
 ]

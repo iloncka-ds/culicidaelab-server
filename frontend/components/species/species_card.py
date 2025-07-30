@@ -1,17 +1,18 @@
 import solara
-import solara.lab
 from solara.alias import rv
+
+import i18n
 
 from typing import Dict, Any
 
-from ...config import (
+from frontend.config import (
     COLOR_PRIMARY,
     FONT_HEADINGS,
-
 )
 
-from ...state import selected_species_item_id, current_locale, use_locale_effect
-import i18n
+from frontend.state import selected_species_item_id #, use_locale_effect
+from frontend.components.species.species_status import get_status_color
+
 
 i18n.add_translation("actions.view_details", "View Details", locale="en")
 i18n.add_translation("species.status.high", "Vector Status: High", locale="en")
@@ -25,14 +26,12 @@ i18n.add_translation("species.status.high", "Степень риска: Высо
 i18n.add_translation("species.status.medium", "Степень риска: Средний", locale="ru")
 i18n.add_translation("species.status.low", "Степень риска: Низкий", locale="ru")
 i18n.add_translation("species.status.unknown", "Степень риска: Неизвестно", locale="ru")
-# i18n.set("locale", "ru")
-# i18n.set("fallback", "en")
 
 
 @solara.component
 def SpeciesCard(species: Dict[str, Any]):
     router = solara.use_router()
-    use_locale_effect()
+    # use_locale_effect()
     def redirect_to_species(species_id):
         selected_species_item_id.set(species_id)
         router.push("species")
@@ -70,21 +69,11 @@ def SpeciesCard(species: Dict[str, Any]):
 
                 status_detail = str(species.get("vector_status", "Unknown")).lower()
 
-                status_color_detail, text_color_detail = "blue-grey", "white"
-                if status_detail == "high":
-                    status_color_detail = "red"
-                elif status_detail == "medium":
-                    status_color_detail = "orange"
-                elif status_detail == "low":
-                    status_color_detail = "green"
-                elif status_detail == "unknown":
-                    status_color_detail, text_color_detail = "grey", "black"
+                status_color_detail, text_color_detail = get_status_color(status_detail)
 
-                translation_key = f"species.status.{status_detail}"
-                translated_status = i18n.t(translation_key)
                 rv.Chip(
                     small=True,
-                    children=[translated_status],
+                    children=[i18n.t(f"species.status.{status_detail}")],
                     color=status_color_detail,
                     class_="mt-1",
                     text_color=text_color_detail,

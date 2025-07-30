@@ -56,13 +56,15 @@ def DiseaseCard(disease: Dict[str, Any]):
                     description_snippet,
                     style="font-size: 0.9em; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
                 )
-
-                if prevalence := disease.get("prevalence"):
+                prevalence = disease.get("prevalence", "")
+                prevalence_snippet = prevalence[:60] + "..." if len(prevalence) > 60 else prevalence
+                if prevalence:
                     rv.Chip(
                         small=True,
-                        children=[prevalence],
+                        children=[prevalence_snippet],
                         color="blue",
                         class_="mt-1",
                         text_color="white",
                     )
-                solara.Button(i18n.t('actions.view_details'), on_click=lambda: redirect_to_disease_item(disease.get("id", "")) )
+                solara.Button(i18n.t('actions.view_details'),
+                            on_click=lambda: redirect_to_disease_item(disease.get("id", "")) )

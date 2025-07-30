@@ -42,7 +42,12 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_headers=["*"],
     )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+import os
+
+# Get the directory where this file is located
+backend_dir = os.path.dirname(os.path.abspath(__file__))
+static_dir = os.path.join(backend_dir, "static")
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 api_router_prefix = settings.API_V1_STR.replace("/api", "")
 
