@@ -92,13 +92,24 @@ def generate_species_colors(species_list: List[str], alpha: float = 0.9) -> Dict
         species_color_map[species_name] = _hex_to_rgba(hex_color, alpha)
     return species_color_map
 
-
 DEFAULT_SPECIES_LIST_FOR_COLORS = [
-    "Aedes albopictus",
     "Aedes aegypti",
+    "Aedes albopictus",
+    "Aedes canadensis",
+    "Aedes dorsalis",
+    "Aedes geniculatus",
+    "Aedes koreicus",
+    "Aedes triseriatus",
+    "Aedes vexans",
+    "Anopheles arabiensis",
+    "Anopheles freeborni",
+    "Anopheles sinensis",
+    "Culex inatomii",
     "Culex pipiens",
-    "Anopheles gambiae",
+    "Culex quinquefasciatus",
+    "Culex tritaeniorhynchus",
     "Culiseta annulata",
+    "Culiseta longiareolata",
 ]
 theme = load_themes(solara.lab.theme)
 SPECIES_COLORS = generate_species_colors(DEFAULT_SPECIES_LIST_FOR_COLORS)
@@ -106,6 +117,7 @@ SPECIES_COLORS = generate_species_colors(DEFAULT_SPECIES_LIST_FOR_COLORS)
 DEFAULT_MAP_CENTER = (40.416775, -3.703790)
 DEFAULT_MAP_ZOOM = 5
 API_BASE_URL = "http://127.0.0.1:8000/api"
+STATIC_FILES_URL = "http://127.0.0.1:8000"
 OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/geo/observations"
 SPECIES_INFO_ENDPOINT = f"{API_BASE_URL}/species_info"
 DISEASE_LIST_ENDPOINT = f"{API_BASE_URL}/diseases"
@@ -129,14 +141,12 @@ PREDICTION_ENDPOINT = f"{API_BASE_URL}/predict_species/"
 STORE_OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"
 
 page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
-heading_style = f"font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: #009688;"
+heading_style = "font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: #009688;"
 sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555;"
 card_style = "display: flex; flex-direction: column; height: 100%;"
-card_content_style = (
-    "padding: 16px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center;"
-)
+card_content_style = "padding: 16px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center;"
 icon_style = "margin-bottom: 1rem;"
-footer_style = f"margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee; text-align: center; font-size: 0.9em; color: #0D1B2A;"
+footer_style = "margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee; text-align: center; font-size: 0.9em; color: #0D1B2A;"
 active_btn_style = {
     "box-shadow": "none",
     "border-radius": "0px",

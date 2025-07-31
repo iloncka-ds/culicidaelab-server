@@ -30,6 +30,7 @@ class AppSettings(BaseSettings):
     APP_NAME: str = "CulicidaeLab API"
     API_V1_STR: str = "/api"
     DATABASE_PATH: str = os.environ.get("CULICIDAELAB_DATABASE_PATH", ".lancedb")
+    SAVE_PREDICTED_IMAGES: bool = os.environ.get("CULICIDAELAB_SAVE_PREDICTED_IMAGES", False)
 
     BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:8765", "http://127.0.0.1:8765"]
 

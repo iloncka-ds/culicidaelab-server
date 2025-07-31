@@ -45,45 +45,36 @@ def ObservationFormComponent(
         error_messages = []
         if not current_user_id.value:
             error_msg = "User ID could not be identified for this session."
-            print(f"[ERROR] {error_msg}")
             error_messages.append(error_msg)
         if not prediction or not prediction.get("scientific_name"):
             error_msg = "Prediction data with a species name is missing."
-            print(f"[ERROR] {error_msg}")
             error_messages.append(error_msg)
         if not file_name:
             error_msg = "Image file name is missing."
-            print(f"[ERROR] {error_msg}")
             error_messages.append(error_msg)
         if current_latitude is None or current_longitude is None:
             error_msg = "Latitude and Longitude are required."
-            print(f"[ERROR] {error_msg}")
             error_messages.append(error_msg)
 
         date_to_submit = obs_date_obj_state[0].strftime("%Y-%m-%d") if use_date_picker else obs_date_str
         if not date_to_submit:
             error_msg = "Observation date is required."
-            print(f"[ERROR] {error_msg}")
             error_messages.append(error_msg)
         else:
             try:
                 datetime.strptime(date_to_submit, "%Y-%m-%d")
             except ValueError:
                 error_msg = "Invalid date format (YYYY-MM-DD)."
-                print(f"[ERROR] {error_msg}")
                 error_messages.append(error_msg)
 
         if error_messages:
             full_error = " ".join(error_messages)
-            print(f"[DEBUG] Form validation failed with errors: {full_error}")
             on_submit_error(full_error)
             set_is_submitting(False)
             return
 
-        print("[DEBUG] Form validation passed. Preparing observation payload...")
         set_is_submitting(True)
 
-        # Construct payload matching the backend's Observation Pydantic schema
         observation_payload = {
             "species_scientific_name": prediction.get("scientific_name"),
             "count": obs_count,

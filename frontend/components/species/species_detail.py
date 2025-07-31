@@ -16,8 +16,8 @@ from ...config import (
     page_style,
 )
 from ...config import COLOR_PRIMARY, FONT_HEADINGS
-from ...state import fetch_api_data
-from ...state import current_locale, selected_species_item_id
+
+from ...state import current_locale, selected_species_item_id, use_locale_effect,fetch_api_data
 
 i18n.add_translation("species.gallery_link", "Go to Species Gallery", locale="en")
 i18n.add_translation("species.error.load", "Could not load species details: %{error}", locale="en")
@@ -69,6 +69,7 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 
 @solara.component
 def SpeciesDetailPageComponent():
+    use_locale_effect()
     species_id = selected_species_item_id.value
     species_data, set_species_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
     loading, set_loading = solara.use_state(False)
@@ -223,8 +224,6 @@ def SpeciesDetailPageComponent():
 
 
                 status_detail = str(_species_data.get("vector_status", "Unknown")).lower()
-
-
 
                 status_color_detail, text_color_detail= get_status_color(status_detail)
                 rv.Chip(

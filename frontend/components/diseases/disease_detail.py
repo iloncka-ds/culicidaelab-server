@@ -63,7 +63,7 @@ i18n.add_translation("disease.errors.vector_load", "Ошибка загрузк�
 @solara.component
 def DiseaseDetailPageComponent():
     # theme = load_themes(solara.lab.theme)
-    # use_locale_effect()
+    use_locale_effect()
     # heading_style = f"font-size: 2.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     disease_id = selected_disease_item_id.value

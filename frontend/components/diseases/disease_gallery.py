@@ -53,7 +53,7 @@ i18n.add_translation("disease_gallery.messages.initializing", "Инициали�
 @solara.component
 def DiseaseGalleryPageComponent():
     # theme = load_themes(solara.lab.theme)
-    # use_locale_effect()
+    use_locale_effect()
     # heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     search_query, set_search_query = solara.use_state("")

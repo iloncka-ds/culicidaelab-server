@@ -64,7 +64,7 @@ def SpeciesGalleryPageComponent():
     # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     search_query, set_search_query = solara.use_state("")
     # current_locale = i18n.get("locale")
-    # use_locale_effect()
+    use_locale_effect()
 
     def _load_species_list_data_effect() -> Optional[Callable[[], None]]:
         task_ref = [cast(Optional[asyncio.Task], None)]

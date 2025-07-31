@@ -11,12 +11,12 @@ en:
       title: "3. Record Observation Details"
   messages:
     success:
-      upload_predicted: "File uploaded and prediction successful: %{result}"
+      upload_predicted: "File uploaded successful!"
       observation_recorded: "Your observation has been successfully recorded."
     info:
-      awaiting_prediction: "File uploaded. Awaiting prediction results..."
+      awaiting_prediction: "File uploading... Awaiting prediction results..."
       upload_first: "Please upload an image first to see observation options."
-      
+
     warning:
       no_prediction: "Prediction has not been made or failed. Please check the file and try again."
       no_prediction_data: "No prediction data is available to display."

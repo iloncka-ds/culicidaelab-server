@@ -8,9 +8,10 @@ from typing import Dict, Any
 from frontend.config import (
     COLOR_PRIMARY,
     FONT_HEADINGS,
+    API_BASE_URL
 )
 
-from frontend.state import selected_species_item_id #, use_locale_effect
+from frontend.state import selected_species_item_id, use_locale_effect
 from frontend.components.species.species_status import get_status_color
 
 
@@ -31,7 +32,7 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 @solara.component
 def SpeciesCard(species: Dict[str, Any]):
     router = solara.use_router()
-    # use_locale_effect()
+    use_locale_effect()
     def redirect_to_species(species_id):
         selected_species_item_id.set(species_id)
         router.push("species")
@@ -43,8 +44,9 @@ def SpeciesCard(species: Dict[str, Any]):
     ):
         with solara.Row(style="align-items: center; flex-grow:1;"):
             if species.get("image_url"):
+                print(species.get("image_url"))
                 rv.Img(
-                    src=species["image_url"],
+                    src=f"{API_BASE_URL}{species['image_url']}",
                     height="100px",
                     width="100px",
                     aspect_ratio="1",
@@ -52,7 +54,16 @@ def SpeciesCard(species: Dict[str, Any]):
                     style="border-radius: 4px; object-fit: cover;",
                 )
             else:
-                rv.Icon(children=["mdi-bug"], size="100px", class_="mr-3", color=COLOR_PRIMARY)
+
+                rv.Img(
+                    src=f"{API_BASE_URL}/backend/static/images/default_species.png",
+                    height="100px",
+                    width="100px",
+                    aspect_ratio="1",
+                    class_="mr-3 elevation-1",
+                    style="border-radius: 4px; object-fit: cover;",
+
+                )
 
             with solara.Column(align="start", style="overflow: hidden;"):
                 species_id = species.get("id")

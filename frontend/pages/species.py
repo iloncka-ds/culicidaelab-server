@@ -1,29 +1,13 @@
 import solara
-
-from frontend.components.species.species_gallery import SpeciesGalleryPageComponent
 from frontend.components.species.species_detail import SpeciesDetailPageComponent
-from frontend.config import theme
-from ..state import selected_species_item_id
-from ..state import current_locale, use_locale_effect
+from frontend.components.species.species_gallery import SpeciesGalleryPageComponent
 
-from ..config import (
-    load_themes,
-    page_style,
-    heading_style,
-    sub_heading_style,
-    card_style,
-    card_content_style,
-    icon_style,
-    footer_style,
-)
-from frontend.components.common.locale_selector import LocaleSelector
-import i18n
-from pathlib import Path
+from ..state import selected_species_item_id, use_locale_effect
 
 
-def setup_i18n():
-    i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    i18n.set("fallback", "ru")
+# def setup_i18n():
+#     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
+#     i18n.set("fallback", "ru")
 
 
 @solara.component

@@ -1,5 +1,5 @@
 import solara
-import solara.lab
+
 from solara.alias import rv
 from typing import List, cast, Optional
 
@@ -8,19 +8,9 @@ from ..components.map_module import (
     filter_panel,
     legend_component,
 )
-from frontend.config import theme
-from ..config import (
-    load_themes,
-    page_style,
-    heading_style,
-    sub_heading_style,
-    card_style,
-    card_content_style,
-    icon_style,
-    footer_style,
-)
-from ..state import use_locale_effect
-from frontend.components.common.locale_selector import LocaleSelector
+
+from frontend.state import use_locale_effect
+
 import i18n
 from pathlib import Path
 
@@ -32,20 +22,8 @@ def setup_i18n():
 
 @solara.component
 def Page():
-    # _, set_rerender_trigger = solara.use_state(0)
 
-
-    # def force_rerender():
-    #     set_rerender_trigger(lambda x: x + 1)
-
-    # setup_i18n()
     use_locale_effect()
-    # with solara.AppBar():
-    #     solara.v.Spacer()
-    #     LocaleSelector() # on_change=force_rerender
-    # with solara.AppBarTitle():
-    #     solara.Text(i18n.t("map.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
-    # theme = load_themes(solara.lab.theme)
 
     filters_panel_value, set_filters_panel_value = solara.use_state(cast(Optional[List[int]], [0]))
 

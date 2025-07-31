@@ -1,15 +1,18 @@
 from __future__ import annotations
 
-import re
-from backend.config import settings
-from culicidaelab import MosquitoClassifier, get_settings
-from pydantic import BaseModel
-from typing import Dict, Optional, Tuple
-from pathlib import Path
-from PIL import Image
+import asyncio
 import io
+from datetime import datetime
+from pathlib import Path
+from typing import Optional, Tuple
+
+import aiofiles
 import numpy as np
+from PIL import Image
+
 from backend.schemas.prediction_schemas import PredictionResult
+from backend.config import settings as app_settings
+from culicidaelab import MosquitoClassifier, get_settings
 
 
 class PredictionService:
@@ -17,32 +20,71 @@ class PredictionService:
 
     def __init__(self):
         """Initialize the prediction service."""
-        print("\n--- [SERVICE] Initializing PredictionService instance ---")
         self.model = None
         self.model_loaded = False
-        self.settings = get_settings()
+        self.lib_settings = get_settings()
+        self.save_predicted_images_enabled = app_settings.SAVE_PREDICTED_IMAGES
 
     async def load_model(self):
         """Load the mosquito classifier model if not already loaded."""
-        print("[SERVICE] Attempting to load model...")
         if self.model_loaded:
-            print("[SERVICE] Model is already loaded. Skipping.")
             return self.model
 
         try:
-            print("[SERVICE] Model not loaded. Initializing MosquitoClassifier...")
-            self.model = MosquitoClassifier(self.settings, load_model=True)
+            self.model = MosquitoClassifier(self.lib_settings, load_model=True)
             self.model_loaded = True
-            self.model_arch = self.settings.get_config("predictors.classifier").model_arch
-            self.model_id = self.settings.get_config("predictors.classifier").filename.split(".")[0]
-            print(
-                f"[SERVICE] Mosquito classifier model loaded successfully. Arch: '{self.model_arch}', ID: '{self.model_id}'"
-            )
+            self.model_arch = self.lib_settings.get_config("predictors.classifier").model_arch
+            self.model_id = self.lib_settings.get_config("predictors.classifier").filename.split(".")[0]
+
         except Exception as e:
-            print(f"[SERVICE] CRITICAL ERROR during model loading: {type(e).__name__} - {e}")
             self.model_loaded = False
-            # Re-raise the exception to be handled by the caller
+            print(f"Error loading model: {type(e).__name__} - {str(e)}")
             raise
+
+    async def save_predicted_image(self, image_data: bytes, filename: str, quiet: bool = True):
+        """
+        Asynchronously save the predicted image in multiple sizes.
+        Failures are handled silently to not disrupt the prediction flow.
+        """
+        try:
+            base_path = Path("backend/static/images/predicted")
+            original_path = base_path / "original"
+            size_224_path = base_path / "224x224"
+            size_100_path = base_path / "100x100"
+
+            # Create directories asynchronously if they don't exist
+            await asyncio.gather(
+                asyncio.to_thread(lambda p: p.mkdir(parents=True, exist_ok=True), original_path),
+                asyncio.to_thread(lambda p: p.mkdir(parents=True, exist_ok=True), size_224_path),
+                asyncio.to_thread(lambda p: p.mkdir(parents=True, exist_ok=True), size_100_path),
+            )
+
+            image = Image.open(io.BytesIO(image_data))
+            image_format = image.format or 'JPEG'
+
+            # --- Save original image ---
+            original_file_path = original_path / filename
+            async with aiofiles.open(original_file_path, "wb") as f:
+                await f.write(image_data)
+
+            # --- Resize and save 224x224 version ---
+            image.thumbnail((224, 224))
+            buffer_224 = io.BytesIO()
+            image.save(buffer_224, format=image_format)
+            async with aiofiles.open(size_224_path / filename, "wb") as f:
+                await f.write(buffer_224.getvalue())
+
+            # --- Resize and save 100x100 version ---
+            image.thumbnail((100, 100))
+            buffer_100 = io.BytesIO()
+            image.save(buffer_100, format=image_format)
+            async with aiofiles.open(size_100_path / filename, "wb") as f:
+                await f.write(buffer_100.getvalue())
+
+        except Exception as e:
+            print(f"Error saving predicted image '{filename}': {type(e).__name__} - {str(e)}")
+            if not quiet:
+                raise
 
     async def predict_species(
         self, image_data: bytes, filename: str
@@ -50,72 +92,46 @@ class PredictionService:
         """
         Predict mosquito species from image data.
         """
-        print("\n--- [SERVICE] predict_species called ---")
         try:
-            # --- MODEL LOADING ---
             if not self.model_loaded:
-                print("[SERVICE] Model not loaded, calling load_model()...")
                 try:
                     await self.load_model()
                 except Exception as e:
-                    print(f"[SERVICE] ERROR: Could not load model, falling back to mock prediction. Reason: {e}")
-                    return await self._mock_prediction()
-            else:
-                print("[SERVICE] Model already loaded, proceeding with prediction.")
+                    error_msg = f"Error loading model: {type(e).__name__} - {str(e)}"
+                    return None, error_msg
 
-
-            print("[SERVICE] Opening image data from bytes using PIL...")
             image = Image.open(io.BytesIO(image_data)).convert("RGB")
-            print("[SERVICE] Image opened and converted to RGB. Converting to NumPy array...")
             image_np = np.array(image)
-            print(f"[SERVICE] Image converted to NumPy array with shape: {image_np.shape}")
 
-            # --- PREDICTION ---
-            print("[SERVICE] Calling self.model.predict()...")
-            # The model's predict() method might also have internal print statements
             predictions = self.model.predict(image_np)
-            print(
-                f"[SERVICE] Model prediction received. Type: {type(predictions)}, Content: {predictions[0]}"
-            )
-
-            # --- RESULT PROCESSING ---
-            print("[SERVICE] Processing prediction results...")
             top_species, top_confidence = predictions[0]
+            sanitized_species = top_species.replace(" ", "_").lower()
+            unique_id_part = f"{hash(top_species) % 10000:04d}"
+            date_str = datetime.now().strftime("%d%m%Y")
+            result_id = f"{sanitized_species}_{unique_id_part}_{date_str}"
+
+            if self.save_predicted_images_enabled:
+                extension = Path(filename).suffix or ".jpg"
+                new_filename = f"{result_id}{extension}"
+                asyncio.create_task(self.save_predicted_image(image_data, new_filename))
+            else:
+                print("[SERVICE] Feature flag 'SAVE_PREDICTED_IMAGES' is False. Skipping image save.")
+
+            image_url_species = f"/static/images/predicted/224x224/{new_filename}"
             result = PredictionResult(
                 scientific_name=top_species,
                 probabilities={species: float(conf) for species, conf in predictions[:2]},
-                id=f"species_{hash(top_species) % 10000:04d}",
+                id=result_id,
                 model_id=self.model_id,
                 confidence=float(top_confidence),
-                image_url_species=f"https://via.placeholder.com/300x200.png?text={top_species.replace(' ', '+')}",
+                image_url_species=image_url_species,
             )
-            print(f"[SERVICE] Prediction successful. Returning result for '{result.scientific_name}'.")
             return result, None
 
         except Exception as e:
-            # --- ERROR HANDLING ---
-            # This is a critical catch-all for any unexpected errors during the process
             error_msg = f"Error predicting species for file '{filename}': {type(e).__name__} - {str(e)}"
-            print(f"[SERVICE] CRITICAL ERROR in predict_species: {error_msg}")
-            # Returning the error message to the router
+
             return None, error_msg
 
-    async def _mock_prediction(self) -> Tuple[PredictionResult, None]:
-        """
-        Generate mock prediction when the model is unavailable.
-        """
-        print("\n--- [SERVICE] Using MOCK prediction service ---")
-        result = PredictionResult(
-            scientific_name="Aedes fictus",
-            probabilities={"Aedes fictus": 0.95, "Culex pipiens": 0.05},
-            id="species_mock_001",
-            model_id="model_v1_mock",
-            confidence=0.95,
-            image_url_species="https://via.placeholder.com/300x200.png?text=Aedes+fictus",
-        )
-        print("[SERVICE] Mock prediction generated successfully.")
-        return result, None
 
-
-# Initialize the service instance at the end of the module
 prediction_service = PredictionService()

@@ -57,7 +57,7 @@ async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> Tuple[Optio
 def FileUploadComponent(
     on_file_selected: callable,
     upload_error_message: Optional[str] = None,
-    is_processing: bool = True,
+
 ):
     """
     A component for handling file uploads.
@@ -65,18 +65,18 @@ def FileUploadComponent(
     Displays an optional `upload_error_message`.
     """
     use_locale_effect()
+
     solara.Text(
         i18n.t("prediction.file_upload.subtitle"),
         style= f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-bottom: 20px;",
     )
 
+
     solara.FileDrop(
-        label=i18n.t("prediction.file_upload.drag_image"),
-        on_file=on_file_selected,
-        lazy=False,
-    )
+            label=i18n.t("prediction.file_upload.drag_image"),
+            on_file=on_file_selected,
+            lazy=False,
+        )
 
     if upload_error_message:
         solara.Error(upload_error_message, style="margin-top: 15px; margin-bottom: 10px; width: 100%;")
-    elif is_processing:
-        solara.ProgressLinear(True, color="primary", style="margin-top: 10px;")

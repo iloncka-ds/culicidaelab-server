@@ -26,8 +26,6 @@ class ObservationService:
         Maps the Pydantic Observation model to the LanceDB schema before insertion.
         """
         try:
-            # Map Pydantic model to a dictionary that matches the LanceDB schema
-            # Convert potentially complex fields to JSON strings for LanceDB compatibility
             metadata_value = observation_data.metadata
             if metadata_value is not None and not isinstance(metadata_value, str):
                 metadata_value = json.dumps(metadata_value, ensure_ascii=False)
@@ -57,13 +55,12 @@ class ObservationService:
             table = await self.db.open_table(self.table_name)
             await table.add([record_to_save])
 
-            # Return the original Pydantic model as confirmation
-            print(observation_data)
+
             return observation_data
 
         except Exception as e:
             detail = f"Failed to save observation to database: {str(e)}"
-            print(detail)
+            # print(detail)
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=detail)
 
     async def get_observations(
@@ -76,8 +73,6 @@ class ObservationService:
         """
         Retrieve observations with optional filtering.
         """
-        # Add a version marker to be 100% sure the new code is running.
-        print("--- RUNNING FINAL CORRECTED VERSION of get_observations ---")
         try:
             print(
                 f"[DEBUG] get_observations called with user_id={user_id}, species_id={species_id}, "
@@ -96,13 +91,9 @@ class ObservationService:
             if conditions:
                 # If there are filters, build a .where() clause
                 query_str = " AND ".join(conditions)
-                print(f"[DEBUG] Executing query with filters: {query_str}")
+
                 results = await table.search().where(query_str).limit(limit).offset(offset).to_list()
-            else:
-                # If there are NO filters, get all records.
-                # We call to_arrow() first and then manually slice for limit/offset.
-                # This avoids the internal library bug completely.
-                print("[DEBUG] Executing query with no filters (getting all records).")
+
                 arrow_table = await table.to_arrow()
 
                 # Manually apply limit and offset
@@ -112,19 +103,15 @@ class ObservationService:
                 results = paginated_table.to_pylist()
 
             total = len(results)
-            print(f"[DEBUG] Retrieved {total} observations from database")
 
-            # The mapping logic remains the same and is correct.
             observations = []
             if results:
                 for item in results:
                     try:
-                        # Your existing, robust mapping logic here...
                         location_data = item.get("coordinates")
                         if isinstance(location_data, list) and len(location_data) == 2:
                             location_obj = Location(lat=location_data[0], lng=location_data[1])
                         else:
-                            print(f"[WARNING] Skipping observation with invalid location: {item.get('id')}")
                             continue
 
                         metadata_str = item.get("metadata", "{}")
@@ -157,7 +144,6 @@ class ObservationService:
             return ObservationListResponse(count=total, observations=observations)
 
         except Exception as e:
-            print(f"[CRITICAL] Unhandled error in get_observations: {repr(e)}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to retrieve observations: {str(e)}"
             )
