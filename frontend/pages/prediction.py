@@ -198,7 +198,7 @@ def Page():
                 with solara.ColumnsResponsive(default=[12], small=[6, 6], medium=[6, 6], large=[6, 6],
                                         gutters="20px", style=page_style):
                     # Column 1: Uploaded Image
-                    with solara.VBox():
+                    with solara.Column():
                         solara.Markdown(i18n.t("prediction.labels.uploaded_image"),
                                         style=sub_heading_style)
                         try:
@@ -223,7 +223,7 @@ def Page():
                             solara.Error(i18n.t("prediction.messages.error.image_display", error=str(e)))
 
                     # Column 2: Prediction Details
-                    with solara.VBox():
+                    with solara.Column():
                         solara.Markdown(
                             i18n.t("prediction.labels.prediction_details"),
                             style=sub_heading_style,
