@@ -4,20 +4,19 @@ from typing import Any, Callable, Dict, List, Optional, cast
 import i18n
 import solara
 from solara.alias import rv
-import solara.lab
 
 from frontend.components.diseases.disease_card import DiseaseCard
 from frontend.components.species.species_status import get_status_color
 
-from ...config import (
+from frontend.config import (
     DISEASE_DETAIL_ENDPOINT_TEMPLATE,
     SPECIES_DETAIL_ENDPOINT_TEMPLATE,
     heading_style,
     page_style,
 )
-from ...config import COLOR_PRIMARY, FONT_HEADINGS
+from frontend.config import COLOR_PRIMARY, FONT_HEADINGS
 
-from ...state import current_locale, selected_species_item_id, use_locale_effect,fetch_api_data
+from frontend.state import current_locale, selected_species_item_id, use_locale_effect, fetch_api_data
 
 i18n.add_translation("species.gallery_link", "Go to Species Gallery", locale="en")
 i18n.add_translation("species.error.load", "Could not load species details: %{error}", locale="en")
@@ -42,7 +41,7 @@ i18n.add_translation(
 )
 
 i18n.add_translation("species.status.high", "Vector Status: High", locale="en")
-i18n.add_translation("species.status.medium", "Vector Status: Medium", locale="en")
+i18n.add_translation("species.status.moderate", "Vector Status: Moderate", locale="en")
 i18n.add_translation("species.status.low", "Vector Status: Low", locale="en")
 i18n.add_translation("species.status.unknown", "Vector Status: Unknown", locale="en")
 
@@ -62,7 +61,7 @@ i18n.add_translation("species.messages.disease_load_error", "Ошибка заг
 i18n.add_translation("species.messages.disease_unavailable", "Информация о заболеваниях недоступна.", locale="ru")
 
 i18n.add_translation("species.status.high", "Степень риска: Высокий", locale="ru")
-i18n.add_translation("species.status.medium", "Степень риска: Средний", locale="ru")
+i18n.add_translation("species.status.moderate", "Степень риска: Средний", locale="ru")
 i18n.add_translation("species.status.low", "Степень риска: Низкий", locale="ru")
 i18n.add_translation("species.status.unknown", "Степень риска: Неизвестно", locale="ru")
 

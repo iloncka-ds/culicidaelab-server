@@ -1,0 +1,3205 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "d5874d8f-8693-449c-b420-7d9dc2cd3e01",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2025-03-08",
+        "count": 12,
+        "observer_id": "9bac69a8-5403-4cbe-bd20-fff2351f708d",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_647.jpg",
+        "model_id": null,
+        "confidence": 0.24731131522465677,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.052648355547400105,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.077789313862706,
+          133.33452793093517
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "7595ab9f-8d55-46f0-9dbd-413abc38282e",
+        "species_scientific_name": "Culiseta longiareolata",
+        "observed_at": "2025-04-26",
+        "count": 13,
+        "observer_id": "49e862a8-9e82-4bda-bd6f-bbea889500e9",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_871.jpg",
+        "model_id": "model_1",
+        "confidence": 0.6168071176296231,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.48894006180402527,
+          "species_scientific_name": "Culiseta longiareolata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.28067805329728,
+          33.5131419764852
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "1f59e012-8cd3-4767-89c2-5ad781d38873",
+        "species_scientific_name": "Culiseta longiareolata",
+        "observed_at": "2024-09-08",
+        "count": 16,
+        "observer_id": "b4f233ac-5d7b-4e05-b6d4-35182ec8446b",
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_748.jpg",
+        "model_id": "model_2",
+        "confidence": 0.5317078739482642,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.31055835280452315,
+          "species_scientific_name": "Culiseta longiareolata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.045325140110414,
+          9.606429883592153
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "3f3a6aee-56b0-4a13-8620-5765773ec090",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2024-12-13",
+        "count": 3,
+        "observer_id": "017778a0-9dce-4a49-8c22-0405899224ce",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_230.jpg",
+        "model_id": "model_2",
+        "confidence": 0.8091505307655904,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.6914548511981641,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -8.137913794659092,
+          136.17883715541132
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "139705c7-3045-4f99-bc36-708936b044d2",
+        "species_scientific_name": "Anopheles freeborni",
+        "observed_at": "2025-07-08",
+        "count": 17,
+        "observer_id": "bec30fb9-c212-4b33-afe5-4f9a1e01216c",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_209.jpg",
+        "model_id": null,
+        "confidence": 0.6878492421037607,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.8886653289994241,
+          "species_scientific_name": "Anopheles freeborni"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          62.091824355149896,
+          21.367586872004544
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "643f6f11-1cfb-46e4-86cc-d9a015f9e882",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2025-03-20",
+        "count": 8,
+        "observer_id": "b32acbca-92cb-4f12-aa1a-ad0e4bf9450c",
+        "location_accuracy_m": 50,
+        "notes": "",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_724.jpg",
+        "model_id": "model_1",
+        "confidence": 0.24913592655215644,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.9965973848067965,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.01821087956573,
+          121.39133116665448
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "66f33401-7c64-4553-9bf8-49518bd6d932",
+        "species_scientific_name": "Culex quinquefasciatus",
+        "observed_at": "2025-01-21",
+        "count": 11,
+        "observer_id": "695e3a21-91f1-4280-9a8a-7a6b8cba09bb",
+        "location_accuracy_m": null,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_310.jpg",
+        "model_id": "model_2",
+        "confidence": 0.19669813726042196,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.21789851622630163,
+          "species_scientific_name": "Culex quinquefasciatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.13424563792327,
+          27.92076177637498
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "fdb7f101-cbbb-4056-963f-3f01ff0682bb",
+        "species_scientific_name": "Culex pipiens",
+        "observed_at": "2025-02-14",
+        "count": 17,
+        "observer_id": "b0c7bc1e-22de-418d-8afb-b060e3fcc6be",
+        "location_accuracy_m": 5,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_640.jpg",
+        "model_id": "model_2",
+        "confidence": 0.006291362268132983,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.8109496904609558,
+          "species_scientific_name": "Culex pipiens"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          60.77008281737683,
+          12.062856772669477
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "36798e0b-2e0e-4fb0-8053-22a2846d48c8",
+        "species_scientific_name": "Aedes albopictus",
+        "observed_at": "2025-06-10",
+        "count": 17,
+        "observer_id": "94f61139-b359-4640-aada-9b5c7f7a0843",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_934.jpg",
+        "model_id": null,
+        "confidence": 0.06975056451819839,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.01806141149422391,
+          "species_scientific_name": "Aedes albopictus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.03317181646968,
+          -4.463792843939304
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "381c356d-5643-4124-ac04-68ae9cf7bde4",
+        "species_scientific_name": "Culex quinquefasciatus",
+        "observed_at": "2024-09-17",
+        "count": 5,
+        "observer_id": "6156e20b-929a-4180-8e3f-87ff6c3f10b9",
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_440.jpg",
+        "model_id": "model_1",
+        "confidence": 0.3482391177090004,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.511054114122519,
+          "species_scientific_name": "Culex quinquefasciatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          66.2408272989687,
+          32.5733107405643
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "8cbe1b2e-98a0-4fbc-b12c-069ebb875946",
+        "species_scientific_name": "Aedes albopictus",
+        "observed_at": "2025-05-11",
+        "count": 11,
+        "observer_id": "dd3a6f47-a22e-4b0a-8899-035c6da1ee36",
+        "location_accuracy_m": null,
+        "notes": "",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_529.jpg",
+        "model_id": "model_1",
+        "confidence": 0.23558019720066892,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.8448853868365207,
+          "species_scientific_name": "Aedes albopictus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          40.90729847126257,
+          33.828968120752
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "921043ec-bcfe-4827-8664-bf7479b3dd50",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2024-08-06",
+        "count": 20,
+        "observer_id": "949be13e-4b08-4627-b42a-7a419eeb6c59",
+        "location_accuracy_m": null,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_349.jpg",
+        "model_id": "model_1",
+        "confidence": 0.4354186246564029,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9811996072463177,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.876618504030574,
+          103.89107846653614
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "125ab8d9-90cc-4ac3-b71d-3767b5562491",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2025-03-14",
+        "count": 15,
+        "observer_id": "3d1682cb-63eb-48e7-a41b-f73a53fecc17",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_890.jpg",
+        "model_id": null,
+        "confidence": 0.6991317651631891,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.30101405471924747,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.755503834748794,
+          125.28518675823503
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "f29d323b-3273-4f5c-8882-9c0aaddc773e",
+        "species_scientific_name": "Anopheles sinensis",
+        "observed_at": "2025-07-22",
+        "count": 12,
+        "observer_id": "ae7c37e5-6402-48cf-b9ee-ba8fa178ee7f",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_129.jpg",
+        "model_id": "model_2",
+        "confidence": 0.6046773415910286,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.7111136174988388,
+          "species_scientific_name": "Anopheles sinensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          59.323389897238386,
+          31.19435173215212
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "e6baa79f-fbcd-4e41-a4a1-b184ef0384a4",
+        "species_scientific_name": "Aedes albopictus",
+        "observed_at": "2024-11-22",
+        "count": 4,
+        "observer_id": "ab886253-5205-46ad-ab87-5f208eacdeb1",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_586.jpg",
+        "model_id": null,
+        "confidence": 0.8368244954750658,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.00012466499327468128,
+          "species_scientific_name": "Aedes albopictus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.43091477620244,
+          8.051027141127069
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "9190a7d2-9d28-47ec-ac35-7409f944ecf1",
+        "species_scientific_name": "Culiseta longiareolata",
+        "observed_at": "2025-04-03",
+        "count": 20,
+        "observer_id": "b2b97298-fcd1-477f-b75e-752755426d16",
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_421.jpg",
+        "model_id": "model_1",
+        "confidence": 0.9157645837598933,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.8402474364336927,
+          "species_scientific_name": "Culiseta longiareolata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.63220054020265,
+          5.683675303834072
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "722756d1-9b84-4571-bce0-ef98a4ac0b5a",
+        "species_scientific_name": "Anopheles freeborni",
+        "observed_at": "2025-02-17",
+        "count": 4,
+        "observer_id": "05f1a319-b398-4712-b182-c4b28974440a",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_414.jpg",
+        "model_id": "model_1",
+        "confidence": 0.7405100775350658,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.8549887709030727,
+          "species_scientific_name": "Anopheles freeborni"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          41.33734285213435,
+          8.275562168533483
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "7226bd75-f175-46e2-8332-a981a546c175",
+        "species_scientific_name": "Culex inatomii",
+        "observed_at": "2024-10-19",
+        "count": 3,
+        "observer_id": "5ce6e0d4-9185-427d-b865-9776cae439e2",
+        "location_accuracy_m": 50,
+        "notes": "",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_102.jpg",
+        "model_id": null,
+        "confidence": 0.007193401164409807,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.39435548900966244,
+          "species_scientific_name": "Culex inatomii"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.88344960056675,
+          3.999612646418381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "3ef7fdbf-d9c6-4915-a478-d33a52beffe0",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2025-07-18",
+        "count": 18,
+        "observer_id": "8785c944-13aa-4448-94e6-c3613abecc42",
+        "location_accuracy_m": 50,
+        "notes": "",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_374.jpg",
+        "model_id": null,
+        "confidence": 0.589353520442357,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.7120720308391786,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          47.24996014735942,
+          25.660371166745456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "c4579d5b-3499-4a7f-8515-8e4b37185b60",
+        "species_scientific_name": "Aedes geniculatus",
+        "observed_at": "2025-01-04",
+        "count": 4,
+        "observer_id": "134d40da-511c-45b8-b586-c808e135b0a1",
+        "location_accuracy_m": 100,
+        "notes": "",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_990.jpg",
+        "model_id": "model_1",
+        "confidence": 0.3899624307411632,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.4384896384853574,
+          "species_scientific_name": "Aedes geniculatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.627450159612366,
+          26.193751176245506
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "5f50da2e-8b20-4fab-9663-6d096d31b441",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2024-11-15",
+        "count": 17,
+        "observer_id": "fa0beecc-fc4e-42c9-a079-c3c7de7f06b9",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_978.jpg",
+        "model_id": "model_2",
+        "confidence": 0.5930230214761192,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.135882530827108,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.57160457895598,
+          125.36451288130812
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "69156ce8-5c33-4f09-9c7e-dc62f7ff2841",
+        "species_scientific_name": "Anopheles freeborni",
+        "observed_at": "2025-03-20",
+        "count": 8,
+        "observer_id": "32632917-e124-4546-a337-a01065965313",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_571.jpg",
+        "model_id": null,
+        "confidence": 0.16783583140762237,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.7868207842848267,
+          "species_scientific_name": "Anopheles freeborni"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.24504659601237,
+          39.45683166960387
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "fc88187c-3c51-4f52-9a0a-857cd49382fb",
+        "species_scientific_name": "Aedes albopictus",
+        "observed_at": "2025-02-03",
+        "count": 20,
+        "observer_id": "f77e86c0-1ab4-45e3-bf5c-dfc437811b0b",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_193.jpg",
+        "model_id": "model_2",
+        "confidence": 0.7052577677752383,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.614948552407581,
+          "species_scientific_name": "Aedes albopictus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          59.659453359526594,
+          39.932438411894594
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "0ad3880c-c8af-42b0-a67e-d24be4658691",
+        "species_scientific_name": "Aedes triseriatus",
+        "observed_at": "2025-05-14",
+        "count": 19,
+        "observer_id": "7d1f508b-07fd-4670-b304-e920beafbba1",
+        "location_accuracy_m": 5,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_817.jpg",
+        "model_id": null,
+        "confidence": 0.5114065069290455,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.2709433661282096,
+          "species_scientific_name": "Aedes triseriatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.68836838568747,
+          18.408894131095145
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "0fb8b682-226a-4cba-9e63-536fb40157b0",
+        "species_scientific_name": "Culex tritaeniorhynchus",
+        "observed_at": "2025-01-15",
+        "count": 13,
+        "observer_id": "bc26c37c-96dc-4cb5-83d9-a0489ec5e544",
+        "location_accuracy_m": 100,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_143.jpg",
+        "model_id": "model_2",
+        "confidence": 0.8596087377737328,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.3864787515297058,
+          "species_scientific_name": "Culex tritaeniorhynchus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          49.808074198178694,
+          31.76672893823239
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bdc44deb-8ed0-4de5-8679-329967d87002",
+        "species_scientific_name": "Aedes triseriatus",
+        "observed_at": "2024-08-24",
+        "count": 1,
+        "observer_id": "fa8b0a86-525f-4805-98ca-6a9c8d78ef13",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_925.jpg",
+        "model_id": "model_1",
+        "confidence": 0.08605689371713665,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.7083726733630775,
+          "species_scientific_name": "Aedes triseriatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.375332239816714,
+          1.7065217978249034
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "1bd19260-f2ae-4439-8db4-d4c3556ea3e9",
+        "species_scientific_name": "Culex tritaeniorhynchus",
+        "observed_at": "2025-07-10",
+        "count": 11,
+        "observer_id": "225ff1d6-2bdd-4046-bc65-5a4518bd42ff",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_824.jpg",
+        "model_id": "model_2",
+        "confidence": 0.8681262738318283,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.3381490559457535,
+          "species_scientific_name": "Culex tritaeniorhynchus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.92128492617688,
+          -7.3940702284701585
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "601c3486-df37-4676-a743-95747b119c58",
+        "species_scientific_name": "Aedes dorsalis",
+        "observed_at": "2025-06-26",
+        "count": 19,
+        "observer_id": "24cad868-9c36-4629-ba6a-3bf51456c1ea",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_115.jpg",
+        "model_id": null,
+        "confidence": 0.867953637616537,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.4856023595278258,
+          "species_scientific_name": "Aedes dorsalis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          63.030317855008775,
+          31.488261494526675
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "17987608-f334-47ae-940f-4369955194e0",
+        "species_scientific_name": "Anopheles freeborni",
+        "observed_at": "2025-01-26",
+        "count": 2,
+        "observer_id": "31683da9-7b91-42f4-b857-4b930d5af486",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_568.jpg",
+        "model_id": "model_1",
+        "confidence": 0.8121223587620635,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.415770877540544,
+          "species_scientific_name": "Anopheles freeborni"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.732053255828184,
+          3.0905070229260954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "d03a4cfc-6511-4a80-8c08-d167c40e7900",
+        "species_scientific_name": "Culiseta longiareolata",
+        "observed_at": "2025-06-13",
+        "count": 16,
+        "observer_id": "79d1dbea-e435-4e82-8aeb-b6544e530bdc",
+        "location_accuracy_m": 5,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_276.jpg",
+        "model_id": null,
+        "confidence": 0.8299422395041347,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.7576838994699494,
+          "species_scientific_name": "Culiseta longiareolata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.83521891246913,
+          3.0461381337461884
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "e8d553b0-bfbe-4d90-bbbc-61935c470b7f",
+        "species_scientific_name": "Culex pipiens",
+        "observed_at": "2024-08-08",
+        "count": 7,
+        "observer_id": "702e246f-e73d-4f91-8072-f2f45b675a21",
+        "location_accuracy_m": 10,
+        "notes": "",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_316.jpg",
+        "model_id": "model_2",
+        "confidence": 0.9816951367498826,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.9401250296800818,
+          "species_scientific_name": "Culex pipiens"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          49.58536622813717,
+          14.343453009641152
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "64ba000c-6554-4188-8a76-9c7a100eb90b",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2025-04-28",
+        "count": 14,
+        "observer_id": "87aba91e-4b7f-4611-92ee-766ca6d1ae62",
+        "location_accuracy_m": null,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_187.jpg",
+        "model_id": "model_2",
+        "confidence": 0.9053360106890503,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.6014730357569267,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          65.65217216395254,
+          -1.8202044192354183
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "0ca17112-1839-4ef2-ad7c-f64b3dea95d4",
+        "species_scientific_name": "Aedes dorsalis",
+        "observed_at": "2024-10-03",
+        "count": 15,
+        "observer_id": "9f049fde-4557-4994-a352-665ba368d5d6",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_610.jpg",
+        "model_id": "model_1",
+        "confidence": 0.40448414763762586,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.5188279891925291,
+          "species_scientific_name": "Aedes dorsalis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.863395297633545,
+          19.85380400399092
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "a130df6b-38b9-4080-a5f3-74787f54fbc4",
+        "species_scientific_name": "Aedes dorsalis",
+        "observed_at": "2025-07-20",
+        "count": 11,
+        "observer_id": "7930e781-7930-40fc-ac3b-0a18a16d283c",
+        "location_accuracy_m": 10,
+        "notes": "",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_367.jpg",
+        "model_id": "model_2",
+        "confidence": 0.8970773719398056,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.5992787442467306,
+          "species_scientific_name": "Aedes dorsalis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.57106662034913,
+          12.360616817320018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "c4305def-7b5a-46ea-b683-71976d0154f5",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2025-01-17",
+        "count": 19,
+        "observer_id": "ce063636-6ebc-46d0-9404-bb2fa11bfc81",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_647.jpg",
+        "model_id": "model_1",
+        "confidence": 0.828283360115351,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.960197978681283,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.84111843362027,
+          -0.8840623171297768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "44b4a656-1e89-48e6-b3d4-81c02ec80e06",
+        "species_scientific_name": "Anopheles sinensis",
+        "observed_at": "2024-10-21",
+        "count": 3,
+        "observer_id": "40e05f56-a6f5-489a-a560-8cc256ce36d6",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_442.jpg",
+        "model_id": "model_2",
+        "confidence": 0.021771925941980963,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.4016242256635246,
+          "species_scientific_name": "Anopheles sinensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.162476117090264,
+          -0.6345830444960594
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ed2fc5b8-bba2-4361-a277-cd5f7b0ab579",
+        "species_scientific_name": "Culiseta annulata",
+        "observed_at": "2025-05-31",
+        "count": 17,
+        "observer_id": "dc90fdbf-e4d5-490a-b4c3-4147a553fb47",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_234.jpg",
+        "model_id": "model_1",
+        "confidence": 0.8662268592010066,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.7353819925444558,
+          "species_scientific_name": "Culiseta annulata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          65.16560156523808,
+          11.095304201891054
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "a3d8a675-75ae-46ab-8dcf-f921d8abe52c",
+        "species_scientific_name": "Culex quinquefasciatus",
+        "observed_at": "2024-12-15",
+        "count": 4,
+        "observer_id": "9c42f00b-2928-42ff-a033-db7d132e1118",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_255.jpg",
+        "model_id": "model_2",
+        "confidence": 0.38118638578120667,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.31394642406855333,
+          "species_scientific_name": "Culex quinquefasciatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.405692078986334,
+          39.25409899867592
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "239f5fd8-6179-4e30-bec9-83a1ecd0b939",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2025-01-06",
+        "count": 5,
+        "observer_id": "e20e20f9-6923-4e6b-95d8-7408449f2fdd",
+        "location_accuracy_m": 10,
+        "notes": "",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_163.jpg",
+        "model_id": "model_2",
+        "confidence": 0.14844209424742594,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.7333986470749994,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.322341482424875,
+          6.8276105325068634
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "0fb69b1e-eb82-4541-b883-9111611f23dc",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2024-09-28",
+        "count": 7,
+        "observer_id": "f2880876-89ad-4249-a1ee-6bb3788ad35c",
+        "location_accuracy_m": null,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_244.jpg",
+        "model_id": null,
+        "confidence": 0.9774892288099919,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.11004770253281737,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.74807874868913,
+          13.278443061590142
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "060605c9-2371-45d5-ba5b-e6d9ec1d0880",
+        "species_scientific_name": "Culex pipiens",
+        "observed_at": "2025-04-15",
+        "count": 11,
+        "observer_id": "db85600e-24c7-4b5b-9513-bfbf13c1351d",
+        "location_accuracy_m": null,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_734.jpg",
+        "model_id": null,
+        "confidence": 0.5771543647120815,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.011766632100891461,
+          "species_scientific_name": "Culex pipiens"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.43427409477774,
+          2.9580012347058897
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "b4528d12-40a3-482a-bc7e-4b09cf9d1d57",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2024-08-12",
+        "count": 17,
+        "observer_id": "75397fa9-fde3-4770-a4c1-ce5c2c9ecf20",
+        "location_accuracy_m": 5,
+        "notes": "",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_442.jpg",
+        "model_id": null,
+        "confidence": 0.5558182611404517,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.7616206273278594,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.978190878844025,
+          95.09460521822186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bbc697ba-0503-4c82-81e2-fae4584f458e",
+        "species_scientific_name": "Culex quinquefasciatus",
+        "observed_at": "2025-05-24",
+        "count": 13,
+        "observer_id": "b82d3fdc-70cd-4342-a17a-5be73789fdf6",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_923.jpg",
+        "model_id": null,
+        "confidence": 0.4748200940223145,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.6129731155468227,
+          "species_scientific_name": "Culex quinquefasciatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          61.351774997441446,
+          33.67242989930897
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "15dc633f-89c0-49f6-a393-16679296f928",
+        "species_scientific_name": "Culex tritaeniorhynchus",
+        "observed_at": "2024-10-08",
+        "count": 6,
+        "observer_id": "527502c6-d877-413a-9463-fe952fd888a1",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_104.jpg",
+        "model_id": "model_2",
+        "confidence": 0.5717901262483616,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9463740246445059,
+          "species_scientific_name": "Culex tritaeniorhynchus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          64.77062751583605,
+          -9.115794042145765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "2bf3078e-1dbb-46c2-827f-5fbc6216ffec",
+        "species_scientific_name": "Aedes dorsalis",
+        "observed_at": "2025-05-14",
+        "count": 16,
+        "observer_id": "46351d2f-04a2-431b-b984-9621b1955b2f",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_651.jpg",
+        "model_id": "model_2",
+        "confidence": 0.574210559780774,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.1101680108651415,
+          "species_scientific_name": "Aedes dorsalis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.743306480204836,
+          27.31634086229274
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "64daaaa9-240f-403e-9148-5eb8835754de",
+        "species_scientific_name": "Culex tritaeniorhynchus",
+        "observed_at": "2025-03-30",
+        "count": 3,
+        "observer_id": "277c5209-0916-4d01-bb9b-8b6d5c2b7fd5",
+        "location_accuracy_m": 100,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_518.jpg",
+        "model_id": null,
+        "confidence": 0.9425066627132228,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.6434536167761579,
+          "species_scientific_name": "Culex tritaeniorhynchus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.20031745223565,
+          22.966992747929453
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "7dcbf291-9286-47d7-970c-30d8e0d9f88f",
+        "species_scientific_name": "Culex tritaeniorhynchus",
+        "observed_at": "2025-02-10",
+        "count": 10,
+        "observer_id": "e4af1511-7af2-4102-a8ee-b5d0b4cc255d",
+        "location_accuracy_m": null,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_846.jpg",
+        "model_id": "model_2",
+        "confidence": 0.2367785716621168,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.7103571538851692,
+          "species_scientific_name": "Culex tritaeniorhynchus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.02261389110336,
+          31.01088050449856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "09abfa65-8116-404c-bc4c-f4ca29b07871",
+        "species_scientific_name": "Aedes koreicus",
+        "observed_at": "2025-03-14",
+        "count": 6,
+        "observer_id": "1e6babaa-6312-49c1-ab19-7a256508e995",
+        "location_accuracy_m": 100,
+        "notes": "",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_578.jpg",
+        "model_id": "model_1",
+        "confidence": 0.7582790788935516,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.23329224612875377,
+          "species_scientific_name": "Aedes koreicus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.00683760834967,
+          32.305766905805505
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "41fe6eb9-07c1-44ec-9835-9da49055426b",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2025-06-08",
+        "count": 12,
+        "observer_id": "5525507b-8e52-41e2-b0aa-8d2a8b14aaa5",
+        "location_accuracy_m": 5,
+        "notes": "",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_520.jpg",
+        "model_id": "model_1",
+        "confidence": 0.5524119158136939,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.08327029778921624,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -9.104101627124432,
+          133.13199523470533
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "8dbb3346-5917-462e-9985-f4e6a20426f2",
+        "species_scientific_name": "Anopheles freeborni",
+        "observed_at": "2024-12-25",
+        "count": 7,
+        "observer_id": "bb7ec491-8ead-4f94-bea3-b0b2201f6dbe",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_671.jpg",
+        "model_id": "model_2",
+        "confidence": 0.7757942516756952,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.5587295232302836,
+          "species_scientific_name": "Anopheles freeborni"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          60.36663229843695,
+          17.101588748237454
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "be8fd6a3-df5a-4ca2-ba89-0ba9a9ffc17e",
+        "species_scientific_name": "Culex quinquefasciatus",
+        "observed_at": "2024-08-18",
+        "count": 1,
+        "observer_id": "6f45cfc5-ae93-459c-bfc8-0d36f7b23b6d",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_505.jpg",
+        "model_id": "model_1",
+        "confidence": 0.7013179110648864,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.0988059761362583,
+          "species_scientific_name": "Culex quinquefasciatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.6935319650128,
+          17.08288539704562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "8c192187-ec35-40aa-97c4-14dba3cd531c",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2025-06-10",
+        "count": 5,
+        "observer_id": "16d5ae7a-5e88-4f65-a59c-3c8a0e7c55d8",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_245.jpg",
+        "model_id": "model_2",
+        "confidence": 0.6987907235218457,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9100506080101922,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.94631174275889,
+          11.75078196293115
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "53a95136-604e-477c-a86a-a17ddb1276a9",
+        "species_scientific_name": "Culex inatomii",
+        "observed_at": "2025-02-12",
+        "count": 7,
+        "observer_id": "5a279f0e-e9a6-455a-b132-3d56770fa69c",
+        "location_accuracy_m": null,
+        "notes": "",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_804.jpg",
+        "model_id": "model_1",
+        "confidence": 0.2653876883692068,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.3770053305546791,
+          "species_scientific_name": "Culex inatomii"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          45.54170676362299,
+          29.647729236151932
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "6d6b1f82-5cd9-4708-b58f-9a5aa4ed8afe",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2024-12-24",
+        "count": 14,
+        "observer_id": "4254d632-8356-4051-a83b-244e5c095bbf",
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_149.jpg",
+        "model_id": "model_2",
+        "confidence": 0.8071694790234527,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.26249514157568776,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.130557124470215,
+          14.874251688466138
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "276aaa6d-8f1d-476a-a278-d9a3485890a2",
+        "species_scientific_name": "Anopheles freeborni",
+        "observed_at": "2024-09-12",
+        "count": 18,
+        "observer_id": "d431d4bb-7211-4d4b-b360-1401ec8444c9",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_849.jpg",
+        "model_id": "model_2",
+        "confidence": 0.9777722135767842,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.8728903820132313,
+          "species_scientific_name": "Anopheles freeborni"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          61.86820096481259,
+          15.098476627125155
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "eee7e03f-16a1-4cc1-8148-1044486cddf8",
+        "species_scientific_name": "Culex quinquefasciatus",
+        "observed_at": "2024-08-21",
+        "count": 7,
+        "observer_id": "c6b94505-8c29-4a49-8883-5e95eadf50a7",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_252.jpg",
+        "model_id": "model_1",
+        "confidence": 0.984259275034785,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.25381824045966805,
+          "species_scientific_name": "Culex quinquefasciatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.39743707039379,
+          2.7743529650001246
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "4462cf38-7a3e-4e40-8214-0003c3598927",
+        "species_scientific_name": "Aedes geniculatus",
+        "observed_at": "2025-04-21",
+        "count": 10,
+        "observer_id": "7a377ba1-4d20-4c4d-845c-3b086f664e55",
+        "location_accuracy_m": 50,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_669.jpg",
+        "model_id": "model_2",
+        "confidence": 0.5015436656019732,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.684503625687763,
+          "species_scientific_name": "Aedes geniculatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          64.80163989020221,
+          6.846577365622856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "5f8809c0-3030-4795-b388-f9440977cb78",
+        "species_scientific_name": "Culex pipiens",
+        "observed_at": "2024-12-06",
+        "count": 14,
+        "observer_id": "70304d4b-73a7-47e7-85fe-c5616d161ba1",
+        "location_accuracy_m": 10,
+        "notes": "",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_851.jpg",
+        "model_id": null,
+        "confidence": 0.6332192094093189,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.8342407869567223,
+          "species_scientific_name": "Culex pipiens"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          63.33634303940009,
+          22.94786256045478
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "09aeb639-3663-4139-b3ae-6e026edda949",
+        "species_scientific_name": "Anopheles freeborni",
+        "observed_at": "2024-12-17",
+        "count": 13,
+        "observer_id": "c95987fd-c38a-433e-9c11-20933b9ae20c",
+        "location_accuracy_m": 50,
+        "notes": "",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_314.jpg",
+        "model_id": null,
+        "confidence": 0.3442113528124433,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.569914874576162,
+          "species_scientific_name": "Anopheles freeborni"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.12517983274377,
+          2.146752497590418
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "e30c6dce-fe89-4cc7-873e-c540de8b090a",
+        "species_scientific_name": "Aedes koreicus",
+        "observed_at": "2025-03-14",
+        "count": 13,
+        "observer_id": "7f968bb4-c9ba-492b-b6db-4a27c9449bf2",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_225.jpg",
+        "model_id": "model_1",
+        "confidence": 0.3067613110335561,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.11599013867149477,
+          "species_scientific_name": "Aedes koreicus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.60295901464173,
+          12.573641612332523
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "1dfff103-4e8f-407f-b3dc-6e97b68d1c45",
+        "species_scientific_name": "Aedes triseriatus",
+        "observed_at": "2025-02-05",
+        "count": 11,
+        "observer_id": "1806a79f-0a20-4158-990c-2b29fd7da8b6",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_375.jpg",
+        "model_id": "model_2",
+        "confidence": 0.5930756486758514,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.10931861173855573,
+          "species_scientific_name": "Aedes triseriatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.18712562712062,
+          16.32283276405208
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ae8f539a-a6cb-4821-b0e4-0202f1232334",
+        "species_scientific_name": "Culiseta annulata",
+        "observed_at": "2024-09-13",
+        "count": 8,
+        "observer_id": "07bae7c9-9f0e-4495-af25-75239798e240",
+        "location_accuracy_m": 5,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_241.jpg",
+        "model_id": null,
+        "confidence": 0.3548011425853278,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.9130552894605851,
+          "species_scientific_name": "Culiseta annulata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.7581157349189,
+          6.740230525145002
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "a17e7c22-30c8-4ac1-aa7d-f4d2e613a196",
+        "species_scientific_name": "Aedes koreicus",
+        "observed_at": "2024-12-02",
+        "count": 2,
+        "observer_id": "35e1c35b-b6c8-489a-898c-cd6e41792bbe",
+        "location_accuracy_m": 100,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_510.jpg",
+        "model_id": "model_2",
+        "confidence": 0.4520372074632254,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.3865640549970609,
+          "species_scientific_name": "Aedes koreicus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          63.707330059896,
+          -9.041845135966271
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "4e5df3f0-b5e3-4ff4-8f56-ba24ba32d11c",
+        "species_scientific_name": "Culex inatomii",
+        "observed_at": "2024-12-30",
+        "count": 17,
+        "observer_id": "72725942-e0fe-4e42-ab1a-382da57e4383",
+        "location_accuracy_m": 50,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_767.jpg",
+        "model_id": "model_1",
+        "confidence": 0.6319186794597442,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.9761145151769173,
+          "species_scientific_name": "Culex inatomii"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.860381454434695,
+          5.096362263392077
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "8c06e992-e288-43ef-81a6-55d58994d744",
+        "species_scientific_name": "Anopheles arabiensis",
+        "observed_at": "2025-05-19",
+        "count": 1,
+        "observer_id": "c13cd41c-a8c6-4618-b450-842735c5da09",
+        "location_accuracy_m": 10,
+        "notes": "",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_754.jpg",
+        "model_id": "model_1",
+        "confidence": 0.22394281375272995,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.2028391150284684,
+          "species_scientific_name": "Anopheles arabiensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.55196236820452,
+          13.705861914602327
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "4849a250-5486-4fb4-9e89-94f4b1b58344",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2025-05-11",
+        "count": 6,
+        "observer_id": "55f89557-08aa-463b-9e27-86de4d400d5f",
+        "location_accuracy_m": 5,
+        "notes": "",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_359.jpg",
+        "model_id": "model_1",
+        "confidence": 0.5110086036883937,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.8123341363858143,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.09111839258029,
+          20.69371863746172
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "2364b1f4-6e79-4cfa-af8d-d56b15afe49d",
+        "species_scientific_name": "Aedes canadensis",
+        "observed_at": "2024-10-28",
+        "count": 8,
+        "observer_id": "c5bf3c6a-45f6-42cc-8327-be8d4123c89d",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_864.jpg",
+        "model_id": "model_1",
+        "confidence": 0.90193150752281,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.59445613560876,
+          "species_scientific_name": "Aedes canadensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          60.813145762656234,
+          1.7411489013829584
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "f5aaab7f-414e-4cf4-ae3a-c772cb573faf",
+        "species_scientific_name": "Culex pipiens",
+        "observed_at": "2024-09-24",
+        "count": 10,
+        "observer_id": "713a5482-34d3-4355-950d-90fbaaa84cc1",
+        "location_accuracy_m": 10,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_259.jpg",
+        "model_id": null,
+        "confidence": 0.7237469926573464,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.07203230842465125,
+          "species_scientific_name": "Culex pipiens"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          61.46247124987486,
+          -8.897500211914736
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "04a01c56-3dc7-437e-a34d-d1bd616d31ba",
+        "species_scientific_name": "Aedes dorsalis",
+        "observed_at": "2024-09-26",
+        "count": 6,
+        "observer_id": "3c0ccdc2-e4fd-4cd7-8d8a-cef0cede2017",
+        "location_accuracy_m": 50,
+        "notes": "",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_813.jpg",
+        "model_id": "model_2",
+        "confidence": 0.7676456688677129,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.013644740955148782,
+          "species_scientific_name": "Aedes dorsalis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.47844766149859,
+          8.7338313210738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "130313a8-70e4-4fd4-a73e-ba50e0af751c",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2024-12-06",
+        "count": 15,
+        "observer_id": "0f7c37e8-2f3b-4e05-a959-7f55aa625023",
+        "location_accuracy_m": null,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_521.jpg",
+        "model_id": "model_2",
+        "confidence": 0.33834753776124415,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.8083087666247797,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.456110449815547,
+          137.86359781465143
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "6bddd214-7caa-48f9-9a88-d322bf05c56c",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2024-11-18",
+        "count": 14,
+        "observer_id": "59006710-7316-44bc-8a9f-5b936f7ae90d",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_213.jpg",
+        "model_id": "model_2",
+        "confidence": 0.8419444127311262,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9111011711436241,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          60.97939511151892,
+          10.58281408062146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "47812cd3-3e89-4fc1-92a9-c1f088b104da",
+        "species_scientific_name": "Aedes geniculatus",
+        "observed_at": "2025-06-07",
+        "count": 3,
+        "observer_id": "7b831a4a-3bfc-462d-b99b-b9c723e2c223",
+        "location_accuracy_m": 5,
+        "notes": "",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_371.jpg",
+        "model_id": null,
+        "confidence": 0.9830127119816501,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.3591152186913086,
+          "species_scientific_name": "Aedes geniculatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          63.50584040017566,
+          16.298045082818135
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "0b1b166e-75b1-4f27-b719-5ebcd028bfd4",
+        "species_scientific_name": "Anopheles sinensis",
+        "observed_at": "2024-10-23",
+        "count": 8,
+        "observer_id": "0c29e982-edd5-4fa8-88ef-563fa4154a1e",
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_554.jpg",
+        "model_id": "model_2",
+        "confidence": 0.06886347203816479,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.12208474986437834,
+          "species_scientific_name": "Anopheles sinensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          66.60869597565905,
+          -0.2936491597119417
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "818558d7-7e14-4868-8ca1-d8274b61e695",
+        "species_scientific_name": "Anopheles sinensis",
+        "observed_at": "2025-02-14",
+        "count": 15,
+        "observer_id": "5620f316-19eb-4e8b-a2ee-076019749f0b",
+        "location_accuracy_m": 100,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_113.jpg",
+        "model_id": "model_2",
+        "confidence": 0.8632384357759478,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.9434267946192005,
+          "species_scientific_name": "Anopheles sinensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          59.19723790799082,
+          37.86787576107743
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "28bea2a3-9bd8-4f33-97c7-307ea94d5f20",
+        "species_scientific_name": "Culiseta annulata",
+        "observed_at": "2024-12-18",
+        "count": 20,
+        "observer_id": "338e665b-35a9-4f70-b110-4bb46dd94f44",
+        "location_accuracy_m": 100,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_420.jpg",
+        "model_id": "model_2",
+        "confidence": 0.1933812209347554,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.03288768602956249,
+          "species_scientific_name": "Culiseta annulata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.02308277420269,
+          3.732083709380161
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "45ad7353-bfc2-4d50-8425-43ff12671826",
+        "species_scientific_name": "Aedes triseriatus",
+        "observed_at": "2025-03-11",
+        "count": 5,
+        "observer_id": "9519c1aa-0d47-442c-95b1-cadf876e8dbc",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_996.jpg",
+        "model_id": "model_1",
+        "confidence": 0.09445231058414427,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.8263931728822578,
+          "species_scientific_name": "Aedes triseriatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          42.47120365929754,
+          29.878465758207668
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "3571e76e-ee69-449f-8880-bb3dd250b761",
+        "species_scientific_name": "Aedes triseriatus",
+        "observed_at": "2024-08-26",
+        "count": 7,
+        "observer_id": "6ba4d7ac-2907-4d15-8e53-7abbb8d62785",
+        "location_accuracy_m": 10,
+        "notes": "",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_211.jpg",
+        "model_id": null,
+        "confidence": 0.364203028786126,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.7554102293693701,
+          "species_scientific_name": "Aedes triseriatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.56168511089527,
+          27.891624538749213
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "85b4105f-b0cf-4435-af57-a89876c258ad",
+        "species_scientific_name": "Aedes dorsalis",
+        "observed_at": "2025-06-23",
+        "count": 2,
+        "observer_id": "35afe69f-538a-4292-b6a8-807d71330fd6",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_979.jpg",
+        "model_id": "model_2",
+        "confidence": 0.07389137053058048,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.061624390251252215,
+          "species_scientific_name": "Aedes dorsalis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          64.46917382458801,
+          19.945466303451738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "e0b1a5d1-0402-41ab-8a62-805e6ee2aac9",
+        "species_scientific_name": "Culex pipiens",
+        "observed_at": "2024-10-25",
+        "count": 20,
+        "observer_id": "bae7f931-788a-4f17-a789-850fe435d3c4",
+        "location_accuracy_m": 100,
+        "notes": "",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_472.jpg",
+        "model_id": null,
+        "confidence": 0.5052062029816022,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.6374746163037065,
+          "species_scientific_name": "Culex pipiens"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          47.92472113235134,
+          15.105566035281946
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "02114c4d-10e7-4aad-bae6-d78646dd79d3",
+        "species_scientific_name": "Aedes triseriatus",
+        "observed_at": "2024-12-30",
+        "count": 5,
+        "observer_id": "26a4cd9d-a841-411e-88bf-f6ac5fc04996",
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_565.jpg",
+        "model_id": "model_2",
+        "confidence": 0.2171585887186358,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.7337395574955504,
+          "species_scientific_name": "Aedes triseriatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.90296239907382,
+          28.508059812712474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "f54f450f-b055-4787-a815-ba7c11eaf1dd",
+        "species_scientific_name": "Culex pipiens",
+        "observed_at": "2025-04-02",
+        "count": 5,
+        "observer_id": "35010cd9-5417-49b6-bdad-911836eeb5da",
+        "location_accuracy_m": 100,
+        "notes": "",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_109.jpg",
+        "model_id": "model_2",
+        "confidence": 0.08311040431055317,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.10495079824276865,
+          "species_scientific_name": "Culex pipiens"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          64.63722115462177,
+          15.088729144604304
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "af020ac1-7c5b-46fc-8434-e5f0aa1441e1",
+        "species_scientific_name": "Aedes geniculatus",
+        "observed_at": "2025-02-15",
+        "count": 15,
+        "observer_id": "db8284fb-04c5-4f19-aa2e-c60a5fa52d58",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_908.jpg",
+        "model_id": "model_1",
+        "confidence": 0.7197117160469266,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.16008963783644825,
+          "species_scientific_name": "Aedes geniculatus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.90287736341851,
+          5.343204661702515
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "a15b35d7-c533-4372-8ac3-f60c48ca6217",
+        "species_scientific_name": "Culex inatomii",
+        "observed_at": "2024-11-05",
+        "count": 3,
+        "observer_id": "cb2e1e69-9554-47f6-b708-e489f5cd284f",
+        "location_accuracy_m": 100,
+        "notes": "",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_509.jpg",
+        "model_id": null,
+        "confidence": 0.3310168273239176,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.5815296932869207,
+          "species_scientific_name": "Culex inatomii"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          63.88498883553828,
+          22.11302962746437
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "66f47a16-8fb3-4f2d-96ac-bf10086b92b6",
+        "species_scientific_name": "Culiseta longiareolata",
+        "observed_at": "2025-06-12",
+        "count": 13,
+        "observer_id": "3c6283ac-ce57-4c6d-8fc5-c7d29b406d99",
+        "location_accuracy_m": 5,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_656.jpg",
+        "model_id": "model_1",
+        "confidence": 0.6373681551727179,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.06780131544383383,
+          "species_scientific_name": "Culiseta longiareolata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          68.11059901147553,
+          24.689825324295
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "5881070a-4d3b-45d4-8b45-af5cad943591",
+        "species_scientific_name": "Anopheles sinensis",
+        "observed_at": "2025-05-31",
+        "count": 5,
+        "observer_id": "8f1943ca-ab3f-475b-b4d3-56839b20c40f",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_501.jpg",
+        "model_id": "model_2",
+        "confidence": 0.4968360708150409,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.5340823560265354,
+          "species_scientific_name": "Anopheles sinensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.45291620548663,
+          18.148268485484053
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ef9e347a-4b0f-4f65-a8c6-148766ba45d4",
+        "species_scientific_name": "Culiseta longiareolata",
+        "observed_at": "2025-07-22",
+        "count": 5,
+        "observer_id": "fcc95c7e-9a45-4770-9cb5-7720628fcb02",
+        "location_accuracy_m": 100,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_759.jpg",
+        "model_id": "model_1",
+        "confidence": 0.8623408715289829,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.10547044291823116,
+          "species_scientific_name": "Culiseta longiareolata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.78455600608409,
+          9.9978745598197
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "671ff043-db60-4f9d-ad0f-cea51b39206e",
+        "species_scientific_name": "Anopheles freeborni",
+        "observed_at": "2024-08-24",
+        "count": 14,
+        "observer_id": "49c85d1c-2739-4844-8bc3-bc000b0c1959",
+        "location_accuracy_m": 5,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_151.jpg",
+        "model_id": "model_1",
+        "confidence": 0.28095427863811284,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.4074168238955872,
+          "species_scientific_name": "Anopheles freeborni"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          62.78928071322557,
+          5.757266944296438
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "88eb9266-878f-4cc3-989a-4ea10045d035",
+        "species_scientific_name": "Culex inatomii",
+        "observed_at": "2025-04-19",
+        "count": 9,
+        "observer_id": "bf933655-2cfe-4495-b48a-f1b9944a0a2a",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_624.jpg",
+        "model_id": "model_2",
+        "confidence": 0.7769735703722085,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.23517393043664958,
+          "species_scientific_name": "Culex inatomii"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.374357659845074,
+          6.611682220783884
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "0574be75-859f-447e-9a54-1042586954ac",
+        "species_scientific_name": "Aedes aegypti",
+        "observed_at": "2025-02-01",
+        "count": 13,
+        "observer_id": "e94fdf71-2366-48d6-9be2-53b5ff946d56",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_251.jpg",
+        "model_id": "model_2",
+        "confidence": 0.3755371259241208,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.8591814454698857,
+          "species_scientific_name": "Aedes aegypti"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.2107164724026056,
+          110.34461308928003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "c73e0d69-030a-4f3b-856a-2c6c387c1071",
+        "species_scientific_name": "Culex inatomii",
+        "observed_at": "2025-04-28",
+        "count": 10,
+        "observer_id": "222c6d5b-1b36-4300-b8ee-7b406669e0ad",
+        "location_accuracy_m": null,
+        "notes": "Near standing water.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_295.jpg",
+        "model_id": "model_2",
+        "confidence": 0.29916134936395256,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.701081693296299,
+          "species_scientific_name": "Culex inatomii"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.6664962261321,
+          35.76645020642747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "005ce7ae-71f5-40ff-9584-7a4bfa13247b",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2024-10-04",
+        "count": 6,
+        "observer_id": "1ec2cfe7-223d-40fb-9904-c8bd62c376be",
+        "location_accuracy_m": null,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_201.jpg",
+        "model_id": null,
+        "confidence": 0.9607001517928728,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.5385703545371806,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          59.3765655774089,
+          4.446036023258408
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "a24cdce6-476c-4934-827a-52ee7406fcff",
+        "species_scientific_name": "Aedes albopictus",
+        "observed_at": "2025-01-17",
+        "count": 8,
+        "observer_id": "50c9f2e6-dc1c-42f6-aa3c-ccf20e74e84d",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_164.jpg",
+        "model_id": null,
+        "confidence": 0.2566564378830468,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.23813286597021954,
+          "species_scientific_name": "Aedes albopictus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          68.40621602526801,
+          22.474827223941958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "05d4aaf8-2814-4e70-a118-22b07505bc39",
+        "species_scientific_name": "Aedes koreicus",
+        "observed_at": "2025-04-12",
+        "count": 20,
+        "observer_id": "09aeeb7e-9b3d-43cc-8898-ca2994def31c",
+        "location_accuracy_m": 5,
+        "notes": "",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_929.jpg",
+        "model_id": "model_2",
+        "confidence": 0.16337431465761088,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.2851084034778165,
+          "species_scientific_name": "Aedes koreicus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.341618631022286,
+          10.761123440648593
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "9a336fdf-27cb-4d2f-a033-e9fb0c61edec",
+        "species_scientific_name": "Anopheles sinensis",
+        "observed_at": "2025-03-29",
+        "count": 13,
+        "observer_id": "3c24059b-6df1-4f9b-8340-7b895b564fbf",
+        "location_accuracy_m": null,
+        "notes": "",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_162.jpg",
+        "model_id": null,
+        "confidence": 0.0794847798331576,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.01458534066977668,
+          "species_scientific_name": "Anopheles sinensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          66.55813463084243,
+          23.99553392298798
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "47e129a4-4ade-42bd-ab9d-1c31b761458d",
+        "species_scientific_name": "Aedes koreicus",
+        "observed_at": "2024-11-18",
+        "count": 9,
+        "observer_id": "a9d9d1c9-503d-4d56-9987-288e835061ca",
+        "location_accuracy_m": 10,
+        "notes": "Larvae collected.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_555.jpg",
+        "model_id": "model_1",
+        "confidence": 0.5608526720600313,
+        "metadata": {
+          "model_id": null,
+          "confidence": 0.2180731988344855,
+          "species_scientific_name": "Aedes koreicus"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.23473277194111,
+          25.952016315807455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "fcffe14d-0169-4eeb-8a44-1e7777b49d3c",
+        "species_scientific_name": "Aedes vexans",
+        "observed_at": "2025-07-05",
+        "count": 1,
+        "observer_id": "0e56b2d3-f21e-404a-b2b2-4f462427f437",
+        "location_accuracy_m": null,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "inatuarlist",
+          "name_en": "iNaturalist",
+          "name_ru": "iNaturalist"
+        },
+        "image_filename": "obs_697.jpg",
+        "model_id": "model_1",
+        "confidence": 0.6750317032421426,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.3607506403113869,
+          "species_scientific_name": "Aedes vexans"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.07634875200449,
+          2.5174940757078197
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "a6806ece-af90-4daf-858c-376f8993b26e",
+        "species_scientific_name": "Aedes canadensis",
+        "observed_at": "2025-07-18",
+        "count": 13,
+        "observer_id": "f21181a7-ae4a-439b-9668-19ac7052a148",
+        "location_accuracy_m": 100,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "local_survey_a",
+          "name_en": "Local Survey Team A",
+          "name_ru": "\u041c\u0435\u0441\u0442\u043d\u0430\u044f \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0443\u043f\u043f\u0430 \u0410"
+        },
+        "image_filename": "obs_205.jpg",
+        "model_id": "model_1",
+        "confidence": 0.5393166622522768,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.6833829929393536,
+          "species_scientific_name": "Aedes canadensis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.78061888943193,
+          29.821280409682927
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "0f2062c9-6fb1-4cf4-b524-511f5d87a3b6",
+        "species_scientific_name": "Culiseta longiareolata",
+        "observed_at": "2024-10-18",
+        "count": 6,
+        "observer_id": "faa0e767-887f-47e4-ab41-ab11bea77521",
+        "location_accuracy_m": 5,
+        "notes": "",
+        "data_source": {
+          "id": "gbif",
+          "name_en": "GBIF",
+          "name_ru": "GBIF"
+        },
+        "image_filename": "obs_509.jpg",
+        "model_id": null,
+        "confidence": 0.32882654225567987,
+        "metadata": {
+          "model_id": "model_1",
+          "confidence": 0.9549658556804796,
+          "species_scientific_name": "Culiseta longiareolata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.84940447247441,
+          -2.7125568954937807
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "4df72c28-bb8a-4c3a-9a49-ad952c5a494d",
+        "species_scientific_name": "Culiseta longiareolata",
+        "observed_at": "2024-12-28",
+        "count": 17,
+        "observer_id": "c07eedf5-b1f9-43ac-9829-c55bb5cf6316",
+        "location_accuracy_m": 10,
+        "notes": "Adult female found.",
+        "data_source": {
+          "id": "vectorbase",
+          "name_en": "VectorBase",
+          "name_ru": "VectorBase"
+        },
+        "image_filename": "obs_961.jpg",
+        "model_id": "model_1",
+        "confidence": 0.654286624470822,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.24350114975259818,
+          "species_scientific_name": "Culiseta longiareolata"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.151407105513,
+          38.052353350751645
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "a122a041-0b23-4cc2-be2a-6abfcf4c8fd5",
+        "species_scientific_name": "Aedes dorsalis",
+        "observed_at": "2025-02-09",
+        "count": 15,
+        "observer_id": "70cc0ff7-6d1c-4e83-be1a-1b3753ddd68d",
+        "location_accuracy_m": 5,
+        "notes": "",
+        "data_source": {
+          "id": "research_xyz",
+          "name_en": "Research Study XYZ",
+          "name_ru": "\u041d\u0430\u0443\u0447\u043d\u043e\u0435 \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 XYZ"
+        },
+        "image_filename": "obs_958.jpg",
+        "model_id": null,
+        "confidence": 0.7455105500586755,
+        "metadata": {
+          "model_id": "model_2",
+          "confidence": 0.7185842536308736,
+          "species_scientific_name": "Aedes dorsalis"
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.41284137919937,
+          11.182969123497042
+        ]
+      }
+    }
+  ]
+}

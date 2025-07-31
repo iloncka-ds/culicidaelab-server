@@ -1,12 +1,13 @@
 import solara
 import solara.lab
-from solara.alias import rv
+
 import ipyleaflet as L
 from ipywidgets import HTML
 import json
 import httpx
-import asyncio
-from typing import Dict, Any, Optional, List, Tuple
+
+import i18n
+from typing import Dict, Any, Optional
 
 from frontend.state import (
     selected_species_reactive,
@@ -15,7 +16,7 @@ from frontend.state import (
     current_map_bounds_reactive,
     current_map_zoom_reactive,
     observations_data_reactive,
-    observations_loading_reactive,  # Renamed to match filter_panel.py's variable
+    observations_loading_reactive,
     selected_date_range_reactive,
     use_locale_effect
 )
@@ -24,11 +25,16 @@ from frontend.config import (
     DEFAULT_MAP_ZOOM,
     SPECIES_COLORS,
     OBSERVATIONS_ENDPOINT,
-    API_BASE_URL,
-    generate_species_colors,  # Import the generator
-)
-from frontend.state import all_available_species_reactive, observations_loading_reactive
 
+)
+from frontend.state import all_available_species_reactive
+
+i18n.add_translation("map.html_popup.count", "Count", locale="en")
+i18n.add_translation("map.html_popup.count", "Кол-во", locale="ru")
+i18n.add_translation("map.html_popup.observed_at", "Observed At", locale="en")
+i18n.add_translation("map.html_popup.observed_at", "Дата наблюдения", locale="ru")
+i18n.add_translation("map.html_popup.species", "Species", locale="en")
+i18n.add_translation("map.html_popup.species", "Вид", locale="ru")
 
 async def fetch_geojson_data(
     url: str, params: dict, loading_reactive: solara.Reactive[bool]
@@ -109,21 +115,50 @@ class LeafletMapManager:
         if change["name"] == "zoom" and change["new"]:
             current_map_zoom_reactive.value = int(change["new"])
 
-    def _create_popup_html(self, props: Dict[str, Any], title_key: str = "name") -> str:
-        title = props.get(title_key, "Details")
-        html_content = f"<h4>{title}</h4><hr style='margin: 2px 0;'>"
-        for key, value in props.items():
-            if (
-                key.lower() not in ["geometry", title_key.lower(), "style", "observer_id", "location_accuracy_m"]
-                and value is not None
-            ):
-                display_key = key.replace("_", " ").title()
-                html_content += (
-                    f"<p style='margin: 1px 0; font-size: 0.9em;'><strong>{display_key}:</strong> {value}</p>"
-                )
+    def _format_value(self, value: Any) -> str:
+        """Format value for display, handling JSON strings and Unicode properly."""
+        # If it's a string that looks like JSON, try to parse it
+        if isinstance(value, str):
+            # Check if it looks like JSON (starts with { or [)
+            stripped = value.strip()
+            if stripped.startswith(("{", "[")):
+                try:
+                    parsed = json.loads(value)
+                    if isinstance(parsed, dict):
+                        # Format dictionary nicely
+                        parts = []
+                        for k, v in parsed.items():
+                            if isinstance(v, str):
+                                # Ensure proper Unicode handling
+                                v = v.encode("utf-8").decode("unicode_escape").encode("latin1").decode("utf-8")
+                            parts.append(f"{k}: {v}")
+                        return " | ".join(parts)
+                    elif isinstance(parsed, list):
+                        return ", ".join(str(item) for item in parsed)
+                    else:
+                        return str(parsed)
+                except (json.JSONDecodeError, UnicodeDecodeError):
+                    pass
+
+
+            try:
+                return value.encode("utf-8").decode("unicode_escape").encode("latin1").decode("utf-8")
+            except (UnicodeDecodeError, UnicodeEncodeError):
+                pass
+
+        return str(value)
+
+    def _create_popup_html(self, props: Dict[str, Any], title_key: Optional[str] = None) -> str:
+        species = props.get("species_scientific_name", "")
+        observed_at = props.get("observed_at", "")
+        count = props.get("count", "")
+
+        html_content = f"<p style='margin: 2px 0; font-size: 0.9em;'>{i18n.t('map.html_popup.species')}: {species}</p>"
+        html_content += f"<p style='margin: 2px 0; font-size: 0.9em;'>{i18n.t('map.html_popup.observed_at')}: {observed_at}</p>"
+        html_content += f"<p style='margin: 2px 0; font-size: 0.9em;'>{i18n.t('map.html_popup.count')}: {count}</p>"
+
         return html_content
 
-    # This method is now simpler and more reliable
     def _get_species_color(self, species_name: Optional[str]) -> str:
 
         color = self.species_color_map.get(species_name, "rgba(128,128,128,0.7)")
@@ -208,7 +243,7 @@ def MapDisplay():
         ],
     )
 
-    # This effect will now correctly re-run when the map_manager instance is replaced.
+
     def _update_map_layers_effect():
         map_manager.update_observations_layer(observations_data_reactive.value)
 

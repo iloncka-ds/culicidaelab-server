@@ -6,7 +6,8 @@ from typing import Optional, Dict, Any
 import httpx
 import logging
 
-from ...config import API_BASE_URL
+from frontend.config import API_BASE_URL
+
 
 logger = logging.getLogger("observation")
 

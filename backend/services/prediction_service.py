@@ -92,6 +92,7 @@ class PredictionService:
         """
         Predict mosquito species from image data.
         """
+        image_url_species = None
         try:
             if not self.model_loaded:
                 try:
@@ -105,26 +106,27 @@ class PredictionService:
 
             predictions = self.model.predict(image_np)
             top_species, top_confidence = predictions[0]
-            sanitized_species = top_species.replace(" ", "_").lower()
-            unique_id_part = f"{hash(top_species) % 10000:04d}"
+            species_id = top_species.replace(" ", "_").lower()
+            unique_id = f"{hash(top_species) % 10000:04d}"
             date_str = datetime.now().strftime("%d%m%Y")
-            result_id = f"{sanitized_species}_{unique_id_part}_{date_str}"
+            result_id = f"{species_id}_{unique_id}_{date_str}"
 
             if self.save_predicted_images_enabled:
                 extension = Path(filename).suffix or ".jpg"
                 new_filename = f"{result_id}{extension}"
                 asyncio.create_task(self.save_predicted_image(image_data, new_filename))
+                image_url_species = f"/static/images/predicted/224x224/{new_filename}"
             else:
                 print("[SERVICE] Feature flag 'SAVE_PREDICTED_IMAGES' is False. Skipping image save.")
 
-            image_url_species = f"/static/images/predicted/224x224/{new_filename}"
+
             result = PredictionResult(
                 scientific_name=top_species,
                 probabilities={species: float(conf) for species, conf in predictions[:2]},
-                id=result_id,
+                id=species_id,
                 model_id=self.model_id,
                 confidence=float(top_confidence),
-                image_url_species=image_url_species,
+                image_url_species=image_url_species
             )
             return result, None
 

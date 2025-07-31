@@ -8,7 +8,7 @@ from ...config import (
     COLOR_PRIMARY,
     FONT_HEADINGS
 )
-from ...state import selected_disease_item_id
+from frontend.state import selected_disease_item_id
 import i18n
 
 i18n.add_translation("actions.view_details", "View Details", locale="en")
@@ -47,17 +47,17 @@ def DiseaseCard(disease: Dict[str, Any]):
             with solara.Column(align="start", style="overflow: hidden;"):
                 solara.Markdown(
                     f"#### {disease.get('name', 'N/A')}",
-                    style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {COLOR_PRIMARY}; text-decoration: none;",
+                    style=f"font-family: {FONT_HEADINGS}; margin-bottom: 0px; white-space: normal; min-height: 5.5em; color: {COLOR_PRIMARY};",
                 )
 
                 description = disease.get("description", "")
-                description_snippet = description[:60] + "..." if len(description) > 60 else description
+                description_snippet = description[:55] + "..." if len(description) > 60 else description
                 solara.Text(
                     description_snippet,
-                    style="font-size: 0.9em; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                    style="font-size: 0.9em; color: #555; white-space: normal; min-height: 3em; max-height: 4em;",
                 )
                 prevalence = disease.get("prevalence", "")
-                prevalence_snippet = prevalence[:60] + "..." if len(prevalence) > 60 else prevalence
+                prevalence_snippet = prevalence[:35] + "..." if len(prevalence) > 35 else prevalence
                 if prevalence:
                     rv.Chip(
                         small=True,

@@ -14,7 +14,7 @@ def get_status_color(status_detail: str) -> Tuple[str, str]:
     status_color_detail, text_color_detail = "blue-grey", "white"
     if status_detail == "high":
         status_color_detail = "red"
-    elif status_detail == "medium":
+    elif status_detail == "moderate":
         status_color_detail = "orange"
     elif status_detail == "low":
         status_color_detail = "green"

@@ -73,7 +73,7 @@ def _db_record_to_species_base(record: dict, lang: str, request: Request) -> Spe
         id=species_id,
         scientific_name=record.get("scientific_name"),
         vector_status=record.get("vector_status"),
-        image_url=image_url,  # Use the newly constructed URL
+        image_url=image_url,
         common_name=record.get(f"common_name_{lang}", record.get(f"common_name_{fallback_lang}")),
     )
 

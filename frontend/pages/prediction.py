@@ -16,7 +16,7 @@ from frontend.config import (
 from frontend.components.prediction.file_upload import FileUploadComponent, upload_and_predict
 from frontend.components.prediction.location import LocationComponent
 from frontend.components.prediction.observation_form import ObservationFormComponent
-from frontend.components.species.species_card import SpeciesCard
+from frontend.components.species.prediction_card import PredictionCard
 from frontend.state import use_persistent_user_id, use_locale_effect
 import i18n
 
@@ -228,7 +228,7 @@ def Page():
                             i18n.t("prediction.labels.prediction_details"),
                             style=sub_heading_style,
                         )
-                        SpeciesCard(species=prediction_result_state)
+                        PredictionCard(species=prediction_result_state)
             else:
                 solara.Warning(i18n.t("prediction.messages.warning.no_prediction_data"), style="margin-top:20px;")
 
