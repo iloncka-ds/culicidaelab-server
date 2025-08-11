@@ -116,10 +116,9 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 ## 📜 License
 
-This project is licensed under the Apache License 2.0 - see the `LICENSE` file for details.
+This project is licensed under the AGPL-3.0 License - see the `LICENSE` file for details.
 
 ## 🙏 Acknowledgments
 
 CulicidaeLab development is  supported by a grant from the **Foundation for Assistance to Small Innovative Enterprises (FASIE)
 [https://fasie.ru/](https://fasie.ru/)**.
-
