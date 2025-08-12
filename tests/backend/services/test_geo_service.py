@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 import lancedb
 
-from backend.schemas.geo_schemas import GeoJSONFeatureCollection, GeoJSONPoint
+from backend.schemas.geo_schemas import GeoJSONFeatureCollection
 from backend.services.geo_service import (
     is_valid_date_str,
     get_geo_layer
@@ -88,7 +88,8 @@ class TestGeoServiceIntegration:
         feature = result.features[0]
         assert feature.properties["species_scientific_name"] == "Aedes aegypti"
         assert feature.properties["observation_date"] == "2023-07-15"
-        assert isinstance(feature.geometry, GeoJSONPoint)
+        assert feature.geometry.type == "Point"
+        assert hasattr(feature.geometry, 'coordinates')
         assert feature.geometry.coordinates == [10, 20]
         
         # Verify the query was constructed correctly
