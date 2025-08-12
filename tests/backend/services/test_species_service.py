@@ -5,12 +5,14 @@ from unittest.mock import MagicMock
 import pytest
 import lancedb
 
+from unittest.mock import Mock
+
 from backend.services.species_service import (
     get_all_species,
     get_species_by_id,
     get_vector_species,
     _get_list_field_from_record,
-    _extract_base_fields
+    _db_record_to_species_detail
 )
 
 
@@ -38,28 +40,45 @@ class TestSpeciesServiceHelpers:
         result = _get_list_field_from_record("not a json")
         assert result == []
 
-    def test_extract_base_fields(self):
-        """Test _extract_base_fields with valid input."""
+    def test_db_record_to_species_detail(self):
+        """Test _db_record_to_species_detail with valid input."""
+        # Create a mock request object
+        mock_request = Mock()
+        mock_request.base_url = "http://testserver/"
+        
         record = {
             "id": "aedes_aegypti",
             "scientific_name": "Aedes aegypti",
-            "common_names": ["Yellow fever mosquito"],
-            "family": "Culicidae",
-            "genus": "Aedes",
-            "is_disease_vector": True,
-            "diseases": ["dengue", "zika"],
-            "distribution": ["tropical", "subtropical"],
-            "habitat": ["urban", "domestic"],
-            "description": "Test description",
-            "image_url": "http://example.com/image.jpg"
+            "vector_status": "primary",
+            "geographic_regions": ["africa", "americas"],
+            "common_name_en": "Yellow fever mosquito",
+            "common_name_es": "Mosquito de la fiebre amarilla",
+            "description_en": "A mosquito species...",
+            "description_es": "Una especie de mosquito...",
+            "key_characteristics_en": ["Black and white stripes", "Lays eggs in water"],
+            "key_characteristics_es": ["Rayas negras y blancas", "Pone huevos en el agua"]
         }
-
-        result = _extract_base_fields(record)
-        assert isinstance(result, dict)
-        assert result["id"] == "aedes_aegypti"
-        assert result["scientific_name"] == "Aedes aegypti"
-        assert "Yellow fever mosquito" in result["common_names"]
-        assert "dengue" in result["diseases"]
+        
+        region_translations = {
+            "en": {"africa": "Africa", "americas": "Americas"},
+            "es": {"africa": "África", "americas": "Américas"}
+        }
+        
+        # Test with English
+        result_en = _db_record_to_species_detail(record, "en", region_translations, mock_request)
+        assert result_en.id == "aedes_aegypti"
+        assert result_en.scientific_name == "Aedes aegypti"
+        assert result_en.vector_status == "primary"
+        assert result_en.common_name == "Yellow fever mosquito"
+        assert result_en.description.startswith("A mosquito species")
+        assert "Black and white stripes" in result_en.key_characteristics
+        assert "Africa" in result_en.geographic_regions
+        assert result_en.image_url.startswith("http://testserver/static/images/species/aedes_aegypti/")
+        
+        # Test with Spanish (fallback to English for missing translations)
+        result_es = _db_record_to_species_detail(record, "es", region_translations, mock_request)
+        assert result_es.common_name == "Mosquito de la fiebre amarilla"
+        assert result_es.description.startswith("Una especie de mosquito")
 
 
 class TestSpeciesService:
