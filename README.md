@@ -35,18 +35,25 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
 *   Git
 
 ### Installation & Setup
-#### Using pip
+
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/iloncka-ds/culicidaelab-server.git
     cd culicidaelab-server
     ```
 
-2.  **Install dependencies:**
+2.  **Install dependencies with pip:**
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows: venv\Scripts\activate
-    python -m pip install -e .
+    python -m pip install .
+    ```
+
+**Note:** If you are using uv, you can install dependencies with [uv](https://docs.astral.sh/uv/):
+    ```bash
+    uv venv -p 3.11
+    source .venv/bin/activate # On Windows: venv\Scripts\activate
+    uv sync -p 3.11
     ```
 
 3.  **Generate Sample Data:**
@@ -69,7 +76,7 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
     python backend/scripts/query_lancedb.py observations --limit 5
     ```
 
-### Running the Application
+#### Running the Application
 
 1.  **Run the Backend API Server:**
     Navigate to the project root (or ensure paths in `uvicorn` command are correct).
