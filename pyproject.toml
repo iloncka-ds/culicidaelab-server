@@ -46,3 +46,6 @@ culicidaelab-server = { workspace = true }
 
 [tool.setuptools]
 packages = ["frontend", "backend"]
+
+[tool.setuptools.packages.find]
+where = ["."]

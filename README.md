@@ -35,55 +35,38 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
 *   Git
 
 ### Installation & Setup
-
+#### Using pip
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repository-url>
-    cd culicidaelab
+    git clone https://github.com/iloncka-ds/culicidaelab-server.git
+    cd culicidaelab-server
     ```
 
-2.  **Create and activate a virtual environment (recommended):**
+2.  **Install dependencies:**
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows: venv\Scripts\activate
+    python -m pip install -e .
     ```
 
-3.  **Install dependencies:**
-
-
-    *   **For Backend:**
-        ```bash
-        pip install fastapi uvicorn "lancedb[full]" pandas pydantic python-multipart # Add other backend deps
-        # "lancedb[full]" installs with sentence-transformers and arrow, good for embeddings.
-        # Or just "lancedb" if embeddings are handled differently or not used directly by LanceDB.
-        ```
-    *   **For Frontend:**
-        ```bash
-        pip install solara ipyleaflet anywidget requests
-        ```
-    *   **Combined :**
-        ```bash
-        uv sync
-        ```
-        or
-
-        ```bash
-        pip install -r requirements.txt
-        ```
-
-4.  **Generate Sample Data (Optional but Recommended for Full Functionality):**
+3.  **Generate Sample Data:**
     This script creates the JSON/GeoJSON files that the backend's `initialize_db` script might use, and that the frontend might load directly or via the API.
     ```bash
-
-    python sample_data/generate_sample_data.py
+    cd backend/data/sample_data
+    python generate_sample_data.py
+    cd ../../../
     ```
     This will create files like `sample_species.json`, `sample_observations.geojson`, etc., in the `sample_data/` directory.
 
-5.  **Initialize the Backend Database:**
+4.  **Initialize the Backend Database:**
     This script sets up LanceDB tables and populates them using the generated sample JSON files.
     *(Ensure the paths in `backend/scripts/initialize_db.py` point to the correct location of `sample_species.json` and `sample_diseases.json`, likely `../sample_data/` if run from `backend/scripts/` or adjusted accordingly).*
     ```bash
-    python -m backend.scripts.initialize_db
+    python backend/scripts/populate_lancedb.py
+    ```
+    Check if generation successful by checking the LanceDB database.
+    ```bash
+    python backend/scripts/query_lancedb.py observations --limit 5
     ```
 
 ### Running the Application
@@ -116,9 +99,8 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 ## 📜 License
 
-This project is licensed under the AGPL-3.0 License - see the `LICENSE` file for details.
+This project is licensed under the AGPL-3.0 License - see the [LICENSE](https://github.com/iloncka-ds/culicidaelab-server/blob/main/LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-CulicidaeLab development is  supported by a grant from the **Foundation for Assistance to Small Innovative Enterprises (FASIE)
-[https://fasie.ru/](https://fasie.ru/)**.
+CulicidaeLab development is  supported by a grant from the [**Foundation for Assistance to Small Innovative Enterprises (FASIE)**](https://fasie.ru/).
