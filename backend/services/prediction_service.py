@@ -52,10 +52,7 @@ class PredictionService:
             original_path = base_path / "original"
             size_224_path = base_path / "224x224"
             size_100_path = base_path / "100x100"
-            os.chmod(base_path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IROTH | stat.S_IXOTH)
-            os.chmod(original_path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IROTH | stat.S_IXOTH)
-            os.chmod(size_224_path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IROTH | stat.S_IXOTH)
-            os.chmod(size_100_path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IROTH | stat.S_IXOTH)
+
             # Create directories asynchronously if they don't exist
             await asyncio.gather(
                 asyncio.to_thread(lambda p: p.mkdir(parents=True, exist_ok=True), original_path),
