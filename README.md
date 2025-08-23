@@ -45,15 +45,16 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
 
 2.  **Install dependencies with pip:**
     ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    python -m venv .venv
+    source .venv/bin/activate  # On Windows: venv\Scripts\activate
     python -m pip install -e .
     ```
 
 **Note:** If you are using uv, you can install dependencies with [uv](https://docs.astral.sh/uv/):
     ```bash
     uv venv -p 3.11
-    source .venv/bin/activate # On Windows: venv\Scripts\activate
+    source .venv/bin/activate
+    # On Windows: .venv\Scripts\activate or .venv\Scripts\activate.ps1
     uv sync -p 3.11
     uv pip install -e .
     uv cache clean

@@ -64,11 +64,11 @@ def _db_record_to_species_base(record: dict, lang: str, request: Request) -> Spe
     """
     fallback_lang = "en"
     species_id = record.get("id", "")
-    # base_url = str(request.base_url)
+    base_url = str(request.base_url)
 
 
-    # image_url = f"{base_url}static/images/species/{species_id}/thumbnail.jpg"
-    image_url = f"/static/images/species/{species_id}/thumbnail.jpg"
+    image_url = f"{base_url}static/images/species/{species_id}/thumbnail.jpg"
+    # image_url = f"/static/images/species/{species_id}/thumbnail.jpg"
     return SpeciesBase(
         id=species_id,
         scientific_name=record.get("scientific_name"),
