@@ -14,12 +14,12 @@ def _db_record_to_disease_model(record: Dict[str, Any], lang: str, request: Requ
     """
     fallback_lang = "en"
     disease_id = record.get("id", "")
-    base_url = str(request.base_url)
+    # base_url = str(request.base_url)
 
     # Construct the full URL to the 'detail' image.
     # This assumes a directory structure like /static/images/diseases/{disease_id}/detail.jpg
-    image_url = f"{base_url}static/images/diseases/{disease_id}/detail.jpg"
-
+    # image_url = f"{base_url}static/images/diseases/{disease_id}/detail.jpg"
+    image_url = f"/static/images/diseases/{disease_id}/detail.jpg"
     return Disease(
         id=disease_id,
         image_url=image_url,  # Use the newly constructed URL

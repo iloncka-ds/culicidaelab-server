@@ -247,7 +247,7 @@ def MapDisplay():
     def _update_map_layers_effect():
         map_manager.update_observations_layer(observations_data_reactive.value)
 
-    solara.use_effect(
+    solara.use_effect(  # noqa: SH101
         _update_map_layers_effect,
         [
             observations_data_reactive.value,

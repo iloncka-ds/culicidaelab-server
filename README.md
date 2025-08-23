@@ -33,6 +33,7 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
 *   Python 3.11+
 *   uv or pip for Python packages installation
 *   Git
+*  libgl1 (for linux)
 
 ### Installation & Setup
 
@@ -46,7 +47,7 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows: venv\Scripts\activate
-    python -m pip install .
+    python -m pip install -e .
     ```
 
 **Note:** If you are using uv, you can install dependencies with [uv](https://docs.astral.sh/uv/):
@@ -54,14 +55,14 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
     uv venv -p 3.11
     source .venv/bin/activate # On Windows: venv\Scripts\activate
     uv sync -p 3.11
+    uv pip install -e .
+    uv cache clean
     ```
 
 3.  **Generate Sample Data:**
     This script creates the JSON/GeoJSON files that the backend's `initialize_db` script might use, and that the frontend might load directly or via the API.
     ```bash
-    cd backend/data/sample_data
-    python generate_sample_data.py
-    cd ../../../
+    python -m backend.data.sample_data.generate_sample_data
     ```
     This will create files like `sample_species.json`, `sample_observations.geojson`, etc., in the `sample_data/` directory.
 
@@ -69,11 +70,11 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
     This script sets up LanceDB tables and populates them using the generated sample JSON files.
     *(Ensure the paths in `backend/scripts/initialize_db.py` point to the correct location of `sample_species.json` and `sample_diseases.json`, likely `../sample_data/` if run from `backend/scripts/` or adjusted accordingly).*
     ```bash
-    python backend/scripts/populate_lancedb.py
+    python -m backend.scripts.populate_lancedb
     ```
     Check if generation successful by checking the LanceDB database.
     ```bash
-    python backend/scripts/query_lancedb.py observations --limit 5
+    python -m backend.scripts.query_lancedb observations --limit 5
     ```
 
 #### Running the Application
@@ -81,7 +82,9 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
 1.  **Run the Backend API Server:**
     Navigate to the project root (or ensure paths in `uvicorn` command are correct).
     ```bash
-    uvicorn backend.main:app --reload --port 8000
+    cd culicidaelab-server
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    uvicorn backend.main:app --port 8000 --host 127.0.0.1
     ```
     The API will be accessible at `http://localhost:8000`.
     *   Swagger UI: `http://localhost:8000/docs`
@@ -90,7 +93,9 @@ CulicidaeLab is a comprehensive platform for mosquito research, surveillance, an
 2.  **Run the Frontend Application:**
     In a new terminal, navigate to the project root.
     ```bash
-    solara run frontend.main:Page --port 8765
+    cd culicidaelab-server
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    solara run frontend.main
     ```
     The frontend application will be accessible at `http://localhost:8765` (or the port Solara defaults to/you specify).
 
