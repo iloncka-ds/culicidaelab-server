@@ -22,13 +22,11 @@ dependencies = [
     "shapely>=2.1.0",
     "solara[assets]==1.50.1",
     "fastai>=2.7.0, <=2.8.0",
-    "culicidaelab>=0.1.0",
+    "culicidaelab>=0.2.0",
 ]
 [dependency-groups]
 dev = [
     "black>=24.10.0",
-    "crawl4ai>=0.6.2",
-
     "docxtpl>=0.20.0",
     "ipykernel>=6.16.2, <=6.29.5",
     "isort>=5.13.2",
