@@ -1,16 +1,15 @@
 from pydantic import BaseModel
-from typing import List, Optional
 
 
 class DiseaseBase(BaseModel):
-    name: Optional[str] = None
-    description: Optional[str] = None
-    symptoms: Optional[str] = None
-    treatment: Optional[str] = None
-    prevention: Optional[str] = None
-    prevalence: Optional[str] = None
-    image_url: Optional[str] = None
-    vectors: Optional[List[str]] = []
+    name: str | None = None
+    description: str | None = None
+    symptoms: str | None = None
+    treatment: str | None = None
+    prevention: str | None = None
+    prevalence: str | None = None
+    image_url: str | None = None
+    vectors: list[str] | None = []
 
 
 class Disease(DiseaseBase):
@@ -22,4 +21,4 @@ class Disease(DiseaseBase):
 
 class DiseaseListResponse(BaseModel):
     count: int
-    diseases: List[Disease]
+    diseases: list[Disease]

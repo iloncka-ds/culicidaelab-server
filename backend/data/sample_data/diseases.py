@@ -16,8 +16,8 @@ diseases_data_list = [
         "image_url": "static\\images\\diseases\\dengue_fever",
         "vectors": [
             "aedes_aegypti",
-            "aedes_albopictus"
-        ]
+            "aedes_albopictus",
+        ],
     },
     {
         "id": "malaria",
@@ -37,8 +37,8 @@ diseases_data_list = [
         "vectors": [
             "anopheles_arabiensis",
             "anopheles_freeborni",
-            "anopheles_sinensis"
-        ]
+            "anopheles_sinensis",
+        ],
     },
     {
         "id": "filariasis",
@@ -57,8 +57,8 @@ diseases_data_list = [
         "image_url": "static\\images\\diseases\\filariasis",
         "vectors": [
             "culex_quinquefasciatus",
-            "aedes_aegypti"
-        ]
+            "aedes_aegypti",
+        ],
     },
     {
         "id": "japanese_encephalitis",
@@ -76,8 +76,8 @@ diseases_data_list = [
         "prevalence_ru": "Юго-Восточная и Восточная Азия, западная часть Тихого океана; 68,000 клинических случаев и 17,000 смертей в год.",
         "image_url": "static\\images\\diseases\\japanese_encephalitis",
         "vectors": [
-            "culex_tritaeniorhynchus"
-        ]
+            "culex_tritaeniorhynchus",
+        ],
     },
     {
         "id": "west_nile_virus",
@@ -97,8 +97,8 @@ diseases_data_list = [
         "vectors": [
             "culex_pipiens",
             "culex_quinquefasciatus",
-            "aedes_vexans"
-        ]
+            "aedes_vexans",
+        ],
     },
     {
         "id": "eastern_equine_encephalitis",
@@ -116,8 +116,8 @@ diseases_data_list = [
         "prevalence_ru": "Редко, преимущественно в США (атлантическое и заливное побережье); вспышки спорадические, высокая смертность (30–75%).",
         "image_url": "static\\images\\diseases\\eastern_equine_encephalitis",
         "vectors": [
-            "aedes_canadensis"
-        ]
+            "aedes_canadensis",
+        ],
     },
     {
         "id": "chikungunya",
@@ -136,8 +136,8 @@ diseases_data_list = [
         "image_url": "static\\images\\diseases\\chikungunya",
         "vectors": [
             "aedes_aegypti",
-            "aedes_albopictus"
-        ]
+            "aedes_albopictus",
+        ],
     },
     {
         "id": "rift_valley_fever",
@@ -158,8 +158,8 @@ diseases_data_list = [
             "culex_tritaeniorhynchus",
             "aedes_vexans",
             "culex_pipiens",
-            "culex_quinquefasciatus"
-        ]
+            "culex_quinquefasciatus",
+        ],
     },
     {
         "id": "st_louis_encephalitis",
@@ -178,8 +178,8 @@ diseases_data_list = [
         "image_url": "static\\images\\diseases\\st_louis_encephalitis",
         "vectors": [
             "culex_pipiens",
-            "culex_quinquefasciatus"
-        ]
+            "culex_quinquefasciatus",
+        ],
     },
     {
         "id": "avian_malaria",
@@ -199,8 +199,8 @@ diseases_data_list = [
         "vectors": [
             "culex_quinquefasciatus",
             "culex_pipiens",
-            "culex_inatomii"
-        ]
+            "culex_inatomii",
+        ],
     },
     {
         "id": "yellow_fever",
@@ -218,8 +218,8 @@ diseases_data_list = [
         "prevalence_ru": "Тропики Африки и Южной Америки; ежегодно 200,000 случаев, 30,000 смертей.",
         "image_url": "static\\images\\diseases\\yellow_fever",
         "vectors": [
-            "aedes_aegypti"
-        ]
+            "aedes_aegypti",
+        ],
     },
     {
         "id": "la_crosse_encephalitis",
@@ -237,8 +237,8 @@ diseases_data_list = [
         "prevalence_ru": "США (Средний Запад, Юго-Восток); 70–130 случаев ежегодно; в основном у детей.",
         "image_url": "static\\images\\diseases\\la_crosse_encephalitis",
         "vectors": [
-            "aedes_triseriatus"
-        ]
+            "aedes_triseriatus",
+        ],
     },
     {
         "id": "zika_virus",
@@ -257,7 +257,7 @@ diseases_data_list = [
         "image_url": "static\\images\\diseases\\zika_virus",
         "vectors": [
             "aedes_aegypti",
-            "aedes_albopictus"
-        ]
-    }
+            "aedes_albopictus",
+        ],
+    },
 ]

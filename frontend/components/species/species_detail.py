@@ -1,5 +1,7 @@
 import asyncio
-from typing import Any, Callable, Dict, List, Optional, cast
+from typing import Any, Optional, cast
+
+from collections.abc import Callable
 
 import i18n
 import solara
@@ -21,8 +23,11 @@ from frontend.state import current_locale, selected_species_item_id, use_locale_
 i18n.add_translation("species.gallery_link", "Go to Species Gallery", locale="en")
 i18n.add_translation("species.error.load", "Could not load species details: %{error}", locale="en")
 i18n.add_translation("species.error.no_id", "No species ID specified.", locale="en")
-i18n.add_translation("species.error.not_found", 'Species details for "%{species_id}" not found or are unavailable.',
-                    locale="en")
+i18n.add_translation(
+    "species.error.not_found",
+    'Species details for "%{species_id}" not found or are unavailable.',
+    locale="en",
+)
 i18n.add_translation("species.labels.vector_status", "Vector Status: %{status}", locale="en")
 i18n.add_translation("species.sections.description", "Description", locale="en")
 i18n.add_translation("species.sections.characteristics", "Key Identifying Characteristics", locale="en")
@@ -33,11 +38,12 @@ i18n.add_translation("species.messages.no_diseases", "No related diseases are li
 i18n.add_translation(
     "species.messages.disease_load_error",
     "Related diseases are listed but could not be loaded. Please try again later.",
-    locale="en"
+    locale="en",
 )
 i18n.add_translation(
     "species.messages.disease_unavailable",
-    "Information on related diseases is currently unavailable.", locale="en"
+    "Information on related diseases is currently unavailable.",
+    locale="en",
 )
 
 i18n.add_translation("species.status.high", "Vector Status: High", locale="en")
@@ -70,14 +76,14 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 def SpeciesDetailPageComponent():
     use_locale_effect()
     species_id = selected_species_item_id.value
-    species_data, set_species_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
+    species_data, set_species_data = solara.use_state(cast(Optional[dict[str, Any]], None))
     loading, set_loading = solara.use_state(False)
     error, set_error = solara.use_state(cast(Optional[str], None))
-    related_diseases_data, set_related_diseases_data = solara.use_state(cast(List[Dict[str, Any]], []))
+    related_diseases_data, set_related_diseases_data = solara.use_state(cast(list[dict[str, Any]], []))
     diseases_loading, set_diseases_loading = solara.use_state(False)
     diseases_error, set_diseases_error = solara.use_state(cast(Optional[str], None))
 
-    def _fetch_species_detail_effect() -> Optional[Callable[[], None]]:
+    def _fetch_species_detail_effect() -> Callable[[], None] | None:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
         async def _async_task():
@@ -139,7 +145,7 @@ def SpeciesDetailPageComponent():
                             set_related_diseases_data(fetched_diseases_list)
                         else:
                             print(
-                                f"Warning: Task cancelled before setting related_diseases_data for species {species_id}."
+                                f"Warning: Task cancelled before setting related_diseases_data for species {species_id}.",
                             )
 
                         set_diseases_loading(False)
@@ -150,7 +156,6 @@ def SpeciesDetailPageComponent():
             except asyncio.CancelledError:
                 print(f"Warning: Task cancelled before setting related_diseases_data for {species_id}.")
             except Exception as e:
-
                 set_error(f"An unexpected error occurred: {str(e)}")
                 set_species_data(None)
                 set_related_diseases_data([])
@@ -160,7 +165,6 @@ def SpeciesDetailPageComponent():
                     set_loading(False)
                     if disease_ids_to_fetch:
                         set_diseases_loading(False)
-
 
         task_ref[0] = asyncio.create_task(_async_task())
 
@@ -207,12 +211,12 @@ def SpeciesDetailPageComponent():
             solara.Text(_species_data.get("scientific_name"), style=heading_style)
             if common_name := _species_data.get("common_name"):
                 solara.Text(
-                    f"({common_name})", style="text-align: center; font-size: 1.2em; color: #555; margin-bottom: 20px;"
+                    f"({common_name})",
+                    style="text-align: center; font-size: 1.2em; color: #555; margin-bottom: 20px;",
                 )
             rv.Divider(style_="margin: 15px 0;")
 
             with solara.Column(style="align: center; margin-top:20px; text-align: left;"):
-
                 if _species_data.get("image_url"):
                     rv.Img(
                         src=_species_data["image_url"],
@@ -221,10 +225,9 @@ def SpeciesDetailPageComponent():
                         style_="border-radius: 8px; object-fit:cover; align-self: center; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
                     )
 
-
                 status_detail = str(_species_data.get("vector_status", "Unknown")).lower()
 
-                status_color_detail, text_color_detail= get_status_color(status_detail)
+                status_color_detail, text_color_detail = get_status_color(status_detail)
                 rv.Chip(
                     children=[i18n.t(f"species.status.{status_detail}")],
                     color=status_color_detail,

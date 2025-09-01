@@ -1,6 +1,7 @@
 """
 Tests for the FilterPanel component.
 """
+
 import pytest
 from unittest.mock import MagicMock, patch
 import sys
@@ -9,13 +10,16 @@ import datetime
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "frontend"))
 
-with patch.dict('sys.modules', {
-    'solara': MagicMock(),
-    'solara.lab': MagicMock(),
-    'solara.alias': MagicMock(),
-    'httpx': MagicMock(),
-    'asyncio': MagicMock(),
-}):
+with patch.dict(
+    "sys.modules",
+    {
+        "solara": MagicMock(),
+        "solara.lab": MagicMock(),
+        "solara.alias": MagicMock(),
+        "httpx": MagicMock(),
+        "asyncio": MagicMock(),
+    },
+):
     from components.map_module import filter_panel
     from state import (
         selected_species_reactive,
@@ -31,6 +35,7 @@ with patch.dict('sys.modules', {
         show_observed_data_reactive,
     )
     from config import FONT_BODY, COLOR_TEXT
+
 
 @pytest.fixture
 def setup_filter_panel():
@@ -51,19 +56,21 @@ def setup_filter_panel():
     filter_panel.solara.lab = MagicMock()
     filter_panel.solara.alias = MagicMock()
 
-    with patch('components.map_module.filter_panel.httpx.AsyncClient') as mock_client:
+    with patch("components.map_module.filter_panel.httpx.AsyncClient") as mock_client:
         mock_client.return_value.__aenter__.return_value.get.return_value.raise_for_status.return_value = None
         mock_client.return_value.__aenter__.return_value.get.return_value.json.return_value = {
             "type": "FeatureCollection",
-            "features": []
+            "features": [],
         }
         yield
+
 
 @pytest.fixture
 def mock_apply_filters():
     """Mock the apply filters functionality."""
-    with patch('components.map_module.filter_panel.FilterControls.handle_apply_filters_click') as mock_func:
+    with patch("components.map_module.filter_panel.FilterControls.handle_apply_filters_click") as mock_func:
         yield mock_func
+
 
 def test_filter_controls_initialization(setup_filter_panel):
     """Test that the filter controls initialize correctly."""
@@ -75,15 +82,16 @@ def test_filter_controls_initialization(setup_filter_panel):
 
     filter_panel.solara.Markdown.assert_any_call(
         "##### Species",
-        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;"
+        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;",
     )
 
     filter_panel.solara.Markdown.assert_any_call(
         "##### Date Range",
-        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;"
+        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-top: 10px;",
     )
 
-@patch('components.map_module.filter_panel.fetch_filter_options')
+
+@patch("components.map_module.filter_panel.fetch_filter_options")
 def test_filter_controls_fetch_options(mock_fetch_options, setup_filter_panel):
     """Test that filter options are fetched on component mount."""
     from components.map_module.filter_panel import FilterControls
@@ -92,7 +100,8 @@ def test_filter_controls_fetch_options(mock_fetch_options, setup_filter_panel):
 
     mock_fetch_options.assert_called_once()
 
-@patch('components.map_module.filter_panel.fetch_observations_data_for_panel')
+
+@patch("components.map_module.filter_panel.fetch_observations_data_for_panel")
 async def test_apply_filters_click(mock_fetch_data, setup_filter_panel):
     """Test that applying filters triggers data fetch with correct parameters."""
     test_start_date = datetime.date(2023, 1, 1)
@@ -109,7 +118,7 @@ async def test_apply_filters_click(mock_fetch_data, setup_filter_panel):
     expected_params = {
         "species": "Culex pipiens",
         "start_date": "2023-01-01",
-        "end_date": "2023-12-31"
+        "end_date": "2023-12-31",
     }
 
     call_args = mock_fetch_data.call_args[0][0]
@@ -118,7 +127,8 @@ async def test_apply_filters_click(mock_fetch_data, setup_filter_panel):
     assert call_args["start_date"] == expected_params["start_date"]
     assert call_args["end_date"] == expected_params["end_date"]
 
-@patch('components.map_module.filter_panel.fetch_observations_data_for_panel')
+
+@patch("components.map_module.filter_panel.fetch_observations_data_for_panel")
 async def test_initial_data_load(mock_fetch_data, setup_filter_panel):
     """Test that initial data is loaded when component mounts."""
     selected_species_reactive.value = ["Culex pipiens"]
@@ -140,6 +150,7 @@ async def test_initial_data_load(mock_fetch_data, setup_filter_panel):
     assert call_args["start_date"] == "2023-01-01"
     assert call_args["end_date"] == "2023-12-31"
 
+
 def test_loading_state_display(setup_filter_panel):
     """Test that loading state is displayed correctly."""
     filter_options_loading_reactive.value = True
@@ -151,8 +162,9 @@ def test_loading_state_display(setup_filter_panel):
     filter_panel.solara.ProgressLinear.assert_called_with(True)
     filter_panel.solara.Text.assert_any_call(
         "Loading filter options...",
-        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;"
+        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; font-style: italic;",
     )
+
 
 def test_error_state_display(setup_filter_panel):
     """Test that error state is displayed correctly."""

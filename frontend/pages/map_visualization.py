@@ -1,7 +1,7 @@
 import solara
 
 from solara.alias import rv
-from typing import List, cast, Optional
+from typing import cast, Optional
 
 from ..components.map_module import (
     map_component,
@@ -22,12 +22,11 @@ def setup_i18n():
 
 @solara.component
 def Page():
-
     use_locale_effect()
 
-    filters_panel_value, set_filters_panel_value = solara.use_state(cast(Optional[List[int]], [0]))
+    filters_panel_value, set_filters_panel_value = solara.use_state(cast(Optional[list[int]], [0]))
 
-    legend_panel_value, set_legend_panel_value = solara.use_state(cast(Optional[List[int]], []))
+    legend_panel_value, set_legend_panel_value = solara.use_state(cast(Optional[list[int]], []))
 
     filter_item = {
         "title": i18n.t("map.panels.filters.title"),
@@ -47,7 +46,6 @@ def Page():
     map_interactive_items = [filter_item, legend_item]
     with solara.Div(style="width: 100%; flex-grow: 1; min-height: 300px; display: flex; flex-direction: column;"):
         map_component.MapDisplay()
-
 
     with solara.ColumnsResponsive(default=[12], small=[6]):
         for item_data in map_interactive_items:

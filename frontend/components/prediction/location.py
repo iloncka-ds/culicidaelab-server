@@ -1,17 +1,20 @@
 import solara
 import ipyleaflet as L
 from typing import Optional, cast
+
+from collections.abc import Callable
 from ...state import use_locale_effect
 import i18n
 
+
 @solara.component
 def LocationComponent(
-    latitude: Optional[float],
-    set_latitude: callable,
-    longitude: Optional[float],
-    set_longitude: callable,
-    initial_lat: Optional[float] = 20.0,
-    initial_lon: Optional[float] = 0.0,
+    latitude: float | None,
+    set_latitude: Callable[[float | None], None],
+    longitude: float | None,
+    set_longitude: Callable[[float | None], None],
+    initial_lat: float | None = 20.0,
+    initial_lon: float | None = 0.0,
     initial_zoom: int = 2,
 ):
     """
@@ -20,7 +23,6 @@ def LocationComponent(
     """
     use_locale_effect()
     marker_object, set_marker_object = solara.use_state(cast(Optional[L.Marker], None))
-
 
     map_center_init = (initial_lat, initial_lon)
     map_zoom_init = initial_zoom
@@ -34,7 +36,7 @@ def LocationComponent(
         [],
     )
 
-    def _update_parent_coordinates(lat_val: Optional[float], lon_val: Optional[float]):
+    def _update_parent_coordinates(lat_val: float | None, lon_val: float | None):
         set_latitude(round(lat_val, 6) if lat_val is not None else None)
         set_longitude(round(lon_val, 6) if lon_val is not None else None)
 
@@ -55,7 +57,11 @@ def LocationComponent(
             if current_marker.location != (lat, lon):
                 current_marker.location = (lat, lon)
         else:
-            new_marker = L.Marker(location=(lat, lon), draggable=True, title=i18n.t("prediction.location.selected_location"))
+            new_marker = L.Marker(
+                location=(lat, lon),
+                draggable=True,
+                title=i18n.t("prediction.location.selected_location"),
+            )
             new_marker.observe(_handle_marker_location_changed, names=["location"])
             map_widget.add_layer(new_marker)
             set_marker_object(new_marker)
@@ -71,7 +77,7 @@ def LocationComponent(
             try:
                 current_marker.unobserve(_handle_marker_location_changed, names=["location"])
                 map_widget.remove_layer(current_marker)
-            except Exception as e:
+            except Exception:
                 print(i18n.t("prediction.location.error_remove_marking"))
             set_marker_object(None)
 
@@ -108,6 +114,7 @@ def LocationComponent(
             )
 
         solara.HTML(
-            tag="div", unsafe_innerHTML="<style>.leaflet-container { height: 350px !important; width: 100%; }</style>"
+            tag="div",
+            unsafe_innerHTML="<style>.leaflet-container { height: 350px !important; width: 100%; }</style>",
         )
         solara.display(map_widget)

@@ -26,7 +26,8 @@ async def predict_species(
         if not content_type or not content_type.startswith("image/"):
             print("[ROUTER] ERROR: Invalid content type. Raising 400 Bad Request.")
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail=f"File must be an image, got {content_type}"
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"File must be an image, got {content_type}",
             )
 
         print("[ROUTER] Reading file contents...")
@@ -46,7 +47,8 @@ async def predict_species(
         if not result:
             print("[ROUTER] ERROR: Prediction service returned no result and no error. Raising 500.")
             raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Prediction failed with no specific error"
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Prediction failed with no specific error",
             )
 
         print(f"[ROUTER] Prediction successful. Returning result for '{result.scientific_name}'.")

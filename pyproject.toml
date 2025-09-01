@@ -24,7 +24,7 @@ dependencies = [
     "solara[assets]==1.50.1",
     "fastai>=2.7.0, <=2.8.0",
     "culicidaelab>=0.2.2",
-    "types-aiofiles>=24.1.0.20250822",
+
 ]
 [dependency-groups]
 dev = [
@@ -40,6 +40,7 @@ dev = [
     "pytest-cov>=6.0.0",
     "psutil>=7.0.0",
     "tabulate>=0.9.0",
+    "types-aiofiles>=24.1.0.20250822",
 ]
 
 [tool.uv.sources]

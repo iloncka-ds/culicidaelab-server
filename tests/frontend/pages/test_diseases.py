@@ -1,4 +1,5 @@
 """Tests for the diseases page component."""
+
 import pytest
 from unittest.mock import patch
 import solara
@@ -16,7 +17,7 @@ class TestDiseasesPage:
         solara.state.clear()
         selected_disease_item_id.value = None
 
-    @patch('frontend.pages.diseases.DiseaseGalleryPageComponent')
+    @patch("frontend.pages.diseases.DiseaseGalleryPageComponent")
     def test_gallery_view_by_default(self, mock_gallery, solara_test):
         """Test that the gallery view is shown by default."""
         mock_gallery.return_value = solara.HTML("DiseaseGalleryPageComponent")
@@ -27,7 +28,7 @@ class TestDiseasesPage:
         mock_gallery.assert_called_once()
         assert "DiseaseGalleryPageComponent" in html
 
-    @patch('frontend.pages.diseases.DiseaseDetailPageComponent')
+    @patch("frontend.pages.diseases.DiseaseDetailPageComponent")
     def test_detail_view_when_item_selected(self, mock_detail, solara_test):
         """Test that the detail view is shown when an item is selected."""
         mock_detail.return_value = solara.HTML("DiseaseDetailPageComponent")

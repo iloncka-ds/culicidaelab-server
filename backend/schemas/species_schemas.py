@@ -1,25 +1,22 @@
-from pydantic import BaseModel, Field, HttpUrl
-from typing import List, Optional
+from pydantic import BaseModel
 
 
 class SpeciesBase(BaseModel):
     id: str
     scientific_name: str
-    common_name: Optional[str] = None
-    vector_status: Optional[str] = None
-    image_url: Optional[str] = None
+    common_name: str | None = None
+    vector_status: str | None = None
+    image_url: str | None = None
 
 
 class SpeciesDetail(SpeciesBase):
-    description: Optional[str] = None
-    key_characteristics: Optional[List[str]] = None
-    geographic_regions: Optional[List[str]] = None
-    related_diseases: Optional[List[str]] = None
-    habitat_preferences: Optional[List[str]] = None
+    description: str | None = None
+    key_characteristics: list[str] | None = None
+    geographic_regions: list[str] | None = None
+    related_diseases: list[str] | None = None
+    habitat_preferences: list[str] | None = None
 
 
 class SpeciesListResponse(BaseModel):
     count: int
-    species: List[SpeciesBase]
-
-
+    species: list[SpeciesBase]

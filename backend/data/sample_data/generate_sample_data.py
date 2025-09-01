@@ -1,7 +1,9 @@
 import json
 import random
 from datetime import datetime, timedelta
+from typing import TypedDict
 from uuid import uuid4
+
 from backend.data.sample_data.species import species_list
 from backend.data.sample_data.diseases import diseases_data_list
 
@@ -11,6 +13,26 @@ with open("sample_species.json", "w", encoding="utf-8") as f:
     json.dump(species_list, f, indent=2, ensure_ascii=False)
 print("Generated sample_species.json")
 
+
+class BoundingBox(TypedDict):
+    min_lon: float
+    max_lon: float
+    min_lat: float
+    max_lat: float
+
+
+# Define bounding boxes for different regions
+europe_bbox: BoundingBox = {"min_lon": -10, "max_lon": 40, "min_lat": 35, "max_lat": 70}
+se_asia_bbox: BoundingBox = {"min_lon": 90, "max_lon": 140, "min_lat": -10, "max_lat": 30}
+
+# Map species to their regions
+species_regions_map: dict[str, BoundingBox] = {
+    "Aedes albopictus": europe_bbox,
+    "Aedes aegypti": se_asia_bbox,
+    "Culex pipiens": europe_bbox,
+    "Anopheles gambiae": {"min_lon": -20, "max_lon": 50, "min_lat": -35, "max_lat": 15},
+    "Culiseta annulata": europe_bbox,
+}
 
 # --- REGIONS DATA ---
 regions_data = [
@@ -37,7 +59,6 @@ with open("sample_data_sources.json", "w", encoding="utf-8") as f:
     json.dump(data_sources, f, indent=2, ensure_ascii=False)
 print("Generated sample_data_sources.json")
 
-
 # --- DISEASES DATA ---
 
 with open("sample_diseases.json", "w", encoding="utf-8") as f:
@@ -54,30 +75,24 @@ with open("sample_filter_options.json", "w") as f:
 print("Generated sample_filter_options.json")
 
 
-europe_bbox = {"min_lon": -10, "max_lon": 40, "min_lat": 35, "max_lat": 70}
-se_asia_bbox = {"min_lon": 90, "max_lon": 140, "min_lat": -10, "max_lat": 30}
+def random_point_in_bbox(bbox: BoundingBox) -> list[float]:
+    """Generate a random point within the given bounding box."""
+    return [
+        random.uniform(bbox["min_lat"], bbox["max_lat"]),
+        random.uniform(bbox["min_lon"], bbox["max_lon"]),
+    ]
 
 
-def random_point_in_bbox(bbox):
-    return [random.uniform(bbox["min_lat"], bbox["max_lat"]), random.uniform(bbox["min_lon"], bbox["max_lon"])]
-
-
-def random_date(start_days_ago=365, end_days_ago=0):
+def random_date(start_days_ago: int = 365, end_days_ago: int = 0) -> str:
+    """Generate a random date within the specified range."""
     return (datetime.now() - timedelta(days=random.randint(end_days_ago, start_days_ago))).strftime("%Y-%m-%d")
 
 
-species_regions_map = {
-    "Aedes albopictus": europe_bbox,
-    "Aedes aegypti": se_asia_bbox,
-    "Culex pipiens": europe_bbox,
-    "Anopheles gambiae": {"min_lon": -20, "max_lon": 50, "min_lat": -35, "max_lat": 15},
-    "Culiseta annulata": europe_bbox,
-}
-
+# --- OBSERVATIONS DATA ---
 observations_data = []
 for _ in range(100):
     species_obj = random.choice(species_list)
-    species_name = species_obj["scientific_name"]
+    species_name = str(species_obj["scientific_name"])
     bbox = species_regions_map.get(species_name, europe_bbox)
     point = random_point_in_bbox(bbox)
     observations_data.append(
@@ -105,7 +120,7 @@ for _ in range(100):
                 "type": "Point",
                 "coordinates": point,
             },
-        }
+        },
     )
 with open("sample_observations.geojson", "w") as f:
     json.dump({"type": "FeatureCollection", "features": observations_data}, f, indent=2)

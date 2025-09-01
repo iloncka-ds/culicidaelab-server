@@ -4,12 +4,12 @@ import subprocess
 import psutil
 import numpy as np
 from tabulate import tabulate
-from typing import List, Dict, Any
+from typing import Any
 import json
 from pathlib import Path
 
 
-def get_process_and_children(proc: psutil.Process) -> List[psutil.Process]:
+def get_process_and_children(proc: psutil.Process) -> list[psutil.Process]:
     """
     Recursively finds all child processes of a given process.
     """
@@ -20,7 +20,7 @@ def get_process_and_children(proc: psutil.Process) -> List[psutil.Process]:
 
 
 # --- FIX: The entire function is replaced with the more robust logic ---
-def monitor_process(process: subprocess.Popen, duration_seconds: int, interval: float) -> List[Dict[str, Any]]:
+def monitor_process(process: subprocess.Popen, duration_seconds: int, interval: float) -> list[dict[str, Any]]:
     """
     Monitors a process and its children for a given duration, sampling
     at a specified interval. This version is robust against process restarts.
@@ -72,13 +72,13 @@ def monitor_process(process: subprocess.Popen, duration_seconds: int, interval: 
                 "cpu_percent": total_cpu_percent,
                 "memory_rss_mb": total_rss_bytes / (1024 * 1024),
                 "process_count": len(all_processes),
-            }
+            },
         )
 
     return metrics_log
 
 
-def analyze_results(metrics: List[Dict[str, Any]], command: str) -> Dict[str, Any]:
+def analyze_results(metrics: list[dict[str, Any]], command: str) -> dict[str, Any]:
     """
     Analyzes the collected metrics, prints a summary table, and returns the summary.
     """
@@ -189,16 +189,27 @@ if __name__ == "__main__":
     parser.add_argument("--workers", type=int, help="Number of worker processes. Do not use with --reload.")
     parser.add_argument("--reload", action="store_true", help="Enable auto-reload (for development testing).")
     parser.add_argument(
-        "--duration", type=int, default=30, help="Total duration to monitor the application in seconds."
+        "--duration",
+        type=int,
+        default=30,
+        help="Total duration to monitor the application in seconds.",
     )
     parser.add_argument(
-        "--interval", type=float, default=1.0, help="Interval between resource measurements in seconds."
+        "--interval",
+        type=float,
+        default=1.0,
+        help="Interval between resource measurements in seconds.",
     )
     parser.add_argument(
-        "--init-wait", type=int, default=5, help="Time to wait for the app to initialize before monitoring."
+        "--init-wait",
+        type=int,
+        default=5,
+        help="Time to wait for the app to initialize before monitoring.",
     )
     parser.add_argument(
-        "--output-file", type=str, help="Path to save the results JSON file (e.g., reports/backend_test.json)"
+        "--output-file",
+        type=str,
+        help="Path to save the results JSON file (e.g., reports/backend_test.json)",
     )
 
     args = parser.parse_args()

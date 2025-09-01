@@ -1,5 +1,5 @@
 import lancedb
-from typing import List, Dict, Any, Optional
+from typing import Any
 import traceback
 from fastapi import Request
 
@@ -7,7 +7,7 @@ from backend.services.database import get_table
 from backend.schemas.diseases_schemas import Disease
 
 
-def _db_record_to_disease_model(record: Dict[str, Any], lang: str, request: Request) -> Disease:
+def _db_record_to_disease_model(record: dict[str, Any], lang: str, request: Request) -> Disease:
     """
     Converts a database dictionary record to a Disease Pydantic model.
     It constructs the full image URL dynamically using the request's base URL.
@@ -35,8 +35,12 @@ def _db_record_to_disease_model(record: Dict[str, Any], lang: str, request: Requ
 
 
 def get_all_diseases(
-    db: lancedb.DBConnection, request: Request, lang: str, search: Optional[str] = None, limit: int = 50
-) -> List[Disease]:
+    db: lancedb.DBConnection,
+    request: Request,
+    lang: str,
+    search: str | None = None,
+    limit: int = 50,
+) -> list[Disease]:
     """
     Retrieve a list of diseases, optionally filtered by search term.
     """
@@ -67,7 +71,7 @@ def get_all_diseases(
         return []
 
 
-def get_disease_by_id(db: lancedb.DBConnection, disease_id: str, lang: str, request: Request) -> Optional[Disease]:
+def get_disease_by_id(db: lancedb.DBConnection, disease_id: str, lang: str, request: Request) -> Disease | None:
     """
     Retrieve detailed information for a specific disease by ID.
     """
@@ -90,7 +94,7 @@ def get_disease_by_id(db: lancedb.DBConnection, disease_id: str, lang: str, requ
         return None
 
 
-def get_diseases_by_vector(db: lancedb.DBConnection, vector_id: str, lang: str, request: Request) -> List[Disease]:
+def get_diseases_by_vector(db: lancedb.DBConnection, vector_id: str, lang: str, request: Request) -> list[Disease]:
     """
     Retrieve a list of diseases associated with a specific vector species ID.
     """

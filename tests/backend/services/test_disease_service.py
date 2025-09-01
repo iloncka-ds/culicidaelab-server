@@ -1,6 +1,7 @@
 """
 Tests for the disease service.
 """
+
 from unittest.mock import MagicMock
 import pytest
 import lancedb
@@ -10,7 +11,7 @@ from backend.services.disease_service import (
     get_all_diseases,
     get_disease_by_id,
     get_diseases_by_vector,
-    _db_record_to_disease_model
+    _db_record_to_disease_model,
 )
 
 
@@ -28,7 +29,7 @@ class TestDiseaseServiceHelpers:
             "prevention": ["mosquito control", "use of repellents"],
             "prevalence": "Tropical and subtropical regions",
             "image_url": "http://example.com/dengue.jpg",
-            "vectors": ["aedes_aegypti", "aedes_albopictus"]
+            "vectors": ["aedes_aegypti", "aedes_albopictus"],
         }
 
         result = _db_record_to_disease_model(record)
@@ -44,7 +45,7 @@ class TestDiseaseServiceHelpers:
         """Test _db_record_to_disease_model with missing optional fields."""
         record = {
             "id": "dengue",
-            "name": "Dengue Fever"
+            "name": "Dengue Fever",
         }
 
         result = _db_record_to_disease_model(record)
@@ -75,7 +76,7 @@ class TestDiseaseService:
     def mock_database_module(self, monkeypatch):
         """Mock the database module's get_table function."""
         mock_get_table = MagicMock()
-        monkeypatch.setattr('backend.services.database.get_table', mock_get_table)
+        monkeypatch.setattr("backend.services.database.get_table", mock_get_table)
         return mock_get_table
 
     def test_get_all_diseases_no_search(self, mock_db, mock_table, mock_database_module):
@@ -87,14 +88,14 @@ class TestDiseaseService:
                 "id": "dengue",
                 "name": "Dengue Fever",
                 "description": "Viral disease",
-                "vectors": ["aedes_aegypti"]
+                "vectors": ["aedes_aegypti"],
             },
             {
                 "id": "malaria",
                 "name": "Malaria",
                 "description": "Parasitic disease",
-                "vectors": ["anopheles"]
-            }
+                "vectors": ["anopheles"],
+            },
         ]
         mock_table.search.return_value.limit.return_value.to_list.return_value = mock_results
 
@@ -115,8 +116,8 @@ class TestDiseaseService:
                 "id": "dengue",
                 "name": "Dengue Fever",
                 "description": "Viral disease",
-                "vectors": ["aedes_aegypti"]
-            }
+                "vectors": ["aedes_aegypti"],
+            },
         ]
         mock_table.search.return_value.limit.return_value.to_list.return_value = mock_results
 
@@ -135,8 +136,8 @@ class TestDiseaseService:
                 "id": "dengue",
                 "name": "Dengue Fever",
                 "description": "Viral disease",
-                "vectors": ["aedes_aegypti"]
-            }
+                "vectors": ["aedes_aegypti"],
+            },
         ]
         mock_table.search.return_value.limit.return_value.to_list.return_value = mock_results
 
@@ -166,14 +167,14 @@ class TestDiseaseService:
                 "id": "dengue",
                 "name": "Dengue Fever",
                 "description": "Viral disease",
-                "vectors": ["aedes_aegypti"]
+                "vectors": ["aedes_aegypti"],
             },
             {
                 "id": "zika",
                 "name": "Zika Virus",
                 "description": "Viral disease",
-                "vectors": ["aedes_aegypti"]
-            }
+                "vectors": ["aedes_aegypti"],
+            },
         ]
         mock_table.search.return_value.limit.return_value.to_list.return_value = mock_results
 

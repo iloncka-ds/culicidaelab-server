@@ -48,7 +48,7 @@ def FilterControls():
     apply_filters_task_ref = solara.use_ref(None)
     use_locale_effect()
 
-    async def handle_apply_filters_click():
+    async def handle_apply_filters_click() -> None:
         if apply_filters_task_ref.current and not apply_filters_task_ref.current.done():
             apply_filters_task_ref.current.cancel()
             try:

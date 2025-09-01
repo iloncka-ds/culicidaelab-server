@@ -1,6 +1,7 @@
 """
 Configuration and fixtures for pytest.
 """
+
 import sys
 from pathlib import Path
 
@@ -9,7 +10,7 @@ from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
 
-from backend.main import app
+from backend.main import app  # noqa: E402
 
 
 @pytest.fixture(scope="session")
@@ -25,9 +26,9 @@ def mock_image_data():
     from PIL import Image
     import io
 
-    img = Image.new('RGB', (10, 10), color='red')
+    img = Image.new("RGB", (10, 10), color="red")
     img_byte_arr = io.BytesIO()
-    img.save(img_byte_arr, format='PNG')
+    img.save(img_byte_arr, format="PNG")
     return img_byte_arr.getvalue()
 
 
@@ -42,7 +43,7 @@ def mock_prediction_result():
         id="species_1234",
         model_id="model_v1",
         confidence=0.95,
-        image_url_species="https://example.com/aedes_aegypti.jpg"
+        image_url_species="https://example.com/aedes_aegypti.jpg",
     )
 
 
@@ -62,5 +63,5 @@ def mock_species_detail():
         distribution=["tropical", "subtropical"],
         habitat=["urban", "domestic"],
         description="Aedes aegypti is a known vector of several viruses...",
-        image_url="https://example.com/aedes_aegypti.jpg"
+        image_url="https://example.com/aedes_aegypti.jpg",
     )

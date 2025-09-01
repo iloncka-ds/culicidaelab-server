@@ -1,5 +1,5 @@
 lint.select = ["E", "F"]
-lint.ignore = ["F405", "F403"]
+lint.ignore = ["F405", "F403", "E501"]
 exclude = [
     "build",
     "dist",

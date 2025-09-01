@@ -1,6 +1,6 @@
 import colorcet as cc
-from typing import List, Dict
 import solara
+
 COLOR_PRIMARY = "#009688"
 COLOR_SECONDARY = "#B2DFDB"
 COLOR_ACCENT = "#00796B"
@@ -56,7 +56,7 @@ def _hex_to_rgba(hex_color: str, alpha: float) -> str:
     return f"rgba({r}, {g}, {b}, {alpha})"
 
 
-def generate_species_colors(species_list: List[str], alpha: float = 0.9) -> Dict[str, str]:
+def generate_species_colors(species_list: list[str], alpha: float = 0.9) -> dict[str, str]:
     palette_name = "glasbey_bw"
     try:
         colors_hex = cc.palette[palette_name]
@@ -91,6 +91,7 @@ def generate_species_colors(species_list: List[str], alpha: float = 0.9) -> Dict
         hex_color = colors_hex[i % num_colors]
         species_color_map[species_name] = _hex_to_rgba(hex_color, alpha)
     return species_color_map
+
 
 DEFAULT_SPECIES_LIST_FOR_COLORS = [
     "Aedes aegypti",
@@ -142,9 +143,13 @@ STORE_OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"
 
 page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
 heading_style = "font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: #009688;"
-sub_heading_style = "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555; min-height: 3.4em; max-height: 3.4em"
+sub_heading_style = (
+    "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555; min-height: 3.4em; max-height: 3.4em"
+)
 card_style = "display: flex; flex-direction: column; height: 100%;"
-card_content_style = "padding: 16px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center;"
+card_content_style = (
+    "padding: 16px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center;"
+)
 icon_style = "margin-bottom: 1rem;"
 footer_style = "margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee; text-align: center; font-size: 0.9em; color: #0D1B2A;"
 active_btn_style = {

@@ -1,28 +1,32 @@
 """
 Tests for the SpeciesGallery component.
 """
+
 import pytest
 from unittest.mock import MagicMock, patch, AsyncMock
 import sys
-import asyncio
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "frontend"))
 
-with patch.dict('sys.modules', {
-    'solara': MagicMock(),
-    'solara.lab': MagicMock(),
-    'solara.alias': MagicMock(),
-    'httpx': MagicMock(),
-    'asyncio': MagicMock(),
-    'i18n': MagicMock(),
-}):
+with patch.dict(
+    "sys.modules",
+    {
+        "solara": MagicMock(),
+        "solara.lab": MagicMock(),
+        "solara.alias": MagicMock(),
+        "httpx": MagicMock(),
+        "asyncio": MagicMock(),
+        "i18n": MagicMock(),
+    },
+):
     from components.species import species_gallery
     from state import (
         species_list_data_reactive,
         species_list_loading_reactive,
-        species_list_error_reactive
+        species_list_error_reactive,
     )
+
 
 @pytest.fixture
 def mock_species_data():
@@ -33,41 +37,44 @@ def mock_species_data():
                 "id": "test-species-1",
                 "scientific_name": "Culex pipiens",
                 "common_name": "Common house mosquito",
-                "vector_status": "high"
+                "vector_status": "high",
             },
             {
                 "id": "test-species-2",
                 "scientific_name": "Aedes aegypti",
                 "common_name": "Yellow fever mosquito",
-                "vector_status": "high"
-            }
+                "vector_status": "high",
+            },
         ],
-        "count": 2
+        "count": 2,
     }
+
 
 @pytest.fixture
 def mock_empty_species_data():
     """Provide empty species data for testing."""
     return {
         "species": [],
-        "count": 0
+        "count": 0,
     }
+
 
 @pytest.fixture
 def setup_mocks(mocker):
     """Setup common mocks for species gallery tests."""
     mock_fetch = AsyncMock()
-    mocker.patch('components.species.species_gallery.fetch_api_data', new=mock_fetch)
+    mocker.patch("components.species.species_gallery.fetch_api_data", new=mock_fetch)
 
-    mocker.patch('components.species.species_gallery.SpeciesCard', return_value=MagicMock())
+    mocker.patch("components.species.species_gallery.SpeciesCard", return_value=MagicMock())
 
-    mocker.patch('solara.use_state', return_value=("", MagicMock()))
+    mocker.patch("solara.use_state", return_value=("", MagicMock()))
 
-    mocker.patch('solara.use_effect')
+    mocker.patch("solara.use_effect")
 
-    mocker.patch('asyncio.create_task')
+    mocker.patch("asyncio.create_task")
 
     return mock_fetch
+
 
 @pytest.mark.asyncio
 async def test_species_gallery_loading_state(setup_mocks):
@@ -82,6 +89,7 @@ async def test_species_gallery_loading_state(setup_mocks):
     await mock_fetch.return_value
 
     assert species_list_loading_reactive.value is False
+
 
 @pytest.mark.asyncio
 async def test_species_gallery_display_species(setup_mocks, mock_species_data):
@@ -98,6 +106,7 @@ async def test_species_gallery_display_species(setup_mocks, mock_species_data):
 
     assert species_gallery.SpeciesCard.call_count == 2
 
+
 @pytest.mark.asyncio
 async def test_species_gallery_search(setup_mocks, mock_species_data):
     """Test that search functionality works."""
@@ -111,7 +120,8 @@ async def test_species_gallery_search(setup_mocks, mock_species_data):
 
     mock_fetch.assert_called_once()
     call_args = mock_fetch.call_args[1]
-    assert call_args['params']['search'] == search_query
+    assert call_args["params"]["search"] == search_query
+
 
 @pytest.mark.asyncio
 async def test_species_gallery_error_handling(setup_mocks):
@@ -127,6 +137,7 @@ async def test_species_gallery_error_handling(setup_mocks):
         pass
 
     assert "API Error" in str(species_list_error_reactive.value)
+
 
 @pytest.mark.asyncio
 async def test_species_gallery_empty_state(setup_mocks, mock_empty_species_data):

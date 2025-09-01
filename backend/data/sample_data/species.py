@@ -11,36 +11,36 @@ species_list = [
         "key_characteristics_en": [
             "Distinct white stripe on dorsal thorax",
             "Bites aggressively during the day",
-            "Black and white striped legs"
+            "Black and white striped legs",
         ],
         "key_characteristics_ru": [
             "Отчетливая белая полоса на спинной части груди",
             "Агрессивно кусает днем",
-            "Черно-белые полосатые ноги"
+            "Черно-белые полосатые ноги",
         ],
         "habitat_preferences_en": [
             "Artificial containers",
             "Tree holes",
-            "Urban and suburban areas"
+            "Urban and suburban areas",
         ],
         "habitat_preferences_ru": [
             "Искусственные контейнеры",
             "Дупла деревьев",
-            "Городские и пригородные зоны"
+            "Городские и пригородные зоны",
         ],
         "geographic_regions": [
             "asia",
             "europe",
             "americas",
             "africa",
-            "oceania"
+            "oceania",
         ],
         "related_diseases": [
             "dengue_fever",
             "chikungunya",
-            "zika_virus"
+            "zika_virus",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "aedes_aegypti",
@@ -54,37 +54,37 @@ species_list = [
         "key_characteristics_en": [
             "Lyre-shaped marking on dorsal thorax",
             "White markings on legs",
-            "Bites aggressively during the day"
+            "Bites aggressively during the day",
         ],
         "key_characteristics_ru": [
             "Рисунок в форме лиры на спинной части груди",
             "Белые отметины на ногах",
-            "Агрессивно кусает днем"
+            "Агрессивно кусает днем",
         ],
         "habitat_preferences_en": [
             "Artificial containers",
             "Urban and suburban areas",
-            "Indoor and outdoor environments"
+            "Indoor and outdoor environments",
         ],
         "habitat_preferences_ru": [
             "Искусственные контейнеры",
             "Городские и пригородные зоны",
-            "Крытые и открытые пространства"
+            "Крытые и открытые пространства",
         ],
         "geographic_regions": [
             "asia",
             "americas",
             "africa",
-            "oceania"
+            "oceania",
         ],
         "related_diseases": [
             "dengue_fever",
             "yellow_fever",
             "chikungunya",
             "zika_virus",
-            "filariasis"
+            "filariasis",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "aedes_canadensis",
@@ -98,30 +98,30 @@ species_list = [
         "key_characteristics_en": [
             "Dark wings without distinct markings",
             "Prefers wooded habitats",
-            "Active at dusk and night"
+            "Active at dusk and night",
         ],
         "key_characteristics_ru": [
             "Темные крылья без отчетливых отметин",
             "Предпочитает лесные места обитания",
-            "Активен в сумерках и ночью"
+            "Активен в сумерках и ночью",
         ],
         "habitat_preferences_en": [
             "Wooded areas",
             "Swamps",
-            "Temporary pools"
+            "Temporary pools",
         ],
         "habitat_preferences_ru": [
             "Лесные массивы",
             "Болота",
-            "Временные водоемы"
+            "Временные водоемы",
         ],
         "geographic_regions": [
-            "americas"
+            "americas",
         ],
         "related_diseases": [
-            "eastern_equine_encephalitis"
+            "eastern_equine_encephalitis",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "aedes_dorsalis",
@@ -135,31 +135,31 @@ species_list = [
         "key_characteristics_en": [
             "Prefers brackish water habitats",
             "Active at dawn and dusk",
-            "Small to medium size"
+            "Small to medium size",
         ],
         "key_characteristics_ru": [
             "Предпочитает обитать в солоноватых водоемах",
             "Активен на рассвете и в сумерках",
-            "Маленький или среднего размера"
+            "Маленький или среднего размера",
         ],
         "habitat_preferences_en": [
             "Coastal rock pools",
             "Brackish water pools",
-            "Salt marshes"
+            "Salt marshes",
         ],
         "habitat_preferences_ru": [
             "Болота с солоноватой водой",
             "Прибрежные каменные лужи",
-            "Соленые болота"
+            "Соленые болота",
         ],
         "geographic_regions": [
             "americas",
-            "europe"
+            "europe",
         ],
         "related_diseases": [
-            "california_encephalitis_virus"
+            "california_encephalitis_virus",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "aedes_geniculatus",
@@ -173,31 +173,31 @@ species_list = [
         "key_characteristics_en": [
             "Breeds in tree holes",
             "Dark body with white bands on legs",
-            "Prefers wooded habitats"
+            "Prefers wooded habitats",
         ],
         "key_characteristics_ru": [
             "Размножается в дуплах деревьев",
             "Темное тело с белыми полосами на ногах",
-            "Предпочитает лесные местообитания"
+            "Предпочитает лесные местообитания",
         ],
         "habitat_preferences_en": [
             "Tree holes",
             "Artificial containers",
-            "Wooded areas"
+            "Wooded areas",
         ],
         "habitat_preferences_ru": [
             "Дупла деревьев",
             "Искусственные контейнеры",
-            "Лесные массивы"
+            "Лесные массивы",
         ],
         "geographic_regions": [
-            "europe"
+            "europe",
         ],
         "related_diseases": [
             "yellow_fever",
-            "chikungunya"
+            "chikungunya",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "aedes_koreicus",
@@ -211,33 +211,33 @@ species_list = [
         "key_characteristics_en": [
             "Black body with pale scales",
             "Larvae develop in artificial containers",
-            "Active during the day"
+            "Active during the day",
         ],
         "key_characteristics_ru": [
             "Черное тело с бледными чешуйками",
             "Личинки развиваются в искусственных контейнерах",
-            "Активен в дневное время"
+            "Активен в дневное время",
         ],
         "habitat_preferences_en": [
             "Artificial containers",
             "Tree holes",
-            "Urban and suburban areas"
+            "Urban and suburban areas",
         ],
         "habitat_preferences_ru": [
             "Искусственные контейнеры",
             "Дупла деревьев",
-            "Городские и пригородные зоны"
+            "Городские и пригородные зоны",
         ],
         "geographic_regions": [
             "asia",
-            "europe"
+            "europe",
         ],
         "related_diseases": [
             "chikungunya",
             "zika_virus",
-            "yellow_fever"
+            "yellow_fever",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "aedes_triseriatus",
@@ -251,30 +251,30 @@ species_list = [
         "key_characteristics_en": [
             "Breeds in tree holes",
             "Dark body with light bands on legs",
-            "Daytime biter"
+            "Daytime biter",
         ],
         "key_characteristics_ru": [
             "Размножается в дуплах деревьев",
             "Темное тело со светлыми полосками на ногах",
-            "Кусает днем"
+            "Кусает днем",
         ],
         "habitat_preferences_en": [
             "Tree holes",
             "Wooded areas",
-            "Artificial containers"
+            "Artificial containers",
         ],
         "habitat_preferences_ru": [
             "Дупла деревьев",
             "Лесные массивы",
-            "Искусственные контейнеры"
+            "Искусственные контейнеры",
         ],
         "geographic_regions": [
-            "americas"
+            "americas",
         ],
         "related_diseases": [
-            "la_crosse_encephalitis"
+            "la_crosse_encephalitis",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "aedes_vexans",
@@ -288,34 +288,34 @@ species_list = [
         "key_characteristics_en": [
             "White bands on tarsi",
             "Breeds in floodwaters and rain pools",
-            "Aggressive biter at dusk"
+            "Aggressive biter at dusk",
         ],
         "key_characteristics_ru": [
             "Белые полоски на лапках",
             "Размножается во временных лужах и заливных водоемах",
-            "Агрессивен в сумерках"
+            "Агрессивен в сумерках",
         ],
         "habitat_preferences_en": [
             "Floodplains",
             "Temporary pools",
-            "Wetlands"
+            "Wetlands",
         ],
         "habitat_preferences_ru": [
             "Поймы рек",
             "Временные водоемы",
-            "Болотистые места"
+            "Болотистые места",
         ],
         "geographic_regions": [
             "asia",
             "europe",
             "americas",
-            "africa"
+            "africa",
         ],
         "related_diseases": [
             "west_nile_virus",
-            "rift_valley_fever"
+            "rift_valley_fever",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "anopheles_arabiensis",
@@ -329,32 +329,32 @@ species_list = [
         "key_characteristics_en": [
             "Long palps equal to proboscis",
             "Rest with abdomen raised",
-            "Prefers temporary water sources"
+            "Prefers temporary water sources",
         ],
         "key_characteristics_ru": [
             "Длинные щупики, как и хоботок",
             "В состоянии покоя брюшко поднято вверх",
-            "Предпочитает временные водоемы"
+            "Предпочитает временные водоемы",
         ],
         "habitat_preferences_en": [
             "Temporary pools",
             "Irrigated fields",
-            "Puddles"
+            "Puddles",
         ],
         "habitat_preferences_ru": [
             "Временные лужи",
             "Орошаемые поля",
-            "Лужи"
+            "Лужи",
         ],
         "geographic_regions": [
             "africa",
             "sub_saharan_africa",
-            "asia"
+            "asia",
         ],
         "related_diseases": [
-            "malaria"
+            "malaria",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "anopheles_freeborni",
@@ -368,30 +368,30 @@ species_list = [
         "key_characteristics_en": [
             "Palps as long as proboscis",
             "Spotted wings",
-            "Rest with abdomen elevated"
+            "Rest with abdomen elevated",
         ],
         "key_characteristics_ru": [
             "Щупики такой же длины, как и хоботок",
             "Пятнистые крылья",
-            "В состоянии покоя брюшко поднято вверх"
+            "В состоянии покоя брюшко поднято вверх",
         ],
         "habitat_preferences_en": [
             "Slow-moving water",
             "Irrigation ditches",
-            "Rice fields"
+            "Rice fields",
         ],
         "habitat_preferences_ru": [
             "Медленно текущие воды",
             "Ирригационные канавы",
-            "Рисовые поля"
+            "Рисовые поля",
         ],
         "geographic_regions": [
-            "americas"
+            "americas",
         ],
         "related_diseases": [
-            "malaria"
+            "malaria",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "anopheles_sinensis",
@@ -405,30 +405,30 @@ species_list = [
         "key_characteristics_en": [
             "Long palps like proboscis",
             "Spotted wings",
-            "Prefers rice paddies"
+            "Prefers rice paddies",
         ],
         "key_characteristics_ru": [
             "Длинные щупики равны хоботку",
             "Крылья с пятнами",
-            "Обитает на рисовых полях"
+            "Обитает на рисовых полях",
         ],
         "habitat_preferences_en": [
             "Rice paddies",
             "Slow-flowing rivers",
-            "Lakes and marshes"
+            "Lakes and marshes",
         ],
         "habitat_preferences_ru": [
             "Рисовые поля",
             "Медленно текущие реки",
-            "Озера и болота"
+            "Озера и болота",
         ],
         "geographic_regions": [
-            "asia"
+            "asia",
         ],
         "related_diseases": [
-            "malaria"
+            "malaria",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "culex_inatomii",
@@ -442,30 +442,30 @@ species_list = [
         "key_characteristics_en": [
             "Typical Culex morphology with slender body and long legs",
             "Breeds in stagnant water",
-            "Likely nocturnal feeder"
+            "Likely nocturnal feeder",
         ],
         "key_characteristics_ru": [
             "Типичная морфология Culex с изящным телом и длинными ногами",
             "Размножается в стоячей воде",
-            "Вероятно, питается ночью"
+            "Вероятно, питается ночью",
         ],
         "habitat_preferences_en": [
             "Stagnant water bodies",
             "Marshes",
-            "Artificial containers"
+            "Artificial containers",
         ],
         "habitat_preferences_ru": [
             "Стоячие водоемы",
             "Болота",
-            "Искусственные контейнеры"
+            "Искусственные контейнеры",
         ],
         "geographic_regions": [
-            "asia"
+            "asia",
         ],
         "related_diseases": [
-            "avian_malaria"
+            "avian_malaria",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "culex_pipiens",
@@ -479,36 +479,36 @@ species_list = [
         "key_characteristics_en": [
             "Medium size with slender body",
             "Prefers to rest indoors",
-            "Breeds in polluted water"
+            "Breeds in polluted water",
         ],
         "key_characteristics_ru": [
             "Среднего размера с изящным телом",
             "Предпочитает отдыхать в помещениях",
-            "Размножается в загрязненной воде"
+            "Размножается в загрязненной воде",
         ],
         "habitat_preferences_en": [
             "Stagnant, organically rich water",
             "Urban and suburban areas",
-            "Sewers and drainage ditches"
+            "Sewers and drainage ditches",
         ],
         "habitat_preferences_ru": [
             "Стоячая вода с органическими веществами",
             "Городские и пригородные зоны",
-            "Канализации и водоотводные канавы"
+            "Канализации и водоотводные канавы",
         ],
         "geographic_regions": [
             "asia",
             "europe",
             "americas",
             "africa",
-            "oceania"
+            "oceania",
         ],
         "related_diseases": [
             "west_nile_virus",
             "st_louis_encephalitis",
-            "avian_malaria"
+            "avian_malaria",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "culex_quinquefasciatus",
@@ -522,36 +522,36 @@ species_list = [
         "key_characteristics_en": [
             "Prefers organically rich stagnant waters",
             "Lays eggs in rafts",
-            "Active mostly at night"
+            "Active mostly at night",
         ],
         "key_characteristics_ru": [
             "Предпочитает стоячие воды с большим содержанием органики",
             "Откладывает яйца компактными гроздьями",
-            "Активен преимущественно ночью"
+            "Активен преимущественно ночью",
         ],
         "habitat_preferences_en": [
             "Sewers",
             "Ditches",
-            "Agricultural seepage pits"
+            "Agricultural seepage pits",
         ],
         "habitat_preferences_ru": [
             "Канализации",
             "Канавы",
-            "Сельскохозяйственные сточные ямы"
+            "Сельскохозяйственные сточные ямы",
         ],
         "geographic_regions": [
             "asia",
             "americas",
             "africa",
-            "oceania"
+            "oceania",
         ],
         "related_diseases": [
             "west_nile_virus",
             "st_louis_encephalitis",
             "filariasis",
-            "avian_malaria"
+            "avian_malaria",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "culex_tritaeniorhynchus",
@@ -565,31 +565,31 @@ species_list = [
         "key_characteristics_en": [
             "Medium size with brownish body",
             "Prefers rice paddies for breeding",
-            "Active at dawn and dusk"
+            "Active at dawn and dusk",
         ],
         "key_characteristics_ru": [
             "Среднего размера с коричневатым телом",
             "Предпочитает рисовые поля для размножения",
-            "Активен на рассвете и в сумерках"
+            "Активен на рассвете и в сумерках",
         ],
         "habitat_preferences_en": [
             "Rice paddies",
             "Flooded fields",
-            "Organically rich stagnant water"
+            "Organically rich stagnant water",
         ],
         "habitat_preferences_ru": [
             "Рисовые поля",
             "Затопленные поля",
-            "Стоячие воды с органикой"
+            "Стоячие воды с органикой",
         ],
         "geographic_regions": [
-            "asia"
+            "asia",
         ],
         "related_diseases": [
             "japanese_encephalitis",
-            "rift_valley_fever"
+            "rift_valley_fever",
         ],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "culiseta_annulata",
@@ -603,29 +603,29 @@ species_list = [
         "key_characteristics_en": [
             "Large mosquito with ringed legs",
             "Prefers cool climates",
-            "Breeds in permanent water bodies"
+            "Breeds in permanent water bodies",
         ],
         "key_characteristics_ru": [
             "Крупный комар с кольчатыми ногами",
             "Предпочитает прохладный климат",
-            "Размножается в постоянных водоемах"
+            "Размножается в постоянных водоемах",
         ],
         "habitat_preferences_en": [
             "Marshes",
             "Large freshwaters",
-            "Cool temperate regions"
+            "Cool temperate regions",
         ],
         "habitat_preferences_ru": [
             "Болота",
             "Крупные пресноводные водоемы",
-            "Прохладные умеренные районы"
+            "Прохладные умеренные районы",
         ],
         "geographic_regions": [
             "europe",
-            "asia"
+            "asia",
         ],
         "related_diseases": [],
-        "related_diseases_info": []
+        "related_diseases_info": [],
     },
     {
         "id": "culiseta_longiareolata",
@@ -639,29 +639,29 @@ species_list = [
         "key_characteristics_en": [
             "Black and white striped legs",
             "Prefers polluted stagnant water",
-            "Medium sized"
+            "Medium sized",
         ],
         "key_characteristics_ru": [
             "Черно-белые полосатые ноги",
             "Предпочитает загрязненную стоячую воду",
-            "Среднего размера"
+            "Среднего размера",
         ],
         "habitat_preferences_en": [
             "Stagnant water",
             "Polluted ponds",
-            "Marshes"
+            "Marshes",
         ],
         "habitat_preferences_ru": [
             "Стоячая вода",
             "Загрязненные пруды",
-            "Болота"
+            "Болота",
         ],
         "geographic_regions": [
             "europe",
             "asia",
-            "africa"
+            "africa",
         ],
         "related_diseases": [],
-        "related_diseases_info": []
-    }
+        "related_diseases_info": [],
+    },
 ]

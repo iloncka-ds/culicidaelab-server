@@ -1,13 +1,16 @@
 import solara
 import io
-from typing import Optional, Dict, Any, Tuple
+from typing import Any
+
+from collections.abc import Callable
 import aiohttp
 
-from ...config import FONT_BODY, COLOR_TEXT, API_BASE_URL, sub_heading_style
+from ...config import FONT_BODY, COLOR_TEXT, API_BASE_URL
 from ...state import use_locale_effect
 import i18n
 
-async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+
+async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> tuple[dict[str, Any] | None, str | None]:
     """
     Upload an image to the prediction endpoint and get a species prediction.
 
@@ -55,9 +58,8 @@ async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> Tuple[Optio
 
 @solara.component
 def FileUploadComponent(
-    on_file_selected: callable,
-    upload_error_message: Optional[str] = None,
-
+    on_file_selected: Callable,
+    upload_error_message: str | None = None,
 ):
     """
     A component for handling file uploads.
@@ -68,15 +70,14 @@ def FileUploadComponent(
 
     solara.Text(
         i18n.t("prediction.file_upload.subtitle"),
-        style= f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-bottom: 20px;",
+        style=f"font-family: {FONT_BODY}; color: {COLOR_TEXT}; margin-bottom: 20px;",
     )
 
-
     solara.FileDrop(
-            label=i18n.t("prediction.file_upload.drag_image"),
-            on_file=on_file_selected,
-            lazy=False,
-        )
+        label=i18n.t("prediction.file_upload.drag_image"),
+        on_file=on_file_selected,
+        lazy=False,
+    )
 
     if upload_error_message:
         solara.Error(upload_error_message, style="margin-top: 15px; margin-bottom: 10px; width: 100%;")

@@ -1,11 +1,12 @@
-from typing import Dict, List
 from backend.schemas.filter_schemas import FilterOptions, RegionFilter, DataSourceFilter
 
 
-def get_filter_options(lang: str,
-                       species_names: List[str],
-                       region_translations: Dict[str, Dict[str, str]],
-                       data_source_translations: Dict[str, Dict[str, str]]) -> FilterOptions:
+def get_filter_options(
+    lang: str,
+    species_names: list[str],
+    region_translations: dict[str, dict[str, str]],
+    data_source_translations: dict[str, dict[str, str]],
+) -> FilterOptions:
     """
     Constructs translated filter options from pre-loaded, cached data.
     This function is completely stateless and performs no I/O.

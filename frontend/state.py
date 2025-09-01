@@ -35,6 +35,7 @@ async def fetch_api_data(
     loading_reactive: solara.Reactive[bool] | None = None,
     error_reactive: solara.Reactive[str | None] | None = None,
 ) -> Any | None:
+    msg: str = ""
     if loading_reactive is not None:
         loading_reactive.value = True
     if error_reactive is not None:
@@ -56,9 +57,10 @@ async def fetch_api_data(
         try:
             detail_json = e.response.json()
             detail = detail_json.get("detail", detail)
+            msg = f"HTTP error {e.response.status_code} from {url}. Detail: {detail}"
         except Exception as e:
-            print("Failed to parse error response:", e)
-        msg = f"HTTP error {e.response.status_code} from {url}. Detail: {detail}"
+            msg = f"HTTP error detail: {detail} Error: {e}"
+
         if error_reactive is not None:
             error_reactive.value = msg
         print(msg)

@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
-from typing import List, Optional
 import lancedb
 from backend.services import database, disease_service, species_service
 from backend.schemas.diseases_schemas import DiseaseListResponse, Disease
@@ -12,7 +11,7 @@ router = APIRouter()
 async def get_disease_list_endpoint(
     request: Request,
     db: lancedb.DBConnection = Depends(database.get_db),
-    search: Optional[str] = Query(None, description="Search term for disease name or description"),
+    search: str | None = Query(None, description="Search term for disease name or description"),
     limit: int = Query(50, ge=1, le=200, description="Number of results to return"),
     lang: str = Query("en", description="Language code for response (e.g., 'en', 'es')"),
 ):
@@ -39,7 +38,7 @@ async def get_disease_detail_endpoint(
     return disease_detail
 
 
-@router.get("/diseases/{disease_id}/vectors", response_model=List[SpeciesBase])
+@router.get("/diseases/{disease_id}/vectors", response_model=list[SpeciesBase])
 async def get_disease_vectors_endpoint(
     disease_id: str,
     request: Request,

@@ -1,6 +1,7 @@
 """
 Tests for the DiseaseCard component.
 """
+
 import pytest
 from unittest.mock import MagicMock, patch
 import sys
@@ -8,13 +9,17 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "frontend"))
 
-with patch.dict('sys.modules', {
-    'solara': MagicMock(),
-    'solara.lab': MagicMock(),
-    'solara.alias': MagicMock(),
-    'i18n': MagicMock(),
-}):
+with patch.dict(
+    "sys.modules",
+    {
+        "solara": MagicMock(),
+        "solara.lab": MagicMock(),
+        "solara.alias": MagicMock(),
+        "i18n": MagicMock(),
+    },
+):
     from components.diseases import disease_card
+
 
 @pytest.fixture
 def mock_router():
@@ -22,6 +27,7 @@ def mock_router():
     router = MagicMock()
     router.push = MagicMock()
     return router
+
 
 @pytest.fixture
 def mock_disease_data():
@@ -31,12 +37,13 @@ def mock_disease_data():
         "name": "Malaria",
         "description": "A mosquito-borne infectious disease affecting humans and other animals.",
         "prevalence": "Common",
-        "image_url": "https://example.com/malaria.jpg"
+        "image_url": "https://example.com/malaria.jpg",
     }
+
 
 def test_disease_card_rendering(mock_router, mock_disease_data):
     """Test that DiseaseCard renders with the correct data."""
-    with patch('solara.use_router', return_value=mock_router):
+    with patch("solara.use_router", return_value=mock_router):
         mock_translation = "View Details"
         disease_card.i18n.t.return_value = mock_translation
 
@@ -53,7 +60,7 @@ def test_disease_card_rendering(mock_router, mock_disease_data):
             width="100px",
             aspect_ratio="1",
             class_="mr-3 elevation-1",
-            style_="border-radius: 4px; object-fit: cover;"
+            style_="border-radius: 4px; object-fit: cover;",
         )
 
         disease_card.solara.Markdown.assert_called_once()
@@ -68,12 +75,13 @@ def test_disease_card_rendering(mock_router, mock_disease_data):
 
         disease_card.solara.Button.assert_called_once_with(
             mock_translation,
-            on_click=pytest.any(MagicMock)
+            on_click=pytest.any(MagicMock),
         )
+
 
 def test_disease_card_click_behavior(mock_router, mock_disease_data):
     """Test that clicking the view details button updates the selected disease and navigates."""
-    with patch('solara.use_router', return_value=mock_router):
+    with patch("solara.use_router", return_value=mock_router):
         disease_card.DiseaseCard(disease=mock_disease_data)
 
         button_call = disease_card.solara.Button.call_args[1]
@@ -85,16 +93,17 @@ def test_disease_card_click_behavior(mock_router, mock_disease_data):
 
         mock_router.push.assert_called_once_with("diseases")
 
+
 def test_disease_card_without_image():
     """Test that DiseaseCard renders correctly without an image."""
     disease_data = {
         "id": "test-disease-456",
         "name": "Zika Virus",
         "description": "A mosquito-borne virus causing birth defects.",
-        "prevalence": "Rare"
+        "prevalence": "Rare",
     }
 
-    with patch('solara.use_router'):
+    with patch("solara.use_router"):
         disease_card.DiseaseCard(disease=disease_data)
 
         rv = disease_card.rv
@@ -102,15 +111,16 @@ def test_disease_card_without_image():
 
         rv.Img.assert_not_called()
 
+
 def test_disease_card_without_prevalence():
     """Test that DiseaseCard handles missing prevalence correctly."""
     disease_data = {
         "id": "test-disease-789",
         "name": "Dengue",
-        "description": "A mosquito-borne viral infection causing a severe flu-like illness."
+        "description": "A mosquito-borne viral infection causing a severe flu-like illness.",
     }
 
-    with patch('solara.use_router'):
+    with patch("solara.use_router"):
         disease_card.DiseaseCard(disease=disease_data)
 
         rv = disease_card.rv

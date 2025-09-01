@@ -2,7 +2,7 @@
 Service for submitting mosquito observation data to the backend API.
 """
 
-from typing import Optional, Dict, Any
+from typing import Any
 import httpx
 import logging
 
@@ -12,7 +12,7 @@ from frontend.config import API_BASE_URL
 logger = logging.getLogger("observation")
 
 
-async def submit_observation_data(observation_data: Dict[str, Any]) -> Optional[str]:
+async def submit_observation_data(observation_data: dict[str, Any]) -> str | None:
     """
     Submit observation data to the backend API as a JSON payload.
     """

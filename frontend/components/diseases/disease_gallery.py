@@ -1,10 +1,10 @@
 import asyncio
-from typing import Any, Callable, Dict, List, Optional, cast
+from typing import Optional, cast
 
-import httpx
+from collections.abc import Callable
+
 import i18n
 import solara
-from solara.alias import rv
 import solara.lab
 
 from frontend.components.diseases.disease_card import DiseaseCard
@@ -12,15 +12,8 @@ from frontend.components.diseases.disease_card import DiseaseCard
 from ...config import (
     COLOR_PRIMARY,
     DISEASE_LIST_ENDPOINT,
-    card_content_style,
-    card_style,
-    footer_style,
     gallery_search_div_style,
     heading_style,
-    icon_style,
-    load_themes,
-    page_style,
-    sub_heading_style,
 )
 from ...state import (
     current_locale,
@@ -28,7 +21,6 @@ from ...state import (
     disease_list_error_reactive,
     disease_list_loading_reactive,
     fetch_api_data,
-    selected_disease_item_id,
     use_locale_effect,
 )
 
@@ -37,17 +29,22 @@ i18n.add_translation("disease_gallery.search.placeholder", "Search disease...", 
 i18n.add_translation("disease_gallery.search.button", "Search", locale="en")
 i18n.add_translation("disease_gallery.error.load", "Could not load diseases: %{error}", locale="en")
 i18n.add_translation("disease_gallery.messages.no_results", "No diseases found matching your criteria.", locale="en")
-i18n.add_translation("disease_gallery.messages.initializing",
-                    "Initializing disease data or an unexpected issue occurred.",
-                    locale="en")
+i18n.add_translation(
+    "disease_gallery.messages.initializing",
+    "Initializing disease data or an unexpected issue occurred.",
+    locale="en",
+)
 
 i18n.add_translation("disease_gallery.title", "Трансмиссивные заболевания", locale="ru")
 i18n.add_translation("disease_gallery.search.placeholder", "Поиск заболеваний...", locale="ru")
 i18n.add_translation("disease_gallery.search.button", "Поиск", locale="ru")
 i18n.add_translation("disease_gallery.error.load", "Ошибка загрузки списка заболеваний: %{error}", locale="ru")
 i18n.add_translation("disease_gallery.messages.no_results", "Информация о заболевании не найдена.", locale="ru")
-i18n.add_translation("disease_gallery.messages.initializing", "Инициализация данных или непредвиденная ошибка.",
-                    locale="ru")
+i18n.add_translation(
+    "disease_gallery.messages.initializing",
+    "Инициализация данных или непредвиденная ошибка.",
+    locale="ru",
+)
 
 
 @solara.component
@@ -59,7 +56,7 @@ def DiseaseGalleryPageComponent():
     search_query, set_search_query = solara.use_state("")
     # current_locale = i18n.get("locale")
 
-    def _load_disease_list_data_effect() -> Optional[Callable[[], None]]:
+    def _load_disease_list_data_effect() -> Callable[[], None] | None:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
         async def _async_load_task():
@@ -104,7 +101,7 @@ def DiseaseGalleryPageComponent():
 
     # with solara.Column(style="padding-bottom: 20px; min-height: calc(100vh - 120px);"):
     solara.Text(
-        i18n.t('disease_gallery.title'),
+        i18n.t("disease_gallery.title"),
         style=heading_style,
     )
 
@@ -127,7 +124,6 @@ def DiseaseGalleryPageComponent():
                 on_click=lambda: solara.Warning("Filter panel not yet implemented."),
                 style="width: 100%;",
             )
-
 
     if disease_list_loading_reactive.value:
         solara.SpinnerSolara(size="60px")

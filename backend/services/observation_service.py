@@ -28,10 +28,10 @@ class ObservationService:
         try:
             metadata_value = observation_data.metadata
             if metadata_value is not None and not isinstance(metadata_value, str):
-                metadata_value_str = json.dumps(metadata_value, ensure_ascii=False)
+                metadata_value_str: str = json.dumps(metadata_value, ensure_ascii=False)
             data_source_value = observation_data.data_source
             if data_source_value is not None and not isinstance(data_source_value, str):
-                data_source_value_str = json.dumps(data_source_value, ensure_ascii=False)
+                data_source_value_str: str = json.dumps(data_source_value, ensure_ascii=False)
 
             record_to_save = {
                 "id": str(observation_data.id),

@@ -3,7 +3,7 @@ from solara.alias import rv
 
 import i18n
 
-from typing import Dict, Any
+from typing import Any
 
 from frontend.config import COLOR_PRIMARY, FONT_HEADINGS, STATIC_FILES_URL
 
@@ -26,7 +26,7 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 
 
 @solara.component
-def SpeciesCard(species: Dict[str, Any]):
+def SpeciesCard(species: dict[str, Any]):
     router = solara.use_router()
     use_locale_effect()
 
@@ -41,7 +41,6 @@ def SpeciesCard(species: Dict[str, Any]):
     ):
         with solara.Row(style="align-items: center; flex-grow:1;"):
             with solara.Column(style="flex: 0 0 auto;"):
-
                 if species.get("image_url"):
                     # print(species.get("image_url"))
                     rv.Img(
@@ -54,7 +53,6 @@ def SpeciesCard(species: Dict[str, Any]):
                         style="border-radius: 4px; object-fit: cover; border-radius: 4px; object-fit: cover; flex-shrink: 0;",
                     )
                 else:
-
                     rv.Img(
                         src=f"{STATIC_FILES_URL}/static/images/default_species.png",
                         height="100px",
@@ -77,7 +75,6 @@ def SpeciesCard(species: Dict[str, Any]):
                     style="font-size: 0.9em; color: #555; white-space: normal; min-height: 3.5em;",
                 )
 
-
                 status_detail = str(species.get("vector_status", "Unknown")).lower()
 
                 status_color_detail, text_color_detail = get_status_color(status_detail)
@@ -90,4 +87,4 @@ def SpeciesCard(species: Dict[str, Any]):
                     text_color=text_color_detail,
                 )
                 if species_id != "species_not_defined":
-                    solara.Button(i18n.t('actions.view_details'), on_click=lambda: redirect_to_species(species_id))
+                    solara.Button(i18n.t("actions.view_details"), on_click=lambda: redirect_to_species(species_id))

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Dict, Any, List
+from typing import Any
 
 
 class GeoJSONGeometry(BaseModel):
@@ -9,13 +9,13 @@ class GeoJSONGeometry(BaseModel):
 
 class GeoJSONFeature(BaseModel):
     type: str = "Feature"
-    properties: Dict[str, Any]
+    properties: dict[str, Any]
     geometry: GeoJSONGeometry
 
 
 class GeoJSONFeatureCollection(BaseModel):
     type: str = "FeatureCollection"
-    features: List[GeoJSONFeature]
+    features: list[GeoJSONFeature]
 
 
 class MapLayerResponse(BaseModel):

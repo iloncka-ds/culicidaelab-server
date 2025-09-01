@@ -3,10 +3,8 @@ from __future__ import annotations
 import lancedb
 import pyarrow as pa
 from typing import Any, cast
+from lancedb import AsyncConnection
 from backend.config import settings
-
-# Type alias for LanceDB connection
-LanceDBConnection = lancedb.db.LanceDBConnection
 
 
 SPECIES_SCHEMA = pa.schema(
@@ -103,7 +101,7 @@ OBSERVATIONS_SCHEMA = pa.schema(
 class LanceDBManager:
     def __init__(self, uri: str = settings.DATABASE_PATH):
         self.uri = uri
-        self.db: LanceDBConnection | None = None
+        self.db: AsyncConnection | None = None
 
     async def connect(self):
         """Connects to the LanceDB database."""
@@ -129,7 +127,7 @@ class LanceDBManager:
             if self.db is None:
                 raise RuntimeError("Failed to connect to LanceDB")
 
-        db = cast(LanceDBConnection, self.db)  # Now we know self.db is not None
+        db = cast(AsyncConnection, self.db)  # Now we know self.db is not None
 
         try:
             table_names = await db.table_names()
@@ -150,7 +148,7 @@ class LanceDBManager:
             if self.db is None:
                 raise RuntimeError("Failed to connect to LanceDB")
 
-        db = cast(LanceDBConnection, self.db)
+        db = cast(AsyncConnection, self.db)
         try:
             print(f"Creating/overwriting table '{table_name}' with {len(data)} records.")
             tbl = await db.create_table(table_name, data=data, schema=schema, mode="overwrite")

@@ -13,6 +13,7 @@ from backend.services.cache_service import (
 )
 from backend.services.database import get_db
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     db_conn = get_db()
@@ -26,7 +27,6 @@ async def lifespan(app: FastAPI):
     print(f"Has DATASOURCE_TRANSLATIONS: {hasattr(app.state, 'DATASOURCE_TRANSLATIONS')}")
     print(f"Has SPECIES_NAMES: {hasattr(app.state, 'SPECIES_NAMES')}")
     print("=" * 60 + "\n")
-
 
     print("Application startup: All caches initialized.")
     yield
@@ -44,7 +44,6 @@ if settings.BACKEND_CORS_ORIGINS:
     )
 
 
-
 # Get the directory where this file is located
 backend_dir = os.path.dirname(os.path.abspath(__file__))
 static_dir = os.path.join(backend_dir, "static")
@@ -58,6 +57,7 @@ app.include_router(diseases.router, prefix=settings.API_V1_STR, tags=["Diseases"
 app.include_router(geo.router, prefix=settings.API_V1_STR, tags=["GeoData"])
 app.include_router(prediction.router, prefix=settings.API_V1_STR, tags=["Prediction"])
 app.include_router(observation.router, prefix=settings.API_V1_STR, tags=["Observation"])
+
 
 @app.get(f"{api_router_prefix}/", tags=["Root"])
 async def read_root():

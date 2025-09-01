@@ -1,5 +1,3 @@
-
-from typing import Optional
 from uuid import uuid4
 
 from fastapi import APIRouter, HTTPException, status
@@ -30,7 +28,7 @@ async def create_observation(
 
         # Ensure user_id exists
         if not observation.user_id:
-            observation.user_id = uuid4()
+            observation.user_id = str(uuid4())
             print(f"[ROUTER] Generated new user_id: {observation.user_id}")
 
         print("[ROUTER] Observation data is valid. Calling observation service to save...")
@@ -46,8 +44,10 @@ async def create_observation(
         # Catch any other unexpected errors
         print(f"[ROUTER] CRITICAL ERROR in /observations: {type(e).__name__} - {str(e)}")
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to create observation: {str(e)}"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to create observation: {str(e)}",
         )
+
 
 @router.get(
     "/observations",
@@ -55,7 +55,7 @@ async def create_observation(
     summary="Get observations",
 )
 async def get_observations(
-    species_id: Optional[str] = None,
+    species_id: str | None = None,
     limit: int = 100,
     offset: int = 0,
     user_id: str = "default_user_id",  # This should likely be replaced with auth
@@ -82,5 +82,6 @@ async def get_observations(
     except Exception as e:
         print(f"[ROUTER] CRITICAL ERROR in GET /observations: {type(e).__name__} - {str(e)}")
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to retrieve observations: {str(e)}"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to retrieve observations: {str(e)}",
         )

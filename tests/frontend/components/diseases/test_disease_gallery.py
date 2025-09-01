@@ -1,28 +1,32 @@
 """
 Tests for the DiseaseGallery component.
 """
+
 import pytest
 from unittest.mock import MagicMock, patch, AsyncMock
 import sys
-import asyncio
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "frontend"))
 
-with patch.dict('sys.modules', {
-    'solara': MagicMock(),
-    'solara.lab': MagicMock(),
-    'solara.alias': MagicMock(),
-    'httpx': MagicMock(),
-    'asyncio': MagicMock(),
-    'i18n': MagicMock(),
-}):
+with patch.dict(
+    "sys.modules",
+    {
+        "solara": MagicMock(),
+        "solara.lab": MagicMock(),
+        "solara.alias": MagicMock(),
+        "httpx": MagicMock(),
+        "asyncio": MagicMock(),
+        "i18n": MagicMock(),
+    },
+):
     from components.diseases import disease_gallery
     from state import (
         disease_list_data_reactive,
         disease_list_loading_reactive,
-        disease_list_error_reactive
+        disease_list_error_reactive,
     )
+
 
 @pytest.fixture
 def mock_disease_data():
@@ -33,41 +37,44 @@ def mock_disease_data():
                 "id": "disease-1",
                 "name": "Malaria",
                 "description": "A mosquito-borne infectious disease",
-                "prevalence": "Common"
+                "prevalence": "Common",
             },
             {
                 "id": "disease-2",
                 "name": "Dengue",
                 "description": "A viral infection transmitted by mosquitoes",
-                "prevalence": "Common"
-            }
+                "prevalence": "Common",
+            },
         ],
-        "count": 2
+        "count": 2,
     }
+
 
 @pytest.fixture
 def mock_empty_disease_data():
     """Provide empty disease data for testing."""
     return {
         "diseases": [],
-        "count": 0
+        "count": 0,
     }
+
 
 @pytest.fixture
 def setup_mocks(mocker):
     """Setup common mocks for disease gallery tests."""
     mock_fetch = AsyncMock()
-    mocker.patch('components.diseases.disease_gallery.fetch_api_data', new=mock_fetch)
+    mocker.patch("components.diseases.disease_gallery.fetch_api_data", new=mock_fetch)
 
-    mocker.patch('components.diseases.disease_gallery.DiseaseCard', return_value=MagicMock())
+    mocker.patch("components.diseases.disease_gallery.DiseaseCard", return_value=MagicMock())
 
-    mocker.patch('solara.use_state', return_value=("", MagicMock()))
+    mocker.patch("solara.use_state", return_value=("", MagicMock()))
 
-    mocker.patch('solara.use_effect')
+    mocker.patch("solara.use_effect")
 
-    mocker.patch('asyncio.create_task')
+    mocker.patch("asyncio.create_task")
 
     return mock_fetch
+
 
 @pytest.mark.asyncio
 async def test_disease_gallery_loading_state(setup_mocks):
@@ -82,6 +89,7 @@ async def test_disease_gallery_loading_state(setup_mocks):
     await mock_fetch.return_value
 
     assert disease_list_loading_reactive.value is False
+
 
 @pytest.mark.asyncio
 async def test_disease_gallery_display_diseases(setup_mocks, mock_disease_data):
@@ -98,6 +106,7 @@ async def test_disease_gallery_display_diseases(setup_mocks, mock_disease_data):
 
     assert disease_gallery.DiseaseCard.call_count == 2
 
+
 @pytest.mark.asyncio
 async def test_disease_gallery_search(setup_mocks, mock_disease_data):
     """Test that search functionality works."""
@@ -111,7 +120,8 @@ async def test_disease_gallery_search(setup_mocks, mock_disease_data):
 
     mock_fetch.assert_called_once()
     call_args = mock_fetch.call_args[1]
-    assert call_args['params']['search'] == search_query
+    assert call_args["params"]["search"] == search_query
+
 
 @pytest.mark.asyncio
 async def test_disease_gallery_error_handling(setup_mocks):
@@ -127,6 +137,7 @@ async def test_disease_gallery_error_handling(setup_mocks):
         pass
 
     assert "API Error" in str(disease_list_error_reactive.value)
+
 
 @pytest.mark.asyncio
 async def test_disease_gallery_empty_state(setup_mocks, mock_empty_disease_data):

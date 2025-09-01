@@ -1,6 +1,7 @@
 """
 Tests for the SpeciesCard component.
 """
+
 import pytest
 from unittest.mock import MagicMock, patch
 import sys
@@ -8,13 +9,17 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "frontend"))
 
-with patch.dict('sys.modules', {
-    'solara': MagicMock(),
-    'solara.lab': MagicMock(),
-    'solara.alias': MagicMock(),
-    'i18n': MagicMock(),
-}):
+with patch.dict(
+    "sys.modules",
+    {
+        "solara": MagicMock(),
+        "solara.lab": MagicMock(),
+        "solara.alias": MagicMock(),
+        "i18n": MagicMock(),
+    },
+):
     from components.species import species_card
+
 
 @pytest.fixture
 def mock_router():
@@ -22,6 +27,7 @@ def mock_router():
     router = MagicMock()
     router.push = MagicMock()
     return router
+
 
 @pytest.fixture
 def mock_species_data():
@@ -31,12 +37,13 @@ def mock_species_data():
         "scientific_name": "Culex pipiens",
         "common_name": "Common house mosquito",
         "vector_status": "high",
-        "image_url": "https://example.com/mosquito.jpg"
+        "image_url": "https://example.com/mosquito.jpg",
     }
+
 
 def test_species_card_rendering(mock_router, mock_species_data):
     """Test that SpeciesCard renders with the correct data."""
-    with patch('solara.use_router', return_value=mock_router):
+    with patch("solara.use_router", return_value=mock_router):
         mock_translation = "View Details"
         species_card.i18n.t.return_value = mock_translation
 
@@ -53,7 +60,7 @@ def test_species_card_rendering(mock_router, mock_species_data):
             width="100px",
             aspect_ratio="1",
             class_="mr-3 elevation-1",
-            style="border-radius: 4px; object-fit: cover;"
+            style="border-radius: 4px; object-fit: cover;",
         )
 
         species_card.solara.Markdown.assert_called_once()
@@ -71,12 +78,13 @@ def test_species_card_rendering(mock_router, mock_species_data):
 
         species_card.solara.Button.assert_called_once_with(
             mock_translation,
-            on_click=pytest.any(MagicMock)
+            on_click=pytest.any(MagicMock),
         )
+
 
 def test_species_card_click_behavior(mock_router, mock_species_data):
     """Test that clicking the view details button updates the selected species and navigates."""
-    with patch('solara.use_router', return_value=mock_router):
+    with patch("solara.use_router", return_value=mock_router):
         species_card.SpeciesCard(species=mock_species_data)
 
         button_call = species_card.solara.Button.call_args[1]
@@ -88,16 +96,17 @@ def test_species_card_click_behavior(mock_router, mock_species_data):
 
         mock_router.push.assert_called_once_with("species")
 
+
 def test_species_card_without_image():
     """Test that SpeciesCard renders correctly without an image."""
     species_data = {
         "id": "test-species-456",
         "scientific_name": "Aedes aegypti",
         "common_name": "Yellow fever mosquito",
-        "vector_status": "medium"
+        "vector_status": "medium",
     }
 
-    with patch('solara.use_router'):
+    with patch("solara.use_router"):
         species_card.SpeciesCard(species=species_data)
 
         rv = species_card.rv

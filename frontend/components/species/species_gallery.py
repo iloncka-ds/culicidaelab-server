@@ -1,34 +1,22 @@
 import solara
 import solara.lab
-from solara.alias import rv
-import httpx
 import asyncio
-from typing import Dict, Any, List, Optional, cast, Callable
+from typing import Optional, cast
+
+from collections.abc import Callable
 from ...state import (
     fetch_api_data,
-    selected_species_item_id,
     species_list_data_reactive,
     species_list_loading_reactive,
     species_list_error_reactive,
     use_locale_effect,
-    current_locale
+    current_locale,
 )
 from frontend.components.species.species_card import SpeciesCard
 from ...config import (
     COLOR_PRIMARY,
-    FONT_HEADINGS,
-    COLOR_TEXT,
     SPECIES_LIST_ENDPOINT,
-    SPECIES_DETAIL_ENDPOINT_TEMPLATE,
-    API_BASE_URL,
-    load_themes,
-    page_style,
     heading_style,
-    sub_heading_style,
-    card_style,
-    card_content_style,
-    icon_style,
-    footer_style,
     gallery_search_div_style,
 )
 import i18n
@@ -39,7 +27,9 @@ i18n.add_translation("species_gallery.search.button", "Search", locale="en")
 i18n.add_translation("species_gallery.error.load", "Could not load species: %{error}", locale="en")
 i18n.add_translation("species_gallery.messages.no_results", "No species found matching your criteria.", locale="en")
 i18n.add_translation(
-    "species_gallery.messages.initializing", "Initializing species data or an unexpected issue occurred.", locale="en"
+    "species_gallery.messages.initializing",
+    "Initializing species data or an unexpected issue occurred.",
+    locale="en",
 )
 i18n.add_translation("species.status.high", "Vector Status: High", locale="en")
 i18n.add_translation("species.status.medium", "Vector Status: Medium", locale="en")
@@ -51,11 +41,16 @@ i18n.add_translation("species_gallery.search.placeholder", "Поиск по на
 i18n.add_translation("species_gallery.search.button", "Поиск", locale="ru")
 i18n.add_translation("species_gallery.error.load", "Ошибка загрузки видов: %{error}", locale="ru")
 i18n.add_translation("species_gallery.messages.no_results", "Виды по вашему запросу не найдены.", locale="ru")
-i18n.add_translation("species_gallery.messages.initializing", "Инициализация данных или непредвиденная ошибка.", locale="ru")
+i18n.add_translation(
+    "species_gallery.messages.initializing",
+    "Инициализация данных или непредвиденная ошибка.",
+    locale="ru",
+)
 i18n.add_translation("species.status.high", "Степень риска: Высокий", locale="ru")
 i18n.add_translation("species.status.medium", "Степень риска: Средний", locale="ru")
 i18n.add_translation("species.status.low", "Степень риска: Низкий", locale="ru")
 i18n.add_translation("species.status.unknown", "Степень риска: Неизвестно", locale="ru")
+
 
 @solara.component
 def SpeciesGalleryPageComponent():
@@ -66,7 +61,7 @@ def SpeciesGalleryPageComponent():
     # current_locale = i18n.get("locale")
     use_locale_effect()
 
-    def _load_species_list_data_effect() -> Optional[Callable[[], None]]:
+    def _load_species_list_data_effect() -> Callable[[], None] | None:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
         async def _async_load_task():
@@ -119,7 +114,6 @@ def SpeciesGalleryPageComponent():
             classes=["pa-2 ma-2 elevation-1"],
             style=gallery_search_div_style,
         ):
-
             with solara.ColumnsResponsive(default=[12, "auto"], small=[8, 4], gutters="10px"):
                 solara.InputText(
                     label=i18n.t("species_gallery.search.placeholder"),

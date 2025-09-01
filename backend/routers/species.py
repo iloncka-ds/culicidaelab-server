@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
-from typing import List, Optional, Dict
 import lancedb
 from backend.services import database, species_service
 from backend.schemas.species_schemas import SpeciesListResponse, SpeciesDetail, SpeciesBase
@@ -12,8 +11,7 @@ router = APIRouter()
 async def get_species_list_endpoint(
     request: Request,
     db: lancedb.DBConnection = Depends(database.get_db),
-
-    search: Optional[str] = Query(None, description="Search term for species name"),
+    search: str | None = Query(None, description="Search term for species name"),
     limit: int = Query(50, ge=1, le=200, description="Number of results to return"),
     lang: str = Query("en", description="Language code for response (e.g., 'en', 'es')"),
 ):
@@ -28,7 +26,7 @@ async def get_species_list_endpoint(
 async def get_species_detail_endpoint(
     species_id: str,
     request: Request,
-    region_cache: Dict[str, Dict[str, str]] = Depends(get_region_cache),
+    region_cache: dict[str, dict[str, str]] = Depends(get_region_cache),
     db: lancedb.DBConnection = Depends(database.get_db),
     lang: str = Query("en", description="Language code for response (e.g., 'en', 'es')"),
 ):
@@ -41,11 +39,11 @@ async def get_species_detail_endpoint(
     return species_detail
 
 
-@router.get("/vector-species", response_model=List[SpeciesBase])
+@router.get("/vector-species", response_model=list[SpeciesBase])
 async def get_vector_species_endpoint(
     request: Request,
     db: lancedb.DBConnection = Depends(database.get_db),
-    disease_id: Optional[str] = Query(None, description="Filter vectors by disease ID"),
+    disease_id: str | None = Query(None, description="Filter vectors by disease ID"),
     lang: str = Query("en", description="Language code for response (e.g., 'en', 'es')"),
 ):
     """

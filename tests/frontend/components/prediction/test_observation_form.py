@@ -1,6 +1,7 @@
 """
 Tests for the ObservationFormComponent.
 """
+
 import pytest
 from unittest.mock import MagicMock, patch, AsyncMock
 import sys
@@ -9,12 +10,16 @@ from datetime import datetime, date
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "frontend"))
 
-with patch.dict('sys.modules', {
-    'solara': MagicMock(),
-    'asyncio': MagicMock(),
-}):
+with patch.dict(
+    "sys.modules",
+    {
+        "solara": MagicMock(),
+        "asyncio": MagicMock(),
+    },
+):
     from components.prediction import observation_form
     from config import FONT_HEADINGS
+
 
 @pytest.fixture
 def setup_observation_form():
@@ -32,10 +37,11 @@ def setup_observation_form():
     observation_form.solara.Column = MagicMock()
 
     mock_now = datetime(2023, 1, 1)
-    with patch('datetime.datetime') as mock_datetime:
+    with patch("datetime.datetime") as mock_datetime:
         mock_datetime.now.return_value = mock_now
         mock_datetime.strptime.side_effect = lambda *args, **kw: datetime.strptime(*args, **kw)
         yield
+
 
 @pytest.fixture
 def mock_prediction():
@@ -44,22 +50,29 @@ def mock_prediction():
         "id": "species_123",
         "name": "Culex pipiens",
         "confidence": 0.95,
-        "model_id": "model_123"
+        "model_id": "model_123",
     }
+
 
 @pytest.fixture
 def mock_submit_success():
     """Mock a successful form submission."""
-    with patch('components.prediction.observation_form.mock_submit_observation_data',
-              AsyncMock(return_value=None)) as mock_submit:
+    with patch(
+        "components.prediction.observation_form.mock_submit_observation_data",
+        AsyncMock(return_value=None),
+    ) as mock_submit:
         yield mock_submit
+
 
 @pytest.fixture
 def mock_submit_error():
     """Mock a failed form submission."""
-    with patch('components.prediction.observation_form.mock_submit_observation_data',
-              AsyncMock(return_value="Validation error")) as mock_submit:
+    with patch(
+        "components.prediction.observation_form.mock_submit_observation_data",
+        AsyncMock(return_value="Validation error"),
+    ) as mock_submit:
         yield mock_submit
+
 
 def test_observation_form_initialization(setup_observation_form, mock_prediction):
     """Test that the observation form initializes correctly."""
@@ -72,19 +85,20 @@ def test_observation_form_initialization(setup_observation_form, mock_prediction
         current_latitude=40.7128,
         current_longitude=-74.0060,
         on_submit_success=mock_on_success,
-        on_submit_error=mock_on_error
+        on_submit_error=mock_on_error,
     )
 
     observation_form.solara.Markdown.assert_any_call(
         "### Submit Observation Details",
-        style=f"margin-top:10px; margin-bottom:10px; font-family: {FONT_HEADINGS};"
+        style=f"margin-top:10px; margin-bottom:10px; font-family: {FONT_HEADINGS};",
     )
 
     observation_form.solara.Info.assert_called_once_with(
         "Selected Location: Lat: 40.7128, Lon: -74.0060",
         dense=True,
-        style="margin-bottom:10px;"
+        style="margin-bottom:10px;",
     )
+
 
 @pytest.mark.asyncio
 async def test_observation_form_validation_errors(setup_observation_form, mock_prediction):
@@ -98,7 +112,7 @@ async def test_observation_form_validation_errors(setup_observation_form, mock_p
         current_latitude=None,
         current_longitude=None,
         on_submit_success=mock_on_success,
-        on_submit_error=mock_on_error
+        on_submit_error=mock_on_error,
     )
 
     await component.handle_submit()
@@ -110,6 +124,7 @@ async def test_observation_form_validation_errors(setup_observation_form, mock_p
     assert "Latitude and Longitude are required" in error_message
 
     mock_on_success.assert_not_called()
+
 
 @pytest.mark.asyncio
 async def test_observation_form_successful_submission(setup_observation_form, mock_prediction, mock_submit_success):
@@ -133,7 +148,7 @@ async def test_observation_form_successful_submission(setup_observation_form, mo
         current_latitude=40.7128,
         current_longitude=-74.0060,
         on_submit_success=mock_on_success,
-        on_submit_error=mock_on_error
+        on_submit_error=mock_on_error,
     )
 
     await component.handle_submit()
@@ -157,6 +172,7 @@ async def test_observation_form_successful_submission(setup_observation_form, mo
     mock_on_success.assert_called_once()
     mock_on_error.assert_not_called()
 
+
 @pytest.mark.asyncio
 async def test_observation_form_submission_error(setup_observation_form, mock_prediction, mock_submit_error):
     """Test form submission with server error."""
@@ -179,7 +195,7 @@ async def test_observation_form_submission_error(setup_observation_form, mock_pr
         current_latitude=40.7128,
         current_longitude=-74.0060,
         on_submit_success=mock_on_success,
-        on_submit_error=mock_on_error
+        on_submit_error=mock_on_error,
     )
 
     await component.handle_submit()
@@ -189,16 +205,17 @@ async def test_observation_form_submission_error(setup_observation_form, mock_pr
     mock_on_error.assert_called_once_with("Validation error")
     mock_on_success.assert_not_called()
 
+
 def test_observation_form_date_picker_fallback(setup_observation_form, mock_prediction):
     """Test that the form falls back to text input when DatePicker is not available."""
-    with patch('components.prediction.observation_form.DatePicker', None):
+    with patch("components.prediction.observation_form.DatePicker", None):
         observation_form.ObservationFormComponent(
             prediction=mock_prediction,
             file_name="test.jpg",
             current_latitude=40.7128,
             current_longitude=-74.0060,
             on_submit_success=MagicMock(),
-            on_submit_error=MagicMock()
+            on_submit_error=MagicMock(),
         )
 
         observation_form.solara.InputText.assert_any_call(

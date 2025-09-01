@@ -1,6 +1,7 @@
 """
 Tests for the species service.
 """
+
 from unittest.mock import MagicMock
 import pytest
 import lancedb
@@ -12,7 +13,7 @@ from backend.services.species_service import (
     get_species_by_id,
     get_vector_species,
     _get_list_field_from_record,
-    _db_record_to_species_detail
+    _db_record_to_species_detail,
 )
 
 
@@ -45,7 +46,7 @@ class TestSpeciesServiceHelpers:
         # Create a mock request object
         mock_request = Mock()
         mock_request.base_url = "http://testserver/"
-        
+
         record = {
             "id": "aedes_aegypti",
             "scientific_name": "Aedes aegypti",
@@ -56,14 +57,14 @@ class TestSpeciesServiceHelpers:
             "description_en": "A mosquito species...",
             "description_es": "Una especie de mosquito...",
             "key_characteristics_en": ["Black and white stripes", "Lays eggs in water"],
-            "key_characteristics_es": ["Rayas negras y blancas", "Pone huevos en el agua"]
+            "key_characteristics_es": ["Rayas negras y blancas", "Pone huevos en el agua"],
         }
-        
+
         region_translations = {
             "en": {"africa": "Africa", "americas": "Americas"},
-            "es": {"africa": "África", "americas": "Américas"}
+            "es": {"africa": "África", "americas": "Américas"},
         }
-        
+
         # Test with English
         result_en = _db_record_to_species_detail(record, "en", region_translations, mock_request)
         assert result_en.id == "aedes_aegypti"
@@ -74,7 +75,7 @@ class TestSpeciesServiceHelpers:
         assert "Black and white stripes" in result_en.key_characteristics
         assert "Africa" in result_en.geographic_regions
         assert result_en.image_url.startswith("http://testserver/static/images/species/aedes_aegypti/")
-        
+
         # Test with Spanish (fallback to English for missing translations)
         result_es = _db_record_to_species_detail(record, "es", region_translations, mock_request)
         assert result_es.common_name == "Mosquito de la fiebre amarilla"
@@ -100,7 +101,7 @@ class TestSpeciesService:
         """Test get_all_species without search term."""
         mock_table.search.return_value.limit.return_value.to_list.return_value = [
             {"id": "aedes_aegypti", "scientific_name": "Aedes aegypti"},
-            {"id": "culex_pipiens", "scientific_name": "Culex pipiens"}
+            {"id": "culex_pipiens", "scientific_name": "Culex pipiens"},
         ]
         mock_db.open_table.return_value = mock_table
 
@@ -114,7 +115,7 @@ class TestSpeciesService:
     def test_get_all_species_with_search(self, mock_db, mock_table):
         """Test get_all_species with search term."""
         mock_table.search.return_value.limit.return_value.to_list.return_value = [
-            {"id": "aedes_aegypti", "scientific_name": "Aedes aegypti"}
+            {"id": "aedes_aegypti", "scientific_name": "Aedes aegypti"},
         ]
         mock_db.open_table.return_value = mock_table
 
@@ -127,7 +128,7 @@ class TestSpeciesService:
     def test_get_species_by_id_found(self, mock_db, mock_table):
         """Test get_species_by_id when species is found."""
         mock_table.search.return_value.limit.return_value.to_list.return_value = [
-            {"id": "aedes_aegypti", "scientific_name": "Aedes aegypti"}
+            {"id": "aedes_aegypti", "scientific_name": "Aedes aegypti"},
         ]
         mock_db.open_table.return_value = mock_table
 
@@ -148,7 +149,7 @@ class TestSpeciesService:
     def test_get_vector_species_no_disease_filter(self, mock_db, mock_table):
         """Test get_vector_species without disease filter."""
         mock_table.search.return_value.limit.return_value.to_list.return_value = [
-            {"id": "aedes_aegypti", "scientific_name": "Aedes aegypti", "is_disease_vector": True}
+            {"id": "aedes_aegypti", "scientific_name": "Aedes aegypti", "is_disease_vector": True},
         ]
         mock_db.open_table.return_value = mock_table
 
@@ -165,8 +166,8 @@ class TestSpeciesService:
                 "id": "aedes_aegypti",
                 "scientific_name": "Aedes aegypti",
                 "is_disease_vector": True,
-                "diseases": ["dengue"]
-            }
+                "diseases": ["dengue"],
+            },
         ]
         mock_db.open_table.return_value = mock_table
 

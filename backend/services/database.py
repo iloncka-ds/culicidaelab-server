@@ -3,7 +3,7 @@ from backend.config import settings
 from functools import lru_cache
 
 
-@lru_cache()
+@lru_cache
 def get_db():
     """Connects to the LanceDB database."""
     try:

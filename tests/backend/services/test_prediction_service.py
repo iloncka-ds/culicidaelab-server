@@ -1,6 +1,7 @@
 """
 Tests for the prediction service.
 """
+
 from unittest.mock import MagicMock, AsyncMock
 import pytest
 
@@ -23,18 +24,23 @@ class TestPredictionService:
         mock_config_manager = MagicMock()
         mock_classifier = MagicMock()
 
-        mocker.patch.dict('sys.modules', {
-            'culicidaelab.core.config_manager': MagicMock(
-                ConfigManager=MagicMock(return_value=mock_config_manager)
-            ),
-            'culicidaelab.classifier.mosquito_classifier': MagicMock(
-                MosquitoClassifier=MagicMock(return_value=mock_classifier)
-            )
-        })
+        mocker.patch.dict(
+            "sys.modules",
+            {
+                "culicidaelab.core.config_manager": MagicMock(
+                    ConfigManager=MagicMock(return_value=mock_config_manager),
+                ),
+                "culicidaelab.classifier.mosquito_classifier": MagicMock(
+                    MosquitoClassifier=MagicMock(return_value=mock_classifier),
+                ),
+            },
+        )
 
-        mocker.patch('backend.services.prediction_service.settings',
-                    CLASSIFIER_CONFIG_PATH="/fake/config/path.yaml",
-                    CLASSIFIER_MODEL_PATH="/fake/model/path.pth")
+        mocker.patch(
+            "backend.services.prediction_service.settings",
+            CLASSIFIER_CONFIG_PATH="/fake/config/path.yaml",
+            CLASSIFIER_MODEL_PATH="/fake/model/path.pth",
+        )
 
         await self.service.load_model()
 
@@ -45,7 +51,7 @@ class TestPredictionService:
     @pytest.mark.asyncio
     async def test_load_model_failure(self, mocker):
         """Test model loading failure falls back to mock prediction."""
-        mocker.patch('importlib.import_module', side_effect=ImportError("Test error"))
+        mocker.patch("importlib.import_module", side_effect=ImportError("Test error"))
 
         await self.service.load_model()
 
@@ -58,7 +64,7 @@ class TestPredictionService:
         mock_model = MagicMock()
         mock_model.predict.return_value = [
             ("Aedes aegypti", 0.95),
-            ("Culex pipiens", 0.05)
+            ("Culex pipiens", 0.05),
         ]
         mock_model.arch = "resnet50"
 
@@ -77,12 +83,12 @@ class TestPredictionService:
     @pytest.mark.asyncio
     async def test_predict_species_with_unloaded_model(self, mocker, mock_image_data):
         """Test species prediction when model needs to be loaded."""
-        mocker.patch.object(self.service, 'load_model', new_callable=AsyncMock)
+        mocker.patch.object(self.service, "load_model", new_callable=AsyncMock)
 
         mock_model = MagicMock()
         mock_model.predict.return_value = [
             ("Aedes aegypti", 0.95),
-            ("Culex pipiens", 0.05)
+            ("Culex pipiens", 0.05),
         ]
         mock_model.arch = "resnet50"
 
@@ -104,8 +110,8 @@ class TestPredictionService:
         """Test species prediction when model loading fails and falls back to mock."""
         mocker.patch.object(
             self.service,
-            'load_model',
-            side_effect=Exception("Failed to load model")
+            "load_model",
+            side_effect=Exception("Failed to load model"),
         )
 
         result, error = await self.service.predict_species(mock_image_data, "test_image.jpg")

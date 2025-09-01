@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from typing import List
 
 
 # --- New Nested Models for Filter Options ---
@@ -15,7 +14,6 @@ class DataSourceFilter(BaseModel):
 
 # --- Updated FilterOptions Model ---
 class FilterOptions(BaseModel):
-    species: List[str]
-    regions: List[RegionFilter]
-    data_sources: List[DataSourceFilter]
-
+    species: list[str]
+    regions: list[RegionFilter]
+    data_sources: list[DataSourceFilter]

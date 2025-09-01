@@ -1,5 +1,4 @@
-import json
-from typing import List, Optional, Dict, Any
+from typing import Any
 import lancedb
 from fastapi import Request
 from backend.services.database import get_table
@@ -8,14 +7,17 @@ from backend.schemas.species_schemas import SpeciesDetail, SpeciesBase
 from backend.services import disease_service
 
 
-def _get_list_field_from_record(value: Any) -> List[str]:
+def _get_list_field_from_record(value: Any) -> list[str]:
     if isinstance(value, list):
         return [str(item) for item in value]
     return []
 
 
 def _db_record_to_species_detail(
-    record: dict, lang: str, region_translations: Dict[str, Dict[str, str]], request: Request
+    record: dict,
+    lang: str,
+    region_translations: dict[str, dict[str, str]],
+    request: Request,
 ) -> SpeciesDetail:
     """
     Converts a raw dictionary record to a SpeciesDetail Pydantic model.
@@ -47,10 +49,10 @@ def _db_record_to_species_detail(
         common_name=record.get(f"common_name_{lang}", record.get(f"common_name_{fallback_lang}")),
         description=record.get(f"description_{lang}", record.get(f"description_{fallback_lang}")),
         key_characteristics=_get_list_field_from_record(
-            record.get(f"key_characteristics_{lang}", record.get(f"key_characteristics_{fallback_lang}"))
+            record.get(f"key_characteristics_{lang}", record.get(f"key_characteristics_{fallback_lang}")),
         ),
         habitat_preferences=_get_list_field_from_record(
-            record.get(f"habitat_preferences_{lang}", record.get(f"habitat_preferences_{fallback_lang}"))
+            record.get(f"habitat_preferences_{lang}", record.get(f"habitat_preferences_{fallback_lang}")),
         ),
         geographic_regions=translated_geographic_regions,
         related_diseases=_get_list_field_from_record(record.get("related_diseases")),
@@ -66,7 +68,6 @@ def _db_record_to_species_base(record: dict, lang: str, request: Request) -> Spe
     species_id = record.get("id", "")
     base_url = str(request.base_url)
 
-
     image_url = f"{base_url}static/images/species/{species_id}/thumbnail.jpg"
     # image_url = f"/static/images/species/{species_id}/thumbnail.jpg"
     return SpeciesBase(
@@ -79,8 +80,12 @@ def _db_record_to_species_base(record: dict, lang: str, request: Request) -> Spe
 
 
 def get_all_species(
-    db: lancedb.DBConnection, request: Request, lang: str, search: Optional[str] = None, limit: int = 100
-) -> List[SpeciesBase]:
+    db: lancedb.DBConnection,
+    request: Request,
+    lang: str,
+    search: str | None = None,
+    limit: int = 100,
+) -> list[SpeciesBase]:
     """
     Gets a list of species, optionally filtered by search term.
     """
@@ -111,9 +116,9 @@ def get_species_by_id(
     db: lancedb.DBConnection,
     species_id: str,
     lang: str,
-    region_translations: Dict[str, Dict[str, str]],
+    region_translations: dict[str, dict[str, str]],
     request: Request,
-) -> Optional[SpeciesDetail]:
+) -> SpeciesDetail | None:
     """Gets detailed information for a single species by its ID."""
     try:
         tbl = get_table(db, "species")
@@ -128,14 +133,16 @@ def get_species_by_id(
 
 
 def get_vector_species(
-    db: lancedb.DBConnection, request: Request, lang: str, disease_id: Optional[str] = None
-) -> List[SpeciesBase]:
+    db: lancedb.DBConnection,
+    request: Request,
+    lang: str,
+    disease_id: str | None = None,
+) -> list[SpeciesBase]:
     """
     Get species that are disease vectors, optionally filtered by a specific disease.
     """
     vector_ids = []
     if disease_id:
-
         disease_obj = disease_service.get_disease_by_id(db, disease_id, lang, request)
         if not disease_obj or not disease_obj.vectors:
             return []

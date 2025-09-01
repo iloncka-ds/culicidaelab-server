@@ -1,6 +1,7 @@
 """
 Tests for the filter service.
 """
+
 from unittest.mock import MagicMock
 import pytest
 import lancedb
@@ -40,7 +41,7 @@ class TestFilterService:
     def mock_database_module(self, monkeypatch):
         """Mock the database module's get_table function."""
         mock_get_table = MagicMock()
-        monkeypatch.setattr('backend.services.database.get_table', mock_get_table)
+        monkeypatch.setattr("backend.services.database.get_table", mock_get_table)
         return mock_get_table
 
     def test_get_filter_options_success(
@@ -49,31 +50,31 @@ class TestFilterService:
         mock_species_table,
         mock_regions_table,
         mock_data_sources_table,
-        mock_database_module
+        mock_database_module,
     ):
         """Test successful retrieval of filter options."""
         mock_database_module.side_effect = [
             mock_species_table,
             mock_regions_table,
-            mock_data_sources_table
+            mock_data_sources_table,
         ]
 
         mock_species_table.search.return_value.select.return_value.to_list.return_value = [
             {"scientific_name": "Aedes aegypti"},
             {"scientific_name": "Culex pipiens"},
-            {"scientific_name": "Anopheles gambiae"}
+            {"scientific_name": "Anopheles gambiae"},
         ]
 
         mock_regions_table.search.return_value.select.return_value.to_list.return_value = [
             {"name": "North America"},
             {"name": "Europe"},
-            {"name": "Asia"}
+            {"name": "Asia"},
         ]
 
         mock_data_sources_table.search.return_value.select.return_value.to_list.return_value = [
             {"name": "WHO"},
             {"name": "CDC"},
-            {"name": "ECDC"}
+            {"name": "ECDC"},
         ]
 
         result = get_filter_options(mock_db)
@@ -97,13 +98,13 @@ class TestFilterService:
         mock_species_table,
         mock_regions_table,
         mock_data_sources_table,
-        mock_database_module
+        mock_database_module,
     ):
         """Test retrieval of filter options with empty results."""
         mock_database_module.side_effect = [
             mock_species_table,
             mock_regions_table,
-            mock_data_sources_table
+            mock_data_sources_table,
         ]
 
         mock_species_table.search.return_value.select.return_value.to_list.return_value = []
@@ -123,31 +124,31 @@ class TestFilterService:
         mock_species_table,
         mock_regions_table,
         mock_data_sources_table,
-        mock_database_module
+        mock_database_module,
     ):
         """Test retrieval of filter options with None values in results."""
         mock_database_module.side_effect = [
             mock_species_table,
             mock_regions_table,
-            mock_data_sources_table
+            mock_data_sources_table,
         ]
 
         mock_species_table.search.return_value.select.return_value.to_list.return_value = [
             {"scientific_name": "Aedes aegypti"},
             {"scientific_name": None},
-            {"scientific_name": ""}
+            {"scientific_name": ""},
         ]
 
         mock_regions_table.search.return_value.select.return_value.to_list.return_value = [
             {"name": "North America"},
             {"name": None},
-            {"name": ""}
+            {"name": ""},
         ]
 
         mock_data_sources_table.search.return_value.select.return_value.to_list.return_value = [
             {"name": "WHO"},
             {"name": None},
-            {"name": ""}
+            {"name": ""},
         ]
 
         result = get_filter_options(mock_db)

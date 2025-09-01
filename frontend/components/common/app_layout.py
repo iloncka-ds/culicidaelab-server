@@ -1,17 +1,16 @@
 import solara
-from typing import List, Optional
 
 
 class NavRoute(solara.Route):
-    icon_name: Optional[str] = None
+    icon_name: str | None = None
 
     def __init__(
         self,
         path: str,
         component,
         label: str,
-        icon: Optional[str] = None,
-        children: Optional[List["NavRoute"]] = None,
+        icon: str | None = None,
+        children: list["NavRoute"] | None = None,
         **kwargs,
     ):
         actual_children = children if children is not None else []
@@ -20,14 +19,12 @@ class NavRoute(solara.Route):
 
 
 @solara.component
-def Layout(children: List[solara.Element] = []):
+def Layout(children: list[solara.Element] = []):
     route_current, routes_all = solara.use_route()
-
 
     with solara.AppLayout(
         title="CulicidaeLab",
     ) as main_app_layout:
-
         for route_obj in routes_all:
             if route_obj.path is None:
                 continue

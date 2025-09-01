@@ -1,6 +1,4 @@
-from typing import Tuple
-
-def get_status_color(status_detail: str) -> Tuple[str, str]:
+def get_status_color(status_detail: str) -> tuple[str, str]:
     """Get the color for a species status detail.
     Args:
         status_detail (str): The status detail to get the color for.

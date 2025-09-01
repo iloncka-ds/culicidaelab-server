@@ -1,6 +1,7 @@
 """
 Pytest configuration for frontend tests.
 """
+
 import pytest
 from pathlib import Path
 

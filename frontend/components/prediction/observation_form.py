@@ -1,4 +1,5 @@
-from typing import Optional, Dict, Any
+from typing import Any
+from collections.abc import Callable
 import asyncio
 from datetime import datetime
 import solara
@@ -11,12 +12,12 @@ from .observation_service import submit_observation_data
 
 @solara.component
 def ObservationFormComponent(
-    prediction: Optional[Dict[str, Any]],
-    file_name: Optional[str],
-    current_latitude: Optional[float],
-    current_longitude: Optional[float],
-    on_submit_success: callable,
-    on_submit_error: callable,
+    prediction: dict[str, Any] | None,
+    file_name: str | None,
+    current_latitude: float | None,
+    current_longitude: float | None,
+    on_submit_success: Callable,
+    on_submit_error: Callable,
 ):
     """
     Form for submitting observation details along with a prediction.
@@ -141,7 +142,9 @@ def ObservationFormComponent(
             )
         else:
             solara.InputText(
-                i18n.t("prediction.observation_form.input_date"), value=obs_date_str, on_value=set_obs_date_str
+                i18n.t("prediction.observation_form.input_date"),
+                value=obs_date_str,
+                on_value=set_obs_date_str,
             )
 
         solara.InputInt(

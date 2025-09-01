@@ -4,12 +4,12 @@ import subprocess
 import psutil
 import numpy as np
 from tabulate import tabulate
-from typing import List, Dict, Any
+from typing import Any
 import json
 from pathlib import Path
 
 
-def get_process_and_children(proc: psutil.Process) -> List[psutil.Process]:
+def get_process_and_children(proc: psutil.Process) -> list[psutil.Process]:
     """
     Recursively finds all child processes of a given process.
     """
@@ -20,7 +20,7 @@ def get_process_and_children(proc: psutil.Process) -> List[psutil.Process]:
 
 
 # --- This is the new, robust monitoring function ---
-def monitor_process(process: subprocess.Popen, duration_seconds: int, interval: float) -> List[Dict[str, Any]]:
+def monitor_process(process: subprocess.Popen, duration_seconds: int, interval: float) -> list[dict[str, Any]]:
     """
     Monitors a process and its children for a given duration, sampling
     at a specified interval. This version is robust against process restarts.
@@ -35,7 +35,7 @@ def monitor_process(process: subprocess.Popen, duration_seconds: int, interval: 
         return []
 
     print(
-        f"Monitoring process '{root_process.name()}' (PID: {root_process.pid}) and its children for {duration_seconds} seconds..."
+        f"Monitoring process '{root_process.name()}' (PID: {root_process.pid}) and its children for {duration_seconds} seconds...",
     )
 
     while time.time() - start_time < duration_seconds:
@@ -71,13 +71,13 @@ def monitor_process(process: subprocess.Popen, duration_seconds: int, interval: 
                 "timestamp": time.time(),
                 "cpu_percent": total_cpu_percent,
                 "memory_rss_mb": total_rss_bytes / (1024 * 1024),
-            }
+            },
         )
 
     return metrics_log
 
 
-def analyze_results(metrics: List[Dict[str, Any]], command: str) -> Dict[str, Any]:
+def analyze_results(metrics: list[dict[str, Any]], command: str) -> dict[str, Any]:
     """
     Analyzes the collected metrics, prints a summary table, and returns the summary.
     """
@@ -176,16 +176,27 @@ if __name__ == "__main__":
     parser.add_argument("script_path", type=str, help="Path to the Solara app (e.g., frontend.main)")
     parser.add_argument("--port", type=int, default=8765, help="Port to run the server on.")
     parser.add_argument(
-        "--duration", type=int, default=30, help="Total duration to monitor the application in seconds."
+        "--duration",
+        type=int,
+        default=30,
+        help="Total duration to monitor the application in seconds.",
     )
     parser.add_argument(
-        "--interval", type=float, default=1.0, help="Interval between resource measurements in seconds."
+        "--interval",
+        type=float,
+        default=1.0,
+        help="Interval between resource measurements in seconds.",
     )
     parser.add_argument(
-        "--init-wait", type=int, default=5, help="Time to wait for the Solara app to initialize before monitoring."
+        "--init-wait",
+        type=int,
+        default=5,
+        help="Time to wait for the Solara app to initialize before monitoring.",
     )
     parser.add_argument(
-        "--output-file", type=str, help="Path to save the results JSON file (e.g., reports/frontend_test.json)"
+        "--output-file",
+        type=str,
+        help="Path to save the results JSON file (e.g., reports/frontend_test.json)",
     )
 
     args = parser.parse_args()

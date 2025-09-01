@@ -2,13 +2,12 @@ import argparse
 import asyncio
 
 import json
-import os
-from typing import Any, List
+from typing import Any
 from backend.config import settings
 from backend.database_utils.lancedb_manager import LanceDBManager
 
 
-async def fetch_records(table_name: str, limit: int | None = None) -> List[dict[str, Any]]:
+async def fetch_records(table_name: str, limit: int | None = None) -> list[dict[str, Any]]:
     """Connects to LanceDB and fetches records from the specified table.
 
     Args:

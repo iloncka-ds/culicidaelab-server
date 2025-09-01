@@ -1,4 +1,5 @@
 """Tests for the map visualization page component."""
+
 import pytest
 from unittest.mock import patch, MagicMock
 import solara
@@ -22,9 +23,9 @@ class TestMapVisualizationPage:
         html = solara_test.get_html()
         assert "Map Visualization" in html or "Визуализация на карте" in html
 
-    @patch('frontend.pages.map_visualization.map_component.MapComponent')
-    @patch('frontend.pages.map_visualization.filter_panel.FilterControls')
-    @patch('frontend.pages.map_visualization.legend_component.LegendDisplay')
+    @patch("frontend.pages.map_visualization.map_component.MapComponent")
+    @patch("frontend.pages.map_visualization.filter_panel.FilterControls")
+    @patch("frontend.pages.map_visualization.legend_component.LegendDisplay")
     def test_components_initialized(self, mock_legend, mock_filter, mock_map, solara_test):
         """Test that all required components are initialized."""
         mock_map.return_value = solara.HTML("MapComponent")
@@ -49,7 +50,7 @@ class TestMapVisualizationPage:
 
         assert "LocaleSelector" in str(html) or "language" in str(html).lower()
 
-    @patch('frontend.pages.map_visualization.load_themes')
+    @patch("frontend.pages.map_visualization.load_themes")
     def test_theme_loading(self, mock_load_themes):
         """Test that themes are loaded correctly."""
         mock_theme = MagicMock()

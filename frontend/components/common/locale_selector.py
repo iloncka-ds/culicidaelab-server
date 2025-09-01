@@ -1,9 +1,10 @@
 import solara
 import i18n
-from typing import Optional, Callable
-from ...state import current_locale, use_locale_effect
-LOCALES = {
 
+from collections.abc import Callable
+from ...state import current_locale, use_locale_effect
+
+LOCALES = {
     "ru": "Русский",
     "en": "English",
 }
@@ -17,7 +18,7 @@ def set_locale(locale: str):
 
 
 @solara.component
-def LocaleSelector(on_change: Optional[Callable[[], None]] = None):
+def LocaleSelector(on_change: Callable[[], None] | None = None):
     """A language selector component.
 
     Args:
@@ -25,6 +26,7 @@ def LocaleSelector(on_change: Optional[Callable[[], None]] = None):
     """
 
     use_locale_effect()
+
     def handle_locale_change(new_locale: str):
         # First, update the i18n library
 

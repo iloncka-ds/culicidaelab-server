@@ -7,7 +7,7 @@ import json
 import httpx
 
 import i18n
-from typing import Dict, Any, Optional
+from typing import Any
 
 from frontend.state import (
     selected_species_reactive,
@@ -18,14 +18,13 @@ from frontend.state import (
     observations_data_reactive,
     observations_loading_reactive,
     selected_date_range_reactive,
-    use_locale_effect
+    use_locale_effect,
 )
 from frontend.config import (
     DEFAULT_MAP_CENTER,
     DEFAULT_MAP_ZOOM,
     SPECIES_COLORS,
     OBSERVATIONS_ENDPOINT,
-
 )
 from frontend.state import all_available_species_reactive
 
@@ -36,9 +35,12 @@ i18n.add_translation("map.html_popup.observed_at", "Дата наблюдени�
 i18n.add_translation("map.html_popup.species", "Species", locale="en")
 i18n.add_translation("map.html_popup.species", "Вид", locale="ru")
 
+
 async def fetch_geojson_data(
-    url: str, params: dict, loading_reactive: solara.Reactive[bool]
-) -> Optional[Dict[str, Any]]:
+    url: str,
+    params: dict,
+    loading_reactive: solara.Reactive[bool],
+) -> dict[str, Any] | None:
     loading_reactive.value = True
     # print(f"[DEBUG] fetch_geojson_data called for {url} with params {params}")
     try:
@@ -70,9 +72,12 @@ async def fetch_geojson_data(
 
 class LeafletMapManager:
     # Accept the color map as an argument during initialization
-    def __init__(self, species_color_map: Dict[str, str] = SPECIES_COLORS):
+    def __init__(self, species_color_map: dict[str, str] = SPECIES_COLORS):
         self.map_instance = L.Map(
-            center=DEFAULT_MAP_CENTER, zoom=DEFAULT_MAP_ZOOM, scroll_wheel_zoom=True, prefer_canvas=True
+            center=DEFAULT_MAP_CENTER,
+            zoom=DEFAULT_MAP_ZOOM,
+            scroll_wheel_zoom=True,
+            prefer_canvas=True,
         )
         osm_layer = L.TileLayer(
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -140,7 +145,6 @@ class LeafletMapManager:
                 except (json.JSONDecodeError, UnicodeDecodeError):
                     pass
 
-
             try:
                 return value.encode("utf-8").decode("unicode_escape").encode("latin1").decode("utf-8")
             except (UnicodeDecodeError, UnicodeEncodeError):
@@ -148,23 +152,26 @@ class LeafletMapManager:
 
         return str(value)
 
-    def _create_popup_html(self, props: Dict[str, Any], title_key: Optional[str] = None) -> str:
+    def _create_popup_html(self, props: dict[str, Any], title_key: str | None = None) -> str:
         species = props.get("species_scientific_name", "")
         observed_at = props.get("observed_at", "")
         count = props.get("count", "")
 
         html_content = f"<p style='margin: 2px 0; font-size: 0.9em;'>{i18n.t('map.html_popup.species')}: {species}</p>"
-        html_content += f"<p style='margin: 2px 0; font-size: 0.9em;'>{i18n.t('map.html_popup.observed_at')}: {observed_at}</p>"
+        html_content += (
+            f"<p style='margin: 2px 0; font-size: 0.9em;'>{i18n.t('map.html_popup.observed_at')}: {observed_at}</p>"
+        )
         html_content += f"<p style='margin: 2px 0; font-size: 0.9em;'>{i18n.t('map.html_popup.count')}: {count}</p>"
 
         return html_content
 
-    def _get_species_color(self, species_name: Optional[str]) -> str:
-
-        color = self.species_color_map.get(species_name, "rgba(128,128,128,0.7)")
+    def _get_species_color(self, species_name: str | None) -> str:
+        # Convert None to empty string for dictionary lookup
+        species_key = species_name if species_name is not None else ""
+        color = self.species_color_map.get(species_key, "rgba(128,128,128,0.7)")
         return color
 
-    def update_observations_layer(self, observations_json: Optional[Dict[str, Any]]) -> None:
+    def update_observations_layer(self, observations_json: dict[str, Any] | None) -> None:
         self.observations_layer_group.clear_layers()
 
         if not observations_json or not observations_json.get("features") or not show_observed_data_reactive.value:
@@ -218,6 +225,7 @@ def MapDisplay():
         dependencies=[tuple(all_species)],  # Depend on an immutable tuple of species
     )
     print(SPECIES_COLORS)
+
     async def load_observations_data_task():
         if not show_observed_data_reactive.value or not selected_species_reactive.value:
             observations_data_reactive.value = None
@@ -234,7 +242,7 @@ def MapDisplay():
         data = await fetch_geojson_data(OBSERVATIONS_ENDPOINT, params, observations_loading_reactive)
         observations_data_reactive.value = data if data is not None else None
 
-    solara.lab.use_task( # noqa: SH101
+    solara.lab.use_task(  # noqa: SH101
         load_observations_data_task,
         dependencies=[
             selected_species_reactive.value,
@@ -242,7 +250,6 @@ def MapDisplay():
             selected_date_range_reactive.value,
         ],
     )
-
 
     def _update_map_layers_effect():
         map_manager.update_observations_layer(observations_data_reactive.value)

@@ -1,4 +1,5 @@
 """Tests for the prediction page component."""
+
 import pytest
 from unittest.mock import patch
 import solara
@@ -22,9 +23,9 @@ class TestPredictionPage:
         html = solara_test.get_html()
         assert "Prediction" in html or "Предсказание" in html
 
-    @patch('frontend.pages.prediction.FileUploadComponent')
-    @patch('frontend.pages.prediction.LocationComponent')
-    @patch('frontend.pages.prediction.ObservationFormComponent')
+    @patch("frontend.pages.prediction.FileUploadComponent")
+    @patch("frontend.pages.prediction.LocationComponent")
+    @patch("frontend.pages.prediction.ObservationFormComponent")
     def test_components_initialized(self, mock_form, mock_location, mock_upload, solara_test):
         """Test that all required components are initialized."""
         mock_upload.return_value = solara.HTML("FileUploadComponent")
@@ -38,18 +39,17 @@ class TestPredictionPage:
         assert "LocationComponent" in html
         assert "ObservationFormComponent" in html
 
-    @patch('frontend.pages.prediction.upload_and_predict')
+    @patch("frontend.pages.prediction.upload_and_predict")
     def test_prediction_flow(self, mock_upload, solara_test):
         """Test the prediction flow with mock data."""
         mock_result = {
-            'prediction': 'Aedes aegypti',
-            'confidence': 0.95,
-            'image': 'base64encodedimage'
+            "prediction": "Aedes aegypti",
+            "confidence": 0.95,
+            "image": "base64encodedimage",
         }
         mock_upload.return_value = mock_result
 
         solara.display(Page())
-
 
         mock_upload.assert_not_called()
 

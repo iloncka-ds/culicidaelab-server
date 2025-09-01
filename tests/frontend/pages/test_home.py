@@ -1,4 +1,5 @@
 """Tests for the home page component."""
+
 import pytest
 from unittest.mock import patch
 import solara
@@ -32,7 +33,7 @@ class TestHomePage:
         assert "Species" in html or "Виды" in html
         assert "Diseases" in html or "Заболевания" in html
 
-    @patch('frontend.pages.home.i18n.t')
+    @patch("frontend.pages.home.i18n.t")
     def test_i18n_setup(self, mock_t):
         """Test that i18n is set up correctly."""
         mock_t.return_value = "Test Title"

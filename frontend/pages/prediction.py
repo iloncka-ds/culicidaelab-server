@@ -2,7 +2,7 @@ import solara
 
 import io
 import base64
-from typing import Dict, Any, Optional, cast
+from typing import Any, Optional, cast
 import asyncio
 
 from frontend.config import (
@@ -23,15 +23,13 @@ import i18n
 
 @solara.component
 def Page():
-
     use_persistent_user_id()
     use_locale_effect()
-
 
     view_mode, set_view_mode = solara.use_state("form")
     file_data_state, set_file_data_state = solara.use_state(cast(Optional[bytes], None))
     file_name_state, set_file_name_state = solara.use_state(cast(Optional[str], None))
-    prediction_result_state, set_prediction_result_state = solara.use_state(cast(Optional[Dict[str, Any]], None))
+    prediction_result_state, set_prediction_result_state = solara.use_state(cast(Optional[dict[str, Any]], None))
     latitude_state, set_latitude_state = solara.use_state(cast(Optional[float], None))
     longitude_state, set_longitude_state = solara.use_state(cast(Optional[float], None))
     is_predicting_state, set_is_predicting_state = solara.use_state(False)
@@ -62,7 +60,7 @@ def Page():
             set_page_success_message("")
         set_is_predicting_state(False)
 
-    def handle_file_selected_from_component(file_info: Dict[str, Any]) -> bool:
+    def handle_file_selected_from_component(file_info: dict[str, Any]) -> bool:
         set_page_error_message("")
         set_page_success_message("")
         set_file_upload_specific_error("")
@@ -121,14 +119,15 @@ def Page():
 
     if view_mode == "form":
         with solara.ColumnsResponsive(
-            default=[12], large=[4, 4, 4], gutters_dense=True,
-            style=page_style
+            default=[12],
+            large=[4, 4, 4],
+            gutters_dense=True,
+            style=page_style,
         ):
             with solara.Card(i18n.t("prediction.cards.upload.title"), margin=0, style=card_style):  # "height: 100%;"
                 FileUploadComponent(
                     on_file_selected=handle_file_selected_from_component,
                     upload_error_message=file_upload_specific_error,
-
                 )
                 if file_data_state and not is_predicting_state and prediction_result_state:
                     solara.Success(
@@ -194,13 +193,20 @@ def Page():
             )
 
             if prediction_result_state:
-
-                with solara.ColumnsResponsive(default=[12], small=[6, 6], medium=[6, 6], large=[6, 6],
-                                        gutters="20px", style=page_style):
+                with solara.ColumnsResponsive(
+                    default=[12],
+                    small=[6, 6],
+                    medium=[6, 6],
+                    large=[6, 6],
+                    gutters="20px",
+                    style=page_style,
+                ):
                     # Column 1: Uploaded Image
                     with solara.Column():
-                        solara.Markdown(i18n.t("prediction.labels.uploaded_image"),
-                                        style=sub_heading_style)
+                        solara.Markdown(
+                            i18n.t("prediction.labels.uploaded_image"),
+                            style=sub_heading_style,
+                        )
                         try:
                             img_bytes = file_data_state
                             b64_img = base64.b64encode(img_bytes).decode("utf-8")
@@ -216,7 +222,7 @@ def Page():
                                 attributes={
                                     "src": f"data:{content_type};base64,{b64_img}",
                                     "style": "width: 100%; height: 100%; object-fit: cover; "
-                                            "border: 1px solid #ccc; border-radius: 4px;",
+                                    "border: 1px solid #ccc; border-radius: 4px;",
                                 },
                             )
                         except Exception as e:

@@ -1,5 +1,3 @@
-import json
-from typing import List, Optional, Tuple, Dict, Any
 import lancedb
 from backend.services.database import get_table
 from backend.schemas.geo_schemas import GeoJSONFeatureCollection, GeoJSONFeature, GeoJSONGeometry
@@ -19,10 +17,10 @@ def is_valid_date_str(date_str: str) -> bool:
 def get_geo_layer(
     db: lancedb.DBConnection,
     layer_type: str,
-    species_list: Optional[List[str]] = None,
-    bbox_filter: Optional[Tuple[float, float, float, float]] = None,
-    start_date_str: Optional[str] = None,
-    end_date_str: Optional[str] = None,
+    species_list: list[str] | None = None,
+    bbox_filter: tuple[float, float, float, float] | None = None,
+    start_date_str: str | None = None,
+    end_date_str: str | None = None,
     limit: int = 10000,
 ) -> GeoJSONFeatureCollection:
     """Gets features for a specific layer, applying filters."""
@@ -75,7 +73,8 @@ def get_geo_layer(
             feature = GeoJSONFeature(
                 properties={k: v for k, v in record.items() if k not in ["geometry_type", "coordinates"]},
                 geometry=GeoJSONGeometry(
-                    type=record.get("geometry_type", "Point"), coordinates=record.get("coordinates")
+                    type=record.get("geometry_type", "Point"),
+                    coordinates=record.get("coordinates"),
                 ),
             )
             filtered_features.append(feature)

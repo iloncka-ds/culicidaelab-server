@@ -12,7 +12,6 @@ from ..state import selected_species_item_id, use_locale_effect
 
 @solara.component
 def Page():
-
     # _, set_rerender_trigger = solara.use_state(0)
 
     # def force_rerender():

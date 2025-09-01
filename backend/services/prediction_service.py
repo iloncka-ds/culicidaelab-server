@@ -4,13 +4,10 @@ import asyncio
 import io
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Tuple
 
 import aiofiles
 import numpy as np
 from PIL import Image
-import os
-import stat
 from backend.schemas.prediction_schemas import PredictionResult
 from backend.config import settings as app_settings
 from culicidaelab import MosquitoClassifier, get_settings
@@ -61,7 +58,7 @@ class PredictionService:
             )
 
             image = Image.open(io.BytesIO(image_data))
-            image_format = image.format or 'JPEG'
+            image_format = image.format or "JPEG"
 
             # --- Save original image ---
             original_file_path = original_path / filename
@@ -88,8 +85,10 @@ class PredictionService:
                 raise
 
     async def predict_species(
-        self, image_data: bytes, filename: str
-    ) -> Tuple[Optional[PredictionResult], Optional[str]]:
+        self,
+        image_data: bytes,
+        filename: str,
+    ) -> tuple[PredictionResult | None, str | None]:
         """
         Predict mosquito species from image data.
         """
@@ -120,14 +119,13 @@ class PredictionService:
             else:
                 print("[SERVICE] Feature flag 'SAVE_PREDICTED_IMAGES' is False. Skipping image save.")
 
-
             result = PredictionResult(
                 scientific_name=top_species,
                 probabilities={species: float(conf) for species, conf in predictions[:2]},
                 id=species_id,
                 model_id=self.model_id,
                 confidence=float(top_confidence),
-                image_url_species=image_url_species
+                image_url_species=image_url_species,
             )
             return result, None
 

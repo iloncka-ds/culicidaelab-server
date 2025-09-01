@@ -1,5 +1,7 @@
 import asyncio
-from typing import Any, Callable, Dict, List, Optional, cast
+from typing import Any, Optional, cast
+
+from collections.abc import Callable
 
 import i18n
 import solara
@@ -11,17 +13,10 @@ from frontend.components.species.species_card import SpeciesCard
 from ...config import (
     COLOR_PRIMARY,
     DISEASE_DETAIL_ENDPOINT_TEMPLATE,
-    DISEASE_LIST_ENDPOINT,
     DISEASE_VECTORS_ENDPOINT_TEMPLATE,
     FONT_HEADINGS,
-    card_content_style,
-    card_style,
-    footer_style,
     heading_style,
-    icon_style,
-    load_themes,
     page_style,
-    sub_heading_style,
 )
 from ...state import (
     current_locale,
@@ -33,8 +28,11 @@ from ...state import (
 i18n.add_translation("disease.gallery_link", "Go to Disease Gallery", locale="en")
 i18n.add_translation("disease.error.load", "Could not load disease details: %{error}", locale="en")
 i18n.add_translation("disease.error.no_id", "No disease ID specified in the URL.", locale="en")
-i18n.add_translation("disease.error.not_found", 'Disease details for "%{disease_id}" not found or are unavailable.',
-                     locale="en")
+i18n.add_translation(
+    "disease.error.not_found",
+    'Disease details for "%{disease_id}" not found or are unavailable.',
+    locale="en",
+)
 i18n.add_translation("disease.sections.description", "Description", locale="en")
 i18n.add_translation("disease.sections.symptoms", "Symptoms", locale="en")
 i18n.add_translation("disease.sections.treatment", "Treatment", locale="en")
@@ -67,14 +65,14 @@ def DiseaseDetailPageComponent():
     # heading_style = f"font-size: 2.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
     # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
     disease_id = selected_disease_item_id.value
-    disease_data, set_disease_data = solara.use_state(cast(Optional[Dict[str, Any]], None))
-    vectors_data, set_vectors_data = solara.use_state(cast(List[Dict[str, Any]], []))
+    disease_data, set_disease_data = solara.use_state(cast(Optional[dict[str, Any]], None))
+    vectors_data, set_vectors_data = solara.use_state(cast(list[dict[str, Any]], []))
     loading, set_loading = solara.use_state(False)
     vectors_loading, set_vectors_loading = solara.use_state(False)
     error, set_error = solara.use_state(cast(Optional[str], None))
     vectors_error, set_vectors_error = solara.use_state(cast(Optional[str], None))
 
-    def _fetch_disease_detail_effect() -> Optional[Callable[[], None]]:
+    def _fetch_disease_detail_effect() -> Callable[[], None] | None:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
         async def _async_task():
@@ -155,7 +153,9 @@ def DiseaseDetailPageComponent():
             solara.SpinnerSolara(size="60px")
         elif error:
             solara.Error(
-                i18n.t("disease.error.load", error=error), icon="mdi-alert-circle-outline", style="margin-top: 20px;"
+                i18n.t("disease.error.load", error=error),
+                icon="mdi-alert-circle-outline",
+                style="margin-top: 20px;",
             )
         elif not disease_id:
             solara.Info(i18n.t("disease.error.no_id"), icon="mdi-information-outline", style="margin-top: 20px;")
@@ -173,7 +173,6 @@ def DiseaseDetailPageComponent():
             )
 
             with solara.Column(style="align: center;margin-top:20px; text-align: left;"):
-
                 if disease_data.get("image_url"):
                     rv.Img(
                         src=disease_data["image_url"],
@@ -200,7 +199,8 @@ def DiseaseDetailPageComponent():
                         solara.Markdown(f"### {title}\n{content}")
                     else:
                         solara.Text(
-                            i18n.t("disease.messages.no_description"), style="font-style: italic; color: #777;"
+                            i18n.t("disease.messages.no_description"),
+                            style="font-style: italic; color: #777;",
                         )
 
             # Divider to clear the float and separate sections
