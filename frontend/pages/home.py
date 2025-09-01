@@ -1,44 +1,17 @@
-import solara
+from __future__ import annotations
+
+import i18n
 import solara.routing
 from solara.alias import rv
-from pathlib import Path
-from ..config import load_themes, page_style, heading_style, sub_heading_style, card_style, card_content_style, icon_style, footer_style
-from frontend.components.common.locale_selector import LocaleSelector
-from ..state import current_locale, use_locale_effect
-from frontend.config import theme
-import i18n
 
+from ..config import card_content_style, card_style, heading_style, icon_style, sub_heading_style
+from ..state import use_locale_effect
 
-# def setup_i18n():
-#     i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    # i18n.set("fallback", "ru")
-
-
-# route_icons = {
-#     "/": "mdi-home",
-#     "predict": "mdi-chart-bar",
-#     "map": "mdi-map",
-#     "species": "mdi-leaf",
-#     "diseases": "mdi-virus-outline",
-# }
 
 @solara.component
 def Home():
-    # _, set_rerender_trigger = solara.use_state(0)
-    # def force_rerender():
-    #     set_rerender_trigger(lambda x: x + 1)
-    # theme = load_themes(solara.lab.theme)
-    # setup_i18n()
     use_locale_effect()
     router = solara.use_router()
-    # with solara.AppBar():
-    #     solara.v.Spacer()
-    #     LocaleSelector()
-    # with solara.AppBarTitle():
-    #     solara.Text(i18n.t("home.app_title"), style="font-size: 2rem; font-weight: bold; color: white;")
-
-
-
 
     card_data = [
         {

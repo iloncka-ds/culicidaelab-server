@@ -24,6 +24,7 @@ dependencies = [
     "solara[assets]==1.50.1",
     "fastai>=2.7.0, <=2.8.0",
     "culicidaelab>=0.2.2",
+    "types-aiofiles>=24.1.0.20250822",
 ]
 [dependency-groups]
 dev = [

@@ -28,10 +28,10 @@ class ObservationService:
         try:
             metadata_value = observation_data.metadata
             if metadata_value is not None and not isinstance(metadata_value, str):
-                metadata_value = json.dumps(metadata_value, ensure_ascii=False)
+                metadata_value_str = json.dumps(metadata_value, ensure_ascii=False)
             data_source_value = observation_data.data_source
             if data_source_value is not None and not isinstance(data_source_value, str):
-                data_source_value = json.dumps(data_source_value, ensure_ascii=False)
+                data_source_value_str = json.dumps(data_source_value, ensure_ascii=False)
 
             record_to_save = {
                 "id": str(observation_data.id),
@@ -41,20 +41,19 @@ class ObservationService:
                 "observer_id": observation_data.user_id,
                 "location_accuracy_m": observation_data.location_accuracy_m,
                 "notes": observation_data.notes,
-                "data_source": data_source_value,
+                "data_source": data_source_value_str,
                 "image_filename": observation_data.image_filename,
                 "model_id": observation_data.model_id,
                 "confidence": observation_data.confidence,
                 "geometry_type": "Point",
                 "coordinates": [observation_data.location.lat, observation_data.location.lng],
-                "metadata": metadata_value,
+                "metadata": metadata_value_str,
             }
             # Remove None values to avoid potential issues with LanceDB
             record_to_save = {k: v for k, v in record_to_save.items() if v is not None}
 
             table = await self.db.open_table(self.table_name)
             await table.add([record_to_save])
-
 
             return observation_data
 
@@ -76,7 +75,7 @@ class ObservationService:
         try:
             print(
                 f"[DEBUG] get_observations called with user_id={user_id}, species_id={species_id}, "
-                f"limit={limit}, offset={offset}"
+                f"limit={limit}, offset={offset}",
             )
             table = await self.db.open_table(self.table_name)
 
@@ -145,7 +144,8 @@ class ObservationService:
 
         except Exception as e:
             raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to retrieve observations: {str(e)}"
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to retrieve observations: {str(e)}",
             )
 
 

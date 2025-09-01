@@ -1,8 +1,7 @@
-from typing import Dict, List
 from backend.services.database import get_table
 
 
-def load_all_region_translations(db: object, supported_langs: List[str]) -> Dict[str, Dict[str, str]]:
+def load_all_region_translations(db: object, supported_langs: list[str]) -> dict[str, dict[str, str]]:
     """
     Loads all region translations from the database for all supported languages.
     This function is intended to be called only once on application startup.
@@ -22,7 +21,7 @@ def load_all_region_translations(db: object, supported_langs: List[str]) -> Dict
 
     regions_res = regions_tbl.search().select(all_columns).to_list()
 
-    translations = {lang: {} for lang in supported_langs}
+    translations: dict[str, dict[str, str]] = {lang: {} for lang in supported_langs}
     fallback_lang = "en"
 
     for record in regions_res:
@@ -37,7 +36,8 @@ def load_all_region_translations(db: object, supported_langs: List[str]) -> Dict
     print("✅ Region translations loaded successfully.")
     return translations
 
-def load_all_datasource_translations(db: object, supported_langs: List[str]) -> Dict[str, Dict[str, str]]:
+
+def load_all_datasource_translations(db: object, supported_langs: list[str]) -> dict[str, dict[str, str]]:
     """
     Loads all data source translations from the database for all supported languages.
     """
@@ -48,7 +48,7 @@ def load_all_datasource_translations(db: object, supported_langs: List[str]) -> 
         all_columns = ["id"] + lang_columns
         data_sources_res = data_sources_tbl.search().select(all_columns).to_list()
 
-        translations = {lang: {} for lang in supported_langs}
+        translations: dict[str, dict[str, str]] = {lang: {} for lang in supported_langs}
         fallback_lang = "en"
 
         for record in data_sources_res:
@@ -66,7 +66,7 @@ def load_all_datasource_translations(db: object, supported_langs: List[str]) -> 
         return {}
 
 
-def load_all_species_names(db: object) -> List[str]:
+def load_all_species_names(db: object) -> list[str]:
     """
     Loads a sorted list of all unique species scientific names.
     """

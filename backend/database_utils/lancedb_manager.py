@@ -1,8 +1,12 @@
+from __future__ import annotations
+
 import lancedb
 import pyarrow as pa
-from typing import Optional, List, Dict, Any
+from typing import Any, cast
 from backend.config import settings
 
+# Type alias for LanceDB connection
+LanceDBConnection = lancedb.db.LanceDBConnection
 
 
 SPECIES_SCHEMA = pa.schema(
@@ -24,7 +28,7 @@ SPECIES_SCHEMA = pa.schema(
         pa.field("geographic_regions", pa.list_(pa.string())),
         pa.field("related_diseases", pa.list_(pa.string())),
         pa.field("related_diseases_info", pa.list_(pa.string())),
-    ]
+    ],
 )
 
 DISEASES_SCHEMA = pa.schema(
@@ -46,7 +50,7 @@ DISEASES_SCHEMA = pa.schema(
         pa.field("prevalence_ru", pa.string()),
         # Relational field
         pa.field("vectors", pa.list_(pa.string())),
-    ]
+    ],
 )
 
 REGIONS_SCHEMA = pa.schema(
@@ -54,7 +58,7 @@ REGIONS_SCHEMA = pa.schema(
         pa.field("id", pa.string(), nullable=False),
         pa.field("name_en", pa.string()),
         pa.field("name_ru", pa.string()),
-    ]
+    ],
 )
 
 DATA_SOURCES_SCHEMA = pa.schema(
@@ -62,7 +66,7 @@ DATA_SOURCES_SCHEMA = pa.schema(
         pa.field("id", pa.string(), nullable=False),
         pa.field("name_en", pa.string()),
         pa.field("name_ru", pa.string()),
-    ]
+    ],
 )
 
 
@@ -72,7 +76,7 @@ MAP_LAYERS_SCHEMA = pa.schema(
         pa.field("layer_name", pa.string()),
         pa.field("geojson_data", pa.string(), nullable=False),
         pa.field("contained_species", pa.list_(pa.string())),
-    ]
+    ],
 )
 
 OBSERVATIONS_SCHEMA = pa.schema(
@@ -92,13 +96,14 @@ OBSERVATIONS_SCHEMA = pa.schema(
         pa.field("geometry_type", pa.string()),
         pa.field("coordinates", pa.list_(pa.float64())),  # Store coordinates as JSON string
         pa.field("metadata", pa.string()),
-    ]
+    ],
 )
+
 
 class LanceDBManager:
     def __init__(self, uri: str = settings.DATABASE_PATH):
         self.uri = uri
-        self.db = None
+        self.db: LanceDBConnection | None = None
 
     async def connect(self):
         """Connects to the LanceDB database."""
@@ -113,32 +118,42 @@ class LanceDBManager:
             self.db = None
 
     async def get_table(
-        self, table_name: str, schema: Optional[pa.Schema] = None
-    ) -> Optional[lancedb.table.AsyncTable]:
+        self,
+        table_name: str,
+        schema: pa.Schema | None = None,
+    ) -> lancedb.table.AsyncTable | None:
         """Gets a table, creating it with the schema if it doesn't exist."""
-        if not self.db:
+        if self.db is None:
             await self.connect()
+            # After connect(), self.db should not be None
+            if self.db is None:
+                raise RuntimeError("Failed to connect to LanceDB")
+
+        db = cast(LanceDBConnection, self.db)  # Now we know self.db is not None
 
         try:
-            table_names = await self.db.table_names()
+            table_names = await db.table_names()
             if table_name not in table_names:
                 if schema:
                     print(f"Table '{table_name}' not found. Creating with provided schema.")
-                    return await self.db.create_table(table_name, schema=schema, mode="create")
-                else:
-                    print(f"Table '{table_name}' not found and no schema provided for creation.")
-                    return None
-            return await self.db.open_table(table_name)
+                    return await db.create_table(table_name, schema=schema, mode="create")
+                print(f"Table '{table_name}' not found and no schema provided for creation.")
+                return None
+            return await db.open_table(table_name)
         except Exception as e:
             print(f"Error accessing table {table_name}: {e}")
             return None
 
-    async def create_or_overwrite_table(self, table_name: str, data: List[Dict[str, Any]], schema: pa.Schema):
-        if not self.db:
+    async def create_or_overwrite_table(self, table_name: str, data: list[dict[str, Any]], schema: pa.Schema):
+        if self.db is None:
             await self.connect()
+            if self.db is None:
+                raise RuntimeError("Failed to connect to LanceDB")
+
+        db = cast(LanceDBConnection, self.db)
         try:
             print(f"Creating/overwriting table '{table_name}' with {len(data)} records.")
-            tbl = await self.db.create_table(table_name, data=data, schema=schema, mode="overwrite")
+            tbl = await db.create_table(table_name, data=data, schema=schema, mode="overwrite")
             print(f"Table '{table_name}' created/overwritten successfully.")
             return tbl
         except Exception as e:
@@ -149,7 +164,8 @@ class LanceDBManager:
 lancedb_manager = LanceDBManager(settings.DATABASE_PATH)
 
 
-async def get_lancedb_manager():
-    if not lancedb_manager.db:
+async def get_lancedb_manager() -> LanceDBManager:
+    """Get the LanceDB manager instance, ensuring it's connected."""
+    if lancedb_manager.db is None:
         await lancedb_manager.connect()
     return lancedb_manager

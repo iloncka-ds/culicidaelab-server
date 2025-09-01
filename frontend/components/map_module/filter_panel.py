@@ -1,8 +1,7 @@
 import solara
 import solara.lab
-from solara.alias import rv
 import datetime
-from typing import List, Optional, Dict, Any, cast, Tuple
+from typing import Any
 import asyncio
 import i18n
 
@@ -16,7 +15,7 @@ from frontend.state import (
     observations_data_reactive,
     show_observed_data_reactive,
     use_locale_effect,
-    current_locale
+    current_locale,
 )
 from frontend.config import FONT_BODY, COLOR_TEXT, COLOR_BUTTON_PRIMARY_BG, OBSERVATIONS_ENDPOINT
 
@@ -25,7 +24,7 @@ import httpx
 observations_loading = solara.reactive(False)
 
 
-async def fetch_observations_data_for_panel(params: Dict[str, Any]) -> None:
+async def fetch_observations_data_for_panel(params: dict[str, Any]) -> None:
     """Fetch species observation data, specific to filter panel trigger."""
     observations_loading.value = True
     try:
@@ -48,19 +47,20 @@ def FilterControls():
     solara.lab.use_task(fetch_filter_options, dependencies=[current_locale.value])
     apply_filters_task_ref = solara.use_ref(None)
     use_locale_effect()
+
     async def handle_apply_filters_click():
         if apply_filters_task_ref.current and not apply_filters_task_ref.current.done():
             apply_filters_task_ref.current.cancel()
             try:
                 await apply_filters_task_ref.current
             except asyncio.CancelledError:
-                pass
-            except Exception:
-                pass
+                print("Apply filters task cancelled.")
+            except Exception as e:
+                print(f"Apply filters task failed: {e}")
 
         selected_date_range_reactive.value = (start_date, end_date)
 
-        params: Dict[str, Any] = {}
+        params: dict[str, Any] = {}
         if selected_species_reactive.value:
             params["species"] = ",".join(selected_species_reactive.value)
 
@@ -138,7 +138,7 @@ def FilterControls():
         )
 
         def set_local_dates_from_picker(
-            new_dates_value: Optional[Tuple[Optional[datetime.date], Optional[datetime.date]]],
+            new_dates_value: tuple[datetime.date | None, datetime.date | None] | None,
         ):
             if isinstance(new_dates_value, tuple) and len(new_dates_value) == 2:
                 set_start_date(new_dates_value[0])

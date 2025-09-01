@@ -2,23 +2,16 @@ import solara
 import solara.lab
 from solara.alias import rv
 
-from typing import List
 
 import i18n
-from pathlib import Path
+
 import frontend.pages.home as home
 import frontend.pages.map_visualization as map_visualization
 import frontend.pages.species as species
 import frontend.pages.prediction as prediction
 import frontend.pages.diseases as diseases
 from frontend.config import (
-    load_themes,
     page_style,
-    heading_style,
-    sub_heading_style,
-    card_style,
-    card_content_style,
-    icon_style,
     footer_style,
     active_btn_style,
     inactive_btn_style,
@@ -33,7 +26,7 @@ from frontend.state import (
     fetch_filter_options,
     use_persistent_user_id,
     use_locale_effect,
-    current_locale
+    current_locale,
 )
 
 logging.basicConfig(level=logging.INFO)
@@ -49,54 +42,19 @@ i18n.add_translation("layout.map", "Карта", locale="ru")
 i18n.add_translation("layout.species", "Виды комаров", locale="ru")
 i18n.add_translation("layout.diseases", "Заболевания", locale="ru")
 
+
 def setup_i18n():
-    # i18n.load_path.append(str(Path(__file__).parent / "translations"))
-    # i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    # i18n.set("locale", "ru")
-    # i18n.set("fallback", "en")
     i18n.set("skip_locale_root_data", True)
     i18n.set("filename_format", "{namespace}.{locale}.{format}")
 
-# theme = load_themes(solara.lab.theme)
-# active_btn_style = {
-#     "box-shadow": "none",
-#     "border-radius": "0px",
-#     "background-color": f"{theme.themes.light.accent}",
-#     "color": "white",
-# }
-# inactive_btn_style = {
-#     "box-shadow": "none",
-#     "border-radius": "0px",
-#     "background-color": f"{theme.themes.light.primary}",
-#     "color": "white",
-# }
-# row_style = {
-#     "background-color": f"{theme.themes.light.primary}",
-#     "color": f"{theme.themes.light.primary}",
-#     "foreground-color": f"{theme.themes.light.primary}",
-#     "margin-left": "16px",
-#     "margin-right": "16px",
-#     "gap": "0px",
-# }
-
-# page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
-
-# @solara.component
-# def AppInitializer():
-#     """A component to handle one-time app initialization tasks."""
-#     # This component is now only responsible for setting up i18n.
-#     # Data fetching that depends on locale is moved to the Layout.
-#     setup_i18n()
-#     return None
-
 
 @solara.component
-def Layout(children: List[solara.Element]):
+def Layout(children: list[solara.Element]):
     route_current, routes_all = solara.use_route()
     # setup_i18n()
     use_persistent_user_id()
     use_locale_effect()
-    theme = load_themes(solara.lab.theme)
+
     solara.lab.use_task(fetch_filter_options, dependencies=[current_locale.value])
     route_current, routes_all = solara.use_route()
     # with solara.Column():
@@ -109,7 +67,8 @@ def Layout(children: List[solara.Element]):
                 for route in routes_all:
                     with solara.Link(route):
                         solara.Button(
-                            i18n.t(route.label), style=active_btn_style if route_current == route else inactive_btn_style
+                            i18n.t(route.label),
+                            style=active_btn_style if route_current == route else inactive_btn_style,
                         )
             solara.v.Spacer()
             LocaleSelector()
@@ -119,6 +78,7 @@ def Layout(children: List[solara.Element]):
             with solara.Div(style=footer_style):
                 solara.Markdown(i18n.t("home.disclaimer"))
                 solara.Markdown(i18n.t("home.footer"))
+
 
 routes = [
     solara.Route("/", component=home.Home, label="layout.home", layout=Layout),
@@ -132,7 +92,7 @@ routes = [
             solara.Route(
                 path=":species_id",
                 component=species.Page,
-            )
+            ),
         ],
     ),
     solara.Route(
@@ -143,11 +103,11 @@ routes = [
             solara.Route(
                 path=":disease_id",
                 component=diseases.Page,
-            )
+            ),
         ],
     ),
 ]
 
-@solara.component
-def Page():
-    return Layout()
+# @solara.component
+# def Page():
+#     return Layout(children=routes)

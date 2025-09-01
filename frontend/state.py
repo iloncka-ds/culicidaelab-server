@@ -1,13 +1,13 @@
 import solara
 import httpx
 import i18n
-from typing import List, Tuple, Optional, Dict, Any, cast
+from typing import Optional, Any, cast
 import uuid
 from datetime import date, timedelta
-import i18n
 from .config import FILTER_OPTIONS_ENDPOINT
 from pathlib import Path
-current_user_id: solara.Reactive[Optional[str]] = solara.reactive(None)
+
+current_user_id: solara.Reactive[str | None] = solara.reactive(None)
 
 
 @solara.component
@@ -31,10 +31,10 @@ def use_persistent_user_id():
 
 async def fetch_api_data(
     url: str,
-    params: Optional[Dict[str, Any]] = None,
-    loading_reactive: Optional[solara.Reactive[bool]] = None,
-    error_reactive: Optional[solara.Reactive[Optional[str]]] = None,
-) -> Optional[Any]:
+    params: dict[str, Any] | None = None,
+    loading_reactive: solara.Reactive[bool] | None = None,
+    error_reactive: solara.Reactive[str | None] | None = None,
+) -> Any | None:
     if loading_reactive is not None:
         loading_reactive.value = True
     if error_reactive is not None:
@@ -56,8 +56,8 @@ async def fetch_api_data(
         try:
             detail_json = e.response.json()
             detail = detail_json.get("detail", detail)
-        except Exception:
-            pass
+        except Exception as e:
+            print("Failed to parse error response:", e)
         msg = f"HTTP error {e.response.status_code} from {url}. Detail: {detail}"
         if error_reactive is not None:
             error_reactive.value = msg
@@ -78,9 +78,9 @@ default_end_date = date.today()
 default_start_date = default_end_date - timedelta(days=365)
 
 DEFAULT_INITIAL_SPECIES_TO_LOAD = ["Aedes albopictus", "Anopheles gambiae"]
-selected_species_reactive: solara.Reactive[Optional[List[str]]] = solara.reactive(DEFAULT_INITIAL_SPECIES_TO_LOAD)
-selected_date_range_reactive: solara.Reactive[Tuple[Optional[date], Optional[date]]] = solara.reactive(
-    (default_start_date, default_end_date)
+selected_species_reactive: solara.Reactive[list[str] | None] = solara.reactive(DEFAULT_INITIAL_SPECIES_TO_LOAD)
+selected_date_range_reactive: solara.Reactive[tuple[date | None, date | None]] = solara.reactive(
+    (default_start_date, default_end_date),
 )
 # selected_region_reactive: solara.Reactive[Optional[str]] = solara.reactive(None)
 # selected_data_source_reactive: solara.Reactive[Optional[str]] = solara.reactive(None)
@@ -95,10 +95,10 @@ show_observed_data_reactive = solara.reactive(True)
 
 DEFAULT_MAP_CENTER = (20, 0)
 DEFAULT_MAP_ZOOM = 3
-current_map_center_reactive: solara.Reactive[Tuple[float, float]] = solara.reactive(DEFAULT_MAP_CENTER)
+current_map_center_reactive: solara.Reactive[tuple[float, float]] = solara.reactive(DEFAULT_MAP_CENTER)
 current_map_zoom_reactive: solara.Reactive[int] = solara.reactive(DEFAULT_MAP_ZOOM)
-current_map_bounds_reactive: solara.Reactive[Optional[Tuple[Tuple[float, float], Tuple[float, float]]]] = (
-    solara.reactive(None)
+current_map_bounds_reactive: solara.Reactive[tuple[tuple[float, float], tuple[float, float]] | None] = solara.reactive(
+    None,
 )
 
 selected_map_feature_info = solara.reactive(None)
@@ -108,10 +108,10 @@ observations_data_reactive = solara.reactive(None)
 # modeled_data_reactive = solara.reactive(None)
 # breeding_sites_data_reactive = solara.reactive(None)
 
-all_available_species_reactive = solara.reactive(cast(List[str], []))
+all_available_species_reactive = solara.reactive(cast(list[str], []))
 # all_available_regions_reactive = solara.reactive(cast(List[Dict[str, str]], []))
 # all_available_data_sources_reactive = solara.reactive(cast(List[Dict[str, str]], []))
-species_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
+species_list_data_reactive = solara.reactive(cast(list[dict[str, Any]], []))
 species_list_loading_reactive = solara.reactive(False)
 species_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
@@ -119,7 +119,7 @@ filter_options_loading_reactive = solara.reactive(False)
 filter_options_error_reactive = solara.reactive(cast(Optional[str], None))
 
 selected_disease_item_id = solara.reactive(None)
-disease_list_data_reactive = solara.reactive(cast(List[Dict[str, Any]], []))
+disease_list_data_reactive = solara.reactive(cast(list[dict[str, Any]], []))
 disease_list_loading_reactive = solara.reactive(False)
 disease_list_error_reactive = solara.reactive(cast(Optional[str], None))
 
@@ -170,6 +170,7 @@ observations_loading_reactive = solara.reactive(False)
 modeled_loading_reactive = solara.reactive(False)
 breeding_sites_loading_reactive = solara.reactive(False)
 
+
 def get_initial_locale() -> str:
     """Gets the initial locale, e.g., from browser settings or a default."""
     # Your logic to determine the default locale, e.g., 'en'
@@ -181,6 +182,7 @@ def get_initial_locale() -> str:
     # i18n.set("skip_locale_root_data", True)
     i18n.set("filename_format", "{namespace}.{locale}.{format}")
     return i18n.get("locale")
+
 
 # --- THIS IS THE FIX ---
 # Define current_locale as a reactive variable at the module level.
