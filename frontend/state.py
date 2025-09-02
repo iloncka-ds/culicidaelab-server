@@ -84,16 +84,10 @@ selected_species_reactive: solara.Reactive[list[str] | None] = solara.reactive(D
 selected_date_range_reactive: solara.Reactive[tuple[date | None, date | None]] = solara.reactive(
     (default_start_date, default_end_date),
 )
-# selected_region_reactive: solara.Reactive[Optional[str]] = solara.reactive(None)
-# selected_data_source_reactive: solara.Reactive[Optional[str]] = solara.reactive(None)
-# selected_region_reactive = solara.reactive(cast(Optional[str], None))
-# selected_data_source_reactive = solara.reactive(cast(Optional[str], None))
+
 selected_species_item_id = solara.reactive(None)
 
 show_observed_data_reactive = solara.reactive(True)
-# show_modeled_data_reactive = solara.reactive(False)
-# show_distribution_status_reactive = solara.reactive(True)
-# show_breeding_sites_reactive = solara.reactive(False)
 
 DEFAULT_MAP_CENTER = (20, 0)
 DEFAULT_MAP_ZOOM = 3
@@ -105,14 +99,10 @@ current_map_bounds_reactive: solara.Reactive[tuple[tuple[float, float], tuple[fl
 
 selected_map_feature_info = solara.reactive(None)
 
-# distribution_data_reactive = solara.reactive(None)
 observations_data_reactive = solara.reactive(None)
-# modeled_data_reactive = solara.reactive(None)
-# breeding_sites_data_reactive = solara.reactive(None)
 
 all_available_species_reactive = solara.reactive(cast(list[str], []))
-# all_available_regions_reactive = solara.reactive(cast(List[Dict[str, str]], []))
-# all_available_data_sources_reactive = solara.reactive(cast(List[Dict[str, str]], []))
+
 species_list_data_reactive = solara.reactive(cast(list[dict[str, Any]], []))
 species_list_loading_reactive = solara.reactive(False)
 species_list_error_reactive = solara.reactive(cast(Optional[str], None))
@@ -139,30 +129,20 @@ async def fetch_filter_options():
             response = await client.get(FILTER_OPTIONS_ENDPOINT, params={"lang": lang}, timeout=10.0)
             response.raise_for_status()
             data = response.json()
-
             all_available_species_reactive.value = data.get("species", [])
-            # all_available_regions_reactive.value = data.get("regions", [])
-            # all_available_data_sources_reactive.value = data.get("data_sources", [])
-            # print(
-            #     f"Filter options loaded: {len(all_available_species_reactive.value)} species, "
-            #     f"{len(all_available_regions_reactive.value)} regions, "
-            #     f"{len(all_available_data_sources_reactive.value)} sources."
-            # )
 
     except httpx.HTTPStatusError as e:
         err_msg = f"HTTP error fetching filter options: {e.response.status_code} - {e.response.text}"
         print(err_msg)
         filter_options_error_reactive.value = err_msg
         all_available_species_reactive.value = []
-        # all_available_regions_reactive.value = []
-        # all_available_data_sources_reactive.value = []
+
     except Exception as e:
         err_msg = f"Error fetching filter options: {e}"
         print(err_msg)
         filter_options_error_reactive.value = err_msg
         all_available_species_reactive.value = []
-        # all_available_regions_reactive.value = []
-        # all_available_data_sources_reactive.value = []
+
     finally:
         filter_options_loading_reactive.value = False
 
@@ -175,30 +155,20 @@ breeding_sites_loading_reactive = solara.reactive(False)
 
 def get_initial_locale() -> str:
     """Gets the initial locale, e.g., from browser settings or a default."""
-    # Your logic to determine the default locale, e.g., 'en'
-    # This function should NOT use any Solara hooks.
     i18n.load_path.append(str(Path(__file__).parent / "translations"))
-    # print(str(Path(__file__).parent / "translations"))
     i18n.set("fallback", "en")
     i18n.set("locale", "ru")
-    # i18n.set("skip_locale_root_data", True)
     i18n.set("filename_format", "{namespace}.{locale}.{format}")
     return i18n.get("locale")
 
 
-# --- THIS IS THE FIX ---
-# Define current_locale as a reactive variable at the module level.
-# It is initialized once with the default locale.
 current_locale = solara.Reactive(get_initial_locale())
 
 
-# You can optionally create an effect to run when the locale changes.
-# This must be done inside a component, typically your main layout.
 def use_locale_effect():
     def update_i18n_locale():
         """This function will run whenever current_locale.value changes."""
         print(f"Locale changed to: {current_locale.value}")
         i18n.set("locale", current_locale.value)
 
-    # This effect hook listens for changes in the reactive variable
     solara.use_effect(update_i18n_locale, [current_locale.value])

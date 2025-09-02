@@ -5,8 +5,8 @@ from typing import Any
 from collections.abc import Callable
 import aiohttp
 
-from ...config import FONT_BODY, COLOR_TEXT, API_BASE_URL
-from ...state import use_locale_effect
+from frontend.config import FONT_BODY, COLOR_TEXT, API_BASE_URL
+from frontend.state import use_locale_effect
 import i18n
 
 

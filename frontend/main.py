@@ -28,6 +28,7 @@ from frontend.state import (
     use_locale_effect,
     current_locale,
 )
+from frontend.config import load_themes
 
 logging.basicConfig(level=logging.INFO)
 
@@ -43,26 +44,20 @@ i18n.add_translation("layout.species", "Виды комаров", locale="ru")
 i18n.add_translation("layout.diseases", "Заболевания", locale="ru")
 
 
-def setup_i18n():
-    i18n.set("skip_locale_root_data", True)
-    i18n.set("filename_format", "{namespace}.{locale}.{format}")
-
-
 @solara.component
 def Layout(children: list[solara.Element]):
     route_current, routes_all = solara.use_route()
-    # setup_i18n()
+
     use_persistent_user_id()
     use_locale_effect()
-
+    load_themes(solara.lab.theme)
     solara.lab.use_task(fetch_filter_options, dependencies=[current_locale.value])
     route_current, routes_all = solara.use_route()
-    # with solara.Column():
-    # put all buttons in a single row
-    with solara.AppLayout(toolbar_dark=True):  # , navigation=False
+
+    with solara.AppLayout(toolbar_dark=True):
         with solara.AppBar():
             with solara.AppBarTitle():
-                solara.Text("CulicidaeLab")  # , style="font-size: 2rem; font-weight: bold; color: white;"
+                solara.Text("CulicidaeLab")
             with solara.Row(style=row_style):
                 for route in routes_all:
                     with solara.Link(route):
@@ -107,7 +102,3 @@ routes = [
         ],
     ),
 ]
-
-# @solara.component
-# def Page():
-#     return Layout(children=routes)

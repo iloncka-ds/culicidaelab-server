@@ -141,17 +141,45 @@ COLOR_ERROR = "#F44336"
 PREDICTION_ENDPOINT = f"{API_BASE_URL}/predict_species/"
 STORE_OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/observations/"
 
-page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
-heading_style = "font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: #009688;"
-sub_heading_style = (
-    "font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555; min-height: 3.4em; max-height: 3.4em"
-)
-card_style = "display: flex; flex-direction: column; height: 100%;"
-card_content_style = (
-    "padding: 16px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center;"
-)
-icon_style = "margin-bottom: 1rem;"
-footer_style = "margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee; text-align: center; font-size: 0.9em; color: #0D1B2A;"
+page_style = {
+    "align": "center",
+    "padding": "2rem",
+    "max-width": "1200px",
+    "margin": "auto",
+}
+heading_style = {
+    "font-size": "2.5rem",
+    "font-weight": "bold",
+    "text-align": "center",
+    "margin-bottom": "1rem",
+    "color": "#009688",
+}
+sub_heading_style = {
+    "font-size": "1.2rem",
+    "text-align": "center",
+    "margin-bottom": "3rem",
+    "color": "#555",
+    "min-height": "3.4em",
+    "max-height": "3.4em",
+}
+card_style = {"display": "flex", "flex-direction": "column", "height": "100%"}
+card_content_style = {
+    "padding": "16px",
+    "flex-grow": "1",
+    "display": "flex",
+    "flex-direction": "column",
+    "align-items": "center",
+    "text-align": "center",
+}
+icon_style = "margin-bottom:1rem"
+footer_style = {
+    "margin-top": "3rem",
+    "padding-top": "1.5rem",
+    "border-top": "1px solid #eee",
+    "text-align": "center",
+    "font-size": "0.9em",
+    "color": "#0D1B2A",
+}
 active_btn_style = {
     "box-shadow": "none",
     "border-radius": "0px",

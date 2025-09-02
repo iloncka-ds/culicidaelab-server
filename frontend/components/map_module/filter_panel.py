@@ -3,6 +3,7 @@ import solara.lab
 import datetime
 from typing import Any
 import asyncio
+import httpx
 import i18n
 
 from frontend.state import (
@@ -19,7 +20,6 @@ from frontend.state import (
 )
 from frontend.config import FONT_BODY, COLOR_TEXT, COLOR_BUTTON_PRIMARY_BG, OBSERVATIONS_ENDPOINT
 
-import httpx
 
 observations_loading = solara.reactive(False)
 
@@ -91,13 +91,9 @@ def FilterControls():
 
     solara.use_effect(_cleanup_apply_filters_task, [])
 
-    # THIS IS THE FIX:
-    # The state variable is declared in the component's render scope.
     initial_load_done = solara.use_reactive(False)
 
     async def initial_load_observations_task():
-        # The async task can now safely access the state variable
-        # from its parent scope without violating hook rules.
         if not initial_load_done.value and show_observed_data_reactive.value and selected_species_reactive.value:
             await handle_apply_filters_click()
             initial_load_done.value = True

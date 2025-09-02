@@ -2,7 +2,7 @@ import solara
 import i18n
 
 from collections.abc import Callable
-from ...state import current_locale, use_locale_effect
+from frontend.state import current_locale, use_locale_effect
 
 LOCALES = {
     "ru": "Русский",
@@ -28,13 +28,9 @@ def LocaleSelector(on_change: Callable[[], None] | None = None):
     use_locale_effect()
 
     def handle_locale_change(new_locale: str):
-        # First, update the i18n library
-
-        # Second, update the component's own state
         current_locale.set(new_locale)
         set_locale(new_locale)
 
-        # Finally, trigger the parent's callback to force a re-render
         if on_change:
             on_change()
 

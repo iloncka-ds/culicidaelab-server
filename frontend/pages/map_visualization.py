@@ -3,7 +3,7 @@ import solara
 from solara.alias import rv
 from typing import cast, Optional
 
-from ..components.map_module import (
+from frontend.components.map_module import (
     map_component,
     filter_panel,
     legend_component,
@@ -12,12 +12,6 @@ from ..components.map_module import (
 from frontend.state import use_locale_effect
 
 import i18n
-from pathlib import Path
-
-
-def setup_i18n():
-    i18n.load_path.append(str(Path(__file__).parent.parent / "translations"))
-    i18n.set("fallback", "ru")
 
 
 @solara.component

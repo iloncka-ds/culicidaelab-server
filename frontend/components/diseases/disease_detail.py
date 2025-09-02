@@ -6,19 +6,18 @@ from collections.abc import Callable
 import i18n
 import solara
 from solara.alias import rv
-import solara.lab
 
 from frontend.components.species.species_card import SpeciesCard
 
-from ...config import (
+from frontend.config import (
     COLOR_PRIMARY,
+    FONT_HEADINGS,
     DISEASE_DETAIL_ENDPOINT_TEMPLATE,
     DISEASE_VECTORS_ENDPOINT_TEMPLATE,
-    FONT_HEADINGS,
     heading_style,
     page_style,
 )
-from ...state import (
+from frontend.state import (
     current_locale,
     fetch_api_data,
     selected_disease_item_id,
@@ -60,10 +59,8 @@ i18n.add_translation("disease.errors.vector_load", "Ошибка загрузк�
 
 @solara.component
 def DiseaseDetailPageComponent():
-    # theme = load_themes(solara.lab.theme)
     use_locale_effect()
-    # heading_style = f"font-size: 2.5rem; ftext-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
-    # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
+
     disease_id = selected_disease_item_id.value
     disease_data, set_disease_data = solara.use_state(cast(Optional[dict[str, Any]], None))
     vectors_data, set_vectors_data = solara.use_state(cast(list[dict[str, Any]], []))
@@ -206,7 +203,6 @@ def DiseaseDetailPageComponent():
             # Divider to clear the float and separate sections
             rv.Divider(style_="margin: 30px 0;")
 
-            # Vector Species Section (remains the same)
             solara.Markdown(
                 f"## {i18n.t('disease.sections.vectors')}",
                 style=f"font-family: {FONT_HEADINGS}; text-align: center; margin-bottom: 15px;",

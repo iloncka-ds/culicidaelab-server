@@ -5,17 +5,16 @@ from collections.abc import Callable
 
 import i18n
 import solara
-import solara.lab
 
 from frontend.components.diseases.disease_card import DiseaseCard
 
-from ...config import (
+from frontend.config import (
     COLOR_PRIMARY,
     DISEASE_LIST_ENDPOINT,
     gallery_search_div_style,
     heading_style,
 )
-from ...state import (
+from frontend.state import (
     current_locale,
     disease_list_data_reactive,
     disease_list_error_reactive,
@@ -49,12 +48,9 @@ i18n.add_translation(
 
 @solara.component
 def DiseaseGalleryPageComponent():
-    # theme = load_themes(solara.lab.theme)
     use_locale_effect()
-    # heading_style = f"font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: {theme.themes.light.primary};"
-    # page_style = "align: center; padding: 2rem; max-width: 1200px; margin: auto;"
+
     search_query, set_search_query = solara.use_state("")
-    # current_locale = i18n.get("locale")
 
     def _load_disease_list_data_effect() -> Callable[[], None] | None:
         task_ref = [cast(Optional[asyncio.Task], None)]
@@ -99,7 +95,6 @@ def DiseaseGalleryPageComponent():
 
     displayed_diseases = disease_list_data_reactive.value
 
-    # with solara.Column(style="padding-bottom: 20px; min-height: calc(100vh - 120px);"):
     solara.Text(
         i18n.t("disease_gallery.title"),
         style=heading_style,

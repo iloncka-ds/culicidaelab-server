@@ -186,7 +186,7 @@ class LeafletMapManager:
 
             coords = geometry["coordinates"]
             species = props.get("species_scientific_name")
-            # This call now uses the reliable, instance-specific color map
+
             marker_color = self._get_species_color(species)
 
             marker = L.CircleMarker(

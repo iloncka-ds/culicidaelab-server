@@ -3,8 +3,8 @@ from collections.abc import Callable
 import asyncio
 from datetime import datetime
 import solara
-from ...config import FONT_HEADINGS
-from ...state import current_user_id, use_locale_effect
+from frontend.config import FONT_HEADINGS
+from frontend.state import current_user_id, use_locale_effect
 import i18n
 
 from .observation_service import submit_observation_data
@@ -26,7 +26,6 @@ def ObservationFormComponent(
     obs_date_str, set_obs_date_str = solara.use_state(datetime.now().date().strftime("%Y-%m-%d"))
     obs_count, set_obs_count = solara.use_state(1)
     obs_notes, set_obs_notes = solara.use_state("")
-    # obs_observer_id, set_obs_observer_id = solara.use_state("user_01")
     obs_location_accuracy_m, set_obs_location_accuracy_m = solara.use_state(50)
 
     is_submitting, set_is_submitting = solara.use_state(False)
@@ -82,7 +81,6 @@ def ObservationFormComponent(
             "location": {"lat": float(current_latitude), "lng": float(current_longitude)},
             "observed_at": f"{date_to_submit}T12:00:00Z",  # Send as full ISO 8601 string
             "notes": obs_notes.strip() or None,
-            # "user_id": obs_observer_id or "anonymous_user",
             "user_id": current_user_id.value,
             "location_accuracy_m": obs_location_accuracy_m,
             "data_source": "culicidaelab-web-app",
@@ -153,12 +151,7 @@ def ObservationFormComponent(
             on_value=set_obs_count,
             style="margin-top: 10px;",
         )
-        # solara.InputText(
-        #     i18n.t("prediction.observation_form.input_observer"),
-        #     value=obs_observer_id,
-        #     on_value=set_obs_observer_id,
-        #     style="margin-top: 10px;",
-        # )
+
         solara.InputInt(
             i18n.t("prediction.observation_form.input_accuracy"),
             value=obs_location_accuracy_m,

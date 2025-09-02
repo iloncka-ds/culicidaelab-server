@@ -3,7 +3,7 @@ import ipyleaflet as L
 from typing import Optional, cast
 
 from collections.abc import Callable
-from ...state import use_locale_effect
+from frontend.state import use_locale_effect
 import i18n
 
 

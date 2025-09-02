@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import i18n
-import solara.routing
+import solara
 from solara.alias import rv
 
-from ..config import card_content_style, card_style, heading_style, icon_style, sub_heading_style
-from ..state import use_locale_effect
+from frontend.config import card_content_style, card_style, heading_style, icon_style, sub_heading_style
+from frontend.state import use_locale_effect
 
 
 @solara.component
@@ -44,7 +44,6 @@ def Home():
         },
     ]
 
-    # with solara.Column(style=page_style):
     solara.Text(i18n.t("home.welcome"), style=heading_style)
     print(heading_style)
     solara.Markdown(
@@ -80,9 +79,3 @@ def Home():
                             outlined=True,
                             class_="px-4",
                         )
-
-    # rv.Spacer(height="2rem")
-
-    # with solara.Div(style=footer_style):
-    #     solara.Markdown(i18n.t("home.disclaimer"))
-    #     solara.Markdown(i18n.t("home.footer"))

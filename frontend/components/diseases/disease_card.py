@@ -1,21 +1,17 @@
-import solara
-import solara.lab
-from solara.alias import rv
-
 from typing import Any
 
-from ...config import (
+import solara
+from solara.alias import rv
+import i18n
+from frontend.config import (
     COLOR_PRIMARY,
     FONT_HEADINGS,
 )
 from frontend.state import selected_disease_item_id
-import i18n
+
 
 i18n.add_translation("actions.view_details", "View Details", locale="en")
-
 i18n.add_translation("actions.view_details", "Читать далее", locale="ru")
-
-# i18n.set("locale", "ru")
 i18n.set("fallback", "en")
 
 
