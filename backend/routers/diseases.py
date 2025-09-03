@@ -48,11 +48,9 @@ async def get_disease_vectors_endpoint(
     """
     Retrieve vector species associated with a specific disease.
     """
-    # First, check if the disease exists. This call now also needs the request object.
     disease_detail = disease_service.get_disease_by_id(db, disease_id, lang, request)
     if not disease_detail:
         raise HTTPException(status_code=404, detail="Disease not found")
 
-    # The species service also needs the request object to build its own image URLs.
     vector_species = species_service.get_vector_species(db, request, lang=lang, disease_id=disease_id)
     return vector_species

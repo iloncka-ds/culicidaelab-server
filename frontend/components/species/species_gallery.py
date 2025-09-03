@@ -119,14 +119,14 @@ def SpeciesGalleryPageComponent():
                     label=i18n.t("species_gallery.search.placeholder"),
                     value=search_query,
                     on_value=set_search_query,
-                    continuous_update=False,
+                    continuous_update=True,
                 )
                 solara.Button(
                     i18n.t("species_gallery.search.button"),
                     icon_name="mdi-magnify",
                     outlined=True,
                     color=COLOR_PRIMARY,
-                    on_click=lambda: solara.Warning("Filter panel not yet implemented."),
+                    # on_click=lambda: solara.Warning("Filter panel not yet implemented."),
                     style="width: 100%;",  # Ensure button takes full width of its column
                 )
 

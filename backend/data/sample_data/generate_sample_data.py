@@ -8,7 +8,6 @@ from backend.data.sample_data.species import species_list
 from backend.data.sample_data.diseases import diseases_data_list
 
 # --- SPECIES DATA ---
-
 with open("sample_species.json", "w", encoding="utf-8") as f:
     json.dump(species_list, f, indent=2, ensure_ascii=False)
 print("Generated sample_species.json")
@@ -60,7 +59,6 @@ with open("sample_data_sources.json", "w", encoding="utf-8") as f:
 print("Generated sample_data_sources.json")
 
 # --- DISEASES DATA ---
-
 with open("sample_diseases.json", "w", encoding="utf-8") as f:
     json.dump(diseases_data_list, f, indent=2, ensure_ascii=False)
 print(f"Generated {'sample_diseases.json'}")

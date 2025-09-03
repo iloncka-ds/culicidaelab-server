@@ -116,7 +116,7 @@ def DiseaseGalleryPageComponent():
                 icon_name="mdi-magnify",
                 outlined=True,
                 color=COLOR_PRIMARY,
-                on_click=lambda: solara.Warning("Filter panel not yet implemented."),
+                # on_click=lambda: solara.Warning("Filter panel not yet implemented."),
                 style="width: 100%;",
             )
 
