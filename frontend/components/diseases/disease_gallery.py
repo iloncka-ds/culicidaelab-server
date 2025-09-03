@@ -52,6 +52,9 @@ def DiseaseGalleryPageComponent():
 
     search_query, set_search_query = solara.use_state("")
 
+    def perform_search(input_text):
+        set_search_query(input_text)
+
     def _load_disease_list_data_effect() -> Callable[[], None] | None:
         task_ref = [cast(Optional[asyncio.Task], None)]
 
@@ -108,7 +111,7 @@ def DiseaseGalleryPageComponent():
             solara.InputText(
                 label=i18n.t("disease_gallery.search.placeholder"),
                 value=search_query,
-                on_value=set_search_query,
+                on_value=lambda search_query: perform_search(search_query),
                 continuous_update=False,
             )
             solara.Button(
@@ -116,7 +119,7 @@ def DiseaseGalleryPageComponent():
                 icon_name="mdi-magnify",
                 outlined=True,
                 color=COLOR_PRIMARY,
-                # on_click=lambda: solara.Warning("Filter panel not yet implemented."),
+                on_click=lambda: perform_search(search_query),
                 style="width: 100%;",
             )
 
