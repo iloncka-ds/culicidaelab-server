@@ -19,7 +19,8 @@ def set_locale(locale: str):
 
 @solara.component
 def LocaleSelector(on_change: Callable[[], None] | None = None):
-    """A language selector component that allows users to change the application's language.
+    """
+    A language selector component that allows users to change the application's language.
 
     This component displays a dropdown menu with a list of available languages.
     When a user selects a new language, the application's locale is updated,

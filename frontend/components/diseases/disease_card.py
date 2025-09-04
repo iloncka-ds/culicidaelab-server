@@ -17,6 +17,40 @@ i18n.set("fallback", "en")
 
 @solara.component
 def DiseaseCard(disease: dict[str, Any]):
+    """
+    Displays a summary of a single disease in a card format.
+
+    This component visualizes key information about a disease, including its
+    name, an image (or a placeholder icon), a short description, and its
+    prevalence shown as a chip. It includes a 'View Details' button that
+    navigates the user to a detailed view of the disease.
+
+    Args:
+        disease: A dictionary containing the disease's data. Expected keys
+            include 'id', 'name', 'description', 'image_url' (optional),
+            and 'prevalence' (optional).
+
+    Example:
+        ```python
+        import solara
+
+        sample_disease = {
+            "id": "flu-01",
+            "name": "Influenza",
+            "description": "A common viral infection that can be deadly, especially in high-risk groups.",
+            "image_url": "https://example.com/flu-image.png",
+            "prevalence": "Widespread"
+        }
+
+        @solara.component
+        def Page():
+            with solara.Columns():
+                DiseaseCard(disease=sample_disease)
+
+        # This example assumes a routing setup is in place for the
+        # "View Details" button to function correctly.
+        ```
+    """
     router = solara.use_router()
 
     def redirect_to_disease_item(disease_id):
