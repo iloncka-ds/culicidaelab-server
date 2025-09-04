@@ -1,9 +1,35 @@
 def get_status_color(status_detail: str) -> tuple[str, str]:
-    """Get the color for a species status detail.
+    """Maps a species' vector status string to a corresponding color pair.
+
+    This utility function provides a consistent color scheme for displaying
+    the vector status of a species in the user interface. It returns a tuple
+    containing a background color and a text color suitable for UI elements
+    like chips or badges.
+
     Args:
-        status_detail (str): The status detail to get the color for.
+        status_detail: A string representing the vector status. Expected
+            values are 'high', 'moderate', 'low', or 'unknown'. The function
+            is case-sensitive.
+
     Returns:
-        Tuple[str, str]: A tuple of the color and text color.
+        A tuple containing two strings: the first is the background color name,
+        and the second is the text color name. A default color pair is
+        returned for unrecognized or empty status strings.
+
+    Example:
+        ```python
+        high_status_bg, high_status_text = get_status_color("high")
+        print(f"High status: Background='{high_status_bg}', Text='{high_status_text}'")
+        # Expected output: High status: Background='red', Text='white'
+
+        unknown_status_bg, unknown_status_text = get_status_color("unknown")
+        print(f"Unknown status: Background='{unknown_status_bg}', Text='{unknown_status_text}'")
+        # Expected output: Unknown status: Background='grey', Text='black'
+
+        default_bg, default_text = get_status_color("some_other_value")
+        print(f"Default status: Background='{default_bg}', Text='{default_text}'")
+        # Expected output: Default status: Background='blue-grey', Text='white'
+        ```
     """
 
     if not status_detail:
