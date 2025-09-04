@@ -90,8 +90,59 @@ async def fetch_geojson_data(
 
 
 class LeafletMapManager:
-    # Accept the color map as an argument during initialization
+    """
+    Manages the creation, configuration, and updates of an ipyleaflet map.
+
+    This class encapsulates the logic for an interactive map, including base
+    layers, controls (zoom, fullscreen), and dynamic data layers for species
+    observations. It handles user interactions like zooming and panning by
+    updating global reactive state variables. The class is designed to be
+    instantiated once within a Solara component's lifecycle.
+
+    Attributes:
+        map_instance (L.Map): The core ipyleaflet Map widget.
+        observations_layer_group (L.LayerGroup): A layer group to hold all
+            observation-related map layers, allowing them to be managed as a
+            single unit.
+        layers_control (L.LayersControl): A control to toggle map layers.
+        species_color_map (dict[str, str]): A mapping from species names to
+            their corresponding color codes for map markers.
+
+    Example:
+        ```python
+        # Within a Solara component:
+        all_species = ["Species A", "Species B"]
+        SPECIES_COLORS = {"Species A": "blue", "Species B": "red"}
+
+        @solara.component
+        def MapContainer():
+            map_manager = solara.use_memo(
+                lambda: LeafletMapManager(species_color_map=SPECIES_COLORS),
+                dependencies=[tuple(all_species)]
+            )
+
+            # To display the map:
+            solara.display(map_manager.get_widget())
+
+            # To update the map with data:
+            # new_data = fetch_some_geojson()
+            # map_manager.update_observations_layer(new_data)
+        ```
+    """
+
     def __init__(self, species_color_map: dict[str, str] = SPECIES_COLORS):
+        """
+        Initializes the LeafletMapManager.
+
+        Sets up the map with a default center, zoom level, and base tile layer.
+        It also adds essential controls like a layer controller, scale, and
+        fullscreen button. Event observers are attached to track map bounds
+        and zoom changes.
+
+        Args:
+            species_color_map: A dictionary mapping species names to hex or
+                RGB color strings. This is used to color-code map markers.
+        """
         self.map_instance = L.Map(
             center=DEFAULT_MAP_CENTER,
             zoom=DEFAULT_MAP_ZOOM,
@@ -120,6 +171,7 @@ class LeafletMapManager:
         self.species_color_map = species_color_map
 
     def _handle_map_bounds_change(self, change):
+        """Callback to update global state when map bounds change."""
         if change["name"] == "bounds" and change["new"]:
             new_bounds = change["new"]
             if (
@@ -136,6 +188,7 @@ class LeafletMapManager:
                 print(f"[WARN] Invalid map bounds received: {new_bounds}. Not updating reactive state.")
 
     def _handle_map_zoom_change(self, change):
+        """Callback to update global state when map zoom level changes."""
         if change["name"] == "zoom" and change["new"]:
             current_map_zoom_reactive.value = int(change["new"])
 
@@ -172,6 +225,16 @@ class LeafletMapManager:
         return str(value)
 
     def _create_popup_html(self, props: dict[str, Any], title_key: str | None = None) -> str:
+        """
+        Generates HTML content for a map marker's popup.
+
+        Args:
+            props: A dictionary of properties from a GeoJSON feature.
+            title_key: (Not currently used) An optional key to use for a title.
+
+        Returns:
+            A string of HTML to be displayed in the popup.
+        """
         species = props.get("species_scientific_name", "")
         observed_at = props.get("observed_at", "")
         count = props.get("count", "")
@@ -191,6 +254,19 @@ class LeafletMapManager:
         return color
 
     def update_observations_layer(self, observations_json: dict[str, Any] | None) -> None:
+        """
+        Updates the map with new observation data.
+
+        This method clears the existing observations layer and adds a new set
+        of markers based on the provided GeoJSON data. It uses a MarkerCluster
+        for performance with a large number of points. Each marker is styled
+        based on its species and has a popup with detailed information.
+
+        Args:
+            observations_json: A GeoJSON dictionary containing point features
+                for species observations. If `None` or empty, the layer will
+                be cleared.
+        """
         self.observations_layer_group.clear_layers()
 
         if not observations_json or not observations_json.get("features") or not show_observed_data_reactive.value:
@@ -231,11 +307,50 @@ class LeafletMapManager:
             self.observations_layer_group.add_layer(marker_cluster)
 
     def get_widget(self):
+        """
+        Returns the underlying ipyleaflet map widget.
+
+        This method provides access to the map instance so it can be rendered
+        in a Solara component or other ipywidgets context.
+
+        Returns:
+            The `ipyleaflet.Map` instance managed by this class.
+        """
         return self.map_instance
 
 
 @solara.component
 def MapDisplay():
+    """
+    Renders an interactive map with species observation data.
+
+    This component serves as the main entry point for displaying the map.
+    It instantiates a `LeafletMapManager` to handle the map's lifecycle
+    and uses Solara's reactive hooks (`use_task`, `use_effect`) to
+    automatically fetch and display data based on global state changes.
+
+    The map's content is driven by reactive variables such as:
+    - `show_observed_data_reactive`: Toggles the visibility of the observation layer.
+    - `selected_species_reactive`: Filters data to the selected species.
+    - `selected_date_range_reactive`: Filters data by date.
+    - `observations_data_reactive`: Holds the fetched GeoJSON data.
+
+    The component itself is self-contained and does not require any props.
+
+    Example:
+        This component is designed to be embedded directly into a page layout.
+
+        ```python
+        import solara
+
+        @solara.component
+        def MapPage():
+            with solara.Column(style={"height": "80vh"}):
+                # The MapDisplay will fill the available space and handle
+                # its own data fetching and rendering.
+                MapDisplay()
+        ```
+    """
     # Get the list of species, defaulting to an empty list if not yet available.
     all_species = all_available_species_reactive.value or []
     use_locale_effect()
