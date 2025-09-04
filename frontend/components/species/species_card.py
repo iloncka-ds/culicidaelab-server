@@ -27,6 +27,44 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 
 @solara.component
 def SpeciesCard(species: dict[str, Any]):
+    """
+    Displays a summary card for a single species.
+
+    This component provides a compact, visual summary of a species, suitable
+    for use in a gallery or list. It includes the species' image, scientific
+    and common names, and a color-coded chip indicating its vector status.
+    A 'View Details' button allows users to navigate to a more comprehensive
+    page for the selected species.
+
+    Args:
+        species: A dictionary containing the data for the species. Expected
+            keys include 'id', 'scientific_name', 'common_name',
+            'image_url' (optional), and 'vector_status' (e.g., 'High',
+            'Moderate', 'Low').
+
+    Example:
+        ```python
+        import solara
+
+        # Sample data for a species
+        sample_species = {
+            "id": "aedes_aegypti",
+            "scientific_name": "Aedes aegypti",
+            "common_name": "Yellow Fever Mosquito",
+            "image_url": "https://example.com/aedes.jpg",
+            "vector_status": "High"
+        }
+
+        @solara.component
+        def Page():
+            with solara.Columns():
+                # The SpeciesCard component displays the provided data.
+                SpeciesCard(species=sample_species)
+
+        # Note: The 'View Details' button functionality depends on a
+        # router being configured in the main application.
+        ```
+    """
     router = solara.use_router()
     use_locale_effect()
 
