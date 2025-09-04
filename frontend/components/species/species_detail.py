@@ -74,6 +74,47 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 
 @solara.component
 def SpeciesDetailPageComponent():
+    """
+    Renders a detailed page for a specific biological species.
+
+    This component fetches and displays comprehensive information about a species,
+    identified by the global `selected_species_item_id` state. It presents
+    details such as the species' scientific and common names, an image, vector
+    status, description, and geographic distribution.
+
+    A key feature is its ability to also fetch and display a list of diseases
+    transmitted by the species, rendering them as a series of `DiseaseCard`
+    components. The component manages its own loading and error states for both
+    the species and the related disease data, providing feedback to the user
+    during data retrieval. It is language-aware and will refetch data if the
+    application's locale changes.
+
+    Example:
+        This component is typically used as a main content view, conditionally
+        rendered when a species ID is selected.
+
+        ```python
+        import solara
+        from frontend.state import selected_species_item_id
+
+        # Assume SpeciesGallery is a component that lists species and sets
+        # the selected_species_item_id when one is clicked.
+        # from .species_gallery import SpeciesGallery
+
+        @solara.component
+        def Page():
+            # The detail page is shown only when a species ID is present in the state.
+            if selected_species_item_id.value:
+                SpeciesDetailPageComponent()
+            else:
+                # Otherwise, show the gallery or another component.
+                # SpeciesGallery()
+                solara.Text("Select a species to see its details.")
+
+        # To activate this component, the global state needs to be set, e.g.:
+        # selected_species_item_id.set("aedes-aegypti")
+        ```
+    """
     use_locale_effect()
     species_id = selected_species_item_id.value
     species_data, set_species_data = solara.use_state(cast(Optional[dict[str, Any]], None))
