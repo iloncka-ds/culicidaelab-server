@@ -59,6 +59,44 @@ i18n.add_translation("disease.errors.vector_load", "Ошибка загрузк�
 
 @solara.component
 def DiseaseDetailPageComponent():
+    """
+    Renders a detailed page for a specific disease.
+
+    This component fetches and displays comprehensive information about a disease
+    based on an ID stored in the global `selected_disease_item_id` state.
+    It handles loading states, potential errors, and also fetches and displays
+    associated vector species for the disease.
+
+    The component is language-aware and will refetch data if the application's
+    locale changes. It relies on predefined API endpoint templates and the
+    `fetch_api_data` utility for its data retrieval.
+
+    Example:
+        This component is typically used as a main content view, conditionally
+        rendered when a disease ID is selected.
+
+        ```python
+        import solara
+        from frontend.state import selected_disease_item_id
+
+        # Assume DiseaseGallery is a component that lists diseases and sets
+        # the selected_disease_item_id when one is clicked.
+        # from .disease_gallery import DiseaseGallery
+
+        @solara.component
+        def Page():
+            # This component will render when a disease ID is set,
+            # and it will be replaced by the DiseaseGallery when the ID is None.
+            if selected_disease_item_id.value:
+                DiseaseDetailPageComponent()
+            else:
+                # DiseaseGallery() # Or any other component
+                solara.Text("Select a disease to see details.")
+
+        # To see this component, you would need to set the state, for example:
+        # selected_disease_item_id.set("some-disease-id")
+        ```
+    """
     use_locale_effect()
 
     disease_id = selected_disease_item_id.value
