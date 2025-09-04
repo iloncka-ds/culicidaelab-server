@@ -12,16 +12,25 @@ import i18n
 
 async def upload_and_predict(file_obj: io.BytesIO, filename: str) -> tuple[dict[str, Any] | None, str | None]:
     """
-    Upload an image to the prediction endpoint and get a species prediction.
+    Uploads an image to the prediction endpoint and gets a species prediction.
+
+    This asynchronous function takes an in-memory image file, sends it to the
+    prediction API endpoint using a multipart/form-data POST request, and
+    processes the response. It handles different image content types based on
+    the filename extension.
 
     Args:
-        file_obj: BytesIO object containing the image data
-        filename: Name of the file being uploaded
+        file_obj: A BytesIO object containing the raw image data.
+        filename: The original name of the file being uploaded, used to infer
+            the content type.
 
     Returns:
-        Tuple containing (prediction_result, error_message)
-        If successful, error_message will be None
-        If failed, prediction_result will be None and error_message will contain the error
+        A tuple containing two elements:
+        - A dictionary with the prediction result if the upload and prediction
+          are successful.
+        - A string with an error message if any part of the process fails.
+        If successful, the error message will be `None`. If it fails, the
+        prediction result will be `None`.
     """
     try:
         file_data = file_obj.getvalue()
@@ -62,9 +71,56 @@ def FileUploadComponent(
     upload_error_message: str | None = None,
 ):
     """
-    A component for handling file uploads.
-    Calls `on_file_selected` with file_info upon successful file drop/selection.
-    Displays an optional `upload_error_message`.
+    A user interface component for handling file uploads.
+
+    This component renders a drag-and-drop area for file selection. When a
+    file is successfully selected by the user, it triggers the `on_file_selected`
+    callback with the file information provided by `solara.FileDrop`. It can
+    also display an error message if one is provided via the
+    `upload_error_message` prop.
+
+    Args:
+        on_file_selected: A callback function that is executed when a file is
+            selected. The function receives one argument: a dictionary
+            containing file information (e.g., 'name', 'file_obj').
+        upload_error_message: An optional string. If provided, it will be
+            displayed as an error message to the user.
+
+    Example:
+        ```python
+        import solara
+        import io
+
+        @solara.component
+        def Page():
+            # State to hold any error messages
+            error, set_error = solara.use_state(None)
+
+            def handle_file(file_info: dict):
+                # This function is called when a file is dropped.
+                # 'file_info' is a dict like {'name': '...', 'file_obj': ...}
+                file_name = file_info["name"]
+                file_obj = file_info["file_obj"]
+
+                print(f"File selected: {file_name}")
+
+                # Example of simple validation
+                if not file_name.lower().endswith((".png", ".jpg", ".jpeg")):
+                    set_error("Invalid file type. Please upload a PNG or JPG image.")
+                    return
+
+                # Clear previous errors
+                set_error(None)
+                # Here you would typically proceed with the file,
+                # e.g., by calling an upload function.
+
+            with solara.Column(align="center"):
+                solara.Text("Upload an image for prediction:")
+                FileUploadComponent(
+                    on_file_selected=handle_file,
+                    upload_error_message=error
+                )
+        ```
     """
     use_locale_effect()
 
