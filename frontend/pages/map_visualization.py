@@ -16,6 +16,44 @@ import i18n
 
 @solara.component
 def Page():
+    """
+    Renders the main map visualization page, including the interactive map and control panels.
+
+    This component constructs the primary user interface for map-based data
+    exploration. It features a main map display area (`MapDisplay`) and two
+    collapsible expansion panels below it for user interaction:
+
+    1.  **Filters Panel**: Contains the `FilterControls` component, allowing users
+        to select species and date ranges to filter the data shown on the map.
+    2.  **Legend Panel**: Contains the `LegendDisplay` component, which shows a
+        visual key for the species and data layers currently active on the map.
+
+    The state of the expansion panels (i.e., whether they are open or closed)
+    is managed locally within this component. The overall layout is responsive,
+    adjusting the panels for different screen sizes.
+
+    Example:
+        This component is designed to be used as a top-level page in a Solara
+        application's routing setup.
+
+        ```python
+        # In your main application file (e.g., app.py)
+        import solara
+        from pages import map_visualization
+
+        routes = [
+            solara.Route(path="/", component=...),
+            solara.Route(path="/map", component=map_visualization.Page, label="Map"),
+            # ... other routes
+        ]
+
+        @solara.component
+        def Layout():
+            # ... your app layout ...
+            # The RoutingProvider makes the '/map' path render this Page component.
+            solara.RoutingProvider(routes=routes, children=[...])
+        ```
+    """
     use_locale_effect()
 
     filters_panel_value, set_filters_panel_value = solara.use_state(cast(Optional[list[int]], [0]))
