@@ -18,8 +18,46 @@ def LocationComponent(
     initial_zoom: int = 2,
 ):
     """
-    A map component for selecting or displaying a latitude and longitude.
-    Updates parent state via `set_latitude` and `set_longitude`.
+    An interactive map component for selecting and displaying geographic coordinates.
+
+    This component functions as a controlled input for latitude and longitude.
+    Users can select a location by clicking on the map, dragging a marker, or
+    manually entering coordinate values in the input fields. The component's
+    state is synchronized with a parent component through the provided state
+    and setter functions.
+
+    Args:
+        latitude: The current latitude to display on the map. Can be `None`.
+        set_latitude: Callback function to update the latitude in the parent's state.
+        longitude: The current longitude to display on the map. Can be `None`.
+        set_longitude: Callback function to update the longitude in the parent's state.
+        initial_lat: The initial latitude for the map's center. Defaults to 20.0.
+        initial_lon: The initial longitude for the map's center. Defaults to 0.0.
+        initial_zoom: The initial zoom level of the map. Defaults to 2.
+
+    Example:
+        ```python
+        import solara
+
+        @solara.component
+        def Page():
+            # Parent component manages the state for latitude and longitude.
+            lat, set_lat = solara.use_state(None)
+            lon, set_lon = solara.use_state(None)
+
+            with solara.Column():
+                solara.Text("Select a location for the observation:")
+                LocationComponent(
+                    latitude=lat,
+                    set_latitude=set_lat,
+                    longitude=lon,
+                    set_longitude=set_lon
+                )
+                if lat is not None and lon is not None:
+                    solara.Success(f"Selected: Lat={lat:.4f}, Lon={lon:.4f}")
+                else:
+                    solara.Info("No location selected.")
+        ```
     """
     use_locale_effect()
     marker_object, set_marker_object = solara.use_state(cast(Optional[L.Marker], None))
