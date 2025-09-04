@@ -29,6 +29,50 @@ i18n.add_translation(
 
 @solara.component
 def PredictionCard(species: dict[str, Any]):
+    """
+    Displays a card with the prediction result for a single species.
+
+    This component visualizes the outcome of a species prediction. It shows the
+    species' image, scientific name, and common name. It includes a button to
+    navigate to a more detailed view of the species. A special state is handled
+    for cases where the species could not be identified from an image,
+    displaying an appropriate message instead of species details.
+
+    Args:
+        species: A dictionary containing the data for the predicted species.
+            Expected keys include 'id', 'scientific_name', and 'common_name'.
+            If the 'id' is 'species_not_defined', the card will display a
+            fallback message.
+
+    Example:
+        ```python
+        import solara
+
+        # Example data for an identified species
+        identified_species_data = {
+            "id": "aedes_aegypti",
+            "scientific_name": "Aedes aegypti",
+            "common_name": "Yellow Fever Mosquito"
+        }
+
+        # Example data for an unidentified species
+        unidentified_species_data = {
+            "id": "species_not_defined"
+        }
+
+        @solara.component
+        def Page():
+            with solara.ColumnsResponsive(default=):
+                # Card for a successful prediction
+                PredictionCard(species=identified_species_data)
+
+                # Card for a failed prediction
+                PredictionCard(species=unidentified_species_data)
+
+        # Note: The "View Details" button requires a router setup in the
+        # main application to function correctly.
+        ```
+    """
     router = solara.use_router()
     use_locale_effect()
 
