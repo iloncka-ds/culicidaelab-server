@@ -41,6 +41,25 @@ async def fetch_geojson_data(
     params: dict,
     loading_reactive: solara.Reactive[bool],
 ) -> dict[str, Any] | None:
+    """
+    Fetches GeoJSON data from a specified URL with error handling.
+
+    This asynchronous function sends a GET request to the given URL and handles
+    the loading state via a reactive variable. It is designed to be robust,
+    catching common errors such as timeouts, HTTP status errors, and JSON
+    decoding issues, and displaying appropriate error messages using
+    `solara.Error`.
+
+    Args:
+        url: The URL of the API endpoint to fetch data from.
+        params: A dictionary of query parameters to include in the request.
+        loading_reactive: A Solara reactive boolean variable that will be set
+            to `True` during the fetch and `False` upon completion or error.
+
+    Returns:
+        A dictionary containing the parsed GeoJSON data if the request is
+        successful, otherwise `None`.
+    """
     loading_reactive.value = True
     # print(f"[DEBUG] fetch_geojson_data called for {url} with params {params}")
     try:
