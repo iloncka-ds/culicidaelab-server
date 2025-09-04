@@ -18,6 +18,7 @@ import frontend.pages.map_visualization as map_visualization
 import frontend.pages.species as species
 import frontend.pages.prediction as prediction
 import frontend.pages.diseases as diseases
+import frontend.pages.about as about
 from frontend.config import (
     page_style,
     footer_style,
@@ -45,11 +46,14 @@ i18n.add_translation("layout.predict", "Predict", locale="en")
 i18n.add_translation("layout.map", "Map", locale="en")
 i18n.add_translation("layout.species", "Species", locale="en")
 i18n.add_translation("layout.diseases", "Diseases", locale="en")
+i18n.add_translation("layout.about", "About", locale="en")
+
 i18n.add_translation("layout.home", "Главная", locale="ru")
 i18n.add_translation("layout.predict", "Наблюдения", locale="ru")
 i18n.add_translation("layout.map", "Карта", locale="ru")
 i18n.add_translation("layout.species", "Виды комаров", locale="ru")
 i18n.add_translation("layout.diseases", "Заболевания", locale="ru")
+i18n.add_translation("layout.about", "О проекте", locale="ru")
 
 
 @solara.component
@@ -139,4 +143,5 @@ routes = [
             ),
         ],
     ),
+    solara.Route("about", component=about.Page, label="layout.about"),
 ]
