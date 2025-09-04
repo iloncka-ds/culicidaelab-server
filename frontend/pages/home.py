@@ -10,6 +10,43 @@ from frontend.state import use_locale_effect
 
 @solara.component
 def Home():
+    """
+    Renders the home page of the application.
+
+    This component serves as the main landing page, presenting an introduction
+    to the application's features. It displays a welcome heading and a set of
+    interactive cards. Each card represents a key section of the app:
+    species prediction, data visualization on a map, a species database, and a
+    disease information gallery.
+
+    The cards are designed to be responsive and will adjust their layout based
+    on the screen size. Clicking a button on any card navigates the user to the
+    corresponding page using Solara's router. The text content is localized
+    using the `i18n` library.
+
+    Example:
+        This component is typically used as the default route in a Solara
+        application's routing setup.
+
+        ```python
+        # In your main app file or layout component
+        import solara
+        from pages import home
+
+        routes = [
+            solara.Route(path="/", component=home.Home, label="Home"),
+            # ... other routes
+        ]
+
+        @solara.component
+        def Layout():
+            # ... your layout structure ...
+            solara.RoutingProvider(routes=routes, children=[...])
+
+        # When a user navigates to the root URL ('/'), the Home component
+        # will be displayed.
+        ```
+    """
     use_locale_effect()
     router = solara.use_router()
 
