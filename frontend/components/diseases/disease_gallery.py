@@ -48,6 +48,36 @@ i18n.add_translation(
 
 @solara.component
 def DiseaseGalleryPageComponent():
+    """
+    Displays a searchable gallery of vector-borne diseases.
+
+    This component provides a user interface for browsing a collection of diseases.
+    It fetches disease data from a remote API and presents it as a grid of
+    `DiseaseCard` components. Key features include a search bar to filter
+    diseases by name and dynamic data fetching that responds to both search
+    queries and changes in the application's locale.
+
+    The component manages its own state for loading, data, and errors using
+    global reactive variables, ensuring the UI is always in sync with the
+    data fetching process. It handles loading spinners, error messages, and
+    'no results' notifications.
+
+    Example:
+        This component is designed to be a main page view. To use it,
+        you would typically include it in your app's layout or routing setup.
+
+        ```python
+        import solara
+
+        @solara.component
+        def Page():
+            # The gallery component manages its own data fetching and state.
+            with solara.Column(align="center"):
+                DiseaseGalleryPageComponent()
+
+        # You would then render this Page component in your main application.
+        ```
+    """
     use_locale_effect()
 
     search_query, set_search_query = solara.use_state("")
