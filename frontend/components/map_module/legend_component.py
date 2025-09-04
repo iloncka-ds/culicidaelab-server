@@ -17,6 +17,49 @@ from frontend.config import (
 
 @solara.component
 def LegendDisplay() -> None:
+    """
+    Renders a map legend for observed species data.
+
+    This component creates a legend that dynamically updates based on the
+    data currently configured for display on a map. It visualizes the species
+    present in the `observations_data_reactive` state, assigning a color to
+    each based on the `SPECIES_COLORS` configuration.
+
+    The legend's content changes based on global state:
+    - If `show_observed_data_reactive` is True, it displays a list of species
+        with color codes. The list prioritizes user-selected species
+        (`selected_species_reactive`); if none are selected, it shows all
+        species found in the current map data.
+    - If data is active but no species are present, it shows a corresponding message.
+    - If `show_observed_data_reactive` is False, it displays an info message
+        indicating no layers are active.
+
+    This component is entirely driven by global reactive state and does not
+    require any props.
+
+    Example:
+        This component is typically used as an overlay on a map component.
+
+        ```python
+        import solara
+
+        @solara.component
+        def MapView():
+            with solara.Div(style="position: relative; height: 600px;"):
+                # Assume a MapContainer component renders the actual map.
+                # MapContainer()
+
+                # The LegendDisplay is positioned over the map.
+                with solara.Div(
+                    style="position: absolute; top: 10px; right: 10px; z-index: 1;"
+                ):
+                    LegendDisplay()
+
+        # The content of the legend will automatically update when global states
+        # like `show_observed_data_reactive` or `observations_data_reactive`
+        # are modified by other components (e.g., a filter panel).
+        ```
+    """
     has_content: bool = False
     use_locale_effect()
     active_species_in_data: list[str] = []
