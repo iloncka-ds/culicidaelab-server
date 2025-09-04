@@ -61,7 +61,7 @@ async def fetch_geojson_data(
         successful, otherwise `None`.
     """
     loading_reactive.value = True
-    # print(f"[DEBUG] fetch_geojson_data called for {url} with params {params}")
+
     try:
         async with httpx.AsyncClient() as client:
             response = await client.get(url, params=params, timeout=30.0)
