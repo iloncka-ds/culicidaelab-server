@@ -1,3 +1,11 @@
+"""
+Defines a Solara component for displaying a summary of a single disease.
+
+This module contains the `DiseaseCard`, a reusable UI element for presenting key
+information about a disease in a compact format. It is typically used within a
+gallery or list view.
+"""
+
 from typing import Any
 
 import solara

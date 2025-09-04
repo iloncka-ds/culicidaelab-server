@@ -1,3 +1,12 @@
+"""
+Defines an interactive map component for selecting geographic coordinates.
+
+This module contains the `LocationComponent`, which allows users to select a
+latitude and longitude by clicking on a map, dragging a marker, or entering
+values manually. It is used in the prediction workflow to specify the location
+of an observation.
+"""
+
 import solara
 import ipyleaflet as L
 from typing import Optional, cast

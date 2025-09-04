@@ -1,9 +1,9 @@
 """
-Service for submitting mosquito observation data to the backend API.
+Provides a service for submitting observation data to the backend API.
 
-This module provides a function to send structured observation data to a remote
-server via an HTTP POST request. It is designed to be used by frontend
-components that collect this data from users.
+This module contains the `submit_observation_data` function, which is responsible
+for sending a structured JSON payload of observation details to the server
+via an HTTP POST request.
 """
 
 from typing import Any

@@ -1,3 +1,11 @@
+"""
+Defines a Solara component to display the result of a species prediction.
+
+This module contains the `PredictionCard`, a specialized UI element for showing
+the species identified by the prediction model. It handles both successful
+identifications and cases where the species could not be determined.
+"""
+
 import solara
 from solara.alias import rv
 

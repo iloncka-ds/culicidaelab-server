@@ -1,3 +1,11 @@
+"""
+Defines a form for submitting detailed species observation data.
+
+This module contains the `ObservationFormComponent`, which is used in the
+prediction workflow to collect additional details (like date, count, and notes)
+after a species has been identified from an uploaded image.
+"""
+
 from typing import Any
 from collections.abc import Callable
 import asyncio

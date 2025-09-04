@@ -1,3 +1,12 @@
+"""
+Provides the core interactive map component for data visualization.
+
+This module contains the `MapDisplay` component and the `LeafletMapManager`
+class, which encapsulate the logic for creating, managing, and updating an
+ipyleaflet map with species observation data. It handles data fetching,
+marker clustering, and user interaction events.
+"""
+
 import solara
 import solara.lab
 

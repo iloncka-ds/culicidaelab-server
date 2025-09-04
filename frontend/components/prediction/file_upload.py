@@ -1,3 +1,11 @@
+"""
+Provides a file upload component and an associated API call for predictions.
+
+This module contains the `FileUploadComponent` for the user interface and the
+`upload_and_predict` asynchronous function, which handles sending the uploaded
+image file to the backend prediction service.
+"""
+
 import solara
 import io
 from typing import Any

@@ -1,3 +1,11 @@
+"""
+Defines a Solara component for displaying a searchable gallery of diseases.
+
+This module contains the `DiseaseGalleryPageComponent`, which fetches a list of
+diseases from an API and displays them in a responsive grid of `DiseaseCard`
+components. It includes a search bar for filtering the results.
+"""
+
 import asyncio
 from typing import Optional, cast
 

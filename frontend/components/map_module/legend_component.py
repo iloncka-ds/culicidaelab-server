@@ -1,3 +1,10 @@
+"""
+Defines the legend component for the interactive map.
+
+This module contains the `LegendDisplay` component, which dynamically renders
+a legend based on the species and data layers currently visible on the map.
+"""
+
 import solara
 import i18n
 

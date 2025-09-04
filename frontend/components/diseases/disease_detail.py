@@ -1,3 +1,11 @@
+"""
+Defines a Solara component for displaying the detailed view of a disease.
+
+This module contains the `DiseaseDetailPageComponent`, which fetches and renders
+comprehensive information for a specific disease, including its vector species.
+This component is typically shown after a user selects a disease from a gallery.
+"""
+
 import asyncio
 from typing import Any, Optional, cast
 

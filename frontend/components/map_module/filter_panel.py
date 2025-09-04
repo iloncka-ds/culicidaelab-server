@@ -1,3 +1,11 @@
+"""
+Defines the filter controls for the interactive map visualization.
+
+This module contains the `FilterControls` component, which provides UI elements
+for filtering map data by species and date range. It also handles the logic
+for triggering data fetches based on the selected filters.
+"""
+
 import solara
 import solara.lab
 import datetime
