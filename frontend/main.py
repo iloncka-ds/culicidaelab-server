@@ -1,3 +1,11 @@
+"""Main entry point for the CulicidaeLab Solara web application.
+
+This script initializes the application, defines the overall layout, and sets up
+the routing for all pages. It orchestrates the main components, including the
+header, navigation, content area, and footer, and maps URL paths to their
+corresponding page components.
+"""
+
 import solara
 import solara.lab
 from solara.alias import rv
@@ -46,6 +54,36 @@ i18n.add_translation("layout.diseases", "Заболевания", locale="ru")
 
 @solara.component
 def Layout(children: list[solara.Element]):
+    """
+    Defines the main layout structure for the application.
+
+    This component creates the persistent UI shell that wraps around the content
+    of individual pages. It includes a top navigation bar (AppBar), the main
+    content area, and a footer. It also initializes application-wide states and
+    effects, such as user ID persistence, theme loading, and initial data
+    fetching.
+
+    The navigation bar is dynamically generated from the application's routes
+    and highlights the currently active page. A language selector is also
+    included in the bar.
+
+    Args:
+        children: A list of Solara elements representing the content of the
+            current page, which will be rendered in the main content area.
+
+    Example:
+        This component is not intended to be used directly in code but is assigned
+        to routes in the `routes` list. Solara's routing system then automatically
+        wraps the page components with this layout.
+
+        ```python
+        # In the routes definition:
+        routes = [
+            solara.Route(path="/", component=home.Home, layout=Layout),
+            # Other routes will also inherit this layout by default.
+        ]
+        ```
+    """
     route_current, routes_all = solara.use_route()
 
     use_persistent_user_id()
