@@ -25,7 +25,19 @@ observations_loading = solara.reactive(False)
 
 
 async def fetch_observations_data_for_panel(params: dict[str, Any]) -> None:
-    """Fetch species observation data, specific to filter panel trigger."""
+    """
+    Fetches species observation data from the API.
+
+    This async function is triggered by the filter panel to fetch observation
+    data based on the provided parameters. It sets a global loading state
+    (`observations_loading`) during the fetch and updates the global
+    `observations_data_reactive` variable with the results. In case of an
+    error, it logs the error and clears the observation data.
+
+    Args:
+        params: A dictionary of query parameters for the API request, such as
+            'species', 'start_date', and 'end_date'.
+    """
     observations_loading.value = True
     try:
         async with httpx.AsyncClient() as client:
@@ -41,6 +53,42 @@ async def fetch_observations_data_for_panel(params: dict[str, Any]) -> None:
 
 @solara.component
 def FilterControls():
+    """
+    Renders a panel with controls for filtering species observation data.
+
+    This component provides a user interface for selecting one or more species
+    and a date range. When the "Apply" button is clicked, it updates the
+    global state for selected filters and triggers an asynchronous fetch for
+    new observation data.
+
+    The component fetches available filter options (e.g., list of species)
+    on mount and handles its own loading and error states for these options.
+    The fetched observation data is stored in a global reactive variable,
+    `observations_data_reactive`, making it accessible to other components
+    like an interactive map.
+
+    Example:
+        This component is typically used within a larger layout, such as a sidebar,
+        alongside other components that consume the global state it modifies.
+
+        ```python
+        import solara
+
+        # Assume MapComponent is a component that displays data from
+        # the `observations_data_reactive` state variable.
+
+        @solara.component
+        def MapPage():
+            with solara.Sidebar():
+                # The FilterControls component allows users to set filters.
+                FilterControls()
+
+            # The main content area where the map would be displayed.
+            # The map would automatically update when filter controls
+            # cause the global observation data to change.
+            # MapComponent()
+        ```
+    """
     initial_start_dt, initial_end_dt = selected_date_range_reactive.value
     start_date, set_start_date = solara.use_state(initial_start_dt)
     end_date, set_end_date = solara.use_state(initial_end_dt)
