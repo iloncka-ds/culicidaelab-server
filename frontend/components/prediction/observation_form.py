@@ -20,7 +20,66 @@ def ObservationFormComponent(
     on_submit_error: Callable,
 ):
     """
-    Form for submitting observation details along with a prediction.
+    A form for submitting detailed observation data following a successful prediction.
+
+    This component renders a user interface for collecting additional information
+    related to a species observation, such as the date, count, and notes. It is
+    designed to be used in conjunction with a prediction result and location data.
+    Upon submission, it validates the inputs, constructs a payload, and calls an
+    asynchronous service to submit the data.
+
+    The component manages its own internal state for form inputs and submission
+    status (e.g., loading). It communicates the outcome of the submission
+    process back to the parent component via the `on_submit_success` and
+    `on_submit_error` callbacks.
+
+    Args:
+        prediction: A dictionary containing the results of the species
+            prediction, including at least a "scientific_name".
+        file_name: The name of the image file associated with the observation.
+        current_latitude: The latitude of the observation location.
+        current_longitude: The longitude of the observation location.
+        on_submit_success: A callback function that is called when the
+            observation is submitted successfully.
+        on_submit_error: A callback function that is called with an error
+            message string if the submission fails.
+
+    Example:
+        ```python
+        import solara
+
+        @solara.component
+        def Page():
+            # Mock data that would typically come from other components
+            mock_prediction = {"scientific_name": "Aedes aegypti", "confidence": 0.95}
+            mock_filename = "mosquito_image.jpg"
+            lat, set_lat = solara.use_state(34.05)
+            lon, set_lon = solara.use_state(-118.24)
+
+            # State to track submission status
+            status_message, set_status_message = solara.use_state("")
+
+            def handle_success():
+                set_status_message("Observation submitted successfully!")
+                print("Success callback triggered.")
+
+            def handle_error(error_msg):
+                set_status_message(f"Submission failed: {error_msg}")
+                print(f"Error callback triggered: {error_msg}")
+
+            with solara.Column():
+                solara.Text("Submit your observation:")
+                ObservationFormComponent(
+                    prediction=mock_prediction,
+                    file_name=mock_filename,
+                    current_latitude=lat,
+                    current_longitude=lon,
+                    on_submit_success=handle_success,
+                    on_submit_error=handle_error,
+                )
+                if status_message:
+                    solara.Info(status_message)
+        ```
     """
     use_locale_effect()
     obs_date_str, set_obs_date_str = solara.use_state(datetime.now().date().strftime("%Y-%m-%d"))
