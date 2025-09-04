@@ -1,3 +1,10 @@
+"""Defines the main home page for the application.
+
+This module contains the `Home` component, which serves as the landing page.
+It provides an introduction to the application's features and includes
+navigational cards that link to the main sections of the site.
+"""
+
 from __future__ import annotations
 
 import i18n

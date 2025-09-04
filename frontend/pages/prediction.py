@@ -1,3 +1,11 @@
+"""
+Defines the main page for the species prediction workflow.
+
+This module contains the top-level page component that orchestrates the entire
+prediction process. It integrates the file upload, location selection, and
+observation form components, managing the state and flow between these steps.
+"""
+
 import solara
 
 import io

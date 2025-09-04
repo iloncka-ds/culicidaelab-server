@@ -1,3 +1,11 @@
+"""
+Defines the main page for the map visualization feature.
+
+This module contains a top-level page component that assembles the complete map
+interface. It integrates the interactive map, filter controls, and legend into a
+single, cohesive user experience.
+"""
+
 import solara
 
 from solara.alias import rv

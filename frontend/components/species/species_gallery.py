@@ -1,3 +1,11 @@
+"""
+Defines a Solara component for displaying a searchable gallery of species.
+
+This module contains the `SpeciesGalleryPageComponent`, which fetches a list of
+species from an API and displays them in a responsive grid. It includes a
+search bar to allow users to filter the species by name.
+"""
+
 import solara
 import solara.lab
 import asyncio

@@ -1,3 +1,11 @@
+"""
+Defines a Solara component for the detailed view of a single species.
+
+This module contains the `SpeciesDetailPageComponent`, which fetches and renders
+comprehensive information for a selected species, including its description,
+characteristics, and a list of diseases it transmits.
+"""
+
 import asyncio
 from typing import Any, Optional, cast
 

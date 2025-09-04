@@ -1,3 +1,12 @@
+"""
+Defines the main page for the species information section.
+
+This module contains a top-level page component that acts as a router. It
+conditionally renders either the `SpeciesGalleryPageComponent` to browse all
+species or the `SpeciesDetailPageComponent` to view details for a single,
+selected species.
+"""
+
 import solara
 from frontend.components.species.species_detail import SpeciesDetailPageComponent
 from frontend.components.species.species_gallery import SpeciesGalleryPageComponent

@@ -1,3 +1,12 @@
+"""
+Defines the main page for the diseases section of the application.
+
+This module contains a top-level page component that acts as a router. It
+conditionally renders either the `DiseaseGalleryPageComponent` or the
+`DiseaseDetailPageComponent` based on whether a specific disease has been
+selected in the application's state.
+"""
+
 import solara
 
 from frontend.components.diseases.disease_gallery import DiseaseGalleryPageComponent

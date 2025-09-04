@@ -1,3 +1,11 @@
+"""Provides a utility function for determining species status colors.
+
+This module contains the `get_status_color` function, which maps a species'
+vector status string (e.g., 'high', 'low') to a corresponding color pair for
+consistent styling in the UI.
+"""
+
+
 def get_status_color(status_detail: str) -> tuple[str, str]:
     """Maps a species' vector status string to a corresponding color pair.
 
