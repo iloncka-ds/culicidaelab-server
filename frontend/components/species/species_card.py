@@ -1,3 +1,12 @@
+"""
+Defines a Solara component for displaying a summary card of a species.
+
+This module contains the `SpeciesCard` component, which is a reusable UI element
+designed to present key information about a biological species in a compact,
+visual format. It is typically used in gallery or list views where multiple
+species are displayed.
+"""
+
 import solara
 from solara.alias import rv
 
