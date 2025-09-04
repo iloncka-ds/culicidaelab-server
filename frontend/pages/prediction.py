@@ -16,7 +16,7 @@ from frontend.config import (
 from frontend.components.prediction.file_upload import FileUploadComponent, upload_and_predict
 from frontend.components.prediction.location import LocationComponent
 from frontend.components.prediction.observation_form import ObservationFormComponent
-from frontend.components.species.prediction_card import PredictionCard
+from frontend.components.prediction.prediction_card import PredictionCard
 from frontend.state import use_persistent_user_id, use_locale_effect
 import i18n
 
