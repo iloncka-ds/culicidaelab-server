@@ -54,6 +54,36 @@ i18n.add_translation("species.status.unknown", "Степень риска: Не�
 
 @solara.component
 def SpeciesGalleryPageComponent():
+    """
+    Renders a searchable gallery of mosquito species.
+
+    This component provides a user interface for browsing a collection of species.
+    It fetches species data from an API endpoint and displays each species
+    using a `SpeciesCard` component in a responsive grid. The gallery includes
+    a search bar that allows users to filter the species list by name.
+
+    The component is responsible for managing the data fetching lifecycle,
+    including loading and error states, which are stored in global reactive
+    variables. It automatically refetches data when the search query or the
+    application's locale changes. User feedback is provided through loading
+    indicators, error messages, and a "no results" notification.
+
+    Example:
+        This component is designed to be a main page view within a Solara
+        application. It can be directly included in the app's layout or routing.
+
+        ```python
+        import solara
+
+        @solara.component
+        def Page():
+            # The gallery component is self-contained and manages its own state.
+            with solara.Column(align="center"):
+                SpeciesGalleryPageComponent()
+
+        # This `Page` component can then be rendered as part of your app.
+        ```
+    """
     search_query, set_search_query = solara.use_state("")
 
     use_locale_effect()
