@@ -1,5 +1,4 @@
 MARKDOWN_CONTENT_EN = r"""
-# Mosquito Tracking & Analysis Platform
 
 CulicidaeLab (server) is a comprehensive platform for mosquito research, surveillance, and data analysis. It combines a Python-based backend API (FastAPI) with a dynamic frontend (Solara) to provide tools for species prediction, data visualization, and information retrieval related to mosquitoes and vector-borne diseases.
 

@@ -89,7 +89,7 @@ def Home():
     ]
 
     solara.Text(i18n.t("home.welcome"), style=heading_style)
-    print(heading_style)
+
     solara.Markdown(
         i18n.t("home.intro"),
         style=sub_heading_style,

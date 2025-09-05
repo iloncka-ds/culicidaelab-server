@@ -9,7 +9,7 @@ Markdown.
 import solara
 import i18n
 
-from frontend.config import page_style
+from frontend.config import page_style, heading_style
 from frontend.state import use_locale_effect, current_locale
 
 from frontend.translations.about_en import MARKDOWN_CONTENT_EN
@@ -18,9 +18,11 @@ from frontend.translations.about_ru import MARKDOWN_CONTENT_RU
 
 DIAGRAM_URL_RU = "https://i.ibb.co/jkbN0hKZ/Untitled-diagram-Mermaid-Chart-2025-09-04-191535.png"
 DIAGRAM_URL_EN = "https://i.ibb.co/BH6T8yDG/Untitled-diagram-Mermaid-Chart-2025-09-04-185719.png"
-# Note: The Mermaid diagram requires an internet connection to be rendered by the browser.
+
 i18n.add_translation("info.content", MARKDOWN_CONTENT_EN, locale="en")
 i18n.add_translation("info.content", MARKDOWN_CONTENT_RU, locale="ru")
+i18n.add_translation("info.title", "Mosquito Tracking & Analysis Platform", locale="en")
+i18n.add_translation("info.title", "Платформа для отслеживания и анализа комаров", locale="ru")
 i18n.add_translation("info.content.split", "## CulicidaeLab Ecosystem Architecture", locale="en")
 i18n.add_translation("info.content.split", "## Архитектура экосистемы CulicidaeLab", locale="ru")
 
@@ -51,19 +53,12 @@ def Page():
     """
     use_locale_effect()
 
-    # Determine which diagram to show based on the current locale
     diagram_src = DIAGRAM_URL_RU if current_locale.value == "ru" else DIAGRAM_URL_EN
 
     with solara.Column(style=page_style):
-        # The Markdown content is split to insert the image correctly.
-        # Split the translated text to get content before and after the diagram.
+        solara.Text(i18n.t("info.title"), style=heading_style)
         content_parts = i18n.t("info.content").split(i18n.t("info.content.split"))
-
-        # Render the first part of the markdown
         solara.Markdown(content_parts[0])
-
-        # Render the heading, the diagram image, and the rest of the text
-        if len(content_parts) > 1:
-            solara.Markdown("## CulicidaeLab Ecosystem Architecture")
-            solara.Image(diagram_src, width="100%")
-            solara.Markdown(content_parts[1])
+        solara.Markdown(i18n.t("info.content.split"))
+        solara.Image(diagram_src, width="100%")
+        solara.Markdown(content_parts[1])
