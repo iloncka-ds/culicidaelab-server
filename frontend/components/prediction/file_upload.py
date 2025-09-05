@@ -110,8 +110,6 @@ def FileUploadComponent(
                 file_name = file_info["name"]
                 file_obj = file_info["file_obj"]
 
-                print(f"File selected: {file_name}")
-
                 # Example of simple validation
                 if not file_name.lower().endswith((".png", ".jpg", ".jpeg")):
                     set_error("Invalid file type. Please upload a PNG or JPG image.")

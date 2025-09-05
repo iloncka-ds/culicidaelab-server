@@ -187,14 +187,14 @@ def SpeciesDetailPageComponent():
                             if disease_item_data:
                                 fetched_diseases_list.append(disease_item_data)
                             else:
-                                print(f"Warning: Could not fetch details for disease ID {disease_id_to_fetch}")
+                                print(f"Could not fetch details for disease ID {disease_id_to_fetch}")
 
                         current_task_check_two = task_ref[0]
                         if not (current_task_check_two and current_task_check_two.cancelled()):
                             set_related_diseases_data(fetched_diseases_list)
                         else:
                             print(
-                                f"Warning: Task cancelled before setting related_diseases_data for species {species_id}.",
+                                f"Task cancelled before setting related_diseases_data for species {species_id}.",
                             )
 
                         set_diseases_loading(False)
@@ -203,7 +203,7 @@ def SpeciesDetailPageComponent():
                         set_diseases_loading(False)
 
             except asyncio.CancelledError:
-                print(f"Warning: Task cancelled before setting related_diseases_data for {species_id}.")
+                print(f"Task cancelled before setting related_diseases_data for {species_id}.")
             except Exception as e:
                 set_error(f"An unexpected error occurred: {str(e)}")
                 set_species_data(None)
@@ -222,7 +222,7 @@ def SpeciesDetailPageComponent():
             if current_task and not current_task.done():
                 current_task.cancel()
             else:
-                print(f"Warning: Task for ID {species_id} already done or no task found.")
+                print(f"Task for ID {species_id} already done or no task found.")
 
         return cleanup
 

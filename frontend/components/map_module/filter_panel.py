@@ -133,7 +133,7 @@ def FilterControls():
             except asyncio.CancelledError:
                 pass
             except Exception as e:
-                print(f"[DEBUG] Error during new apply_filters task: {e}")
+                print(f"Error during new apply_filters task: {e}")
         else:
             observations_data_reactive.value = {"type": "FeatureCollection", "features": []}
             observations_loading.value = False

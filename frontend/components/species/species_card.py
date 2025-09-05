@@ -89,7 +89,6 @@ def SpeciesCard(species: dict[str, Any]):
         with solara.Row(style="align-items: center; flex-grow:1;"):
             with solara.Column(style="flex: 0 0 auto;"):
                 if species.get("image_url"):
-                    # print(species.get("image_url"))
                     rv.Img(
                         src=f"{species['image_url']}",
                         height="100px",

@@ -42,7 +42,6 @@ def load_themes(theme):
 
         theme.themes.dark.warning = "#F1C40F"
 
-        print("Theme applied successfully")
     except Exception as e:
         print(f"Error applying theme: {e}")
     return theme

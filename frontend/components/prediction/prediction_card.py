@@ -94,7 +94,6 @@ def PredictionCard(species: dict[str, Any]):
         style="cursor: pointer; ...",
     ):
         with solara.Column(style="align-items: center; flex-grow:1;"):
-            print(species)
             rv.Img(
                 src=f"{STATIC_FILES_URL}/static/images/species/{species.get('id', 'species_not_defined')}/detail.jpg",
                 height="224px",

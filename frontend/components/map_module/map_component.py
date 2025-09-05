@@ -194,7 +194,7 @@ class LeafletMapManager:
             ):
                 current_map_bounds_reactive.value = new_bounds
             else:
-                print(f"[WARN] Invalid map bounds received: {new_bounds}. Not updating reactive state.")
+                print(f"Invalid map bounds received: {new_bounds}. Not updating reactive state.")
 
     def _handle_map_zoom_change(self, change):
         """Callback to update global state when map zoom level changes."""
@@ -367,7 +367,6 @@ def MapDisplay():
         lambda: LeafletMapManager(species_color_map=SPECIES_COLORS),
         dependencies=[tuple(all_species)],  # Depend on an immutable tuple of species
     )
-    print(SPECIES_COLORS)
 
     async def load_observations_data_task():
         if not show_observed_data_reactive.value or not selected_species_reactive.value:

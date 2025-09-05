@@ -42,7 +42,6 @@ async def fetch_api_data(
         error_reactive.value = None
     try:
         async with httpx.AsyncClient() as client:
-            print(f"Fetching data from {url} with params {params if params else ''}")
             response = await client.get(url, params=params, timeout=20.0)
             response.raise_for_status()
             return response.json()
@@ -125,7 +124,6 @@ async def fetch_filter_options():
     filter_options_error_reactive.value = None
     try:
         async with httpx.AsyncClient() as client:
-            print(f"Fetching filter options from {FILTER_OPTIONS_ENDPOINT} for lang='{lang}'")
             response = await client.get(FILTER_OPTIONS_ENDPOINT, params={"lang": lang}, timeout=10.0)
             response.raise_for_status()
             data = response.json()
@@ -168,7 +166,6 @@ current_locale = solara.Reactive(get_initial_locale())
 def use_locale_effect():
     def update_i18n_locale():
         """This function will run whenever current_locale.value changes."""
-        print(f"Locale changed to: {current_locale.value}")
         i18n.set("locale", current_locale.value)
 
     solara.use_effect(update_i18n_locale, [current_locale.value])

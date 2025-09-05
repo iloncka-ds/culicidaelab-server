@@ -98,7 +98,6 @@ def Page():
         set_view_mode("form")
 
     def _handle_prediction_result(result_tuple):
-        print(f"Handling prediction result: {result_tuple}")
         result, error = result_tuple
         if error:
             set_page_error_message(i18n.t("prediction.messages.error.generic", message=error))

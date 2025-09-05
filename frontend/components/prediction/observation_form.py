@@ -159,19 +159,13 @@ def ObservationFormComponent(
 
         # Clean the payload of any None values for optional fields
         observation_payload = {k: v for k, v in observation_payload.items() if v is not None}
-        print(f"[DEBUG] Prepared observation payload: {observation_payload}")
-
-        print("[DEBUG] Submitting observation data...")
         submission_error = await submit_observation_data(observation_payload)
 
         if submission_error is None:
-            print("[DEBUG] Observation submitted successfully")
             on_submit_success()
         else:
-            print(f"[ERROR] Observation submission failed: {submission_error}")
             on_submit_error(str(submission_error))
         set_is_submitting(False)
-        print("[DEBUG] Form submission process completed")
 
     solara.Markdown(
         f'### {i18n.t("prediction.observation_form.submit_details")} ',

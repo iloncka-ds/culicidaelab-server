@@ -59,8 +59,6 @@ async def submit_observation_data(observation_data: dict[str, Any]) -> str | Non
         ```
     """
     url = f"{API_BASE_URL}/observations"
-    print(f"[WEB-CLIENT] Preparing to POST JSON to: {url}")
-    print(f"[WEB-CLIENT] Payload: {observation_data}")
 
     try:
         async with httpx.AsyncClient() as client:
@@ -74,7 +72,6 @@ async def submit_observation_data(observation_data: dict[str, Any]) -> str | Non
                 error_detail = response.json().get("detail", "Unknown server error")
                 return f"Failed to submit observation: {error_detail}"
 
-            print("[WEB-CLIENT] Observation submitted successfully.")
             return None
 
     except Exception as e:
