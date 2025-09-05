@@ -297,13 +297,9 @@ Visit [http://culicidealab.ru](http://culicidealab.ru) to see the application in
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit pull requests or open issues for bugs, feature requests, or improvements.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the repository.
-2. Create your feature branch (`git checkout -b feature/amazing-feature`).
-3. Commit your changes (`git commit -m 'Add some Amazing Feature'`).
-4. Push to the branch (`git push origin feature/amazing-feature`).
-5. Open a Pull Request.
+Please see our **[Contributing Guide](https://github.com/iloncka-ds/culicidaelab-server/blob/main/CONTRIBUTING.md)** for details on our code of conduct, development setup, and the pull request process.
 
 ## 📜 License
 
