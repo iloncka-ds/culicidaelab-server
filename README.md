@@ -1,4 +1,11 @@
+<div align="center">
+
 # Mosquito Tracking & Analysis Platform
+
+</div>
+
+<p align="center"> <a href="https://github.com/astral-sh/ruff"><img  alt="Ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"></a>  <a href="https://deepwiki.com/iloncka-ds/culicidaelab-server"><img alt="Ask DeepWiki" src="https://deepwiki.com/badge.svg"></a>
+</p>
 
 CulicidaeLab (server) is a comprehensive platform for mosquito research, surveillance, and data analysis. It combines a Python-based backend API (FastAPI) with a dynamic frontend (Solara) to provide tools for species prediction, data visualization, and information retrieval related to mosquitoes and vector-borne diseases.
 
@@ -7,10 +14,7 @@ CulicidaeLab (server) is a comprehensive platform for mosquito research, surveil
 ```mermaid
 flowchart TD
 
-subgraph L0 [" "]
-
     %% Define layers with subgraphs
-
     subgraph L1 ["Data Layer"]
         DS1["🦟 mosquito_dataset_46_3139<br/>Base Diversity Dataset<br/>(46 species, 3139 unique images)<br/>📄 CC-BY-SA-4.0"]
         DS2["📊 mosquito-species-<br/>classification-dataset<br/>📄 CC-BY-SA-4.0"]
@@ -42,7 +46,6 @@ subgraph L0 [" "]
         S4["🦟 Mosquito Gallery Service<br/>"]
         S5["💊 Diseases Gallery Service<br/>"]
     end
-  end
 
     %% Dataset derivation and training flows
     DS1 -.->|"derives"| DS2
