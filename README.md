@@ -238,22 +238,24 @@ uv cache clean
 
 3. **Generate Sample Data:**
 
-    This script creates the JSON/GeoJSON files that the backend's `initialize_db` script might use, and that the frontend might load directly or via the API.
+This script creates the JSON/GeoJSON files that the backend's `initialize_db` script might use, and that the frontend might load directly or via the API.
 
 ```bash
 python -m backend.data.sample_data.generate_sample_data
 ```
-    This will create files like `sample_species.json`, `sample_observations.geojson`, etc., in the `sample_data/` directory.
+
+This will create files like `sample_species.json`, `sample_observations.geojson`, etc., in the `sample_data/` directory.
 
 4. **Initialize the Backend Database:**
 
-    This script sets up LanceDB tables and populates them using the generated sample JSON files.
-    *(Ensure the paths in `backend/scripts/initialize_db.py` point to the correct location of `sample_species.json` and `sample_diseases.json`, likely `../sample_data/` if run from `backend/scripts/` or adjusted accordingly).*
+This script sets up LanceDB tables and populates them using the generated sample JSON files.
+*(Ensure the paths in `backend/scripts/initialize_db.py` point to the correct location of `sample_species.json` and `sample_diseases.json`, likely `../sample_data/` if run from `backend/scripts/` or adjusted accordingly).*
 
 ```bash
 python -m backend.scripts.populate_lancedb
 ```
-    Check if generation successful by checking the LanceDB database.
+
+Check if generation successful by checking the LanceDB database.
 
 ```bash
 python -m backend.scripts.query_lancedb observations --limit 5
