@@ -1,3 +1,16 @@
+"""LanceDB Manager Module.
+
+This module provides a high-level interface for managing LanceDB database operations.
+It includes schema definitions for various data models and a LanceDBManager class
+for handling database connections, table operations, and data management.
+
+The module supports:
+- Database connection management with automatic reconnection
+- Table creation and retrieval with schema validation
+- Data insertion and table management for species, diseases, regions,
+  data sources, map layers, and observations
+"""
+
 from __future__ import annotations
 
 import lancedb
@@ -99,18 +112,48 @@ OBSERVATIONS_SCHEMA = pa.schema(
 
 
 class LanceDBManager:
+    """A high-level manager for LanceDB database operations.
+
+    This class provides methods for connecting to a LanceDB database,
+    managing tables with predefined schemas, and performing CRUD operations.
+    It handles connection lifecycle and provides utilities for creating
+    and managing vector-enabled tables for species, diseases, and observations.
+
+    Attributes:
+        uri: The database URI/path.
+        db: The active database connection instance.
+    """
+
     def __init__(self, uri: str = settings.DATABASE_PATH):
+        """Initialize the LanceDB manager.
+
+        Args:
+            uri: The database URI/path to connect to. Defaults to the
+                configured database path from settings.
+        """
         self.uri = uri
         self.db: AsyncConnection | None = None
 
     async def connect(self):
-        """Connects to the LanceDB database."""
+        """Establish a connection to the LanceDB database.
+
+        This method creates an async connection to the database if one
+        doesn't already exist. The connection is stored in the db attribute.
+
+        Raises:
+            RuntimeError: If connection fails.
+        """
         if self.db is None:
             self.db = await lancedb.connect_async(self.uri)
             print(f"Connected to LanceDB at {self.uri}")
 
     async def close(self):
-        """Closes the LanceDB connection."""
+        """Close the LanceDB database connection.
+
+        This method cleans up the database connection. Note that LanceDB
+        connections are typically managed implicitly, so this mainly
+        clears the local reference.
+        """
         if self.db:
             print("LanceDB connection implicitly managed.")
             self.db = None
@@ -120,7 +163,20 @@ class LanceDBManager:
         table_name: str,
         schema: pa.Schema | None = None,
     ) -> lancedb.table.AsyncTable | None:
-        """Gets a table, creating it with the schema if it doesn't exist."""
+        """Get a table from the database, creating it if it doesn't exist.
+
+        Args:
+            table_name: Name of the table to retrieve or create.
+            schema: Schema to use when creating the table. If None and
+                table doesn't exist, returns None.
+
+        Returns:
+            The requested table instance, or None if table doesn't exist
+            and no schema was provided for creation.
+
+        Raises:
+            RuntimeError: If connection fails.
+        """
         if self.db is None:
             await self.connect()
             # After connect(), self.db should not be None
@@ -143,6 +199,20 @@ class LanceDBManager:
             return None
 
     async def create_or_overwrite_table(self, table_name: str, data: list[dict[str, Any]], schema: pa.Schema):
+        """Create or overwrite a table with the provided data.
+
+        Args:
+            table_name: Name of the table to create or overwrite.
+            data: List of dictionaries containing the data to insert.
+            schema: PyArrow schema defining the table structure.
+
+        Returns:
+            The created or overwritten table instance.
+
+        Raises:
+            RuntimeError: If connection fails.
+            Exception: If table creation fails.
+        """
         if self.db is None:
             await self.connect()
             if self.db is None:
@@ -163,7 +233,14 @@ lancedb_manager = LanceDBManager(settings.DATABASE_PATH)
 
 
 async def get_lancedb_manager() -> LanceDBManager:
-    """Get the LanceDB manager instance, ensuring it's connected."""
+    """Get the global LanceDB manager instance.
+
+    This function returns the singleton LanceDB manager instance,
+    ensuring it's connected before returning.
+
+    Returns:
+        The connected LanceDB manager instance.
+    """
     if lancedb_manager.db is None:
         await lancedb_manager.connect()
     return lancedb_manager
