@@ -1,3 +1,21 @@
+"""Observation Router Module for CulicidaeLab Server API.
+
+This module provides FastAPI router endpoints for managing mosquito observation records.
+It handles creation and retrieval of observation data, including species identification,
+location information, and metadata.
+
+The router integrates with the observation service layer to persist and retrieve
+data from the database while providing proper validation and error handling.
+
+Typical usage example:
+    from backend.routers.observation import router
+    app.include_router(router, prefix="/api/v1")
+
+Endpoints:
+    POST /observations - Create a new observation record
+    GET /observations - Retrieve observations with optional filtering
+"""
+
 from uuid import uuid4
 
 from fastapi import APIRouter, HTTPException, status
@@ -17,9 +35,36 @@ router = APIRouter()
 async def create_observation(
     observation: Observation,
 ) -> Observation:
-    """
-    Create a new observation record from a complete data payload.
-    The client is expected to have already performed prediction if necessary.
+    """Create a new mosquito observation record.
+
+    This endpoint accepts a complete observation record and stores it in the database.
+    The observation should include species identification, location data, and metadata.
+    If no user_id is provided, a UUID will be automatically generated.
+
+    Args:
+        observation: Complete observation data including species information,
+            location coordinates, count, and optional metadata. Must conform
+            to the Observation schema with all required fields validated.
+
+    Returns:
+        Observation: The created observation record with assigned ID and
+            any server-generated fields.
+
+    Raises:
+        HTTPException: If observation creation fails due to validation errors
+            or database issues. Returns 500 status code for server errors.
+
+    Example:
+        >>> from backend.schemas.observation_schemas import Observation, Location
+        >>> observation_data = Observation(
+        ...     species_scientific_name="Aedes aegypti",
+        ...     count=5,
+        ...     location=Location(lat=40.7128, lng=-74.0060),
+        ...     observed_at="2024-01-15T10:30:00Z",
+        ...     notes="Found near standing water"
+        ... )
+        >>> result = await create_observation(observation_data)
+        >>> print(f"Created observation with ID: {result.id}")
     """
     print("\n--- [ROUTER] Received request to CREATE observation ---")
     try:
@@ -60,8 +105,52 @@ async def get_observations(
     offset: int = 0,
     user_id: str = "default_user_id",  # This should likely be replaced with auth
 ) -> ObservationListResponse:
-    """
-    Get a list of observations, optionally filtered by species.
+    """Retrieve mosquito observations with optional filtering.
+
+    This endpoint returns a paginated list of observation records. Results can be
+    filtered by species and user, with configurable pagination limits.
+
+    Args:
+        species_id: Optional species identifier to filter observations. If None,
+            returns observations for all species. Should be a valid species UUID
+            or identifier from the database.
+        limit: Maximum number of observations to return in a single response.
+            Must be between 1 and 1000. Defaults to 100. Larger values are
+            automatically capped at 1000 for performance.
+        offset: Number of observations to skip for pagination. Must be non-negative.
+            Defaults to 0. Use with limit for paginated results.
+        user_id: Identifier for the user whose observations to retrieve. Currently
+            defaults to "default_user_id" but should be replaced with proper
+            authentication in production.
+
+    Returns:
+        ObservationListResponse: Paginated response containing the total count
+            of matching observations and the list of observation records.
+            Each observation includes full species, location, and metadata.
+
+    Raises:
+        HTTPException: If observation retrieval fails due to database errors
+            or invalid parameters. Returns 500 status code for server errors.
+
+    Example:
+        >>> # Get first 50 observations for all species
+        >>> response = await get_observations(limit=50)
+        >>> print(f"Total observations: {response.count}")
+        >>>
+        >>> # Get observations for a specific species with pagination
+        >>> response = await get_observations(
+        ...     species_id="aedes-aegypti-uuid",
+        ...     limit=25,
+        ...     offset=25
+        ... )
+        >>> for obs in response.observations:
+        ...     print(f"Species: {obs.species_scientific_name}")
+        >>>
+        >>> # Get observations for a specific user (when auth is implemented)
+        >>> response = await get_observations(
+        ...     user_id="authenticated-user-id",
+        ...     limit=10
+        ... )
     """
     print("\n--- [ROUTER] Received request for /observations (GET) ---")
     print(f"[ROUTER] Params: species_id='{species_id}', limit={limit}, offset={offset}, user_id='{user_id}'")

@@ -11,11 +11,22 @@ from uuid import UUID, uuid4
 
 
 class Location(BaseModel):
+    """Geographic location model.
+
+    Represents latitude and longitude coordinates for observations.
+    """
+
     lat: float
     lng: float
 
 
 class ObservationBase(BaseModel):
+    """Base model for observation data.
+
+    Contains core observation fields used for creating and validating
+    observation records.
+    """
+
     type: str = "Feature"
     species_scientific_name: str
     count: int = Field(..., gt=0, description="Number of observed specimens")
@@ -28,6 +39,12 @@ class ObservationBase(BaseModel):
 
 
 class Observation(ObservationBase):
+    """Complete observation model with unique identifier.
+
+    Extends ObservationBase with system-generated fields for
+    storing complete observation records.
+    """
+
     id: UUID = Field(default_factory=uuid4)
     image_filename: str | None = None
     model_id: str | None = None
@@ -36,5 +53,10 @@ class Observation(ObservationBase):
 
 
 class ObservationListResponse(BaseModel):
+    """Response model for paginated observation lists.
+
+    Contains the total count and list of observations for API responses.
+    """
+
     count: int
     observations: list[Observation]

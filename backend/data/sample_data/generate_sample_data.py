@@ -1,3 +1,24 @@
+"""Sample data generation utilities for Culicidae lab server backend data directory.
+
+This module provides functions and data structures for generating sample data files
+including species information, regional data, disease information, and observation data.
+The generated data is used for testing and demonstration purposes.
+
+The module generates the following sample data files:
+- sample_species.json: Species information and characteristics
+- sample_regions.json: Geographic regions data
+- sample_data_sources.json: Data source information
+- sample_diseases.json: Disease information and vectors
+- sample_filter_options.json: Filter options for frontend
+- sample_observations.geojson: Sample observation data with geographic coordinates
+
+Example:
+    Running this module as a script generates all sample data files:
+    ```python
+    python generate_sample_data.py
+    ```
+"""
+
 import json
 import random
 from datetime import datetime, timedelta
@@ -7,13 +28,31 @@ from uuid import uuid4
 from backend.data.sample_data.species import species_list
 from backend.data.sample_data.diseases import diseases_data_list
 
-# --- SPECIES DATA ---
+
 with open("sample_species.json", "w", encoding="utf-8") as f:
     json.dump(species_list, f, indent=2, ensure_ascii=False)
 print("Generated sample_species.json")
 
 
 class BoundingBox(TypedDict):
+    """Bounding box coordinates for geographic regions.
+
+    This TypedDict defines the structure for bounding box coordinates used to
+    constrain random geographic point generation within specific regions.
+
+    Attributes:
+        min_lon (float): Minimum longitude value in decimal degrees.
+        max_lon (float): Maximum longitude value in decimal degrees.
+        min_lat (float): Minimum latitude value in decimal degrees.
+        max_lat (float): Maximum latitude value in decimal degrees.
+
+    Example:
+        >>> europe_bbox: BoundingBox = {
+        ...     "min_lon": -10, "max_lon": 40,
+        ...     "min_lat": 35, "max_lat": 70
+        ... }
+    """
+
     min_lon: float
     max_lon: float
     min_lat: float
@@ -74,7 +113,26 @@ print("Generated sample_filter_options.json")
 
 
 def random_point_in_bbox(bbox: BoundingBox) -> list[float]:
-    """Generate a random point within the given bounding box."""
+    """Generate a random point within the given bounding box.
+
+    Args:
+        bbox: A BoundingBox TypedDict containing the coordinate boundaries
+            with min_lon, max_lon, min_lat, and max_lat values.
+
+    Returns:
+        list[float]: A list containing [latitude, longitude] coordinates
+            randomly selected within the bounding box boundaries.
+
+    Example:
+        >>> bbox = {"min_lon": -10, "max_lon": 40, "min_lat": 35, "max_lat": 70}
+        >>> point = random_point_in_bbox(bbox)
+        >>> len(point) == 2
+        True
+        >>> bbox["min_lat"] <= point[0] <= bbox["max_lat"]
+        True
+        >>> bbox["min_lon"] <= point[1] <= bbox["max_lon"]
+        True
+    """
     return [
         random.uniform(bbox["min_lat"], bbox["max_lat"]),
         random.uniform(bbox["min_lon"], bbox["max_lon"]),
@@ -82,7 +140,31 @@ def random_point_in_bbox(bbox: BoundingBox) -> list[float]:
 
 
 def random_date(start_days_ago: int = 365, end_days_ago: int = 0) -> str:
-    """Generate a random date within the specified range."""
+    """Generate a random date within the specified range.
+
+    Args:
+        start_days_ago: Number of days ago to start the random date range.
+            Defaults to 365 (1 year ago).
+        end_days_ago: Number of days ago to end the random date range.
+            Defaults to 0 (today).
+
+    Returns:
+        str: A date string in ISO format (YYYY-MM-DD) randomly selected
+            between start_days_ago and end_days_ago from the current date.
+
+    Example:
+        >>> date_str = random_date(365, 0)
+        >>> len(date_str) == 10
+        True
+        >>> date_str.count('-') == 2
+        True
+        >>> # Date should be within the last year
+        >>> from datetime import datetime, timedelta
+        >>> today = datetime.now().date()
+        >>> start_date = today - timedelta(days=365)
+        >>> end_date = today
+        >>> # The generated date should fall within this range
+    """
     return (datetime.now() - timedelta(days=random.randint(end_days_ago, start_days_ago))).strftime("%Y-%m-%d")
 
 

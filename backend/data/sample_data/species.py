@@ -1,3 +1,28 @@
+"""Species data for Culicidae lab server.
+
+This module contains comprehensive species information for various mosquito species
+including their scientific names, common names in English and Russian, vector status,
+habitat preferences, geographic distribution, and associated diseases.
+
+The data includes detailed characteristics such as:
+- Scientific and common names (English/Russian)
+- Vector status (High, Moderate, Low)
+- Physical descriptions and key characteristics
+- Habitat preferences
+- Geographic regions
+- Associated diseases
+
+This data is used for generating sample datasets and providing species
+information in the Culicidae lab application.
+
+Example:
+    >>> species = species_list[0]
+    >>> species['scientific_name']
+    'Aedes albopictus'
+    >>> species['vector_status']
+    'High'
+"""
+
 species_list = [
     {
         "id": "aedes_albopictus",

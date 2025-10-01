@@ -1,3 +1,10 @@
+"""
+Pydantic models for the Prediction service.
+
+This module defines the schema models used for prediction results
+and model validation in API endpoints.
+"""
+
 from __future__ import annotations
 
 from pydantic import BaseModel

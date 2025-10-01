@@ -1,3 +1,19 @@
+"""
+Species data service for managing mosquito species information.
+
+This module provides functionality for retrieving and filtering species data
+from the database, including support for multiple languages, search functionality,
+and vector status filtering. It handles the conversion of raw database records
+to properly formatted species models with localized content.
+
+Example:
+    >>> from backend.services.species_service import get_all_species
+    >>> from backend.services.database import get_db
+    >>> from fastapi import Request
+    >>> db = get_db()
+    >>> species = get_all_species(db, request, "en", search="aedes")
+"""
+
 from typing import Any
 import lancedb
 from fastapi import Request
@@ -8,6 +24,25 @@ from backend.services import disease_service
 
 
 def _get_list_field_from_record(value: Any) -> list[str]:
+    """Convert a database field value to a list of strings.
+
+    This helper function safely converts various database field types to a
+    consistent list of strings, handling both list and non-list inputs.
+
+    Args:
+        value (Any): The field value from the database record. Can be a list,
+            string, or other type.
+
+    Returns:
+        list[str]: A list of string representations of the input value.
+            Returns an empty list for None or non-list inputs.
+
+    Example:
+        >>> _get_list_field_from_record(["item1", "item2"])
+        ['item1', 'item2']
+        >>> _get_list_field_from_record(None)
+        []
+    """
     if isinstance(value, list):
         return [str(item) for item in value]
     return []
@@ -19,15 +54,29 @@ def _db_record_to_species_detail(
     region_translations: dict[str, dict[str, str]],
     request: Request,
 ) -> SpeciesDetail:
-    """
-    Converts a raw dictionary record to a SpeciesDetail Pydantic model.
-    It constructs the full image URL dynamically using the request's base URL.
+    """Convert a database record to a detailed SpeciesDetail model with translations.
+
+    This helper function transforms raw database records into SpeciesDetail objects,
+    handling language fallbacks, region translations, and dynamic image URL construction.
 
     Args:
-        record: The raw data dictionary for the species.
-        lang: The target language for translation.
-        region_translations: The pre-loaded cache of region translations.
-        request: The FastAPI request object, used to get the base URL.
+        record (dict): The raw database record containing species data.
+        lang (str): The target language code (e.g., 'en', 'ru') for translations.
+        region_translations (dict[str, dict[str, str]]): Pre-loaded region
+            translations for localizing geographic region names.
+        request (Request): The FastAPI request object used to construct image URLs.
+
+    Returns:
+        SpeciesDetail: A fully populated SpeciesDetail object with localized
+            content, translated region names, and constructed image URL.
+
+    Example:
+        >>> record = {
+        ...     "id": "aedes_aegypti",
+        ...     "scientific_name": "Aedes aegypti",
+        ...     "common_name_en": "Yellow fever mosquito"
+        ... }
+        >>> species = _db_record_to_species_detail(record, "en", regions, request)
     """
     fallback_lang = "en"
     species_id = record.get("id", "")
@@ -60,9 +109,27 @@ def _db_record_to_species_detail(
 
 
 def _db_record_to_species_base(record: dict, lang: str, request: Request) -> SpeciesBase:
-    """
-    Converts a raw dictionary record to a SpeciesBase Pydantic model.
-    It constructs the full image URL to the thumbnail dynamically.
+    """Convert a database record to a basic SpeciesBase model.
+
+    This helper function transforms raw database records into SpeciesBase objects,
+    handling language fallbacks and dynamic thumbnail image URL construction.
+
+    Args:
+        record (dict): The raw database record containing species data.
+        lang (str): The target language code (e.g., 'en', 'ru') for translations.
+        request (Request): The FastAPI request object used to construct image URLs.
+
+    Returns:
+        SpeciesBase: A SpeciesBase object with localized content and
+            constructed thumbnail image URL.
+
+    Example:
+        >>> record = {
+        ...     "id": "culex_pipiens",
+        ...     "scientific_name": "Culex pipiens",
+        ...     "common_name_en": "Common house mosquito"
+        ... }
+        >>> species = _db_record_to_species_base(record, "en", request)
     """
     fallback_lang = "en"
     species_id = record.get("id", "")
@@ -86,8 +153,33 @@ def get_all_species(
     search: str | None = None,
     limit: int = 100,
 ) -> list[SpeciesBase]:
-    """
-    Gets a list of species, optionally filtered by search term.
+    """Retrieve a list of species with optional search filtering.
+
+    This function queries the species table and returns species records,
+    optionally filtered by search terms across scientific names and common names
+    in multiple languages. Results are returned as SpeciesBase objects.
+
+    Args:
+        db (lancedb.DBConnection): The database connection object.
+        request (Request): The FastAPI request object for image URL construction.
+        lang (str): The target language code for localized content.
+        search (str | None, optional): Search term to filter species by.
+            Searches across scientific names and common names in all languages.
+            If None, returns all species.
+        limit (int, optional): Maximum number of species to return.
+            Defaults to 100.
+
+    Returns:
+        list[SpeciesBase]: A list of SpeciesBase objects matching the search
+            criteria, or all species if no search term is provided.
+
+    Example:
+        >>> from backend.services.database import get_db
+        >>> db = get_db()
+        >>> # Get all species
+        >>> all_species = get_all_species(db, request, "en")
+        >>> # Search for Aedes species
+        >>> aedes_species = get_all_species(db, request, "en", search="aedes")
     """
     try:
         tbl = get_table(db, "species")
@@ -119,7 +211,32 @@ def get_species_by_id(
     region_translations: dict[str, dict[str, str]],
     request: Request,
 ) -> SpeciesDetail | None:
-    """Gets detailed information for a single species by its ID."""
+    """Retrieve detailed information for a specific species by its ID.
+
+    This function queries the species table for a specific species record
+    and returns it as a detailed SpeciesDetail object with full information
+    including translated region names. Returns None if the species is not found.
+
+    Args:
+        db (lancedb.DBConnection): The database connection object.
+        species_id (str): The unique identifier for the species to retrieve.
+        lang (str): The target language code for localized content.
+        region_translations (dict[str, dict[str, str]]): Pre-loaded region
+            translations for localizing geographic region names.
+        request (Request): The FastAPI request object for image URL construction.
+
+    Returns:
+        SpeciesDetail | None: A SpeciesDetail object if found, None if the
+            species does not exist in the database.
+
+    Example:
+        >>> from backend.services.database import get_db
+        >>> db = get_db()
+        >>> aedes = get_species_by_id(db, "aedes_aegypti", "en", regions, request)
+        >>> if aedes:
+        ...     print(f"Species: {aedes.scientific_name}")
+        ...     print(f"Regions: {aedes.geographic_regions}")
+    """
     try:
         tbl = get_table(db, "species")
         result = tbl.search().where(f"id = '{species_id}'").limit(1).to_list()
@@ -138,8 +255,31 @@ def get_vector_species(
     lang: str,
     disease_id: str | None = None,
 ) -> list[SpeciesBase]:
-    """
-    Get species that are disease vectors, optionally filtered by a specific disease.
+    """Retrieve species that are disease vectors, optionally filtered by disease.
+
+    This function queries the species table for species marked as disease vectors.
+    It can filter by a specific disease to find only species that transmit that
+    disease, or return all vector species if no disease filter is applied.
+
+    Args:
+        db (lancedb.DBConnection): The database connection object.
+        request (Request): The FastAPI request object for image URL construction.
+        lang (str): The target language code for localized content.
+        disease_id (str | None, optional): Specific disease ID to filter by.
+            If provided, only species that transmit this disease are returned.
+            If None, all vector species are returned.
+
+    Returns:
+        list[SpeciesBase]: A list of SpeciesBase objects that are disease vectors,
+            optionally filtered by the specified disease.
+
+    Example:
+        >>> from backend.services.database import get_db
+        >>> db = get_db()
+        >>> # Get all vector species
+        >>> all_vectors = get_vector_species(db, request, "en")
+        >>> # Get species that transmit malaria
+        >>> malaria_vectors = get_vector_species(db, request, "en", "malaria")
     """
     vector_ids = []
     if disease_id:

@@ -1,3 +1,24 @@
+"""Main application module for CulicidaeLab API backend.
+
+This module initializes and configures the FastAPI application, including:
+- Application startup and shutdown lifecycle management
+- CORS middleware configuration
+- Static file serving setup
+- API router registration
+- Health check and root endpoints
+
+The application serves as the main entry point for the CulicidaeLab API server,
+providing endpoints for species identification, disease tracking, geographic
+data, and observation management.
+
+Example:
+    >>> python -m backend.main
+    # Starts the server on http://localhost:8000
+
+    >>> # Or run with custom host/port
+    >>> uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+"""
+
 from contextlib import asynccontextmanager
 import os
 from fastapi import FastAPI
@@ -16,6 +37,28 @@ from backend.services.database import get_db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Manages application startup and shutdown lifecycle.
+
+    This context manager handles the initialization of database connections,
+    cache loading, and other startup tasks when the FastAPI application starts,
+    and cleanup when it shuts down.
+
+    Args:
+        app (FastAPI): The FastAPI application instance.
+
+    Yields:
+        None: Control is yielded back to FastAPI after startup initialization.
+
+    Example:
+        >>> @asynccontextmanager
+        >>> async def lifespan(app: FastAPI):
+        >>>     # Initialize resources
+        >>>     db = await init_database()
+        >>>     app.state.db = db
+        >>>     yield
+        >>>     # Cleanup resources
+        >>>     await db.close()
+    """
     db_conn = get_db()
     supported_languages = ["en", "ru"]
     # The loaded dictionary is stored in the app's state

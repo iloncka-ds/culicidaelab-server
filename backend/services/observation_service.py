@@ -1,3 +1,17 @@
+"""
+Observation service for managing mosquito observation data.
+
+This module provides functionality for creating, storing, and retrieving
+mosquito observation records in the LanceDB database. It handles data
+validation, transformation, and provides both synchronous and asynchronous
+methods for observation management.
+
+Example:
+    >>> from backend.services.observation_service import get_observation_service
+    >>> service = await get_observation_service()
+    >>> observation = await service.create_observation(obs_data)
+"""
+
 import json
 from fastapi import HTTPException, status
 
@@ -6,14 +20,50 @@ from backend.database_utils.lancedb_manager import get_lancedb_manager
 
 
 class ObservationService:
-    """Service for managing mosquito observation data."""
+    """Service for managing mosquito observation data.
+
+    This class provides methods for creating new observations, retrieving
+    existing observations with filtering options, and managing the database
+    connection lifecycle.
+
+    Attributes:
+        table_name (str): The name of the database table for observations.
+        db: The LanceDB database connection object.
+
+    Example:
+        >>> service = ObservationService()
+        >>> await service.initialize()
+        >>> observations = await service.get_observations(limit=10)
+    """
 
     def __init__(self):
+        """Initialize the ObservationService with default configuration.
+
+        Sets up the service with the observations table name and prepares
+        for database connection initialization.
+
+        Example:
+            >>> service = ObservationService()
+            >>> print(service.table_name)  # "observations"
+        """
         self.table_name = "observations"
         self.db = None
 
     async def initialize(self):
-        """Initialize the database connection and ensure required tables exist."""
+        """Initialize the database connection and ensure required tables exist.
+
+        This method establishes a connection to the LanceDB database through
+        the LanceDB manager and prepares the service for observation operations.
+        The observations table will be created if it doesn't exist.
+
+        Returns:
+            ObservationService: The initialized service instance for method chaining.
+
+        Example:
+            >>> service = ObservationService()
+            >>> await service.initialize()
+            >>> print(f"Connected to DB: {service.db is not None}")
+        """
         lancedb_manager = await get_lancedb_manager()
         self.db = lancedb_manager.db
         # Ensure the observations table exists; create it with the proper schema if it doesn't
@@ -21,9 +71,32 @@ class ObservationService:
         return self
 
     async def create_observation(self, observation_data: Observation) -> Observation:
-        """
-        Create a new observation record.
-        Maps the Pydantic Observation model to the LanceDB schema before insertion.
+        """Create a new observation record in the database.
+
+        This method transforms the Pydantic Observation model into the appropriate
+        LanceDB schema format and inserts it into the observations table. It handles
+        JSON serialization for complex fields like metadata and data_source.
+
+        Args:
+            observation_data (Observation): The observation data to store in the database.
+
+        Returns:
+            Observation: The same observation data that was passed in, confirming
+                successful storage.
+
+        Raises:
+            HTTPException: If there's an error saving the observation to the database,
+                an HTTP 500 error is raised with details about the failure.
+
+        Example:
+            >>> from backend.schemas.observation_schemas import Observation, Location
+            >>> obs = Observation(
+            ...     id="obs_001",
+            ...     species_scientific_name="Aedes aegypti",
+            ...     location=Location(lat=40.7128, lng=-74.0060),
+            ...     observed_at="2023-06-15T10:30:00Z"
+            ... )
+            >>> result = await service.create_observation(obs)
         """
         try:
             metadata_value = observation_data.metadata
@@ -69,8 +142,41 @@ class ObservationService:
         limit: int = 100,
         offset: int = 0,
     ) -> ObservationListResponse:
-        """
-        Retrieve observations with optional filtering.
+        """Retrieve observations with optional filtering by user and species.
+
+        This method queries the observations table and returns filtered results
+        based on user ID and/or species. It supports pagination and returns
+        properly formatted Observation objects.
+
+        Args:
+            user_id (str | None, optional): Filter observations by a specific user ID.
+                If None or "default_user_id", no user filtering is applied.
+            species_id (str | None, optional): Filter observations by species scientific name.
+                If None, no species filtering is applied.
+            limit (int, optional): Maximum number of observations to return.
+                Defaults to 100.
+            offset (int, optional): Number of observations to skip for pagination.
+                Defaults to 0.
+
+        Returns:
+            ObservationListResponse: A response object containing the total count
+                and list of matching observations.
+
+        Raises:
+            HTTPException: If there's an error retrieving observations from the database,
+                an HTTP 500 error is raised with details about the failure.
+
+        Example:
+            >>> # Get recent observations for a specific user
+            >>> user_obs = await service.get_observations(user_id="user123", limit=50)
+            >>> print(f"Found {user_obs.count} observations")
+            >>>
+            >>> # Get Aedes aegypti observations with pagination
+            >>> aedes_obs = await service.get_observations(
+            ...     species_id="Aedes aegypti",
+            ...     limit=20,
+            ...     offset=40
+            ... )
         """
         try:
             print(
@@ -153,7 +259,21 @@ observation_service = None
 
 
 async def get_observation_service():
-    """Get or initialize the observation service."""
+    """Get or initialize the global observation service instance.
+
+    This function implements a singleton pattern for the ObservationService,
+    ensuring that only one instance exists and is properly initialized.
+    If the service hasn't been created yet, it creates a new instance
+    and initializes it.
+
+    Returns:
+        ObservationService: The global observation service instance,
+            initialized and ready for use.
+
+    Example:
+        >>> service = await get_observation_service()
+        >>> observations = await service.get_observations(limit=10)
+    """
     global observation_service
     if observation_service is None:
         observation_service = ObservationService()

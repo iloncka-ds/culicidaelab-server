@@ -1,3 +1,29 @@
+"""LanceDB database population script for Culicidae Lab.
+
+This script provides functionality to populate a LanceDB database with sample data
+for the Culicidae Lab application. It creates and populates various tables including
+species, diseases, observations, regions, data sources, and map layers.
+
+The script reads JSON and GeoJSON files from the sample data directory and
+transforms them according to predefined schemas before inserting into the database.
+
+Tables populated by this script:
+    - species: Mosquito species information
+    - diseases: Disease information and vectors
+    - observations: Field observations with geolocation data
+    - regions: Geographic regions and boundaries
+    - data_sources: Sources of observation data
+    - map_layers: Geographic layers for visualization
+
+Example:
+    To populate the database with sample data:
+
+        python backend/scripts/populate_lancedb.py
+
+    The script will automatically create the database directory if it doesn't exist
+    and populate all tables with sample data from the data/sample_data directory.
+"""
+
 import json
 import asyncio
 import os
@@ -12,7 +38,6 @@ from backend.database_utils.lancedb_manager import (
     DATA_SOURCES_SCHEMA,
     MAP_LAYERS_SCHEMA,
 )
-
 from backend.config import settings
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -21,6 +46,25 @@ DATA_DIR = (BASE_DIR / "../data").resolve()
 
 
 async def populate_regions_table(manager: LanceDBManager):
+    """Populate the regions table with geographic region data.
+
+    Reads region data from sample_regions.json and creates or overwrites
+    the regions table in LanceDB using the predefined REGIONS_SCHEMA.
+
+    Args:
+        manager: The LanceDBManager instance to use for database operations.
+
+    Returns:
+        None
+
+    Raises:
+        FileNotFoundError: If the sample_regions.json file is not found.
+
+    Example:
+        >>> manager = LanceDBManager(uri="/path/to/database")
+        >>> await manager.connect()
+        >>> await populate_regions_table(manager)
+    """
     file_path = os.path.join(JSON_FILES_DIR, "sample_regions.json")
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")
@@ -31,6 +75,23 @@ async def populate_regions_table(manager: LanceDBManager):
 
 
 async def populate_data_sources_table(manager: LanceDBManager):
+    """Populate the data_sources table with information about data sources.
+
+    Reads data source information from sample_data_sources.json and creates
+    or overwrites the data_sources table in LanceDB using DATA_SOURCES_SCHEMA.
+    Only populates the table if data is available in the source file.
+
+    Args:
+        manager: The LanceDBManager instance to use for database operations.
+
+    Returns:
+        None
+
+    Example:
+        >>> manager = LanceDBManager(uri="/path/to/database")
+        >>> await manager.connect()
+        >>> await populate_data_sources_table(manager)
+    """
     file_path = os.path.join(JSON_FILES_DIR, "sample_data_sources.json")
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")
@@ -42,6 +103,27 @@ async def populate_data_sources_table(manager: LanceDBManager):
 
 
 async def populate_species_table(manager: LanceDBManager):
+    """Populate the species table with mosquito species information.
+
+    Reads species data from sample_species.json and creates or overwrites
+    the species table in LanceDB using SPECIES_SCHEMA. Performs field validation
+    to ensure all required schema fields are present, adding empty lists for
+    missing list-type fields.
+
+    Args:
+        manager: The LanceDBManager instance to use for database operations.
+
+    Returns:
+        None
+
+    Raises:
+        FileNotFoundError: If the sample_species.json file is not found.
+
+    Example:
+        >>> manager = LanceDBManager(uri="/path/to/database")
+        >>> await manager.connect()
+        >>> await populate_species_table(manager)
+    """
     file_path = os.path.join(JSON_FILES_DIR, "sample_species.json")
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")
@@ -60,6 +142,30 @@ async def populate_species_table(manager: LanceDBManager):
 
 
 async def populate_map_layers_table(manager: LanceDBManager):
+    """Populate the map_layers table with geographic layer data.
+
+    Reads observation data from sample_observations.geojson and creates
+    or overwrites the map_layers table in LanceDB using MAP_LAYERS_SCHEMA.
+    Extracts species information from features and creates layer metadata.
+
+    The function processes GeoJSON feature collections and identifies
+    contained species for each layer type.
+
+    Args:
+        manager: The LanceDBManager instance to use for database operations.
+
+    Returns:
+        None
+
+    Note:
+        This table is kept for compatibility but is no longer the primary
+        source for observations data.
+
+    Example:
+        >>> manager = LanceDBManager(uri="/path/to/database")
+        >>> await manager.connect()
+        >>> await populate_map_layers_table(manager)
+    """
     layer_files_info = {
         "observations": "sample_observations.geojson",
     }
@@ -95,7 +201,31 @@ async def populate_map_layers_table(manager: LanceDBManager):
 
 
 async def populate_observations_table(manager: LanceDBManager):
-    """Populates a dedicated 'observations' table from the sample GeoJSON."""
+    """Populate the observations table with field observation data.
+
+    Reads observation data from sample_observations.geojson and creates
+    or overwrites the observations table in LanceDB using OBSERVATIONS_SCHEMA.
+    Processes GeoJSON features and transforms them into observation records
+    with proper field mapping and type handling.
+
+    The function extracts properties from GeoJSON features and creates
+    structured observation records suitable for database storage.
+
+    Args:
+        manager: The LanceDBManager instance to use for database operations.
+
+    Returns:
+        None
+
+    Raises:
+        FileNotFoundError: If the sample_observations.geojson file is not found.
+
+    Example:
+        >>> manager = LanceDBManager(uri="/path/to/database")
+        >>> await manager.connect()
+        >>> await populate_observations_table(manager)
+        Observations table populated successfully.
+    """
     file_path = os.path.join(JSON_FILES_DIR, "sample_observations.geojson")
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")

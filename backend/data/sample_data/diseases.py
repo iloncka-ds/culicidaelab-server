@@ -1,3 +1,27 @@
+"""Disease data for Culicidae lab server.
+
+This module contains comprehensive information about mosquito-borne diseases
+including symptoms, treatments, prevention methods, prevalence data, and
+associated mosquito vectors.
+
+The data includes detailed information such as:
+- Disease names in English and Russian
+- Clinical descriptions and symptoms
+- Treatment approaches and prevention strategies
+- Geographic prevalence and epidemiological data
+- Associated mosquito vector species
+
+This data is used for generating sample datasets and providing disease
+information in the Culicidae lab application.
+
+Example:
+    >>> disease = diseases_data_list[0]
+    >>> disease['name_en']
+    'Dengue Fever'
+    >>> disease['vectors']
+    ['aedes_aegypti', 'aedes_albopictus']
+"""
+
 diseases_data_list = [
     {
         "id": "dengue_fever",

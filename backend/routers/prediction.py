@@ -1,3 +1,29 @@
+"""Prediction router for mosquito species identification.
+
+This module provides FastAPI endpoints for predicting mosquito species from uploaded
+images using AI-powered classification. The router handles image validation,
+coordinates with the prediction service, and returns structured results.
+
+Main Components:
+    - APIRouter instance configured for prediction endpoints
+    - predict_species endpoint for species identification
+
+The prediction system supports:
+    - Multiple image formats (JPEG, PNG, etc.)
+    - Real-time species identification with confidence scores
+    - Optional image saving for predicted results
+    - Comprehensive error handling and logging
+
+Example:
+    >>> from fastapi import FastAPI
+    >>> from backend.routers.prediction import router
+    >>>
+    >>> app = FastAPI()
+    >>> app.include_router(router, prefix="/api/v1")
+    >>>
+    >>> # Now available at POST /api/v1/predict
+"""
+
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
 
 from backend.services.prediction_service import prediction_service, PredictionResult
@@ -15,8 +41,48 @@ router = APIRouter()
 async def predict_species(
     file: UploadFile = File(...),
 ) -> PredictionResult:
-    """
-    Predict mosquito species from an uploaded image.
+    """Predict mosquito species from an uploaded image.
+
+    This endpoint accepts an image file and uses AI-powered classification
+    to identify the mosquito species. The prediction includes confidence scores
+    and optional species information.
+
+    Args:
+        file (UploadFile): The image file to analyze. Must be a valid image
+            format (JPEG, PNG, etc.). The file is validated for content type
+            and non-empty content.
+
+    Returns:
+        PredictionResult: A structured response containing:
+            - id: Species identifier (lowercase with underscores)
+            - scientific_name: The predicted species name
+            - probabilities: Dictionary of species -> confidence scores
+            - model_id: Identifier of the AI model used
+            - confidence: Confidence score of the top prediction
+            - image_url_species: URL to processed image (if saving enabled)
+
+    Raises:
+        HTTPException: If the file is not an image (400 Bad Request)
+        HTTPException: If the file is empty (400 Bad Request)
+        HTTPException: If prediction fails (500 Internal Server Error)
+
+    Example:
+        >>> import requests
+        >>>
+        >>> # Using curl command:
+        >>> # curl -X POST "http://localhost:8000/predict" \
+        >>> #      -H "accept: application/json" \
+        >>> #      -H "Content-Type: multipart/form-data" \
+        >>> #      -F "file=@mosquito_image.jpg"
+        >>>
+        >>> # Using Python requests:
+        >>> response = requests.post(
+        ...     "http://localhost:8000/predict",
+        ...     files={"file": open("mosquito_image.jpg", "rb")}
+        ... )
+        >>> result = response.json()
+        >>> print(f"Predicted species: {result['scientific_name']}")
+        >>> print(f"Confidence: {result['confidence']:.2%}")
     """
     print("\n--- [ROUTER] Received request for /predict ---")
     try:
