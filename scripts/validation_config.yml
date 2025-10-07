@@ -1,0 +1,93 @@
+# Documentation validation configuration
+# This file defines rules and settings for documentation quality assurance
+
+linting_rules:
+  # Maximum line length for markdown files
+  max_line_length: 120
+  
+  # Enforce no trailing whitespace
+  no_trailing_whitespace: true
+  
+  # Disallow tab characters (use spaces)
+  no_tabs: true
+  
+  # Heading style: 'atx' (# ##) or 'setext' (underlines)
+  heading_style: 'atx'
+  
+  # Require space after list markers
+  list_marker_space: true
+  
+  # Prevent duplicate headings in same file
+  no_duplicate_headings: true
+  
+  # Prevent empty links
+  no_empty_links: true
+  
+  # Require alt text for images
+  alt_text_required: true
+
+# Spell checking configuration
+spell_check:
+  # Enable spell checking (requires aspell)
+  enabled: false
+  
+  # Language for spell checking
+  language: 'en'
+  
+  # Custom dictionary words (add project-specific terms)
+  custom_words:
+    - 'CulicidaeLab'
+    - 'MkDocs'
+    - 'FastAPI'
+    - 'Solara'
+    - 'mkdocstrings'
+    - 'API'
+    - 'JSON'
+    - 'YAML'
+    - 'PostgreSQL'
+    - 'Docker'
+
+# Coverage reporting settings
+coverage:
+  # Minimum content length to consider a file "documented"
+  min_content_length: 100
+  
+  # Directories to include in API coverage analysis
+  api_directories:
+    - 'backend/routers'
+    - 'backend/services'
+    - 'backend/schemas'
+  
+  # Files to exclude from coverage analysis
+  exclude_patterns:
+    - '**/__pycache__/**'
+    - '**/.*'
+    - '**/*.pyc'
+
+# Link checking settings
+link_checking:
+  # Check external links (can be slow)
+  check_external: false
+  
+  # Timeout for external link checks (seconds)
+  external_timeout: 10
+  
+  # Patterns to ignore in link checking
+  ignore_patterns:
+    - 'mailto:*'
+    - 'javascript:*'
+    - '#*'  # Skip anchor-only links
+
+# Output settings
+output:
+  # Generate JSON report
+  json_report: true
+  
+  # JSON report filename
+  json_report_file: 'docs_validation_report.json'
+  
+  # Verbose output
+  verbose: false
+  
+  # Show suggestions for fixes
+  show_suggestions: true

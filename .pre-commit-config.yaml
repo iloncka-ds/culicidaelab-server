@@ -77,3 +77,35 @@ repos:
     -   id: black
         args: ["--line-length", "120"]
         stages: [pre-commit]
+
+# Documentation validation hooks
+-   repo: local
+    hooks:
+    -   id: validate-docs
+        name: Validate documentation quality
+        entry: python scripts/validate_docs.py --config scripts/validation_config.yml
+        language: system
+        files: ^docs/.*\.md$|^mkdocs\.yml$|^scripts/validation_config\.yml$
+        stages: [pre-commit]
+        pass_filenames: false
+    -   id: markdownlint
+        name: Lint markdown files
+        entry: markdownlint
+        language: node
+        files: ^docs/.*\.md$
+        additional_dependencies: ['markdownlint-cli']
+        stages: [pre-commit]
+    -   id: check-mkdocs-build
+        name: Check MkDocs build
+        entry: mkdocs build --strict
+        language: system
+        files: ^docs/.*\.md$|^mkdocs\.yml$
+        pass_filenames: false
+        stages: [pre-commit]
+    -   id: check-doc-links
+        name: Check documentation links
+        entry: python scripts/check_links.py --no-external
+        language: system
+        files: ^docs/.*\.md$
+        pass_filenames: false
+        stages: [pre-commit]

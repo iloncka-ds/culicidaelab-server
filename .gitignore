@@ -21,3 +21,4 @@ example*
 md_*
 tree-maker/
 backend/data/.lancedb/
+site/*
