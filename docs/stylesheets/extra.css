@@ -122,18 +122,24 @@
   backdrop-filter: blur(10px);
 }
 
-/* Footer branding section */
+/* Enhanced footer layout - horizontal sections */
+.md-footer-meta__inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Footer branding section - left column */
 .md-footer__brand {
-  text-align: center;
-  padding: 2rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 2rem;
+  text-align: left;
+  padding: 1rem 0;
+  color: white;
 }
 
 .md-footer__logo {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-bottom: 1rem;
 }
 
@@ -154,17 +160,15 @@
 .md-footer__tagline {
   color: rgba(255, 255, 255, 0.8);
   font-style: italic;
-  margin: 0;
-  max-width: 600px;
-  margin: 0 auto;
+  margin: 0.5rem 0 0 0;
+  line-height: 1.4;
 }
 
-/* Footer links organization */
+/* Footer links organization - right column */
 .md-footer__links {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  margin-bottom: 2rem;
 }
 
 .md-footer__links-column h4 {
@@ -199,6 +203,7 @@
 
 /* Footer bottom section */
 .md-footer__bottom {
+  grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -326,28 +331,28 @@
   .md-nav--primary .md-nav__title {
     background-color: var(--md-primary-fg-color);
   }
-  
+
   /* Mobile search enhancements */
   .md-search__overlay {
     background-color: rgba(0, 0, 0, 0.8);
   }
-  
+
   .md-search__form {
     margin: 1rem;
   }
-  
+
   /* Mobile navigation improvements */
   .md-nav__item--nested > .md-nav__link {
     font-weight: 600;
   }
-  
+
   .md-nav__item--nested > .md-nav__link::after {
     content: "▼";
     float: right;
     font-size: 0.8rem;
     transition: transform 0.2s;
   }
-  
+
   .md-nav__item--nested.md-nav__item--active > .md-nav__link::after {
     transform: rotate(180deg);
   }
@@ -379,28 +384,28 @@
   .page-metadata {
     display: none !important;
   }
-  
+
   /* Optimize content for print */
   .md-content {
     margin: 0 !important;
     max-width: none !important;
     box-shadow: none !important;
   }
-  
+
   .md-main {
     margin: 0 !important;
   }
-  
+
   .md-main__inner {
     margin: 0 !important;
     padding: 0 !important;
   }
-  
+
   .md-content__inner {
     margin: 0 !important;
     padding: 1cm !important;
   }
-  
+
   /* Typography for print */
   body {
     font-size: 12pt !important;
@@ -408,30 +413,30 @@
     color: black !important;
     background: white !important;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     color: black !important;
     page-break-after: avoid;
     margin-top: 1.5em !important;
     margin-bottom: 0.5em !important;
   }
-  
+
   h1 {
     font-size: 18pt !important;
     border-bottom: 2pt solid black !important;
     padding-bottom: 0.2em !important;
   }
-  
+
   h2 {
     font-size: 16pt !important;
     border-bottom: 1pt solid #666 !important;
     padding-bottom: 0.1em !important;
   }
-  
+
   h3 {
     font-size: 14pt !important;
   }
-  
+
   /* Code blocks for print */
   pre, code {
     background: #f5f5f5 !important;
@@ -440,7 +445,7 @@
     font-family: "Courier New", monospace !important;
     font-size: 10pt !important;
   }
-  
+
   pre {
     padding: 0.5em !important;
     margin: 1em 0 !important;
@@ -448,7 +453,7 @@
     white-space: pre-wrap !important;
     word-wrap: break-word !important;
   }
-  
+
   /* Tables for print */
   table {
     border-collapse: collapse !important;
@@ -456,37 +461,37 @@
     margin: 1em 0 !important;
     page-break-inside: avoid;
   }
-  
+
   th, td {
     border: 1pt solid black !important;
     padding: 0.3em !important;
     text-align: left !important;
   }
-  
+
   th {
     background: #f0f0f0 !important;
     font-weight: bold !important;
   }
-  
+
   /* Links for print */
   a {
     color: black !important;
     text-decoration: underline !important;
   }
-  
+
   a[href^="http"]:after {
     content: " (" attr(href) ")";
     font-size: 10pt;
     color: #666;
   }
-  
+
   /* Images for print */
   img {
     max-width: 100% !important;
     height: auto !important;
     page-break-inside: avoid;
   }
-  
+
   /* Admonitions for print */
   .admonition {
     border: 1pt solid #ccc !important;
@@ -495,17 +500,17 @@
     page-break-inside: avoid;
     background: #f9f9f9 !important;
   }
-  
+
   .admonition-title {
     font-weight: bold !important;
     margin-bottom: 0.5em !important;
   }
-  
+
   /* Page breaks */
   .page-break {
     page-break-before: always;
   }
-  
+
   /* Print header for each page */
   @page {
     margin: 2cm;
@@ -520,12 +525,12 @@
       color: #666;
     }
   }
-  
+
   /* Ensure proper page breaks */
   article > * {
     page-break-inside: avoid;
   }
-  
+
   /* Hide empty elements */
   *:empty {
     display: none !important;
@@ -685,11 +690,31 @@
 /* Navigation footer enhancements */
 .md-footer-nav__link {
   border-radius: 0.3rem;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  color: white !important;
+  text-decoration: none;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
 }
 
 .md-footer-nav__link:hover {
   background-color: rgba(255, 255, 255, 0.1);
+  color: white !important;
+  text-decoration: none;
+}
+
+.md-footer-nav__title {
+  color: white !important;
+  font-weight: 600;
+}
+
+.md-footer-nav__direction {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Table of contents enhancements */
@@ -976,26 +1001,36 @@ html {
   .hero__title {
     font-size: 2rem;
   }
-  
+
   .hero__subtitle {
     font-size: 1.1rem;
   }
-  
+
   .hero__actions {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .feature-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
+  /* Mobile footer layout - stack vertically */
+  .md-footer-meta__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .md-footer__brand {
+    text-align: center;
+  }
+
   .md-footer__bottom {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .md-footer__links {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -1037,7 +1072,7 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  
+
   html {
     scroll-behavior: auto;
   }
@@ -1048,7 +1083,7 @@ html {
   .md-button {
     border: 2px solid currentColor;
   }
-  
+
   .md-card,
   .feature-card {
     border: 2px solid var(--md-default-fg-color--light);
