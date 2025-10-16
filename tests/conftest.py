@@ -8,11 +8,11 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 
 import pytest
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
 sys.path.insert(0, str(Path(__file__).parent.parent / "frontend"))
-from backend.main import app  # noqa: E402
 
 # Import fixture modules to make them available
 pytest_plugins = [
@@ -60,9 +60,34 @@ def pytest_runtest_makereport(item, call):
 
 
 @pytest.fixture(scope="session")
-def client():
+def test_app():
+    """Create a test FastAPI application without database initialization."""
+    from backend.config import settings
+    from backend.routers import filters, species, geo, diseases, prediction, observation
+    
+    # Create a test app without the lifespan that initializes the database
+    app = FastAPI(title=settings.APP_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json")
+    
+    # Add the routers
+    app.include_router(filters.router, prefix=settings.API_V1_STR, tags=["Filters"])
+    app.include_router(species.router, prefix=settings.API_V1_STR, tags=["Species"])
+    app.include_router(diseases.router, prefix=settings.API_V1_STR, tags=["Diseases"])
+    app.include_router(geo.router, prefix=settings.API_V1_STR, tags=["GeoData"])
+    app.include_router(prediction.router, prefix=settings.API_V1_STR, tags=["Prediction"])
+    app.include_router(observation.router, prefix=settings.API_V1_STR, tags=["Observation"])
+    
+    # Mock the app state that would normally be initialized in lifespan
+    app.state.REGION_TRANSLATIONS = {}
+    app.state.DATASOURCE_TRANSLATIONS = {}
+    app.state.SPECIES_NAMES = {}
+    
+    return app
+
+
+@pytest.fixture(scope="session")
+def client(test_app):
     """Create a test client for the FastAPI application."""
-    with TestClient(app) as test_client:
+    with TestClient(test_app) as test_client:
         yield test_client
 
 
