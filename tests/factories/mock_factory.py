@@ -568,20 +568,18 @@ class MockFactory:
     def validate_mock_data_against_schema(data: Any, schema_class: type) -> bool:
         """Validate that mock data conforms to the expected Pydantic schema.
         
+        This method performs strict validation by checking if the data is an instance
+        of the expected schema class. It does not attempt to coerce data from one
+        schema to another, which could lead to false positives.
+        
         Args:
             data: The mock data to validate
             schema_class: The Pydantic model class to validate against
             
         Returns:
-            bool: True if data is valid, False otherwise
+            bool: True if data is an exact instance of the schema class, False otherwise
         """
-        try:
-            if isinstance(data, schema_class):
-                return True
-            schema_class.model_validate(data)
-            return True
-        except Exception:
-            return False
+        return isinstance(data, schema_class)
 
     @staticmethod
     def create_async_context_manager_mock() -> AsyncMock:
