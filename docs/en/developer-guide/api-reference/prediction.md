@@ -53,19 +53,3 @@ async with httpx.AsyncClient() as client:
     print(f"Confidence: {prediction['confidence']}")
 ```
 
-### Batch Prediction
-
-```python
-# Submit multiple images for batch prediction
-files = [
-    ("images", open("image1.jpg", "rb")),
-    ("images", open("image2.jpg", "rb")),
-    ("images", open("image3.jpg", "rb"))
-]
-
-response = await client.post(
-    "http://localhost:8000/api/v1/predict/batch",
-    files=files
-)
-batch_predictions = response.json()
-```
