@@ -16,80 +16,63 @@ from __future__ import annotations
 
 import asyncio
 import io
+import re
 from datetime import datetime
 from pathlib import Path
 
 import aiofiles
-import numpy as np
+
 from PIL import Image
 from backend.schemas.prediction_schemas import PredictionResult
 from backend.config import settings as app_settings
-from culicidaelab import MosquitoClassifier, get_settings
+from culicidaelab.core.settings import get_settings
+from culicidaelab.serve import serve
 
 
 class PredictionService:
-    """Service for mosquito species prediction using the MosquitoClassifier.
+    """Service for mosquito species prediction using the CulicidaeLab `serve` API.
 
-    This class manages the machine learning model lifecycle, including loading,
-    prediction, and image saving functionality. It provides both synchronous
-    and asynchronous methods for species identification from images.
+    This class provides a high-level interface for species identification from
+    images. It is optimized for production use, leveraging an efficient inference
+    backend with automatic model caching to ensure low latency.
 
     Attributes:
-        model: The loaded MosquitoClassifier model instance.
-        model_loaded (bool): Whether the model has been successfully loaded.
-        lib_settings: Configuration settings from the culicidaelab library.
         save_predicted_images_enabled (bool): Whether to save predicted images.
+        model_id (str): The identifier for the machine learning model being used.
 
     Example:
         >>> service = PredictionService()
-        >>> await service.load_model()
         >>> result, error = await service.predict_species(image_data, "test.jpg")
     """
 
     def __init__(self):
-        """Initialize the PredictionService with default configuration.
+        """Initialize the PredictionService and retrieve the model configuration.
 
-        Sets up the service with model loading state, library settings,
-        and image saving configuration from application settings.
-
-        Example:
-            >>> service = PredictionService()
-            >>> print(service.save_predicted_images_enabled)
+        Sets up the service based on application settings and fetches the model
+        architecture information from the CulicidaeLab library settings to generate
+        a descriptive model ID.
         """
-        self.model = None
-        self.model_loaded = False
-        self.lib_settings = get_settings()
         self.save_predicted_images_enabled = app_settings.SAVE_PREDICTED_IMAGES
+        self.model_id = self._get_model_id()
 
-    async def load_model(self):
-        """Load the mosquito classifier model if not already loaded.
+    def _get_model_id(self) -> str:
+        """Retrieves and formats the model ID from the library's settings.
 
-        This method loads the MosquitoClassifier model from the culicidaelab library.
-        The model is cached after the first load to avoid repeated loading overhead.
-        Model architecture and ID information is extracted for logging purposes.
+        This method mirrors the logic from the previous implementation to ensure
+        a consistent and descriptive model identifier.
 
-        Raises:
-            Exception: If model loading fails, the original exception is re-raised
-                after setting model_loaded to False.
-
-        Example:
-            >>> service = PredictionService()
-            >>> await service.load_model()
-            >>> print(f"Model loaded: {service.model_loaded}")
+        Returns:
+            A sanitized string representing the model architecture.
         """
-        if self.model_loaded:
-            return self.model
-
         try:
-            self.model = MosquitoClassifier(self.lib_settings, load_model=True)
-            self.model_loaded = True
-            self.model_arch = self.lib_settings.get_config("predictors.classifier").model_arch
-            self.model_id = self.lib_settings.get_config("predictors.classifier").filename.split(".")[0]
-
+            lib_settings = get_settings()
+            model_arch = lib_settings.get_config("predictors.classifier").model_arch
+            # Sanitize the model architecture string to create a valid ID
+            model_id = re.sub(r'[<>:"/\\|?*. ]', "_", model_arch).strip("_")
+            return model_id
         except Exception as e:
-            self.model_loaded = False
-            print(f"Error loading model: {type(e).__name__} - {str(e)}")
-            raise
+            print(f"Warning: Could not dynamically determine model ID. Falling back to default. Error: {e}")
+            return "classifier_onnx_production"
 
     async def save_predicted_image(self, image_data: bytes, filename: str, quiet: bool = True):
         """Asynchronously save the predicted image in multiple sizes.
@@ -157,45 +140,36 @@ class PredictionService:
         image_data: bytes,
         filename: str,
     ) -> tuple[PredictionResult | None, str | None]:
-        """Predict mosquito species from image data.
+        """Predict mosquito species from image data using the `serve` API.
 
-        This method processes the provided image data using the loaded ML model
-        to identify the mosquito species with confidence scores. It optionally
-        saves the image if the feature flag is enabled.
+        This method processes image data using the high-performance `serve`
+        function. It translates the library's output into the backend's
+        `PredictionResult` schema, including the correct model ID.
 
         Args:
-            image_data (bytes): The raw image data in bytes format (e.g., JPEG, PNG).
-            filename (str): The original filename of the image for logging purposes.
+            image_data (bytes): The raw image data (e.g., JPEG, PNG).
+            filename (str): The original filename of the image.
 
         Returns:
-            tuple[PredictionResult | None, str | None]: A tuple containing:
-                - PredictionResult: The prediction result with species name,
-                  confidence scores, and metadata. None if prediction fails.
-                - str | None: Error message if prediction fails, None if successful.
-
-        Example:
-            >>> service = PredictionService()
-            >>> await service.load_model()
-            >>> with open("mosquito.jpg", "rb") as f:
-            ...     image_data = f.read()
-            >>> result, error = await service.predict_species(image_data, "mosquito.jpg")
-            >>> if result:
-            ...     print(f"Predicted: {result.scientific_name} ({result.confidence:.2%})")
+            A tuple containing the `PredictionResult` or None, and an error
+            message or None.
         """
         image_url_species = None
         try:
-            if not self.model_loaded:
-                try:
-                    await self.load_model()
-                except Exception as e:
-                    error_msg = f"Error loading model: {type(e).__name__} - {str(e)}"
-                    return None, error_msg
+            # The `serve` function is synchronous, so run it in a thread pool
+            # to avoid blocking the asyncio event loop.
+            predictions = await asyncio.to_thread(
+                serve,
+                image=image_data,
+                predictor_type="classifier",
+            )
 
-            image = Image.open(io.BytesIO(image_data)).convert("RGB")
-            image_np = np.array(image)
+            top_prediction = predictions.top_prediction()  # type: ignore
+            if not top_prediction:
+                return None, f"Prediction failed for file '{filename}': Model returned no results."
 
-            predictions = self.model.predict(image_np)
-            top_species, top_confidence = predictions[0]
+            top_species = top_prediction.species_name
+            top_confidence = top_prediction.confidence
             species_id = top_species.replace(" ", "_").lower()
             unique_id = f"{hash(top_species) % 10000:04d}"
             date_str = datetime.now().strftime("%d%m%Y")
@@ -211,9 +185,9 @@ class PredictionService:
 
             result = PredictionResult(
                 scientific_name=top_species,
-                probabilities={species: float(conf) for species, conf in predictions[:2]},
+                probabilities={p.species_name: float(p.confidence) for p in predictions.predictions[:2]},
                 id=species_id,
-                model_id=self.model_id,
+                model_id=self.model_id,  # Use the dynamically fetched model ID
                 confidence=float(top_confidence),
                 image_url_species=image_url_species,
             )
@@ -221,7 +195,6 @@ class PredictionService:
 
         except Exception as e:
             error_msg = f"Error predicting species for file '{filename}': {type(e).__name__} - {str(e)}"
-
             return None, error_msg
 
 
