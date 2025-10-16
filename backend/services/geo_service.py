@@ -38,10 +38,19 @@ def is_valid_date_str(date_str: str) -> bool:
         >>> is_valid_date_str("invalid-date")
         False
     """
+    if not isinstance(date_str, str):
+        return False
+    
+    # Check exact format: YYYY-MM-DD (10 characters, specific pattern)
+    if len(date_str) != 10 or date_str[4] != '-' or date_str[7] != '-':
+        return False
+    
     try:
-        datetime.strptime(date_str, "%Y-%m-%d")
-        return True
-    except ValueError:
+        # Parse the date and ensure it's valid
+        parsed_date = datetime.strptime(date_str, "%Y-%m-%d")
+        # Ensure the parsed date formats back to the same string (strict format check)
+        return parsed_date.strftime("%Y-%m-%d") == date_str
+    except (ValueError, TypeError):
         return False
 
 

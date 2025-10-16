@@ -203,11 +203,10 @@ class ObservationService:
             if conditions:
                 # If there are filters, build a .where() clause
                 query_str = " AND ".join(conditions)
-
                 results = await table.search().where(query_str).limit(limit).offset(offset).to_list()
-
+            else:
+                # No filters, get all records with pagination
                 arrow_table = await table.to_arrow()
-
                 # Manually apply limit and offset
                 start = offset
                 end = offset + limit
