@@ -20,8 +20,8 @@ with patch.dict(
         "i18n": MagicMock(),
     },
 ):
-    from components.species import species_gallery
-    from state import (
+    from frontend.components.species import species_gallery
+    from frontend.state import (
         species_list_data_reactive,
         species_list_loading_reactive,
         species_list_error_reactive,

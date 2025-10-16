@@ -17,8 +17,8 @@ with patch.dict(
         "solara.alias": MagicMock(),
     },
 ):
-    from components.map_module import legend_component
-    from state import (
+    from frontend.components.map_module import legend_component
+    from frontend.state import (
         show_observed_data_reactive,
         selected_species_reactive,
         observations_data_reactive,

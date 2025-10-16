@@ -18,7 +18,7 @@ with patch.dict(
         "i18n": MagicMock(),
     },
 ):
-    from components.species import species_card
+    from frontend.components.species import species_card
 
 
 @pytest.fixture

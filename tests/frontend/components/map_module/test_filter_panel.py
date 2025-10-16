@@ -20,21 +20,17 @@ with patch.dict(
         "asyncio": MagicMock(),
     },
 ):
-    from components.map_module import filter_panel
-    from state import (
+    from frontend.components.map_module import filter_panel
+    from frontend.state import (
         selected_species_reactive,
         selected_date_range_reactive,
-        selected_region_reactive,
-        selected_data_source_reactive,
         all_available_species_reactive,
-        all_available_regions_reactive,
-        all_available_data_sources_reactive,
         filter_options_loading_reactive,
         filter_options_error_reactive,
         observations_data_reactive,
         show_observed_data_reactive,
     )
-    from config import FONT_BODY, COLOR_TEXT
+    from frontend.config import FONT_BODY, COLOR_TEXT
 
 
 @pytest.fixture
@@ -42,11 +38,9 @@ def setup_filter_panel():
     """Setup common test environment for filter panel tests."""
     selected_species_reactive.value = []
     selected_date_range_reactive.value = (None, None)
-    selected_region_reactive.value = None
-    selected_data_source_reactive.value = None
+
     all_available_species_reactive.value = ["Culex pipiens", "Aedes aegypti"]
-    all_available_regions_reactive.value = ["Region 1", "Region 2"]
-    all_available_data_sources_reactive.value = ["Source 1", "Source 2"]
+
     filter_options_loading_reactive.value = False
     filter_options_error_reactive.value = None
     observations_data_reactive.value = {"type": "FeatureCollection", "features": []}
@@ -74,7 +68,7 @@ def mock_apply_filters():
 
 def test_filter_controls_initialization(setup_filter_panel):
     """Test that the filter controls initialize correctly."""
-    from components.map_module.filter_panel import FilterControls
+    from frontend.components.map_module.filter_panel import FilterControls
 
     FilterControls()
 
@@ -94,7 +88,7 @@ def test_filter_controls_initialization(setup_filter_panel):
 @patch("components.map_module.filter_panel.fetch_filter_options")
 def test_filter_controls_fetch_options(mock_fetch_options, setup_filter_panel):
     """Test that filter options are fetched on component mount."""
-    from components.map_module.filter_panel import FilterControls
+    from frontend.components.map_module.filter_panel import FilterControls
 
     FilterControls()
 
@@ -109,7 +103,7 @@ async def test_apply_filters_click(mock_fetch_data, setup_filter_panel):
     selected_date_range_reactive.value = (test_start_date, test_end_date)
     selected_species_reactive.value = ["Culex pipiens"]
 
-    from components.map_module.filter_panel import FilterControls
+    from frontend.components.map_module.filter_panel import FilterControls
 
     component = FilterControls()
 
@@ -136,7 +130,7 @@ async def test_initial_data_load(mock_fetch_data, setup_filter_panel):
     test_end_date = datetime.date(2023, 12, 31)
     selected_date_range_reactive.value = (test_start_date, test_end_date)
 
-    from components.map_module.filter_panel import FilterControls
+    from frontend.components.map_module.filter_panel import FilterControls
 
     component = FilterControls()
 
@@ -155,7 +149,7 @@ def test_loading_state_display(setup_filter_panel):
     """Test that loading state is displayed correctly."""
     filter_options_loading_reactive.value = True
 
-    from components.map_module.filter_panel import FilterControls
+    from frontend.components.map_module.filter_panel import FilterControls
 
     FilterControls()
 
@@ -171,7 +165,7 @@ def test_error_state_display(setup_filter_panel):
     error_message = "Failed to load filter options"
     filter_options_error_reactive.value = error_message
 
-    from components.map_module.filter_panel import FilterControls
+    from frontend.components.map_module.filter_panel import FilterControls
 
     FilterControls()
 

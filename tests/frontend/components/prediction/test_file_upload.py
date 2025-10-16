@@ -23,7 +23,7 @@ with patch.dict(
     mock_config.API_BASE_URL = "http://test-api"
     sys.modules["config"] = mock_config
 
-    from components.prediction import file_upload
+    from frontend.components.prediction import file_upload
 
 
 @pytest.fixture

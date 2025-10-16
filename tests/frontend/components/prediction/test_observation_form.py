@@ -17,8 +17,8 @@ with patch.dict(
         "asyncio": MagicMock(),
     },
 ):
-    from components.prediction import observation_form
-    from config import FONT_HEADINGS
+    from frontend.components.prediction import observation_form
+    from frontend.config import FONT_HEADINGS
 
 
 @pytest.fixture

@@ -5,7 +5,7 @@ from unittest.mock import patch
 import solara
 from pathlib import Path
 
-from frontend.pages.home import Page, setup_i18n
+from frontend.pages.home import Home
 
 
 class TestHomePage:
@@ -15,17 +15,16 @@ class TestHomePage:
     def setup_method(self):
         """Setup test environment before each test method."""
         solara.state.clear()
-        setup_i18n()
 
     def test_page_renders(self, solara_test):
         """Test that the home page renders without errors."""
-        solara.display(Page())
+        solara.display(Home())
 
         assert "CulicidaeLab" in solara_test.get_html()
 
     def test_navigation_cards_exist(self, solara_test):
         """Test that all navigation cards are present on the home page."""
-        solara.display(Page())
+        solara.display(Home())
         html = solara_test.get_html()
 
         assert "Predict" in html or "Предсказание" in html
@@ -38,14 +37,12 @@ class TestHomePage:
         """Test that i18n is set up correctly."""
         mock_t.return_value = "Test Title"
 
-        setup_i18n()
-
         assert "translations" in str(Path(__file__).parent.parent.parent.parent / "frontend" / "translations")
         mock_t.assert_called()
 
     def test_locale_selector_present(self, solara_test):
         """Test that the locale selector is present in the app bar."""
-        solara.display(Page())
+        solara.display(Home())
         html = solara_test.get_html()
 
         assert "LocaleSelector" in str(html) or "language" in str(html).lower()

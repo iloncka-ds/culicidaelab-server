@@ -3,10 +3,7 @@ Tests for the LocaleSelector component.
 """
 
 from unittest.mock import MagicMock, patch
-import sys
-from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "frontend"))
 
 with patch.dict(
     "sys.modules",
@@ -15,7 +12,7 @@ with patch.dict(
         "i18n": MagicMock(),
     },
 ):
-    from components.common import locale_selector
+    from frontend.components.common import locale_selector
 
 
 def test_get_current_locale():

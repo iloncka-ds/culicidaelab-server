@@ -18,7 +18,7 @@ with patch.dict(
         "i18n": MagicMock(),
     },
 ):
-    from components.diseases import disease_card
+    from frontend.components.diseases import disease_card
 
 
 @pytest.fixture

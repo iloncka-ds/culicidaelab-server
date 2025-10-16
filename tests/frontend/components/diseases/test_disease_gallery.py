@@ -20,8 +20,8 @@ with patch.dict(
         "i18n": MagicMock(),
     },
 ):
-    from components.diseases import disease_gallery
-    from state import (
+    from frontend.components.diseases import disease_gallery
+    from frontend.state import (
         disease_list_data_reactive,
         disease_list_loading_reactive,
         disease_list_error_reactive,

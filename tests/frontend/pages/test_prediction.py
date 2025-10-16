@@ -4,7 +4,7 @@ import pytest
 from unittest.mock import patch
 import solara
 
-from frontend.pages.prediction import Page, setup_i18n
+from frontend.pages.prediction import Page
 
 
 class TestPredictionPage:
@@ -14,7 +14,6 @@ class TestPredictionPage:
     def setup_method(self):
         """Setup test environment before each test method."""
         solara.state.clear()
-        setup_i18n()
 
     def test_page_renders(self, solara_test):
         """Test that the prediction page renders without errors."""

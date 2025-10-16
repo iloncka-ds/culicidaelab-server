@@ -16,7 +16,7 @@ with patch.dict(
         "ipyleaflet": MagicMock(),
     },
 ):
-    from components.prediction import location
+    from frontend.components.prediction import location
 
 
 @pytest.fixture

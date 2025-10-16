@@ -21,8 +21,8 @@ with patch.dict(
         "asyncio": MagicMock(),
     },
 ):
-    from components.map_module import map_component
-    from state import (
+    from frontend.components.map_module import map_component
+    from frontend.state import (
         show_observed_data_reactive,
         current_map_bounds_reactive,
         current_map_zoom_reactive,

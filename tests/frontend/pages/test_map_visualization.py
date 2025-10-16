@@ -4,7 +4,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 import solara
 
-from frontend.pages.map_visualization import Page, setup_i18n
+from frontend.pages.map_visualization import Page
 
 
 class TestMapVisualizationPage:
@@ -14,7 +14,6 @@ class TestMapVisualizationPage:
     def setup_method(self):
         """Setup test environment before each test method."""
         solara.state.clear()
-        setup_i18n()
 
     def test_page_renders(self, solara_test):
         """Test that the map visualization page renders without errors."""
