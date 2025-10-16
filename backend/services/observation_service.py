@@ -213,8 +213,6 @@ class ObservationService:
                 paginated_table = arrow_table.slice(start, end - start)
                 results = paginated_table.to_pylist()
 
-            total = len(results)
-
             observations = []
             if results:
                 for item in results:
@@ -252,6 +250,7 @@ class ObservationService:
                     except Exception as model_exc:
                         print(f"[ERROR] Could not map record to Pydantic model for ID {item.get('id')}: {model_exc}")
 
+            total = len(observations)  # Count only successfully processed observations
             return ObservationListResponse(count=total, observations=observations)
 
         except Exception as e:

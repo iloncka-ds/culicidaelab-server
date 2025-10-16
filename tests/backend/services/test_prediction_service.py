@@ -2,10 +2,13 @@
 Tests for the prediction service.
 """
 
-from unittest.mock import MagicMock, AsyncMock
+import asyncio
+from unittest.mock import MagicMock, AsyncMock, patch
 import pytest
 
-from backend.services.prediction_service import PredictionService, PredictionResult
+from backend.services.prediction_service import PredictionService, prediction_service
+from backend.schemas.prediction_schemas import PredictionResult
+from tests.factories.mock_factory import MockFactory
 
 
 class TestPredictionService:
@@ -15,128 +18,241 @@ class TestPredictionService:
     def setup(self):
         """Set up test fixtures."""
         self.service = PredictionService()
-        self.service.model_loaded = False
-        self.service.model = None
 
     @pytest.mark.asyncio
-    async def test_load_model_success(self, mocker):
-        """Test successful model loading."""
-        mock_config_manager = MagicMock()
-        mock_classifier = MagicMock()
+    async def test_service_initialization(self):
+        """Test that the service initializes correctly with proper attributes."""
+        assert hasattr(self.service, 'save_predicted_images_enabled')
+        assert hasattr(self.service, 'model_id')
+        assert isinstance(self.service.model_id, str)
 
-        mocker.patch.dict(
-            "sys.modules",
-            {
-                "culicidaelab.core.config_manager": MagicMock(
-                    ConfigManager=MagicMock(return_value=mock_config_manager),
-                ),
-                "culicidaelab.classifier.mosquito_classifier": MagicMock(
-                    MosquitoClassifier=MagicMock(return_value=mock_classifier),
-                ),
-            },
-        )
+    def test_get_model_id_success(self, monkeypatch):
+        """Test successful model ID retrieval from culicidaelab settings."""
+        mock_settings = MagicMock()
+        mock_config = MagicMock()
+        mock_config.model_arch = "EfficientNet-B0"
+        mock_settings.get_config.return_value = mock_config
+        
+        monkeypatch.setattr("backend.services.prediction_service.get_settings", lambda: mock_settings)
+        
+        service = PredictionService()
+        assert service.model_id == "EfficientNet-B0"
 
-        mocker.patch(
-            "backend.services.prediction_service.settings",
-            CLASSIFIER_CONFIG_PATH="/fake/config/path.yaml",
-            CLASSIFIER_MODEL_PATH="/fake/model/path.pth",
-        )
-
-        await self.service.load_model()
-
-        assert self.service.model_loaded is True
-        assert self.service.model is not None
-        assert self.service.config_manager is not None
-
-    @pytest.mark.asyncio
-    async def test_load_model_failure(self, mocker):
-        """Test model loading failure falls back to mock prediction."""
-        mocker.patch("importlib.import_module", side_effect=ImportError("Test error"))
-
-        await self.service.load_model()
-
-        assert self.service.model_loaded is False
-        assert self.service.model is None
+    def test_get_model_id_fallback(self, monkeypatch):
+        """Test model ID fallback when culicidaelab settings fail."""
+        def mock_get_settings():
+            raise Exception("Settings error")
+        
+        monkeypatch.setattr("backend.services.prediction_service.get_settings", mock_get_settings)
+        
+        service = PredictionService()
+        assert service.model_id == "classifier_onnx_production"
 
     @pytest.mark.asyncio
-    async def test_predict_species_with_loaded_model(self, mocker, mock_image_data):
-        """Test species prediction with a loaded model."""
-        mock_model = MagicMock()
-        mock_model.predict.return_value = [
-            ("Aedes aegypti", 0.95),
-            ("Culex pipiens", 0.05),
-        ]
-        mock_model.arch = "resnet50"
-
-        self.service.model = mock_model
-        self.service.model_loaded = True
-
+    async def test_predict_species_success(self, monkeypatch, mock_image_data):
+        """Test successful species prediction using culicidaelab serve function."""
+        # Mock the culicidaelab serve function
+        mock_predictions = MockFactory.create_culicidaelab_mock().serve.serve.return_value
+        mock_serve = MagicMock(return_value=mock_predictions)
+        monkeypatch.setattr("backend.services.prediction_service.serve", mock_serve)
+        
+        # Mock asyncio.to_thread to simulate async execution
+        async def mock_to_thread(func, **kwargs):
+            return func(**kwargs)
+        monkeypatch.setattr("asyncio.to_thread", mock_to_thread)
+        
         result, error = await self.service.predict_species(mock_image_data, "test_image.jpg")
 
         assert error is None
         assert isinstance(result, PredictionResult)
         assert result.scientific_name == "Aedes aegypti"
         assert result.confidence == 0.95
-        assert result.model_id == "model_resnet50"
-        mock_model.predict.assert_called_once()
+        assert result.model_id == self.service.model_id
+        assert "Aedes aegypti" in result.probabilities
+        mock_serve.assert_called_once_with(image=mock_image_data, predictor_type="classifier")
 
     @pytest.mark.asyncio
-    async def test_predict_species_with_unloaded_model(self, mocker, mock_image_data):
-        """Test species prediction when model needs to be loaded."""
-        mocker.patch.object(self.service, "load_model", new_callable=AsyncMock)
-
-        mock_model = MagicMock()
-        mock_model.predict.return_value = [
-            ("Aedes aegypti", 0.95),
-            ("Culex pipiens", 0.05),
-        ]
-        mock_model.arch = "resnet50"
-
-        async def mock_load():
-            self.service.model = mock_model
-            self.service.model_loaded = True
-
-        self.service.load_model.side_effect = mock_load
-
+    async def test_predict_species_with_image_saving_enabled(self, monkeypatch, mock_image_data):
+        """Test species prediction with image saving enabled."""
+        # Enable image saving
+        self.service.save_predicted_images_enabled = True
+        
+        # Mock the culicidaelab serve function
+        mock_predictions = MockFactory.create_culicidaelab_mock().serve.serve.return_value
+        monkeypatch.setattr("backend.services.prediction_service.serve", lambda **kwargs: mock_predictions)
+        async def mock_to_thread(func, **kwargs):
+            return func(**kwargs)
+        monkeypatch.setattr("asyncio.to_thread", mock_to_thread)
+        
+        # Mock the save_predicted_image method
+        mock_save_task = AsyncMock()
+        monkeypatch.setattr("asyncio.create_task", lambda coro: mock_save_task)
+        
         result, error = await self.service.predict_species(mock_image_data, "test_image.jpg")
 
         assert error is None
         assert isinstance(result, PredictionResult)
-        assert result.scientific_name == "Aedes aegypti"
-        assert self.service.model_loaded is True
+        assert result.image_url_species is not None
+        assert "/static/images/predicted/224x224/" in result.image_url_species
 
     @pytest.mark.asyncio
-    async def test_predict_species_with_failed_model_load(self, mocker, mock_image_data):
-        """Test species prediction when model loading fails and falls back to mock."""
-        mocker.patch.object(
-            self.service,
-            "load_model",
-            side_effect=Exception("Failed to load model"),
-        )
-
+    async def test_predict_species_with_image_saving_disabled(self, monkeypatch, mock_image_data):
+        """Test species prediction with image saving disabled."""
+        # Disable image saving
+        self.service.save_predicted_images_enabled = False
+        
+        # Mock the culicidaelab serve function
+        mock_predictions = MockFactory.create_culicidaelab_mock().serve.serve.return_value
+        monkeypatch.setattr("backend.services.prediction_service.serve", lambda **kwargs: mock_predictions)
+        async def mock_to_thread(func, **kwargs):
+            return func(**kwargs)
+        monkeypatch.setattr("asyncio.to_thread", mock_to_thread)
+        
         result, error = await self.service.predict_species(mock_image_data, "test_image.jpg")
 
         assert error is None
         assert isinstance(result, PredictionResult)
-        assert result.scientific_name == "Aedes fictus"
-        assert result.model_id == "model_v1_mock"
+        assert result.image_url_species is None
 
     @pytest.mark.asyncio
-    async def test_predict_species_with_invalid_image(self):
-        """Test species prediction with invalid image data."""
-        result, error = await self.service.predict_species(b"invalid_image_data", "test.jpg")
+    async def test_predict_species_no_predictions(self, monkeypatch, mock_image_data):
+        """Test species prediction when model returns no results."""
+        # Mock serve to return predictions with no top prediction
+        mock_predictions = MagicMock()
+        mock_predictions.top_prediction.return_value = None
+        
+        monkeypatch.setattr("backend.services.prediction_service.serve", lambda **kwargs: mock_predictions)
+        async def mock_to_thread(func, **kwargs):
+            return func(**kwargs)
+        monkeypatch.setattr("asyncio.to_thread", mock_to_thread)
+        
+        result, error = await self.service.predict_species(mock_image_data, "test_image.jpg")
 
         assert result is None
-        assert "Error predicting species" in error
+        assert error is not None
+        assert "Model returned no results" in error
 
     @pytest.mark.asyncio
-    async def test_mock_prediction(self):
-        """Test the mock prediction fallback."""
-        result, error = await self.service._mock_prediction("test.jpg")
+    async def test_predict_species_serve_exception(self, monkeypatch, mock_image_data):
+        """Test species prediction when culicidaelab serve raises an exception."""
+        def mock_serve(**kwargs):
+            raise Exception("Model inference error")
+        
+        monkeypatch.setattr("backend.services.prediction_service.serve", mock_serve)
+        async def mock_to_thread(func, **kwargs):
+            return func(**kwargs)
+        monkeypatch.setattr("asyncio.to_thread", mock_to_thread)
+        
+        result, error = await self.service.predict_species(mock_image_data, "test_image.jpg")
+
+        assert result is None
+        assert error is not None
+        assert "Error predicting species" in error
+        assert "Model inference error" in error
+
+    @pytest.mark.asyncio
+    async def test_save_predicted_image_success(self, monkeypatch, mock_image_data):
+        """Test successful image saving with multiple sizes."""
+        # Mock PIL Image operations
+        mock_image = MockFactory.create_pil_image_mock()
+        monkeypatch.setattr("PIL.Image.open", lambda data: mock_image)
+        
+        # Mock Path operations
+        mock_path = MagicMock()
+        mock_path.mkdir = MagicMock()
+        monkeypatch.setattr("pathlib.Path", lambda path: mock_path)
+        
+        # Mock asyncio operations with proper awaitables
+        async def mock_gather(*args):
+            return None
+        async def mock_to_thread(func, *args):
+            return func(*args) if args else func()
+        
+        monkeypatch.setattr("asyncio.gather", mock_gather)
+        monkeypatch.setattr("asyncio.to_thread", mock_to_thread)
+        
+        # Mock aiofiles
+        mock_file_context = MockFactory.create_async_context_manager_mock()
+        monkeypatch.setattr("aiofiles.open", lambda *args, **kwargs: mock_file_context)
+        
+        # Should not raise an exception
+        await self.service.save_predicted_image(mock_image_data, "test.jpg")
+        
+        # Verify PIL operations were called
+        mock_image.thumbnail.assert_called()
+        mock_image.save.assert_called()
+
+    @pytest.mark.asyncio
+    async def test_save_predicted_image_exception_quiet(self, monkeypatch, mock_image_data):
+        """Test image saving with exception in quiet mode."""
+        def mock_pil_open(data):
+            raise Exception("PIL error")
+        
+        monkeypatch.setattr("PIL.Image.open", mock_pil_open)
+        
+        # Should not raise an exception in quiet mode
+        await self.service.save_predicted_image(mock_image_data, "test.jpg", quiet=True)
+
+    @pytest.mark.asyncio
+    async def test_save_predicted_image_exception_not_quiet(self, monkeypatch, mock_image_data):
+        """Test image saving with exception when not in quiet mode."""
+        def mock_pil_open(data):
+            raise Exception("PIL error")
+        
+        monkeypatch.setattr("PIL.Image.open", mock_pil_open)
+        
+        # Should raise an exception when quiet=False
+        with pytest.raises(Exception, match="PIL error"):
+            await self.service.save_predicted_image(mock_image_data, "test.jpg", quiet=False)
+
+    def test_prediction_service_singleton(self):
+        """Test that the prediction_service singleton is properly initialized."""
+        assert isinstance(prediction_service, PredictionService)
+        assert hasattr(prediction_service, 'model_id')
+        assert hasattr(prediction_service, 'save_predicted_images_enabled')
+
+    @pytest.mark.asyncio
+    async def test_predict_species_result_id_generation(self, monkeypatch, mock_image_data):
+        """Test that prediction results have properly formatted IDs."""
+        # Mock the culicidaelab serve function
+        mock_predictions = MockFactory.create_culicidaelab_mock().serve.serve.return_value
+        monkeypatch.setattr("backend.services.prediction_service.serve", lambda **kwargs: mock_predictions)
+        async def mock_to_thread(func, **kwargs):
+            return func(**kwargs)
+        monkeypatch.setattr("asyncio.to_thread", mock_to_thread)
+        
+        result, error = await self.service.predict_species(mock_image_data, "test_image.jpg")
 
         assert error is None
         assert isinstance(result, PredictionResult)
-        assert result.scientific_name == "Aedes fictus"
-        assert result.model_id == "model_v1_mock"
-        assert len(result.probabilities) > 0
-        assert result.confidence > 0
+        # ID should be the species name converted to lowercase with underscores
+        assert result.id == "aedes_aegypti"
+
+    @pytest.mark.asyncio
+    async def test_predict_species_probabilities_format(self, monkeypatch, mock_image_data):
+        """Test that prediction probabilities are properly formatted."""
+        # Create mock predictions with multiple results
+        mock_prediction1 = MagicMock()
+        mock_prediction1.species_name = "Aedes aegypti"
+        mock_prediction1.confidence = 0.95
+        
+        mock_prediction2 = MagicMock()
+        mock_prediction2.species_name = "Culex pipiens"
+        mock_prediction2.confidence = 0.05
+        
+        mock_predictions = MagicMock()
+        mock_predictions.top_prediction.return_value = mock_prediction1
+        mock_predictions.predictions = [mock_prediction1, mock_prediction2]
+        
+        monkeypatch.setattr("backend.services.prediction_service.serve", lambda **kwargs: mock_predictions)
+        async def mock_to_thread(func, **kwargs):
+            return func(**kwargs)
+        monkeypatch.setattr("asyncio.to_thread", mock_to_thread)
+        
+        result, error = await self.service.predict_species(mock_image_data, "test_image.jpg")
+
+        assert error is None
+        assert isinstance(result, PredictionResult)
+        assert len(result.probabilities) == 2
+        assert result.probabilities["Aedes aegypti"] == 0.95
+        assert result.probabilities["Culex pipiens"] == 0.05
