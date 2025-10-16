@@ -22,8 +22,7 @@ dependencies = [
     "python-multipart>=0.0.20",
     "shapely>=2.1.0",
     "solara[assets]==1.50.1",
-    "fastai>=2.7.0, <=2.8.0",
-    "culicidaelab==0.3.0",
+   "culicidaelab>=0.3.0",
 ]
 [dependency-groups]
 dev = [
