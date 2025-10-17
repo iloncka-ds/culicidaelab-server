@@ -22,4 +22,10 @@ example*
 md_*
 tree-maker/
 backend/data/.lancedb/
-site/*
+site/
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db

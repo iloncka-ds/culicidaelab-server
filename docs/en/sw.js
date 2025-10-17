@@ -111,7 +111,7 @@ self.addEventListener('sync', function(event) {
 self.addEventListener('push', function(event) {
   if (event.data) {
     const data = event.data.json();
-    
+
     const options = {
       body: data.body,
       icon: '/assets/favicon.ico',

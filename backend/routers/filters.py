@@ -14,7 +14,7 @@ Typical usage example:
     >>> app.include_router(router)
 
 Attributes:
-    router: FastAPI APIRouter instance containing filter-related endpoints.
+    router (APIRouter): FastAPI APIRouter instance containing filter-related endpoints.
 """
 
 from fastapi import APIRouter, Depends, Query
@@ -23,7 +23,7 @@ from backend.services import filter_service
 from backend.schemas.filter_schemas import FilterOptions
 from backend.dependencies import get_species_cache, get_region_cache, get_data_source_cache
 
-router = APIRouter()
+router: APIRouter = APIRouter()
 
 
 @router.get("/filter_options", response_model=FilterOptions)

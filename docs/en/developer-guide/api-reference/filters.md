@@ -10,6 +10,8 @@ The Filters API provides endpoints for retrieving filter options and managing da
       show_source: true
       members_order: source
       docstring_style: google
+      heading_level: 3
+
 
 ## Data Schemas
 
@@ -45,7 +47,7 @@ async with httpx.AsyncClient() as client:
         params={"lang": "en"}
     )
     filters = response.json()
-    
+
     print("Available filters:")
     for filter_type, options in filters.items():
         print(f"- {filter_type}: {len(options)} options")

@@ -4,7 +4,7 @@ Welcome to the CulicidaeLab Server project! We appreciate your interest in contr
 
 ## Code of Conduct
 
-By participating in this project, you agree to abide by our [Code of Conduct](../../CODE_OF_CONDUCT.md). Please read it to understand the standards we expect from all contributors.
+By participating in this project, you agree to abide by our [Code of Conduct](https://github.com/iloncka-ds/culicidaelab-server/blob/main/CODE_OF_CONDUCT.md). Please read it to understand the standards we expect from all contributors.
 
 ## Getting Started
 
@@ -69,7 +69,7 @@ pytest --cov=backend --cov=frontend
 # Terminal 1: Backend
 uvicorn backend.main:app --port 8000 --reload
 
-# Terminal 2: Frontend  
+# Terminal 2: Frontend
 solara run frontend.main --port 8765
 ```
 
@@ -230,26 +230,26 @@ async def predict_species(
     confidence_threshold: float = 0.5
 ) -> PredictionResult:
     """Predict mosquito species from image.
-    
+
     Args:
         image_path: Path to the image file
         confidence_threshold: Minimum confidence for prediction
-        
+
     Returns:
         Prediction result with species and confidence
-        
+
     Raises:
         ValueError: If image cannot be processed
         FileNotFoundError: If image file doesn't exist
     """
     if not Path(image_path).exists():
         raise FileNotFoundError(f"Image not found: {image_path}")
-    
+
     try:
         result = await predictor.predict(image_path)
         if result.confidence < confidence_threshold:
             logger.warning(f"Low confidence prediction: {result.confidence}")
-        
+
         return PredictionResult(
             species=result.species,
             confidence=result.confidence,
@@ -299,24 +299,24 @@ def SpeciesCard(
     show_details: bool = True
 ):
     """Reusable species card component.
-    
+
     Args:
         species: Species information dictionary
         on_click: Callback when card is clicked
         show_details: Whether to show detailed information
     """
-    
+
     def handle_click():
         if on_click:
             on_click(species["id"])
-    
+
     with solara.Card(
         title=species["scientific_name"],
         on_click=handle_click if on_click else None
     ):
         if show_details:
             solara.Text(species.get("description", ""))
-        
+
         # Display common names
         common_names = species.get("common_names", {})
         if common_names:
@@ -344,11 +344,11 @@ def use_species_data():
     """Hook for managing species data."""
     data, set_data = solara.use_state([])
     error, set_error = solara.use_state(None)
-    
+
     async def fetch_data():
         loading_states['species'].value = True
         set_error(None)
-        
+
         try:
             # Fetch data logic
             result = await api_client.get_species()
@@ -357,7 +357,7 @@ def use_species_data():
             set_error(str(e))
         finally:
             loading_states['species'].value = False
-    
+
     return data, fetch_data, error
 ```
 
@@ -372,14 +372,14 @@ from typing import List, Dict, Any
 
 class SpeciesRepository:
     """Repository for species data operations."""
-    
+
     def __init__(self):
         self.db = get_db()
         self.table = get_table(self.db, "species")
-    
+
     async def search_by_region(
-        self, 
-        region: str, 
+        self,
+        region: str,
         limit: int = 10
     ) -> List[Dict[str, Any]]:
         """Search species by region with efficient querying."""
@@ -396,10 +396,10 @@ class SpeciesRepository:
         except Exception as e:
             logger.error(f"Failed to search species by region {region}: {e}")
             raise
-    
+
     async def similarity_search(
-        self, 
-        query_vector: List[float], 
+        self,
+        query_vector: List[float],
         limit: int = 5
     ) -> List[Dict[str, Any]]:
         """Perform vector similarity search."""
@@ -443,26 +443,26 @@ from backend.services.species_service import SpeciesService
 
 class TestSpeciesService:
     """Test suite for SpeciesService."""
-    
+
     @pytest.fixture
     def species_service(self):
         """Create species service with mocked dependencies."""
         with patch('backend.services.species_service.get_db'):
             return SpeciesService()
-    
+
     @pytest.mark.asyncio
     async def test_get_species_by_id_success(self, species_service):
         """Test successful species retrieval."""
         # Arrange
         expected_species = {"id": "aedes_aegypti", "name": "Aedes aegypti"}
-        
+
         # Act
         result = await species_service.get_by_id("aedes_aegypti")
-        
+
         # Assert
         assert result is not None
         assert result.id == "aedes_aegypti"
-    
+
     @pytest.mark.asyncio
     async def test_get_species_not_found(self, species_service):
         """Test handling of non-existent species."""
@@ -579,7 +579,7 @@ We follow [Semantic Versioning](https://semver.org/):
 
 - **GitHub Issues**: Bug reports and feature requests
 - **Discussions**: General questions and ideas
-- **Email**: Security issues (security@culicidaelab.org)
+
 
 ### Getting Help
 
@@ -618,7 +618,7 @@ Instead, email security@culicidaelab.org with:
 
 ## License
 
-By contributing to CulicidaeLab Server, you agree that your contributions will be licensed under the AGPL-3.0 License. See [LICENSE](../../LICENSE) for details.
+By contributing to CulicidaeLab Server, you agree that your contributions will be licensed under the AGPL-3.0 License. See [LICENSE](https://github.com/iloncka-ds/culicidaelab-server/blob/main/LICENSE) for details.
 
 ## Questions?
 

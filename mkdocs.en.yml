@@ -1,0 +1,150 @@
+INHERIT: mkdocs.common.yml
+
+site_description: 'CulicidaeLab Server: Webserver for Mosquito Analysis'
+site_author: Ilona Kovaleva
+site_url: 'https://iloncka-ds.github.io/culicidaelab-server/en'
+site_dir: 'site/en/'
+edit_uri: 'blob/main/docs/en'
+copyright: Copyright &copy; 2025 Kovaleva Ilona
+
+theme:
+  language: en
+
+docs_dir: 'docs/en'
+custom_dir: 'docs/en/overrides'
+
+
+plugins:
+
+  - search:
+      lang: en
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+      fallback_to_build_date: true
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import sys
+            - sys.path.insert(0, '..')
+          paths: [backend, frontend]
+          import:
+                - https://docs.python.org/3/objects.inv
+                - https://fastapi.tiangolo.com/objects.inv
+          options:
+
+            docstring_style: google
+            show_root_heading: yes
+            show_source: yes
+            force_inspection: true
+            heading_level: 4
+            inherited_members: true
+            members_order: source
+            show_bases: false
+            show_if_no_docstring: true
+            show_overloads: false
+            show_signature_annotations: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            show_root_toc_entry: false
+            merge_init_into_class: true
+            ignore_init_summary: true
+            unwrap_annotated: true
+            filters:
+              - "!^router$"  # Skip the 'router' attribute
+              - "!^_"        # Skip private attributes
+            extra:
+              paths: [backend, frontend]
+              import:
+                - https://docs.python.org/3/objects.inv
+                - https://fastapi.tiangolo.com/objects.inv
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(__md_get("__palette").index == 1)) ?
+          'dark' : 'light'
+  - swagger-ui-tag
+  - minify:
+      minify_html: true
+      minify_css: true
+      minify_js: true
+      htmlmin_opts:
+        remove_comments: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+    - Configuration: getting-started/configuration.md
+  - User Guide:
+    - Overview: user-guide/overview.md
+    - Species Prediction: user-guide/species-prediction.md
+    - Map Visualization: user-guide/map-visualization.md
+    - Species Database: user-guide\species-database.md
+    - Diseases Database: user-guide\diseases-database.md
+    - Data Management: user-guide/data-management.md
+    - FAQ: user-guide\faq.md
+    - Troubleshooting: user-guide/troubleshooting.md
+  - Developer Guide:
+    - Architecture: developer-guide/architecture.md
+    - API Reference:
+      - Overview: developer-guide/api-reference/index.md
+      - OpenAPI Integration: developer-guide/api-reference/openapi.md
+      - Species API: developer-guide/api-reference/species.md
+      - Diseases API: developer-guide/api-reference/diseases.md
+      - Geographic API: developer-guide/api-reference/geo.md
+      - Prediction API: developer-guide/api-reference/prediction.md
+      - Observation API: developer-guide/api-reference/observation.md
+      - Filters API: developer-guide/api-reference/filters.md
+    - Frontend Development: developer-guide/frontend-development.md
+    - Backend Development: developer-guide/backend-development.md
+    - Testing: developer-guide/testing.md
+    - Contributing: developer-guide/contributing.md
+  - Deployment:
+    - Production: deployment/production.md
+    - Docker: deployment/docker.md
+    - Monitoring: deployment/monitoring.md
+    - Security: deployment/security.md
+  - Research:
+    - Data Models: research/data-models.md
+    - AI Models: research/ai-models.md
+    - Datasets: research/datasets.md
+    - Ecosystem: research/ecosystem.md
+  - Reference:
+    - API: reference/api/index.md
+    - Configuration: reference/configuration.md
+    - Tags: reference/tags.md
+    - Changelog: reference/changelog.md
+    - Glossary: reference/glossary.md
+
+extra:
+  alternate:
+    - name: English
+      link: https://iloncka-ds.github.io/culicidaelab-server/en
+      lang: en
+    - name: Русский
+      link: https://iloncka-ds.github.io/culicidaelab-server/ru
+      lang: ru
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/iloncka-ds/culicidaelab-server
+      name: GitHub Repository
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:culicidaelab@gmail.com
+      name: Contact Us
+    - icon: fontawesome/solid/globe
+      link: https://github.com/culicidaelab/culicidaelab-server
+      name: CulicidaeLab Website
+  version:
+    provider: mike
+    default: latest
+  generator: false
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/navigation-enhancements.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6

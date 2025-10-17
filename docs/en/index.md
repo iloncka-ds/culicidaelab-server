@@ -155,7 +155,7 @@ The CulicidaeLab Server platform is currently operational and serving researcher
   <a href="getting-started/installation/" class="md-button">Install Now</a>
   <a href="developer-guide/api-reference/examples/" class="md-button">View Examples</a>
   <a href="user-guide/species-prediction/" class="md-button">Try Prediction</a>
-  <a href="https://github.com/CulicidaeLab/CulicidaeLab-Server" class="md-button">View Source</a>
+  <a href="https://github.com/iloncka-ds/culicidaelab-server" class="md-button">View Source</a>
 </div>
 
 ## Community & Support
@@ -164,16 +164,10 @@ The CulicidaeLab Server platform is currently operational and serving researcher
   <strong>Join our community!</strong> Connect with researchers and developers using CulicidaeLab Server.
 </div>
 
-- **🐛 Issues**: Report bugs and request features on [GitHub Issues](https://github.com/CulicidaeLab/CulicidaeLab-Server/issues)
-- **💬 Discussions**: Join community discussions on [GitHub Discussions](https://github.com/CulicidaeLab/CulicidaeLab-Server/discussions)
-- **📧 Contact**: Reach out to the team at [contact@culicidaelab.org](mailto:contact@culicidaelab.org)
-- **🌐 Website**: Visit [culicidaelab.org](https://culicidaelab.org) for more information
-
-## Latest Updates
-
-<div class="notification notification--success">
-  <strong>Documentation Enhanced!</strong> We've improved the documentation with better navigation, search, and offline support.
-</div>
+- **🐛 Issues**: Report bugs and request features on [GitHub Issues](https://github.com/iloncka-ds/culicidaelab-server/issues)
+- **💬 Discussions**: Join community discussions on [GitHub Discussions](https://github.com/iloncka-ds/culicidaelab-server/discussions)
+- **📧 Contact**: Reach out to the team at [culicidaelab@gmail.com](mailto:culicidaelab@gmail.com)
+- **🌐 Website**: Visit [https://github.com/culicidaelab](https://github.com/culicidaelab) for more information
 
 ---
 

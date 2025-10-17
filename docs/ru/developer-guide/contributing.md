@@ -4,7 +4,7 @@
 
 ## Кодекс поведения
 
-Участвуя в этом проекте, вы соглашаетесь соблюдать наш [Кодекс поведения](../../CODE_OF_CONDUCT.md). Пожалуйста, прочитайте его, чтобы понимать стандарты, которых мы ожидаем от всех участников.
+Участвуя в этом проекте, вы соглашаетесь соблюдать наш [Кодекс поведения](https://github.com/iloncka-ds/culicidaelab-server/blob/main/CODE_OF_CONDUCT.md). Пожалуйста, прочитайте его, чтобы понимать стандарты, которых мы ожидаем от всех участников.
 
 ## Начало работы
 
@@ -69,7 +69,7 @@ pytest --cov=backend --cov=frontend
 # Терминал 1: Бэкенд
 uvicorn backend.main:app --port 8000 --reload
 
-# Терминал 2: Фронтенд  
+# Терминал 2: Фронтенд
 solara run frontend.main --port 8765
 ```
 
@@ -230,26 +230,26 @@ async def predict_species(
     confidence_threshold: float = 0.5
 ) -> PredictionResult:
     """Предсказать вид комара по изображению.
-    
+
     Args:
         image_path: Путь к файлу изображения
         confidence_threshold: Минимальная уверенность для предсказания
-        
+
     Returns:
         Результат предсказания с видом и уверенностью
-        
+
     Raises:
         ValueError: Если изображение не может быть обработано
         FileNotFoundError: Если файл изображения не существует
     """
     if not Path(image_path).exists():
         raise FileNotFoundError(f"Изображение не найдено: {image_path}")
-    
+
     try:
         result = await predictor.predict(image_path)
         if result.confidence < confidence_threshold:
             logger.warning(f"Предсказание с низкой уверенностью: {result.confidence}")
-        
+
         return PredictionResult(
             species=result.species,
             confidence=result.confidence,
@@ -299,24 +299,24 @@ def SpeciesCard(
     show_details: bool = True
 ):
     """Переиспользуемый компонент карточки вида.
-    
+
     Args:
         species: Словарь информации о виде
         on_click: Callback при клике на карточку
         show_details: Показывать ли детальную информацию
     """
-    
+
     def handle_click():
         if on_click:
             on_click(species["id"])
-    
+
     with solara.Card(
         title=species["scientific_name"],
         on_click=handle_click if on_click else None
     ):
         if show_details:
             solara.Text(species.get("description", ""))
-        
+
         # Отображение общих названий
         common_names = species.get("common_names", {})
         if common_names:
@@ -344,11 +344,11 @@ def use_species_data():
     """Хук для управления данными видов."""
     data, set_data = solara.use_state([])
     error, set_error = solara.use_state(None)
-    
+
     async def fetch_data():
         loading_states['species'].value = True
         set_error(None)
-        
+
         try:
             # Логика получения данных
             result = await api_client.get_species()
@@ -357,7 +357,7 @@ def use_species_data():
             set_error(str(e))
         finally:
             loading_states['species'].value = False
-    
+
     return data, fetch_data, error
 ```
 
@@ -372,14 +372,14 @@ from typing import List, Dict, Any
 
 class SpeciesRepository:
     """Репозиторий для операций с данными видов."""
-    
+
     def __init__(self):
         self.db = get_db()
         self.table = get_table(self.db, "species")
-    
+
     async def search_by_region(
-        self, 
-        region: str, 
+        self,
+        region: str,
         limit: int = 10
     ) -> List[Dict[str, Any]]:
         """Поиск видов по региону с эффективными запросами."""
@@ -396,10 +396,10 @@ class SpeciesRepository:
         except Exception as e:
             logger.error(f"Не удалось найти виды по региону {region}: {e}")
             raise
-    
+
     async def similarity_search(
-        self, 
-        query_vector: List[float], 
+        self,
+        query_vector: List[float],
         limit: int = 5
     ) -> List[Dict[str, Any]]:
         """Выполнить векторный поиск по сходству."""
@@ -443,26 +443,26 @@ from backend.services.species_service import SpeciesService
 
 class TestSpeciesService:
     """Набор тестов для SpeciesService."""
-    
+
     @pytest.fixture
     def species_service(self):
         """Создать сервис видов с замоканными зависимостями."""
         with patch('backend.services.species_service.get_db'):
             return SpeciesService()
-    
+
     @pytest.mark.asyncio
     async def test_get_species_by_id_success(self, species_service):
         """Тест успешного получения вида."""
         # Arrange
         expected_species = {"id": "aedes_aegypti", "name": "Aedes aegypti"}
-        
+
         # Act
         result = await species_service.get_by_id("aedes_aegypti")
-        
+
         # Assert
         assert result is not None
         assert result.id == "aedes_aegypti"
-    
+
     @pytest.mark.asyncio
     async def test_get_species_not_found(self, species_service):
         """Тест обработки несуществующего вида."""
@@ -579,7 +579,7 @@ Related to #456
 
 - **GitHub Issues**: Отчеты об ошибках и запросы функций
 - **Discussions**: Общие вопросы и идеи
-- **Email**: Проблемы безопасности (security@culicidaelab.org)
+
 
 ### Получение помощи
 
@@ -618,7 +618,7 @@ Related to #456
 
 ## Лицензия
 
-Участвуя в CulicidaeLab Server, вы соглашаетесь, что ваши вклады будут лицензированы под лицензией AGPL-3.0. См. [LICENSE](../../LICENSE) для деталей.
+Участвуя в CulicidaeLab Server, вы соглашаетесь, что ваши вклады будут лицензированы под лицензией AGPL-3.0. См. [LICENSE](https://github.com/iloncka-ds/culicidaelab-server/blob/main/LICENSE) для деталей.
 
 ## Вопросы?
 

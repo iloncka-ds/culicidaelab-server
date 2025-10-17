@@ -1,0 +1,98 @@
+site_name: CulicidaeLab Server Documentation
+repo_url: https://github.com/iloncka-ds/culicidaelab-server
+strict: false
+validation:
+  absolute_links: warn
+  unrecognized_links: warn
+
+theme:
+  name: material
+  # custom_dir: docs/api_docs
+  font:
+    text: Merriweather Sans
+    code: Red Hat Mono
+  features:
+    - search.suggest
+    - search.highlight
+    - navigation.path
+    - navigation.footer
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - toc.follow
+    - toc.integrate
+    - content.code.annotate
+    - content.code.copy
+
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
+
+  favicon: assets/favicon.ico
+
+  palette:
+    # Светлая тема
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.inlinehilite # Inline highlighting with `==highlighted text==`
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: iloncka-ds
+      repo: culicidaelab-server
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+extra:
+  alternate:
+    - name: English
+      link: https://iloncka-ds.github.io/culicidaelab-server/en
+      lang: en
+    - name: Русский
+      link: https://iloncka-ds.github.io/culicidaelab-server/ru
+      lang: ru

@@ -12,6 +12,7 @@ repos:
         stages: [pre-commit]
     -   id: check-yaml
         stages: [pre-commit]
+        exclude: ^(mkdocs\.common|mkdocs\.en|mkdocs\.ru)\.yml$
     -   id: debug-statements
         stages: [pre-commit]
     -   id: name-tests-test
@@ -71,4 +72,3 @@ repos:
         types_or: [python, pyi]
         require_serial: true
         stages: [pre-commit]
-
