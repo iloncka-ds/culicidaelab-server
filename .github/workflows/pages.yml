@@ -38,10 +38,14 @@ jobs:
       - name: Install CulicidaeLab-Server
         run: git clone https://github.com/iloncka-ds/culicidaelab-server.git && cd culicidaelab-server && pip install -e .[docs]
       - name: Build English docs
-        run: mkdocs build --config-file=mkdocs.en.yml --site-dir=temp_build/en
+        run: |
+          cd culicidaelab-server
+          mkdocs build --config-file=mkdocs.en.yml --site-dir=temp_build/en
 
       - name: Build Russian docs
-        run: mkdocs build --config-file=mkdocs.ru.yml --site-dir=temp_build/ru
+        run: |
+          cd culicidaelab-server
+          mkdocs build --config-file=mkdocs.ru.yml --site-dir=temp_build/ru
 
       - name: Create language selector page
         run: |
