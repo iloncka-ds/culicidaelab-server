@@ -173,24 +173,24 @@ function findRelatedPages(currentPath) {
     // Define relationships between pages
     const relationships = {
         '/getting-started/': [
-            { title: 'API Reference', url: '/developer-guide/api-reference/' },
-            { title: 'Configuration', url: '/reference/configuration/' }
+            { title: 'API Reference', url: 'culicidaelab-server/en/developer-guide/api-reference/' },
+            { title: 'Configuration', url: 'culicidaelab-server/en/reference/configuration/' }
         ],
         '/developer-guide/': [
-            { title: 'Getting Started', url: '/getting-started/' },
-            { title: 'Deployment', url: '/deployment/' }
+            { title: 'Getting Started', url: 'culicidaelab-server/en/getting-started/' },
+            { title: 'Deployment', url: 'culicidaelab-server/en/deployment/' }
         ],
         '/user-guide/': [
-            { title: 'Getting Started', url: '/getting-started/' },
-            { title: 'Troubleshooting', url: '/user-guide/troubleshooting/' }
+            { title: 'Getting Started', url: 'culicidaelab-server/en/getting-started/' },
+            { title: 'Troubleshooting', url: 'culicidaelab-server/en/user-guide/troubleshooting/' }
         ],
         '/deployment/': [
-            { title: 'Configuration Reference', url: '/reference/configuration/' },
-            { title: 'Monitoring', url: '/deployment/monitoring/' }
+            { title: 'Configuration Reference', url: 'culicidaelab-server/en/reference/configuration/' },
+            { title: 'Monitoring', url: 'culicidaelab-server/en/deployment/monitoring/' }
         ],
         '/research/': [
-            { title: 'API Reference', url: '/developer-guide/api-reference/' },
-            { title: 'Data Models', url: '/research/data-models/' }
+            { title: 'API Reference', url: 'culicidaelab-server/en/developer-guide/api-reference/' },
+            { title: 'Data Models', url: 'culicidaelab-server/en/research/data-models/' }
         ]
     };
 
@@ -707,7 +707,7 @@ function addErrorHandling() {
             errorNotification.className = 'notification notification--error';
             errorNotification.innerHTML = `
                 <strong>Something went wrong</strong><br>
-                Please refresh the page or <a href="mailto:contact@culicidaelab.org">contact support</a> if the problem persists.
+                Please refresh the page or <a href="mailto:culicidaelab@gmail.com">contact support</a> if the problem persists.
             `;
 
             const content = document.querySelector('.md-content');

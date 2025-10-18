@@ -178,4 +178,4 @@ with open("mosquito_image.jpg", "rb") as f:
 - Проверьте [руководство по устранению неполадок](../user-guide/troubleshooting.md)
 - Поищите в [GitHub Issues](https://github.com/iloncka-ds/culicidaelab-server/issues)
 - Задайте вопросы в [GitHub Discussions](https://github.com/iloncka-ds/culicidaelab-server/discussions)
-- Свяжитесь с командой по адресу [contact@culicidaelab.org](mailto:contact@culicidaelab.org)
+- Свяжитесь с командой по адресу [culicidaelab@gmail.com](mailto:culicidaelab@gmail.com)

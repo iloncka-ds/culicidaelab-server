@@ -248,9 +248,9 @@ http POST localhost:8000/api/v1/observations \
 
 Для подробной документации каждой конечной точки API, включая схемы запросов/ответов и примеры, см.:
 
-- [API видов](../developer-guide/api-reference/species.md)
-- [API болезней](../developer-guide/api-reference/diseases.md)
-- [Географический API](../developer-guide/api-reference/geo.md)
-- [API предсказаний](../developer-guide/api-reference/prediction.md)
-- [API наблюдений](../developer-guide/api-reference/observation.md)
-- [API фильтров](../developer-guide/api-reference/filters.md)
+- [API видов](../../developer-guide/api-reference/species.md)
+- [API болезней](../../developer-guide/api-reference/diseases.md)
+- [Географический API](../../developer-guide/api-reference/geo.md)
+- [API предсказаний](../../developer-guide/api-reference/prediction.md)
+- [API наблюдений](../../developer-guide/api-reference/observation.md)
+- [API фильтров](../../developer-guide/api-reference/filters.md)

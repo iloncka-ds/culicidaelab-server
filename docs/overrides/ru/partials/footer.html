@@ -1,4 +1,4 @@
-<!-- Custom footer with enhanced branding -->
+<!-- Пользовательский футер с улучшенным брендингом -->
 <footer class="md-footer">
   {% if "navigation.footer" in features %}
     {% if page.previous_page or page.next_page %}
@@ -40,55 +40,54 @@
     {% endif %}
   {% endif %}
 
-  <!-- Enhanced footer content -->
+  <!-- Улучшенное содержимое подвала -->
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
 
-      <!-- CulicidaeLab branding section -->
+      <!-- Секция брендинга CulicidaeLab -->
       <div class="md-footer__brand">
         <div class="md-footer__logo">
-          {% include ".icons/material/bug.svg" %}
           <span class="md-footer__brand-text">CulicidaeLab</span>
         </div>
         <p class="md-footer__tagline">
-          Advancing mosquito research through innovative technology and data analysis
+          Развитие исследований комаров с помощью инновационных технологий и анализа данных
         </p>
       </div>
 
-      <!-- Links section -->
+      <!-- Секция ссылок -->
       <div class="md-footer__links">
         <div class="md-footer__links-column">
-          <h4>Documentation</h4>
+          <h4>Документация</h4>
           <ul>
-            <li><a href="{{ 'getting-started/' | url }}">Getting Started</a></li>
-            <li><a href="{{ 'developer-guide/' | url }}">Developer Guide</a></li>
-            <li><a href="{{ 'user-guide/' | url }}">User Guide</a></li>
-            <li><a href="{{ 'reference/api/' | url }}">API Reference</a></li>
+            <li><a href="{{ 'getting-started/' | url }}">Начало работы</a></li>
+            <li><a href="{{ 'developer-guide/' | url }}">Руководство разработчика</a></li>
+            <li><a href="{{ 'user-guide/' | url }}">Руководство пользователя</a></li>
+            <li><a href="{{ 'reference/api/' | url }}">Справочник API</a></li>
           </ul>
         </div>
 
         <div class="md-footer__links-column">
-          <h4>Community</h4>
+          <h4>Сообщество</h4>
           <ul>
             <li><a href="{{ config.repo_url }}" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="{{ config.repo_url }}/issues" target="_blank" rel="noopener">Report Issues</a></li>
-            <li><a href="{{ config.repo_url }}/discussions" target="_blank" rel="noopener">Discussions</a></li>
-            <li><a href="mailto:contact@culicidaelab.org">Contact</a></li>
+            <li><a href="{{ config.repo_url }}/issues" target="_blank" rel="noopener">Сообщить о проблемах</a></li>
+            <li><a href="{{ config.repo_url }}/discussions" target="_blank" rel="noopener">Обсуждения</a></li>
+            <li><a href="mailto:culicidaelab@gmail.com">Контакты</a></li>
           </ul>
         </div>
 
         <div class="md-footer__links-column">
-          <h4>Resources</h4>
+          <h4>Ресурсы</h4>
           <ul>
-            <li><a href="https://culicidaelab.org" target="_blank" rel="noopener">CulicidaeLab Website</a></li>
-            <li><a href="{{ 'research/datasets/' | url }}">Datasets</a></li>
-            <li><a href="{{ 'reference/changelog/' | url }}">Changelog</a></li>
-            <li><a href="{{ 'reference/glossary/' | url }}">Glossary</a></li>
+            <li><a href="https://culicidaelab.ru" target="_blank" rel="noopener">Веб-сайт CulicidaeLab</a></li>
+            <li><a href="{{ 'research/datasets/' | url }}">Наборы данных</a></li>
+            <li><a href="{{ 'reference/changelog/' | url }}">История изменений</a></li>
+            <li><a href="{{ 'reference/glossary/' | url }}">Глоссарий</a></li>
           </ul>
         </div>
       </div>
 
-      <!-- Copyright and social -->
+      <!-- Копирайт и социальные сети -->
       <div class="md-footer__bottom">
         <div class="md-footer__copyright">
           {% if config.copyright %}
@@ -97,9 +96,9 @@
             </div>
           {% endif %}
           <div class="md-footer__version">
-            Documentation built with
+            Документация создана с помощью
             <a href="https://www.mkdocs.org/" target="_blank" rel="noopener">MkDocs</a>
-            and
+            и
             <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
           </div>
         </div>

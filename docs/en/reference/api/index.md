@@ -248,9 +248,9 @@ http POST localhost:8000/api/v1/observations \
 
 For detailed documentation of each API endpoint, including request/response schemas and examples, see:
 
-- [Species API](../developer-guide/api-reference/species.md)
-- [Diseases API](../developer-guide/api-reference/diseases.md)
-- [Geographic API](../developer-guide/api-reference/geo.md)
-- [Prediction API](../developer-guide/api-reference/prediction.md)
-- [Observation API](../developer-guide/api-reference/observation.md)
-- [Filters API](../developer-guide/api-reference/filters.md)
+- [Species API](../../developer-guide/api-reference/species.md)
+- [Diseases API](../../developer-guide/api-reference/diseases.md)
+- [Geographic API](../../developer-guide/api-reference/geo.md)
+- [Prediction API](../../developer-guide/api-reference/prediction.md)
+- [Observation API](../../developer-guide/api-reference/observation.md)
+- [Filters API](../../developer-guide/api-reference/filters.md)

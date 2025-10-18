@@ -178,4 +178,4 @@ If you encounter issues:
 - Check the [troubleshooting guide](../user-guide/troubleshooting.md)
 - Search [GitHub Issues](https://github.com/iloncka-ds/culicidaelab-server/issues)
 - Ask questions in [GitHub Discussions](https://github.com/iloncka-ds/culicidaelab-server/discussions)
-- Contact the team at [contact@culicidaelab.org](mailto:contact@culicidaelab.org)
+- Contact the team at [culicidaelab@gmail.com](mailto:culicidaelab@gmail.com)

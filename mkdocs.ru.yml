@@ -1,18 +1,19 @@
 INHERIT: mkdocs.common.yml
 
-
-site_description: 'CulicidaeLab: A Python Library for Mosquito Analysis'
-site_author: Ilona Kovaleva
+site_name: Документация сервера CulicidaeLab
+site_description: 'CulicidaeLab: Веб-сервер для исследований распространения эпидемиологически опасных видов комаров и их значения для общественного здоровья'
+site_author: Илона Ковалёва
 site_url: 'https://iloncka-ds.github.io/culicidaelab-server/ru'
 site_dir: 'site/ru/'
 edit_uri: 'blob/main/docs/ru'
-copyright: Copyright &copy; 2025 Kovaleva Ilona
+copyright: Все права защищены &copy; 2025 Ковалёва Илона
 
 theme:
   language: ru
+  custom_dir: 'docs/overrides/ru'
 
 docs_dir: 'docs/ru'
-custom_dir: 'docs/ru/overrides'
+
 
 plugins:
 

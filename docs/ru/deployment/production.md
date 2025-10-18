@@ -54,7 +54,7 @@ source .venv/bin/activate
 
 # Установка зависимостей
 pip install uv
-uv sync --group production
+uv sync -p 3.11
 ```
 
 ### 3. Конфигурация окружения
@@ -202,7 +202,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        
+
         # Поддержка WebSocket для Solara
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -216,7 +216,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        
+
         # Увеличение timeout для предсказаний модели
         proxy_read_timeout 300s;
         proxy_connect_timeout 75s;
@@ -363,7 +363,7 @@ tar -czf $BACKUP_DIR/application_$DATE.tar.gz /path/to/culicidaelab-server/
 Рекомендации по ресурсам в зависимости от нагрузки:
 
 - **Малая (< 100 пользователей)**: 2 ядра CPU, 4ГБ ОЗУ
-- **Средняя (100-1000 пользователей)**: 4 ядра CPU, 8ГБ ОЗУ  
+- **Средняя (100-1000 пользователей)**: 4 ядра CPU, 8ГБ ОЗУ
 - **Большая (1000+ пользователей)**: 8+ ядер CPU, 16ГБ+ ОЗУ
 
 ## Устранение неполадок

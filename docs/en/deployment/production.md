@@ -54,7 +54,7 @@ source .venv/bin/activate
 
 # Install dependencies
 pip install uv
-uv sync --group production
+uv sync -p 3.11
 ```
 
 ### 3. Environment Configuration
@@ -202,7 +202,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        
+
         # WebSocket support for Solara
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -216,7 +216,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        
+
         # Increase timeout for model predictions
         proxy_read_timeout 300s;
         proxy_connect_timeout 75s;
@@ -363,7 +363,7 @@ For high-traffic deployments:
 Resource recommendations by load:
 
 - **Small (< 100 users)**: 2 CPU cores, 4GB RAM
-- **Medium (100-1000 users)**: 4 CPU cores, 8GB RAM  
+- **Medium (100-1000 users)**: 4 CPU cores, 8GB RAM
 - **Large (1000+ users)**: 8+ CPU cores, 16GB+ RAM
 
 ## Troubleshooting

@@ -55,7 +55,7 @@ function enhanceSearch() {
     });
 
     // Add search shortcuts
-    searchInput.setAttribute('placeholder', 'Search documentation (Ctrl+K)');
+    searchInput.setAttribute('placeholder', 'Поиск по документации (Ctrl+K)');
 }
 
 /**
@@ -83,7 +83,7 @@ function addBreadcrumbs() {
  * Generate breadcrumb data from current path and navigation
  */
 function generateBreadcrumbs(currentPath, nav) {
-    const breadcrumbs = [{ title: 'Home', url: '/' }];
+    const breadcrumbs = [{ title: 'Домашняя', url: '/' }];
 
     // Parse navigation structure to find current page
     const navItems = nav.querySelectorAll('.md-nav__item');
@@ -173,24 +173,24 @@ function findRelatedPages(currentPath) {
     // Define relationships between pages
     const relationships = {
         '/getting-started/': [
-            { title: 'API Reference', url: '/developer-guide/api-reference/' },
-            { title: 'Configuration', url: '/reference/configuration/' }
+            { title: 'API Reference', url: 'culicidaelab-server/ru/developer-guide/api-reference/' },
+            { title: 'Configuration', url: 'culicidaelab-server/ru/reference/configuration/' }
         ],
         '/developer-guide/': [
-            { title: 'Getting Started', url: '/getting-started/' },
-            { title: 'Deployment', url: '/deployment/' }
+            { title: 'Getting Started', url: 'culicidaelab-server/ru/getting-started/' },
+            { title: 'Deployment', url: 'culicidaelab-server/ru/deployment/' }
         ],
         '/user-guide/': [
-            { title: 'Getting Started', url: '/getting-started/' },
-            { title: 'Troubleshooting', url: '/user-guide/troubleshooting/' }
+            { title: 'Getting Started', url: 'culicidaelab-server/ru/getting-started/' },
+            { title: 'Troubleshooting', url: 'culicidaelab-server/ru/user-guide/troubleshooting/' }
         ],
         '/deployment/': [
-            { title: 'Configuration Reference', url: '/reference/configuration/' },
-            { title: 'Monitoring', url: '/deployment/monitoring/' }
+            { title: 'Configuration Reference', url: 'culicidaelab-server/ru/reference/configuration/' },
+            { title: 'Monitoring', url: 'culicidaelab-server/ru/deployment/monitoring/' }
         ],
         '/research/': [
-            { title: 'API Reference', url: '/developer-guide/api-reference/' },
-            { title: 'Data Models', url: '/research/data-models/' }
+            { title: 'API Reference', url: 'culicidaelab-server/ru/developer-guide/api-reference/' },
+            { title: 'Data Models', url: 'culicidaelab-server/ru/research/data-models/' }
         ]
     };
 
@@ -214,7 +214,7 @@ function createCrossReferenceElement(relatedPages) {
 
     const title = document.createElement('div');
     title.className = 'cross-reference__title';
-    title.textContent = 'Related Pages';
+    title.textContent = 'Связанные страницы';
 
     const ul = document.createElement('ul');
     ul.className = 'cross-reference__list';
@@ -289,16 +289,16 @@ function gatherPageMetadata() {
 /**
  * Get current section from path
  */
+
 function getCurrentSection(path) {
-    if (path.includes('/getting-started/')) return 'Getting Started';
-    if (path.includes('/user-guide/')) return 'User Guide';
-    if (path.includes('/developer-guide/')) return 'Developer Guide';
-    if (path.includes('/deployment/')) return 'Deployment';
-    if (path.includes('/research/')) return 'Research';
-    if (path.includes('/reference/')) return 'Reference';
+    if (path.includes('/getting-started/')) return 'Начало работы';
+    if (path.includes('/user-guide/')) return 'Руководство пользователя';
+    if (path.includes('/developer-guide/')) return 'Руководство разработчика';
+    if (path.includes('/deployment/')) return 'Развертывание';
+    if (path.includes('/research/')) return 'Исследования';
+    if (path.includes('/reference/')) return 'Справочник';
     return null;
 }
-
 /**
  * Create page metadata HTML element
  */
@@ -707,7 +707,7 @@ function addErrorHandling() {
             errorNotification.className = 'notification notification--error';
             errorNotification.innerHTML = `
                 <strong>Something went wrong</strong><br>
-                Please refresh the page or <a href="mailto:contact@culicidaelab.org">contact support</a> if the problem persists.
+                Please refresh the page or <a href="mailto:culicidaelab@gmail.com">contact support</a> if the problem persists.
             `;
 
             const content = document.querySelector('.md-content');
@@ -735,7 +735,7 @@ function addErrorHandling() {
     window.addEventListener('offline', function () {
         const notification = document.createElement('div');
         notification.className = 'notification notification--warning';
-        notification.textContent = 'You are currently offline. Some features may not be available.';
+        notification.textContent = 'Выключен интернет. Некоторые функции могут работать некорректно.';
         document.body.appendChild(notification);
 
         setTimeout(() => notification.remove(), 5000);

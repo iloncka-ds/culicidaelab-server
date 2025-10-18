@@ -602,7 +602,7 @@ Contributors are recognized in:
 
 **Do not report security vulnerabilities through public GitHub issues.**
 
-Instead, email security@culicidaelab.org with:
+Instead, email culicidaelab@gmail.com with:
 - Description of the vulnerability
 - Steps to reproduce
 - Potential impact

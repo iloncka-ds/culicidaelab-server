@@ -1,6 +1,6 @@
 INHERIT: mkdocs.common.yml
-
-site_description: 'CulicidaeLab Server: Webserver for Mosquito Analysis'
+site_name: CulicidaeLab Server Documentation
+site_description: 'CulicidaeLab Server: Webserver for Mosquito Research and Public Health Analysis'
 site_author: Ilona Kovaleva
 site_url: 'https://iloncka-ds.github.io/culicidaelab-server/en'
 site_dir: 'site/en/'
@@ -9,9 +9,10 @@ copyright: Copyright &copy; 2025 Kovaleva Ilona
 
 theme:
   language: en
+  custom_dir: 'docs/overrides/en'
 
 docs_dir: 'docs/en'
-custom_dir: 'docs/en/overrides'
+
 
 
 plugins:

@@ -119,11 +119,11 @@ app = FastAPI(
     title="API CulicidaeLab Server",
     description="Сложная веб-платформа для исследования комаров, наблюдения и анализа данных",
     version="1.0.0",
-    terms_of_service="https://culicidaelab.org/terms/",
+    terms_of_service="https://culicidaelab.ru/terms/",
     contact={
         "name": "Команда CulicidaeLab",
-        "url": "https://culicidaelab.org/contact/",
-        "email": "contact@culicidaelab.org",
+        "url": "https://culicidaelab.ru/contact/",
+        "email": "culicidaelab@gmail.com",
     },
     license_info={
         "name": "MIT License",
@@ -158,7 +158,7 @@ class SpeciesResponse(BaseModel):
     id: str
     scientific_name: str
     common_name: str
-    
+
     class Config:
         schema_extra = {
             "example": {

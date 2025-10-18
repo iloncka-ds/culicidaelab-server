@@ -292,8 +292,8 @@ The frontend application will be accessible at `http://localhost:8765` (or the p
 
 ## Deployment
 
-Application can be deployed on any server with minimal configuration.
-Visit [http://culicidealab.ru](http://culicidealab.ru) to see the application in action.
+Application can be deployed on any server with minimal configuration (see [docs/en/deployment/production.md](https://github.com/iloncka-ds/culicidaelab-server/blob/main/docs/en/deployment/production.md)).
+Visit [http://culicidaelab.ru](http://culicidaelab.ru) to see the application in action.
 
 ## 🤝 Contributing
 
