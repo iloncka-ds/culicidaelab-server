@@ -35,7 +35,8 @@ jobs:
           pip install mkdocs-material mkdocstrings[python] mkdocs-mermaid2-plugin \
                       mkdocs-minify-plugin mkdocs-git-revision-date-localized-plugin \
                       mkdocs-swagger-ui-tag fastapi
-
+      - name: Install CulicidaeLab-Server
+        run: git clone https://github.com/iloncka-ds/culicidaelab-server.git && cd culicidaelab-server && pip install -e .[docs]
       - name: Build English docs
         run: mkdocs build --config-file=mkdocs.en.yml --site-dir=temp_build/en
 
