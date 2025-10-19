@@ -1,0 +1,23 @@
+# Cron configuration for automatic SSL certificate renewal
+# This file should be placed in /etc/cron.d/ or added to crontab
+
+# Environment variables for cron jobs
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=""
+
+# Certificate renewal configuration
+EMAIL_NOTIFICATIONS=1
+NOTIFICATION_EMAIL=admin@example.com
+RENEWAL_THRESHOLD=30
+
+# Run certificate renewal check twice daily at 3:30 AM and 3:30 PM
+# This ensures certificates are renewed well before expiry
+30 3,15 * * * root cd /opt/culicidaelab && /opt/culicidaelab/scripts/renew-certificates.sh renew >> /var/log/certbot-renewal.log 2>&1
+
+# Run weekly health check on Sundays at 2:00 AM
+# This provides regular monitoring of certificate status
+0 2 * * 0 root cd /opt/culicidaelab && /opt/culicidaelab/scripts/renew-certificates.sh health >> /var/log/certbot-health.log 2>&1
+
+# Monthly cleanup of old log files on the 1st of each month at 1:00 AM
+0 1 1 * * root find /opt/culicidaelab/certbot/logs -name "*.log*" -type f -mtime +90 -delete 2>/dev/null || true

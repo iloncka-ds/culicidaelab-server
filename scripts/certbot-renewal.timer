@@ -1,0 +1,18 @@
+[Unit]
+Description=SSL Certificate Renewal Timer
+Documentation=https://letsencrypt.org/docs/
+Requires=certbot-renewal.service
+
+[Timer]
+# Run twice daily at 3:30 AM and 3:30 PM
+OnCalendar=*-*-* 03:30:00
+OnCalendar=*-*-* 15:30:00
+
+# Add randomization to prevent all servers from hitting Let's Encrypt at the same time
+RandomizedDelaySec=3600
+
+# Ensure the timer runs even if the system was off during the scheduled time
+Persistent=true
+
+[Install]
+WantedBy=timers.target

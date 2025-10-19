@@ -1,0 +1,30 @@
+[Unit]
+Description=SSL Certificate Renewal Service
+Documentation=https://letsencrypt.org/docs/
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/culicidaelab
+Environment=EMAIL_NOTIFICATIONS=1
+Environment=NOTIFICATION_EMAIL=admin@example.com
+Environment=RENEWAL_THRESHOLD=30
+ExecStart=/opt/culicidaelab/scripts/renew-certificates.sh renew
+StandardOutput=journal
+StandardError=journal
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/culicidaelab
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+[Install]
+WantedBy=multi-user.target

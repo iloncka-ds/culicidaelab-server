@@ -8,7 +8,7 @@ __pycache__/
 *.py[oc]
 build/
 dist/
-scripts/
+# scripts/
 wheels/
 *.egg-info
 .VSCodeCounter
