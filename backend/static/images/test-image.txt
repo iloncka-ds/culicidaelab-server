@@ -1,0 +1,2 @@
+This is a test file in the images directory to verify static serving works.
+Path: /static/images/test-image.txt

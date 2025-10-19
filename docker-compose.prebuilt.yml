@@ -1,0 +1,123 @@
+version: '3.8'
+
+# Docker Compose configuration using pre-built images
+# Usage: docker-compose -f docker-compose.prebuilt.yml up
+
+services:
+  backend:
+    image: ${REGISTRY:-}culicidaelab-backend:${VERSION:-latest}
+    container_name: culicidaelab_backend_prebuilt
+    restart: unless-stopped
+    environment:
+      - CULICIDAELAB_DATABASE_PATH=/app/backend/data/.lancedb
+      - CULICIDAELAB_BACKEND_CORS_ORIGINS=${CORS_ORIGINS:-https://yourdomain.com,http://yourdomain.com}
+      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=true
+      - PYTHONPATH=/app
+      - FASTAPI_ENV=${FASTAPI_ENV:-production}
+      - DEBUG=${DEBUG:-false}
+      - STATIC_URL_BASE=${STATIC_URL_BASE:-https://yourdomain.com}
+    volumes:
+      - backend_data:/app/backend/data
+      - backend_static:/app/backend/static
+    networks:
+      - culicidaelab_network
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 60s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=backend"
+      - "environment=${ENVIRONMENT:-production}"
+
+  frontend:
+    image: ${REGISTRY:-}culicidaelab-frontend:${VERSION:-latest}
+    container_name: culicidaelab_frontend_prebuilt
+    restart: unless-stopped
+    environment:
+      - CLIENT_BACKEND_URL=${CLIENT_BACKEND_URL:-https://yourdomain.com}
+      - SERVER_BACKEND_URL=http://backend:8000
+      - STATIC_FILES_URL=${STATIC_FILES_URL:-https://yourdomain.com}
+      - SOLARA_DEBUG=${SOLARA_DEBUG:-false}
+      - PYTHONPATH=/app
+    networks:
+      - culicidaelab_network
+    ports:
+      - "8765:8765"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8765/"]
+      interval: 60s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=frontend"
+      - "environment=${ENVIRONMENT:-production}"
+    depends_on:
+      - backend
+
+  nginx:
+    image: ${REGISTRY:-}culicidaelab-nginx:${VERSION:-latest}
+    container_name: culicidaelab_nginx_prebuilt
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - backend_static:/var/www/static:ro
+      - nginx_logs:/var/log/nginx
+      - ssl_certs:/etc/nginx/ssl:ro
+    networks:
+      - culicidaelab_network
+    environment:
+      - NGINX_ENV=${NGINX_ENV:-production}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 60s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=nginx"
+      - "environment=${ENVIRONMENT:-production}"
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  backend_data:
+    driver: local
+  backend_static:
+    driver: local
+  nginx_logs:
+    driver: local
+  ssl_certs:
+    driver: local
+
+networks:
+  culicidaelab_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16

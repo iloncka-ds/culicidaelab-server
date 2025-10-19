@@ -1,0 +1,65 @@
+# Security-sensitive files
+.env
+.env.*
+*.key
+*.pem
+*.crt
+secrets/
+.secrets/
+
+# Development files
+.git/
+.gitignore
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.coverage
+.tox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.venv/
+.env/
+
+# Documentation and non-essential files
+docs/
+*.md
+README*
+LICENSE
+CHANGELOG*
+.github/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Test files
+tests/
+test_*
+*_test.py
+conftest.py
+
+# Build artifacts
+build/
+dist/
+*.egg-info/

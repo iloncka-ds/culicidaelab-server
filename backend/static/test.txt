@@ -1,0 +1,2 @@
+This is a test file to verify static file serving is working.
+Timestamp: 2025-01-27

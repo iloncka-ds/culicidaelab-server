@@ -1,0 +1,18 @@
+# Simple nginx Dockerfile for local development
+FROM nginx:alpine
+
+# Copy the local configuration
+COPY nginx/nginx.local.conf /etc/nginx/nginx.conf
+
+# Create log directory
+RUN mkdir -p /var/log/nginx
+
+# Expose port 80 only (no SSL)
+EXPOSE 80
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost/health || exit 1
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

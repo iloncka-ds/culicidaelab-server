@@ -1,0 +1,45 @@
+version: '3.8'
+
+# Custom ports version for testing
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: culicidaelab_backend_custom
+    restart: "no"
+    environment:
+      - CULICIDAELAB_DATABASE_PATH=/app/data/culicidaelab.db
+      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=true
+      - FASTAPI_ENV=development
+      - DEBUG=true
+      - CULICIDAELAB_BACKEND_CORS_ORIGINS=http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000,http://127.0.0.1:8080
+    volumes:
+      - ./data:/app/data:rw
+      - ./static:/app/static:rw
+    networks:
+      - culicidaelab_network
+    ports:
+      - "8001:8000"  # Backend on 8001
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: culicidaelab_frontend_custom
+    restart: "no"
+    environment:
+      - BACKEND_URL=http://localhost:8001
+      - SOLARA_DEBUG=true
+      - SOLARA_ASSETS_PROXY=false
+      - HOME=/app
+    networks:
+      - culicidaelab_network
+    ports:
+      - "3000:8765"  # Frontend on 3000
+    depends_on:
+      - backend
+
+networks:
+  culicidaelab_network:
+    driver: bridge

@@ -1,0 +1,73 @@
+# Enhanced nginx Dockerfile with integrated Certbot
+FROM nginx:alpine
+
+# Install required packages for certbot and certificate management
+RUN apk add --no-cache \
+    curl \
+    certbot \
+    certbot-nginx \
+    openssl \
+    bash \
+    dcron \
+    logrotate \
+    mailx \
+    && rm -rf /var/cache/apk/*
+
+# Create nginx user and set proper permissions
+RUN addgroup -g 101 -S nginx || true && \
+    adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx || true
+
+# Create necessary directories
+RUN mkdir -p \
+    /var/www/static \
+    /var/www/certbot \
+    /var/log/nginx \
+    /var/cache/nginx \
+    /etc/letsencrypt \
+    /var/lib/letsencrypt \
+    /var/log/letsencrypt \
+    /scripts \
+    && chown -R nginx:nginx /var/www /var/log/nginx /var/cache/nginx \
+    && chown -R root:root /etc/letsencrypt /var/lib/letsencrypt /var/log/letsencrypt /scripts \
+    && chmod -R 755 /var/www \
+    && chmod -R 700 /etc/letsencrypt \
+    && chmod -R 755 /scripts
+
+# Copy nginx configurations
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/nginx-ssl.conf /etc/nginx/conf.d/ssl.conf.template
+
+# Copy certbot integration scripts
+COPY nginx/scripts/nginx-certbot-init.sh /scripts/
+COPY nginx/scripts/nginx-certbot-renew.sh /scripts/
+COPY nginx/scripts/nginx-entrypoint.sh /scripts/
+
+# Set proper permissions for scripts and configurations
+RUN chmod +x /scripts/*.sh && \
+    chown root:root /etc/nginx/nginx.conf /scripts/*.sh && \
+    chmod 644 /etc/nginx/nginx.conf
+
+# Create cron job for certificate renewal
+RUN echo "0 3,15 * * * /scripts/nginx-certbot-renew.sh >> /var/log/letsencrypt/renewal.log 2>&1" | crontab -
+
+# Create a simple index.html for testing
+RUN echo '<html><body><h1>nginx with SSL is running</h1></body></html>' > /var/www/static/index.html && \
+    chown nginx:nginx /var/www/static/index.html
+
+# Create health check endpoint
+RUN mkdir -p /var/www/static/.well-known && \
+    echo 'OK' > /var/www/static/.well-known/health && \
+    chown -R nginx:nginx /var/www/static/.well-known
+
+# Expose ports
+EXPOSE 80 443
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost/.well-known/health || exit 1
+
+# Use custom entrypoint that handles SSL initialization
+ENTRYPOINT ["./scripts/nginx-entrypoint.sh"]
+
+# Default command
+CMD ["nginx", "-g", "daemon off;"]

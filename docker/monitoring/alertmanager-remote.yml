@@ -1,0 +1,238 @@
+# Alertmanager configuration for remote monitoring deployment
+# Handles alerts from multiple CulicidaeLab instances
+
+global:
+  smtp_smarthost: '${SMTP_HOST:-localhost}:${SMTP_PORT:-587}'
+  smtp_from: '${SMTP_FROM:-alerts@culicidaelab.com}'
+  smtp_auth_username: '${SMTP_USER}'
+  smtp_auth_password: '${SMTP_PASSWORD}'
+  smtp_require_tls: true
+
+# Routing configuration for multi-instance monitoring
+route:
+  group_by: ['alertname', 'cluster', 'service', 'instance']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'default-alerts'
+  routes:
+    # Critical alerts - immediate notification
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 5s
+      repeat_interval: 15m
+      routes:
+        # Production critical alerts
+        - match:
+            instance: production
+        receiver: 'production-critical'
+        group_wait: 2s
+        repeat_interval: 10m
+
+    # Warning alerts - standard notification
+    - match:
+        severity: warning
+      receiver: 'warning-alerts'
+      group_wait: 30s
+      repeat_interval: 2h
+
+    # Instance-specific routing
+    - match:
+        instance: production
+      receiver: 'production-alerts'
+      routes:
+        - match:
+            service: backend
+          receiver: 'production-backend-alerts'
+        - match:
+            service: frontend
+          receiver: 'production-frontend-alerts'
+        - match:
+            service: nginx
+          receiver: 'production-nginx-alerts'
+
+    - match:
+        instance: staging
+      receiver: 'staging-alerts'
+
+    - match:
+        instance: development
+      receiver: 'development-alerts'
+
+# Alert receivers with multi-channel notifications
+receivers:
+  - name: 'default-alerts'
+    email_configs:
+      - to: '${ALERT_EMAIL:-admin@culicidaelab.com}'
+        subject: 'CulicidaeLab Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Instance: {{ .Labels.instance }}
+          Service: {{ .Labels.service }}
+          Severity: {{ .Labels.severity }}
+          Time: {{ .StartsAt }}
+          {{ end }}
+
+  - name: 'critical-alerts'
+    email_configs:
+      - to: '${CRITICAL_EMAIL:-admin@culicidaelab.com}'
+        subject: '🔴 CRITICAL: {{ .GroupLabels.alertname }} - {{ .GroupLabels.instance }}'
+        body: |
+          CRITICAL ALERT DETECTED!
+
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Instance: {{ .Labels.instance }}
+          Service: {{ .Labels.service }}
+          Severity: {{ .Labels.severity }}
+          Started: {{ .StartsAt }}
+          {{ if .EndsAt }}Ended: {{ .EndsAt }}{{ end }}
+
+          Dashboard: http://monitoring.culicidaelab.com:3000/d/overview
+          {{ end }}
+    webhook_configs:
+      - url: '${WEBHOOK_URL}'
+        send_resolved: true
+        http_config:
+          basic_auth:
+            username: '${WEBHOOK_USER}'
+            password: '${WEBHOOK_PASSWORD}'
+    # Slack notifications (if configured)
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#alerts-critical'
+        title: 'Critical Alert: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts }}
+          *Instance:* {{ .Labels.instance }}
+          *Service:* {{ .Labels.service }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          {{ end }}
+
+  - name: 'production-critical'
+    email_configs:
+      - to: '${PROD_CRITICAL_EMAIL:-production-team@culicidaelab.com}'
+        subject: '🚨 PRODUCTION CRITICAL: {{ .GroupLabels.alertname }}'
+        body: |
+          PRODUCTION SYSTEM CRITICAL ALERT!
+
+          This requires immediate attention.
+
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Service: {{ .Labels.service }}
+          Started: {{ .StartsAt }}
+
+          Runbook: {{ .Annotations.runbook_url }}
+          Dashboard: http://monitoring.culicidaelab.com:3000/d/production
+          {{ end }}
+    # PagerDuty integration (if configured)
+    pagerduty_configs:
+      - routing_key: '${PAGERDUTY_ROUTING_KEY}'
+        description: 'Production Critical: {{ .GroupLabels.alertname }}'
+
+  - name: 'production-alerts'
+    email_configs:
+      - to: '${PROD_EMAIL:-production-team@culicidaelab.com}'
+        subject: 'Production Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Production environment alert:
+
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Service: {{ .Labels.service }}
+          Severity: {{ .Labels.severity }}
+          {{ end }}
+
+  - name: 'production-backend-alerts'
+    email_configs:
+      - to: '${BACKEND_EMAIL:-backend-team@culicidaelab.com}'
+        subject: 'Production Backend Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Production backend service alert:
+          {{ range .Alerts }}
+          - {{ .Annotations.summary }}
+          {{ end }}
+
+  - name: 'production-frontend-alerts'
+    email_configs:
+      - to: '${FRONTEND_EMAIL:-frontend-team@culicidaelab.com}'
+        subject: 'Production Frontend Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Production frontend service alert:
+          {{ range .Alerts }}
+          - {{ .Annotations.summary }}
+          {{ end }}
+
+  - name: 'production-nginx-alerts'
+    email_configs:
+      - to: '${INFRA_EMAIL:-infrastructure-team@culicidaelab.com}'
+        subject: 'Production Nginx Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Production nginx service alert:
+          {{ range .Alerts }}
+          - {{ .Annotations.summary }}
+          {{ end }}
+
+  - name: 'staging-alerts'
+    email_configs:
+      - to: '${STAGING_EMAIL:-staging-team@culicidaelab.com}'
+        subject: 'Staging Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Staging environment alert:
+          {{ range .Alerts }}
+          - {{ .Annotations.summary }}
+          {{ end }}
+
+  - name: 'development-alerts'
+    email_configs:
+      - to: '${DEV_EMAIL:-dev-team@culicidaelab.com}'
+        subject: 'Development Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Development environment alert:
+          {{ range .Alerts }}
+          - {{ .Annotations.summary }}
+          {{ end }}
+
+  - name: 'warning-alerts'
+    email_configs:
+      - to: '${WARNING_EMAIL:-monitoring@culicidaelab.com}'
+        subject: 'Warning: {{ .GroupLabels.alertname }}'
+        body: |
+          Warning level alert detected:
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Instance: {{ .Labels.instance }}
+          Service: {{ .Labels.service }}
+          {{ end }}
+
+# Inhibition rules to prevent alert spam
+inhibit_rules:
+  # Inhibit warning alerts when critical alerts are firing
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'instance', 'service']
+
+  # Inhibit service-specific alerts when the entire instance is down
+  - source_match:
+      alertname: 'InstanceDown'
+    target_match_re:
+      alertname: '(High.*Usage|ServiceDown)'
+    equal: ['instance']
+
+  # Inhibit individual container alerts when the host is down
+  - source_match:
+      alertname: 'NodeDown'
+    target_match_re:
+      alertname: 'Container.*'
+    equal: ['instance']

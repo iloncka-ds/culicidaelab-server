@@ -69,7 +69,7 @@ async def populate_regions_table(manager: LanceDBManager):
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")
         return
-    with open(file_path) as f:
+    with open(file_path, encoding="utf-8") as f:
         regions_data = json.load(f)
     await manager.create_or_overwrite_table("regions", regions_data, REGIONS_SCHEMA)
 
@@ -96,7 +96,7 @@ async def populate_data_sources_table(manager: LanceDBManager):
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")
         return
-    with open(file_path) as f:
+    with open(file_path, encoding="utf-8") as f:
         data_sources = json.load(f)
     if data_sources:
         await manager.create_or_overwrite_table("data_sources", data_sources, DATA_SOURCES_SCHEMA)
@@ -128,7 +128,7 @@ async def populate_species_table(manager: LanceDBManager):
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")
         return
-    with open(file_path) as f:
+    with open(file_path, encoding="utf-8") as f:
         species_data = json.load(f)
 
     for s in species_data:
@@ -176,7 +176,7 @@ async def populate_map_layers_table(manager: LanceDBManager):
         if not os.path.exists(file_path):
             print(f"Warning: {file_path} not found. Skipping {layer_type} layer.")
             continue
-        with open(file_path) as f:
+        with open(file_path, encoding="utf-8") as f:
             geojson_collection = json.load(f)
 
         contained_species_set = set()
@@ -230,7 +230,7 @@ async def populate_observations_table(manager: LanceDBManager):
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")
         return
-    with open(file_path) as f:
+    with open(file_path, encoding="utf-8") as f:
         geojson_data = json.load(f)
 
     observations_records = []
@@ -269,7 +269,7 @@ async def populate_diseases_table(manager: LanceDBManager):
     if not file_path.exists():
         print(f"Error: {file_path} not found.")
         return
-    with open(file_path) as f:
+    with open(file_path, encoding="utf-8") as f:
         diseases_data = json.load(f)
 
     for d in diseases_data:

@@ -1,0 +1,75 @@
+# Standalone Frontend Dockerfile for Solara application
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH="/app" \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    # Solara specific settings
+    SOLARA_ASSETS_PROXY=false \
+    HOME=/app
+
+# Update system packages and install dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* /var/tmp/*
+
+# Set work directory
+WORKDIR /app
+
+# Install only the frontend dependencies directly with compatible versions
+RUN pip install --no-cache-dir \
+    solara[assets]==1.50.1 \
+    uvicorn==0.30.6 \
+    fastapi>=0.115.12 \
+    httpx>=0.28.1 \
+    aiohttp>=3.9.0 \
+    aiofiles>=24.1.0 \
+    pandas>=2.2.3 \
+    plotly>=6.0.1 \
+    python-dotenv>=1.1.0 \
+    pydantic-settings>=2.9.1 \
+    python-i18n[yaml]>=0.3.9 \
+    ipyleaflet>=0.19.2 \
+    colorcet>=3.1.0 \
+    anywidget>=0.9.18 \
+    shapely>=2.1.0 \
+    aiofiles>=24.1.0
+
+# Copy only frontend code including translations
+COPY frontend/ ./frontend/
+COPY __init__.py ./
+
+# Create non-root user
+RUN groupadd -r -g 1001 appuser \
+    && useradd -r -g appuser -u 1001 -s /bin/false -M -d /app appuser \
+    && mkdir -p /app/.solara /app/.cache \
+    && chown -R appuser:appuser /app \
+    && chmod -R 750 /app
+
+# Clean up
+RUN apt-get autoremove -y \
+    && apt-get autoclean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Switch to non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8765
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8765/ || exit 1
+
+# Default environment variables
+ENV BACKEND_URL="http://backend:8000" \
+    SOLARA_DEBUG="false"
+
+# Start command using the same approach as development
+CMD ["sh", "-c", "solara run frontend.main --host 0.0.0.0 --port 8765"]

@@ -1,0 +1,143 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: culicidaelab_backend_dev
+    restart: "no"
+    environment:
+      - CULICIDAELAB_DATABASE_PATH=/app/backend/data/.lancedb
+      - CULICIDAELAB_BACKEND_CORS_ORIGINS=http://localhost:3000,http://localhost:8765,http://127.0.0.1:3000,http://127.0.0.1:8765
+      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=true
+      - PYTHONPATH=/app
+      - FASTAPI_ENV=development
+      - DEBUG=true
+    volumes:
+      - ./backend:/app/backend:rw
+      - ./data:/app/backend/data:rw
+      - ./backend/static:/app/backend/static:rw
+    networks:
+      - culicidaelab_network
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 60s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=backend"
+      - "environment=development"
+    command: >
+      sh -c "
+        pip install -e . &&
+        uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload --log-level debug
+      "
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: culicidaelab_frontend_dev
+    restart: "no"
+    environment:
+      - BACKEND_URL=http://localhost:8000
+      - SOLARA_DEBUG=true
+      - PYTHONPATH=/app
+    volumes:
+      - ./frontend:/app/frontend:rw
+    networks:
+      - culicidaelab_network
+    ports:
+      - "8765:8765"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8765/"]
+      interval: 60s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=frontend"
+      - "environment=development"
+    depends_on:
+      - backend
+    command: >
+      sh -c "
+        pip install -e . &&
+        solara run frontend.main:app --host 0.0.0.0 --port 8765 --reload
+      "
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    container_name: culicidaelab_nginx_dev
+    restart: "no"
+    ports:
+      - "80:80"
+    volumes:
+      - ./static:/var/www/static:ro
+      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      - ./logs/nginx:/var/log/nginx
+    networks:
+      - culicidaelab_network
+    environment:
+      - NGINX_ENV=development
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 60s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=nginx"
+      - "environment=development"
+    depends_on:
+      - backend
+      - frontend
+
+
+  # Optional log viewer for development
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: culicidaelab_logs_dev
+    restart: "no"
+    ports:
+      - "9999:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - culicidaelab_network
+    profiles:
+      - tools
+
+# Development uses local directories instead of named volumes
+# This enables live code reloading and easier debugging
+
+networks:
+  culicidaelab_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16

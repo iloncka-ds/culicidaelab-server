@@ -98,7 +98,14 @@ class AppSettings(BaseSettings):
     DATABASE_PATH: str = os.environ.get("CULICIDAELAB_DATABASE_PATH", ".lancedb")
     SAVE_PREDICTED_IMAGES: str | bool = os.environ.get("CULICIDAELAB_SAVE_PREDICTED_IMAGES", False)
 
-    BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:8765", "http://127.0.0.1:8765"]
+    BACKEND_CORS_ORIGINS: str = "http://localhost:8765,http://127.0.0.1:8765"
+
+    @property
+    def cors_origins(self) -> list[str]:
+        """Parse CORS origins from comma-separated string to list."""
+        if isinstance(self.BACKEND_CORS_ORIGINS, str):
+            return [origin.strip() for origin in self.BACKEND_CORS_ORIGINS.split(",")]
+        return self.BACKEND_CORS_ORIGINS
 
     @property
     def classifier_settings(self):

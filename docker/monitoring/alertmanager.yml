@@ -1,0 +1,118 @@
+# Alertmanager configuration for CulicidaeLab monitoring
+# Handles alert routing and notifications
+
+global:
+  smtp_smarthost: 'localhost:587'
+  smtp_from: 'alerts@culicidaelab.local'
+  smtp_auth_username: 'alerts@culicidaelab.local'
+  smtp_auth_password: 'password'
+
+# Routing configuration
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'web.hook'
+  routes:
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 5s
+      repeat_interval: 30m
+
+    - match:
+        severity: warning
+      receiver: 'warning-alerts'
+      group_wait: 30s
+      repeat_interval: 2h
+
+    - match:
+        service: backend
+      receiver: 'backend-alerts'
+
+    - match:
+        service: frontend
+      receiver: 'frontend-alerts'
+
+    - match:
+        service: nginx
+      receiver: 'nginx-alerts'
+
+# Alert receivers
+receivers:
+  - name: 'web.hook'
+    webhook_configs:
+      - url: 'http://localhost:5001/webhook'
+        send_resolved: true
+
+  - name: 'critical-alerts'
+    email_configs:
+      - to: 'admin@culicidaelab.local'
+        subject: 'CRITICAL: {{ .GroupLabels.alertname }} - {{ .GroupLabels.service }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Service: {{ .Labels.service }}
+          Severity: {{ .Labels.severity }}
+          {{ end }}
+    webhook_configs:
+      - url: 'http://localhost:5001/critical-webhook'
+        send_resolved: true
+
+  - name: 'warning-alerts'
+    email_configs:
+      - to: 'monitoring@culicidaelab.local'
+        subject: 'WARNING: {{ .GroupLabels.alertname }} - {{ .GroupLabels.service }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Service: {{ .Labels.service }}
+          Severity: {{ .Labels.severity }}
+          {{ end }}
+
+  - name: 'backend-alerts'
+    email_configs:
+      - to: 'backend-team@culicidaelab.local'
+        subject: 'Backend Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Backend service alert detected:
+          {{ range .Alerts }}
+          - {{ .Annotations.summary }}
+          {{ end }}
+
+  - name: 'frontend-alerts'
+    email_configs:
+      - to: 'frontend-team@culicidaelab.local'
+        subject: 'Frontend Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Frontend service alert detected:
+          {{ range .Alerts }}
+          - {{ .Annotations.summary }}
+          {{ end }}
+
+  - name: 'nginx-alerts'
+    email_configs:
+      - to: 'infrastructure-team@culicidaelab.local'
+        subject: 'Nginx Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Nginx service alert detected:
+          {{ range .Alerts }}
+          - {{ .Annotations.summary }}
+          {{ end }}
+
+# Inhibition rules
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'cluster', 'service']
+
+  - source_match:
+      alertname: 'ContainerDown'
+    target_match_re:
+      alertname: 'High.*Usage'
+    equal: ['service']

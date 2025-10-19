@@ -1,0 +1,268 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: culicidaelab_backend_prod
+    restart: unless-stopped
+    environment:
+      - CULICIDAELAB_DATABASE_PATH=/app/data/.lancedb
+      - CULICIDAELAB_BACKEND_CORS_ORIGINS=https://${DOMAIN_NAME}
+      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=true
+      # Performance optimization environment variables
+      - PYTHONOPTIMIZE=1
+      - PYTHONUNBUFFERED=1
+      - UVICORN_WORKERS=2
+      - UVICORN_WORKER_CLASS=uvicorn.workers.UvicornWorker
+    volumes:
+      - backend_data:/app/data
+      - backend_static:/app/static
+    networks:
+      - culicidaelab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service,environment"
+    labels:
+      - "service=backend"
+      - "environment=production"
+      - "monitoring=enabled"
+    # Enhanced performance configuration
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    # Security and performance optimizations
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+      nproc: 65536
+
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: culicidaelab_frontend_prod
+    restart: unless-stopped
+    environment:
+      - BACKEND_URL=http://backend:8000
+      # Performance optimization environment variables
+      - PYTHONOPTIMIZE=1
+      - PYTHONUNBUFFERED=1
+      - SOLARA_WORKERS=1
+    networks:
+      - culicidaelab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8765/"]
+      interval: 30s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service,environment"
+    labels:
+      - "service=frontend"
+      - "environment=production"
+      - "monitoring=enabled"
+    # Enhanced performance configuration
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+          pids: 50
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    # Security and performance optimizations
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=50m
+    ulimits:
+      nofile:
+        soft: 32768
+        hard: 32768
+      nproc: 32768
+    depends_on:
+      backend:
+        condition: service_healthy
+    expose:
+      - "8765"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    container_name: culicidaelab_nginx_prod
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "9113:9113"  # Nginx metrics port
+    volumes:
+      - letsencrypt_certs:/etc/letsencrypt:ro
+      - letsencrypt_www:/var/www/certbot:ro
+      - backend_static:/var/www/static:ro
+      - ./nginx/nginx-ssl.conf:/etc/nginx/nginx.conf:ro
+      - nginx_logs:/var/log/nginx
+    networks:
+      - culicidaelab_network
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service,environment"
+    labels:
+      - "service=nginx"
+      - "environment=production"
+      - "monitoring=enabled"
+    # Enhanced performance configuration
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+          pids: 50
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    # Security and performance optimizations
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=50m
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+
+  certbot:
+    image: certbot/certbot
+    container_name: culicidaelab_certbot_prod
+    restart: unless-stopped
+    volumes:
+      - letsencrypt_certs:/etc/letsencrypt
+      - letsencrypt_www:/var/www/certbot
+      - ./scripts/init-letsencrypt.sh:/scripts/init-letsencrypt.sh:ro
+      - ./scripts/renew-certificates.sh:/scripts/renew-certificates.sh:ro
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - EMAIL=${CERTBOT_EMAIL}
+    command: >
+      sh -c "
+        if [ ! -f /etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem ]; then
+          /scripts/init-letsencrypt.sh
+        fi &&
+        trap exit TERM &&
+        while :; do
+          /scripts/renew-certificates.sh
+          sleep 72h & wait $!
+        done
+      "
+    networks:
+      - culicidaelab_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=certbot"
+      - "environment=production"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 128M
+        reservations:
+          cpus: '0.05'
+          memory: 64M
+
+volumes:
+  letsencrypt_certs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /etc/letsencrypt
+  letsencrypt_www:
+    driver: local
+  backend_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /var/lib/culicidaelab/data
+  backend_static:
+    driver: local
+  nginx_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /var/log/culicidaelab/nginx
+
+networks:
+  culicidaelab_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

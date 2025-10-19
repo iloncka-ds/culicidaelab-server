@@ -1,0 +1,117 @@
+# Docker Compose configuration with nginx container that includes integrated certbot
+# This is an alternative to the separate certbot container approach
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: culicidaelab_backend
+    environment:
+      - CULICIDAELAB_DATABASE_PATH=/app/data/culicidae.db
+      - CULICIDAELAB_BACKEND_CORS_ORIGINS=https://${DOMAIN_NAME:-localhost}
+      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=true
+    volumes:
+      - backend_data:/app/data
+      - backend_static:/app/static
+    networks:
+      - culicidaelab_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: culicidaelab_frontend
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - culicidaelab_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8765/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.with-certbot
+    container_name: culicidaelab_nginx
+    environment:
+      # SSL Configuration
+      - DOMAIN_NAME=${DOMAIN_NAME:-localhost}
+      - EMAIL=${EMAIL:-admin@example.com}
+      - STAGING=${STAGING:-0}
+
+      # Service Configuration
+      - BACKEND_HOST=backend
+      - BACKEND_PORT=8000
+      - FRONTEND_HOST=frontend
+      - FRONTEND_PORT=8765
+
+      # Certificate Configuration
+      - RSA_KEY_SIZE=${RSA_KEY_SIZE:-4096}
+      - RENEWAL_THRESHOLD=${RENEWAL_THRESHOLD:-30}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # SSL certificates and Let's Encrypt data
+      - letsencrypt_certs:/etc/letsencrypt
+      - letsencrypt_lib:/var/lib/letsencrypt
+      - letsencrypt_logs:/var/log/letsencrypt
+
+      # Static files from backend
+      - backend_static:/var/www/static:ro
+
+      # Webroot for certificate challenges
+      - certbot_webroot:/var/www/certbot
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+    networks:
+      - culicidaelab_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/.well-known/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  backend_data:
+    driver: local
+  backend_static:
+    driver: local
+  letsencrypt_certs:
+    driver: local
+  letsencrypt_lib:
+    driver: local
+  letsencrypt_logs:
+    driver: local
+  certbot_webroot:
+    driver: local
+
+networks:
+  culicidaelab_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

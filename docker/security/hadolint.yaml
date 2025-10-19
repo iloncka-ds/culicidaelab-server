@@ -1,0 +1,28 @@
+# Hadolint configuration for Dockerfile linting
+# Ensures Dockerfile security and best practices
+
+# Ignore specific rules that may not apply to our use case
+ignored:
+  # DL3008: Pin versions in apt get install (we clean cache anyway)
+  - DL3008
+  # DL3009: Delete the apt-get lists after installing (we do this)
+  - DL3009
+
+# Trusted registries for base images
+trustedRegistries:
+  - docker.io
+  - registry.hub.docker.com
+  - python
+  - nginx
+  - certbot
+
+# Override specific rules
+override:
+  # Allow specific shell commands that are necessary
+  error: []
+  warning: []
+  info: []
+  style: []
+
+# Failure threshold - fail on error level and above
+failure-threshold: error

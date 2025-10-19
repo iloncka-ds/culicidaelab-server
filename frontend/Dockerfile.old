@@ -1,0 +1,75 @@
+# Frontend Dockerfile for Solara application with security hardening
+FROM python:3.11-slim
+
+# Security: Set secure environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH="/app" \
+    # Security: Disable pip cache and version checks
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Security: Update system packages and install minimal dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* /var/tmp/* \
+    && rm -rf /root/.cache
+
+# Copy requirements first for better caching
+COPY pyproject.toml ./
+COPY uv.lock ./
+
+# Install uv for faster dependency management
+RUN pip install uv
+
+# Install Python dependencies using uv
+RUN uv sync --frozen --no-dev
+
+# Copy application code
+COPY frontend/ ./frontend/
+COPY backend/ ./backend/
+COPY __init__.py ./
+
+# Install the project in development mode
+RUN uv pip install -e .
+
+# Set Python path to include the current directory
+ENV PYTHONPATH="/app:$PYTHONPATH" \
+    PATH="/app/.venv/bin:$PATH"
+
+# Security: Create non-root user with minimal privileges
+RUN groupadd -r -g 1001 appuser \
+    && useradd -r -g appuser -u 1001 -s /bin/false -M -d /app appuser \
+    && mkdir -p /app /app/.solara /app/.cache \
+    && chown -R appuser:appuser /app \
+    && chmod -R 750 /app
+
+# Security: Set working directory with proper ownership
+WORKDIR /app
+
+# Security: Remove unnecessary packages and clean up
+RUN apt-get autoremove -y \
+    && apt-get autoclean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Security: Switch to non-root user
+USER appuser
+
+# Expose port for Solara frontend
+EXPOSE 8765
+
+# Environment variables for Solara and backend
+ENV BACKEND_URL=http://backend:8000 \
+    SOLARA_ASSETS_PROXY=false \
+    SOLARA_PROXY_CACHE_DIR=/app/.cache \
+    HOME=/app
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8765/ || exit 1
+
+# Start command for Solara frontend
+CMD ["solara", "run", "frontend.main:routes", "--host", "0.0.0.0", "--port", "8765"]

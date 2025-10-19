@@ -1,0 +1,40 @@
+# Trivy security scanner configuration
+# Configuration for container image vulnerability scanning
+
+# Scan settings
+scan:
+  # Skip files that are not relevant for security scanning
+  skip-files:
+    - "**/*.md"
+    - "**/*.txt"
+    - "**/LICENSE*"
+    - "**/CHANGELOG*"
+    - "**/.git/**"
+    - "**/docs/**"
+    - "**/test/**"
+    - "**/tests/**"
+
+# Vulnerability settings
+vulnerability:
+  # Severity levels to report (UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL)
+  severity:
+    - MEDIUM
+    - HIGH
+    - CRITICAL
+
+  # Ignore unfixed vulnerabilities
+  ignore-unfixed: true
+
+# Output settings
+format: table
+output: security-scan-results.txt
+
+# Database settings
+db:
+  # Skip database update for faster scans in CI
+  skip-update: false
+
+# Cache settings
+cache:
+  # Cache directory for faster subsequent scans
+  dir: .trivy-cache

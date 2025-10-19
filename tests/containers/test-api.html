@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>API Connectivity Test</h1>
+    <button onclick="testHealth()">Test Health</button>
+    <button onclick="testDiseases()">Test Diseases</button>
+    <button onclick="testCORS()">Test CORS</button>
+    <div id="results"></div>
+
+    <script>
+        function log(message) {
+            document.getElementById('results').innerHTML += '<p>' + message + '</p>';
+        }
+
+        async function testHealth() {
+            log('Testing health endpoint...');
+            try {
+                const response = await fetch('http://localhost:8000/health');
+                const data = await response.json();
+                log('✓ Health: ' + JSON.stringify(data));
+            } catch (error) {
+                log('✗ Health failed: ' + error.message);
+            }
+        }
+
+        async function testDiseases() {
+            log('Testing diseases endpoint...');
+            try {
+                const response = await fetch('http://localhost:8000/api/diseases');
+                const data = await response.json();
+                log('✓ Diseases: ' + data.length + ' items');
+            } catch (error) {
+                log('✗ Diseases failed: ' + error.message);
+            }
+        }
+
+        async function testCORS() {
+            log('Testing CORS with custom headers...');
+            try {
+                const response = await fetch('http://localhost:8000/api/diseases', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': window.location.origin
+                    }
+                });
+                const data = await response.json();
+                log('✓ CORS test: ' + data.length + ' items');
+            } catch (error) {
+                log('✗ CORS test failed: ' + error.message);
+            }
+        }
+
+        // Log current origin
+        log('Current origin: ' + window.location.origin);
+    </script>
+</body>
+</html>

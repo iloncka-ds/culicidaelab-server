@@ -165,7 +165,7 @@ def DiseaseGalleryPageComponent():
         solara.SpinnerSolara(size="60px")
     elif disease_list_error_reactive.value:
         solara.Error(
-            i18n.t("disease_gallery.error.load"),
+            i18n.t("disease_gallery.error.load", error=disease_list_error_reactive.value or "Unknown error"),
             icon="mdi-alert-circle-outline",
         )
     elif not displayed_diseases and not disease_list_loading_reactive.value:

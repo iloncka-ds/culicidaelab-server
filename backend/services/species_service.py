@@ -15,6 +15,7 @@ Example:
 """
 
 from typing import Any
+import os
 import lancedb
 from fastapi import Request
 from backend.services.database import get_table
@@ -80,9 +81,10 @@ def _db_record_to_species_detail(
     """
     fallback_lang = "en"
     species_id = record.get("id", "")
-    base_url = str(request.base_url)
 
-    image_url = f"{base_url}static/images/species/{species_id}/detail.jpg"
+    # Use environment variable for static URL base, fallback to request base URL
+    static_url_base = os.getenv("STATIC_URL_BASE", str(request.base_url).rstrip("/"))
+    image_url = f"{static_url_base}/static/images/species/{species_id}/detail.jpg"
 
     geographic_region_ids = _get_list_field_from_record(record.get("geographic_regions"))
     lang_specific_translations = region_translations.get(lang, {})
@@ -133,10 +135,10 @@ def _db_record_to_species_base(record: dict, lang: str, request: Request) -> Spe
     """
     fallback_lang = "en"
     species_id = record.get("id", "")
-    base_url = str(request.base_url)
 
-    image_url = f"{base_url}static/images/species/{species_id}/thumbnail.jpg"
-    # image_url = f"/static/images/species/{species_id}/thumbnail.jpg"
+    # Use environment variable for static URL base, fallback to request base URL
+    static_url_base = os.getenv("STATIC_URL_BASE", str(request.base_url).rstrip("/"))
+    image_url = f"{static_url_base}/static/images/species/{species_id}/thumbnail.jpg"
     return SpeciesBase(
         id=species_id,
         scientific_name=record.get("scientific_name"),

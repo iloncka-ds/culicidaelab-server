@@ -63,3 +63,8 @@ culicidaelab-server = { workspace = true }
 
 [tool.setuptools]
 packages = ["frontend", "backend"]
+
+[dependency-groups]
+dev = [
+    "docker>=7.1.0",
+]

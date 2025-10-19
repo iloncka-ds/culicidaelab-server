@@ -1,0 +1,19 @@
+# Ignore unnecessary files during Docker build
+*.md
+*.log
+.git
+.gitignore
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*.swo
+*~
+
+# Ignore development files
+*.dev.*
+!nginx.dev.conf
+
+# Ignore backup files
+*.bak
+*.backup

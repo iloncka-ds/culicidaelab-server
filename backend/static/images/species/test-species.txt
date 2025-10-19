@@ -1,0 +1,2 @@
+Test file for species images directory.
+This should be accessible at: /static/images/species/test-species.txt

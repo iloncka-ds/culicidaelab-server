@@ -12,6 +12,13 @@ from solara.alias import rv
 
 
 import i18n
+from pathlib import Path
+
+# Initialize i18n before importing other modules
+i18n.load_path.append(str(Path(__file__).parent / "translations"))
+i18n.set("fallback", "en")
+i18n.set("locale", "en")  # Default to English
+i18n.set("filename_format", "{namespace}.{locale}.{format}")
 
 import frontend.pages.home as home
 import frontend.pages.map_visualization as map_visualization
@@ -103,8 +110,15 @@ def Layout(children: list[solara.Element]):
             with solara.Row(style=row_style):
                 for route in routes_all:
                     with solara.Link(route):
+                        # Safe translation with fallback
+                        label_text = route.label or "Unknown"
+                        try:
+                            translated_label = i18n.t(label_text) if label_text else label_text
+                        except (AttributeError, TypeError):
+                            translated_label = label_text
+
                         solara.Button(
-                            i18n.t(route.label),
+                            translated_label,
                             style=active_btn_style if route_current == route else inactive_btn_style,
                         )
             solara.v.Spacer()
@@ -113,8 +127,15 @@ def Layout(children: list[solara.Element]):
             rv.Spacer(height="2rem")
 
             with solara.Div(style=footer_style):
-                solara.Markdown(i18n.t("home.disclaimer"))
-                solara.Markdown(i18n.t("home.footer"))
+                try:
+                    disclaimer_text = i18n.t("home.disclaimer")
+                    footer_text = i18n.t("home.footer")
+                except (AttributeError, TypeError):
+                    disclaimer_text = "Disclaimer text not available"
+                    footer_text = "Footer text not available"
+
+                solara.Markdown(disclaimer_text)
+                solara.Markdown(footer_text)
 
 
 routes = [

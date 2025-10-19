@@ -1,0 +1,38 @@
+# Development nginx Dockerfile
+FROM nginx:alpine
+
+# Install curl for health checks
+RUN apk add --no-cache curl
+
+# Create nginx user and set proper permissions
+RUN addgroup -g 101 -S nginx || true && \
+    adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx || true
+
+# Create necessary directories
+RUN mkdir -p /var/www/static /var/www/certbot /var/log/nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/www /var/log/nginx /var/cache/nginx && \
+    chmod -R 755 /var/www
+
+# Copy development nginx configuration
+COPY nginx.dev.conf /etc/nginx/nginx.conf
+
+# Set proper permissions for configuration files
+RUN chown root:root /etc/nginx/nginx.conf && \
+    chmod 644 /etc/nginx/nginx.conf
+
+# Create a simple index.html for testing
+RUN echo '<html><body><h1>nginx is running (development)</h1></body></html>' > /var/www/static/index.html && \
+    chown nginx:nginx /var/www/static/index.html
+
+# Expose port 80 only (no SSL in development)
+EXPOSE 80
+
+# Health check (HTTP only for development)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost/health || exit 1
+
+# Use nginx user for security
+USER nginx
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

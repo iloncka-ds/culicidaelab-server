@@ -1,0 +1,75 @@
+# Prometheus recording rules for performance metrics
+# Pre-computes frequently used queries for better performance
+
+groups:
+  - name: container_performance
+    interval: 30s
+    rules:
+      # CPU usage percentage by container
+      - record: container:cpu_usage_percent
+        expr: rate(container_cpu_usage_seconds_total[5m]) * 100
+
+      # Memory usage percentage by container
+      - record: container:memory_usage_percent
+        expr: (container_memory_usage_bytes / container_spec_memory_limit_bytes) * 100
+
+      # Network I/O rate by container
+      - record: container:network_io_bytes_per_second
+        expr: rate(container_network_receive_bytes_total[5m]) + rate(container_network_transmit_bytes_total[5m])
+
+      # Disk I/O rate by container
+      - record: container:disk_io_bytes_per_second
+        expr: rate(container_fs_reads_bytes_total[5m]) + rate(container_fs_writes_bytes_total[5m])
+
+      # Container restart count
+      - record: container:restart_count
+        expr: increase(container_start_time_seconds[1h])
+
+  - name: application_performance
+    interval: 60s
+    rules:
+      # Request rate by service
+      - record: service:request_rate
+        expr: sum(rate(http_requests_total[5m])) by (job, instance)
+
+      # Error rate by service
+      - record: service:error_rate
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) by (job, instance) / sum(rate(http_requests_total[5m])) by (job, instance)
+
+      # Average response time by service
+      - record: service:response_time_avg
+        expr: sum(rate(http_request_duration_seconds_sum[5m])) by (job, instance) / sum(rate(http_request_duration_seconds_count[5m])) by (job, instance)
+
+      # 95th percentile response time by service
+      - record: service:response_time_p95
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (job, instance, le))
+
+      # 99th percentile response time by service
+      - record: service:response_time_p99
+        expr: histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (job, instance, le))
+
+  - name: resource_utilization
+    interval: 60s
+    rules:
+      # Total CPU usage across all containers
+      - record: cluster:cpu_usage_total
+        expr: sum(container:cpu_usage_percent)
+
+      # Total memory usage across all containers
+      - record: cluster:memory_usage_total
+        expr: sum(container_memory_usage_bytes)
+
+      # Total network I/O across all containers
+      - record: cluster:network_io_total
+        expr: sum(container:network_io_bytes_per_second)
+
+      # Total disk I/O across all containers
+      - record: cluster:disk_io_total
+        expr: sum(container:disk_io_bytes_per_second)
+
+      # Average resource utilization by service
+      - record: service:avg_cpu_usage
+        expr: avg(container:cpu_usage_percent) by (name)
+
+      - record: service:avg_memory_usage
+        expr: avg(container:memory_usage_percent) by (name)

@@ -107,8 +107,8 @@ filter_options = {
     "regions": [r["id"] for r in regions_data],
     "data_sources": data_sources,
 }
-with open("sample_filter_options.json", "w") as f:
-    json.dump(filter_options, f, indent=2)
+with open("sample_filter_options.json", "w", encoding="utf-8") as f:
+    json.dump(filter_options, f, indent=2, ensure_ascii=False)
 print("Generated sample_filter_options.json")
 
 
@@ -202,6 +202,6 @@ for _ in range(100):
             },
         },
     )
-with open("sample_observations.geojson", "w") as f:
-    json.dump({"type": "FeatureCollection", "features": observations_data}, f, indent=2)
+with open("sample_observations.geojson", "w", encoding="utf-8") as f:
+    json.dump({"type": "FeatureCollection", "features": observations_data}, f, indent=2, ensure_ascii=False)
 print("Generated sample_observations.geojson")

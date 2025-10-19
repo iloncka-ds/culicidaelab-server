@@ -1,5 +1,6 @@
 import colorcet as cc
 import solara
+import os
 
 COLOR_PRIMARY = "#009688"
 COLOR_SECONDARY = "#B2DFDB"
@@ -116,17 +117,27 @@ SPECIES_COLORS = generate_species_colors(DEFAULT_SPECIES_LIST_FOR_COLORS)
 
 DEFAULT_MAP_CENTER = (40.416775, -3.703790)
 DEFAULT_MAP_ZOOM = 5
-API_BASE_URL = "http://127.0.0.1:8000/api"
-STATIC_FILES_URL = "http://127.0.0.1:8000"
+
+# Backend URL configuration - uses environment variable with fallback
+CLIENT_BACKEND_URL = os.getenv("CLIENT_BACKEND_URL", "http://127.0.0.1:8000")  # For client-side (browser) requests
+SERVER_BACKEND_URL = os.getenv("SERVER_BACKEND_URL", CLIENT_BACKEND_URL)  # For server-side requests
+API_BASE_URL = f"{CLIENT_BACKEND_URL}/api"  # Client-side API base
+SERVER_API_BASE_URL = f"{SERVER_BACKEND_URL}/api"  # Server-side API base
+
+# Static files URL - for Docker setup, use nginx proxy; for local dev, use backend directly
+STATIC_FILES_URL = os.getenv("STATIC_FILES_URL", CLIENT_BACKEND_URL)
+
+# Backward compatibility
+BACKEND_URL = CLIENT_BACKEND_URL
 OBSERVATIONS_ENDPOINT = f"{API_BASE_URL}/geo/observations"
 SPECIES_INFO_ENDPOINT = f"{API_BASE_URL}/species_info"
-DISEASE_LIST_ENDPOINT = f"{API_BASE_URL}/diseases"
-DISEASE_DETAIL_ENDPOINT_TEMPLATE = f"{API_BASE_URL}/diseases/{{disease_id}}"
-DISEASE_VECTORS_ENDPOINT_TEMPLATE = f"{API_BASE_URL}/diseases/{{disease_id}}/vectors"
+DISEASE_LIST_ENDPOINT = f"{SERVER_API_BASE_URL}/diseases"  # Server-side endpoint
+DISEASE_DETAIL_ENDPOINT_TEMPLATE = f"{SERVER_API_BASE_URL}/diseases/{{disease_id}}"  # Server-side endpoint
+DISEASE_VECTORS_ENDPOINT_TEMPLATE = f"{SERVER_API_BASE_URL}/diseases/{{disease_id}}/vectors"  # Server-side endpoint
 BREEDING_SITES_ENDPOINT = f"{API_BASE_URL}/geo/breeding_sites"
-FILTER_OPTIONS_ENDPOINT = f"{API_BASE_URL}/filter_options"
-SPECIES_LIST_ENDPOINT = f"{API_BASE_URL}/species"
-SPECIES_DETAIL_ENDPOINT_TEMPLATE = f"{API_BASE_URL}/species/{{species_id}}"
+FILTER_OPTIONS_ENDPOINT = f"{SERVER_API_BASE_URL}/filter_options"  # Server-side endpoint
+SPECIES_LIST_ENDPOINT = f"{SERVER_API_BASE_URL}/species"  # Server-side endpoint
+SPECIES_DETAIL_ENDPOINT_TEMPLATE = f"{SERVER_API_BASE_URL}/species/{{species_id}}"  # Server-side endpoint
 
 FONT_HEADINGS = "Montserrat, sans-serif"
 FONT_BODY = "Open Sans, sans-serif"

@@ -1,0 +1,13 @@
+# Grafana dashboard provisioning configuration
+apiVersion: 1
+
+providers:
+  - name: 'CulicidaeLab Dashboards'
+    orgId: 1
+    folder: 'CulicidaeLab'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/json

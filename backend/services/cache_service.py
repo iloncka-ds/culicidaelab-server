@@ -41,27 +41,30 @@ def load_all_region_translations(db: object, supported_langs: list[str]) -> dict
         >>> print(translations["ru"]["us"])  # "Соединенные Штаты"
     """
     print("Executing `load_all_region_translations`: Loading region data into memory...")
-    regions_tbl = get_table(db, "regions")
+    try:
+        regions_tbl = get_table(db, "regions")
+        lang_columns = [f"name_{lang}" for lang in supported_langs]
+        all_columns = ["id"] + lang_columns
 
-    lang_columns = [f"name_{lang}" for lang in supported_langs]
-    all_columns = ["id"] + lang_columns
+        regions_res = regions_tbl.search().select(all_columns).to_list()
 
-    regions_res = regions_tbl.search().select(all_columns).to_list()
+        translations: dict[str, dict[str, str]] = {lang: {} for lang in supported_langs}
+        fallback_lang = "en"
 
-    translations: dict[str, dict[str, str]] = {lang: {} for lang in supported_langs}
-    fallback_lang = "en"
+        for record in regions_res:
+            region_id = record.get("id")
+            if not region_id:
+                continue
 
-    for record in regions_res:
-        region_id = record.get("id")
-        if not region_id:
-            continue
+            for lang in supported_langs:
+                translated_name = record.get(f"name_{lang}") or record.get(f"name_{fallback_lang}", region_id)
+                translations[lang][region_id] = translated_name
 
-        for lang in supported_langs:
-            translated_name = record.get(f"name_{lang}") or record.get(f"name_{fallback_lang}", region_id)
-            translations[lang][region_id] = translated_name
-
-    print("✅ Region translations loaded successfully.")
-    return translations
+        print("✅ Region translations loaded successfully.")
+        return translations
+    except Exception as e:
+        print(f"❌ ERROR: Failed to load region translations: {e}")
+        return {lang: {} for lang in supported_langs}
 
 
 def load_all_datasource_translations(db: object, supported_langs: list[str]) -> dict[str, dict[str, str]]:

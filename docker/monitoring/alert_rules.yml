@@ -1,0 +1,127 @@
+# Prometheus alerting rules for container performance monitoring
+# Defines alerts for resource usage, performance, and availability
+
+groups:
+  - name: container_alerts
+    rules:
+      # High CPU usage alert
+      - alert: HighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total[5m]) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+          service: "{{ $labels.name }}"
+        annotations:
+          summary: "High CPU usage detected"
+          description: "Container {{ $labels.name }} CPU usage is above 80% for more than 2 minutes"
+
+      # High memory usage alert
+      - alert: HighMemoryUsage
+        expr: (container_memory_usage_bytes / container_spec_memory_limit_bytes) * 100 > 85
+        for: 2m
+        labels:
+          severity: warning
+          service: "{{ $labels.name }}"
+        annotations:
+          summary: "High memory usage detected"
+          description: "Container {{ $labels.name }} memory usage is above 85% for more than 2 minutes"
+
+      # Container down alert
+      - alert: ContainerDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "Container is down"
+          description: "Container {{ $labels.job }} has been down for more than 1 minute"
+
+      # High disk I/O alert
+      - alert: HighDiskIO
+        expr: rate(container_fs_io_time_seconds_total[5m]) > 0.8
+        for: 3m
+        labels:
+          severity: warning
+          service: "{{ $labels.name }}"
+        annotations:
+          summary: "High disk I/O detected"
+          description: "Container {{ $labels.name }} disk I/O is high for more than 3 minutes"
+
+      # Network errors alert
+      - alert: HighNetworkErrors
+        expr: rate(container_network_receive_errors_total[5m]) + rate(container_network_transmit_errors_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+          service: "{{ $labels.name }}"
+        annotations:
+          summary: "High network errors detected"
+          description: "Container {{ $labels.name }} has high network error rate for more than 2 minutes"
+
+  - name: application_alerts
+    rules:
+      # High response time alert
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 3m
+        labels:
+          severity: warning
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time for {{ $labels.job }} is above 2 seconds"
+
+      # High error rate alert
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate for {{ $labels.job }} is above 5% for more than 2 minutes"
+
+      # Low request rate (possible issue)
+      - alert: LowRequestRate
+        expr: rate(http_requests_total[5m]) < 0.1
+        for: 5m
+        labels:
+          severity: info
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "Low request rate detected"
+          description: "Request rate for {{ $labels.job }} is unusually low"
+
+  - name: resource_alerts
+    rules:
+      # Disk space alert
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 10
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is below 10% on {{ $labels.instance }}"
+
+      # High load average
+      - alert: HighLoadAverage
+        expr: node_load1 > 4
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High load average"
+          description: "Load average is above 4 on {{ $labels.instance }}"
+
+      # Memory pressure
+      - alert: MemoryPressure
+        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Memory pressure detected"
+          description: "Available memory is below 10% on {{ $labels.instance }}"
