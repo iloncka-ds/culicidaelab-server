@@ -72,20 +72,24 @@ services:
       - backend
 
   nginx:
-    image: ${REGISTRY:-}culicidaelab-nginx:${VERSION:-latest}
-    container_name: culicidaelab_nginx_prebuilt
+    image: ${REGISTRY:-iloncka/}culicidaelab-nginx-ssl:${VERSION:-0.1.0}
+    container_name: culicidaelab_nginx_ssl
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - backend_static:/var/www/static:ro
+      - backend_static:/var/www/static
       - nginx_logs:/var/log/nginx
       - ssl_certs:/etc/nginx/ssl:ro
     networks:
       - culicidaelab_network
     environment:
       - NGINX_ENV=${NGINX_ENV:-production}
+      - DOMAIN=${DOMAIN:-culicidaelab.ru}
+      - EMAIL=${EMAIL:-admin@culicidaelab.ru}
+      - SSL_ENABLED=${SSL_ENABLED:-true}
+      - STAGING=${STAGING:-false}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/health"]
       interval: 60s

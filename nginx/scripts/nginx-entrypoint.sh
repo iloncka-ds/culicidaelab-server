@@ -47,9 +47,15 @@ mkdir -p /var/log/letsencrypt
 mkdir -p /etc/letsencrypt/live
 mkdir -p /etc/nginx/conf.d
 
-# Set proper permissions
-chown -R nginx:nginx /var/www
-chmod -R 755 /var/www
+# Set proper permissions (skip if read-only)
+if touch /var/www/test_write 2>/dev/null; then
+    rm -f /var/www/test_write
+    chown -R nginx:nginx /var/www
+    chmod -R 755 /var/www
+    log_success "Set permissions for /var/www"
+else
+    log_warning "Skipping permission changes for /var/www (read-only filesystem)"
+fi
 
 # Function to check if certificate exists and is valid
 check_certificate() {
@@ -110,12 +116,43 @@ obtain_letsencrypt_cert() {
         log "Using Let's Encrypt staging environment"
     fi
     
-    # Start nginx in background for webroot challenge
-    nginx -g "daemon off;" &
+    # Create temporary nginx config for Let's Encrypt challenge
+    cat > /tmp/nginx-challenge.conf << 'EOF'
+worker_processes 1;
+error_log /var/log/nginx/error.log warn;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    
+    server {
+        listen 80;
+        server_name _;
+        
+        location /.well-known/acme-challenge/ {
+            root /var/www/certbot;
+            try_files $uri =404;
+        }
+        
+        location / {
+            return 200 'Challenge server running';
+            add_header Content-Type text/plain;
+        }
+    }
+}
+EOF
+    
+    # Start nginx with challenge config
+    nginx -c /tmp/nginx-challenge.conf -g "daemon off;" &
     local nginx_pid=$!
     
-    # Wait a moment for nginx to start
-    sleep 2
+    # Wait for nginx to start
+    sleep 3
     
     # Attempt to obtain certificate
     certbot certonly \
@@ -148,16 +185,39 @@ obtain_letsencrypt_cert() {
 setup_ssl_config() {
     local domain=$1
     
-    if [[ -f "/etc/nginx/conf.d/ssl.conf.template" ]]; then
-        log "Setting up SSL configuration for $domain..."
+    log "Setting up SSL configuration for $domain..."
+    
+    # Process the nginx template and create the final config
+    if [[ -f "/etc/nginx/nginx.conf.template" ]]; then
+        # Create a complete nginx.conf with proper structure
+        cat > /etc/nginx/nginx.conf << EOF
+# Main nginx configuration with SSL
+worker_processes auto;
+error_log /var/log/nginx/error.log notice;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+    use epoll;
+    multi_accept on;
+}
+
+http {
+EOF
         
-        # Replace domain placeholder in SSL template
-        sed "s/\${DOMAIN}/$domain/g" /etc/nginx/conf.d/ssl.conf.template > /etc/nginx/conf.d/ssl.conf
+        # Append the processed SSL template (which contains the server blocks)
+        sed "s/\${DOMAIN}/$domain/g" /etc/nginx/nginx.conf.template >> /etc/nginx/nginx.conf
         
-        log_success "SSL configuration created"
+        # Close the http block
+        echo "}" >> /etc/nginx/nginx.conf
+        
+        log_success "SSL configuration created from template for $domain"
     else
-        log_warning "SSL configuration template not found"
+        log_error "SSL configuration template not found at /etc/nginx/nginx.conf.template"
+        return 1
     fi
+    
+    log_success "SSL configuration updated for $domain"
 }
 
 # Function to test nginx configuration

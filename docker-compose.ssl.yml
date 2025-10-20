@@ -72,14 +72,14 @@ services:
       - backend
 
   nginx-ssl:
-    image: ${REGISTRY:-}culicidaelab-nginx-ssl:${VERSION:-latest}
+    image: ${REGISTRY:-iloncka/}culicidaelab-nginx-ssl:${VERSION:-0.1.3}
     container_name: culicidaelab_nginx_ssl
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - backend_static:/var/www/static:ro
+      - backend_static:/var/www/static
       - nginx_logs:/var/log/nginx
       - letsencrypt_data:/etc/letsencrypt
       - certbot_webroot:/var/www/certbot
