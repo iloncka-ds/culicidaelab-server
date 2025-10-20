@@ -50,9 +50,13 @@ mkdir -p /etc/nginx/conf.d
 # Set proper permissions (skip if read-only)
 if touch /var/www/test_write 2>/dev/null; then
     rm -f /var/www/test_write
-    chown -R nginx:nginx /var/www
+    # Don't change ownership of /var/www/static - it's shared with backend
+    # Only set permissions for nginx to read
     chmod -R 755 /var/www
-    log_success "Set permissions for /var/www"
+    # Create other directories nginx might need with nginx ownership
+    mkdir -p /var/www/certbot
+    chown -R nginx:nginx /var/www/certbot
+    log_success "Set permissions for /var/www (preserving static ownership)"
 else
     log_warning "Skipping permission changes for /var/www (read-only filesystem)"
 fi

@@ -4,10 +4,26 @@ version: '3.8'
 # Usage: docker-compose -f docker-compose.ssl.yml --env-file .env.production up
 
 services:
+  # Volume initialization container
+  init-static:
+    image: alpine:latest
+    volumes:
+      - backend_static:/static
+    command: >
+      sh -c "
+        echo 'Initializing static volume permissions...' &&
+        chown -R 1001:1001 /static 2>/dev/null || echo 'Could not change ownership to 1001:1001' &&
+        chmod -R 755 /static 2>/dev/null || echo 'Could not change permissions' &&
+        ls -la /static/ &&
+        echo 'Static volume initialization complete'
+      "
+
   backend:
-    image: ${REGISTRY:-}culicidaelab-backend:${VERSION:-latest}
+    image: ${REGISTRY:-}culicidaelab-backend:${BACKEND_VERSION:-latest}
     container_name: culicidaelab_backend_ssl
     restart: unless-stopped
+    depends_on:
+      - init-static
     environment:
       - CULICIDAELAB_DATABASE_PATH=/app/backend/data/.lancedb
       - CULICIDAELAB_BACKEND_CORS_ORIGINS=${CORS_ORIGINS:-https://yourdomain.com}
@@ -40,7 +56,7 @@ services:
       - "environment=${ENVIRONMENT:-production}"
 
   frontend:
-    image: ${REGISTRY:-}culicidaelab-frontend:${VERSION:-latest}
+    image: ${REGISTRY:-}culicidaelab-frontend:${FRONTEND_VERSION:-latest}
     container_name: culicidaelab_frontend_ssl
     restart: unless-stopped
     environment:
@@ -72,7 +88,7 @@ services:
       - backend
 
   nginx-ssl:
-    image: ${REGISTRY:-iloncka/}culicidaelab-nginx-ssl:${VERSION:-0.1.3}
+    image: ${REGISTRY:-iloncka/}culicidaelab-nginx-ssl:${SSL_NGINX_VERSION:-0.1.4}
     container_name: culicidaelab_nginx_ssl
     restart: unless-stopped
     ports:
