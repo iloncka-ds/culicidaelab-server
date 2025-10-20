@@ -2,7 +2,7 @@
 # Multi-stage build for optimized production image with security hardening
 
 # Build stage
-FROM python:3.11-slim as builder
+FROM python:3.11-slim AS builder
 
 # Set environment variables for build
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -32,7 +32,7 @@ COPY uv.lock ./
 RUN uv sync --frozen --no-dev
 
 # Production stage
-FROM python:3.11-slim as production
+FROM python:3.11-slim AS production
 
 # Security: Set secure environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -73,6 +73,21 @@ RUN mkdir -p /app/backend/data /app/backend/static \
     && chmod -R 750 /app \
     && chmod -R 755 /app/backend/static
 
+# Create initialization script for runtime permissions
+RUN cat > /app/init-static-dirs.sh << 'EOF'
+#!/bin/bash
+# Fix permissions for predicted images directory (volume might override permissions)
+if [ -w /app/backend/static ]; then
+    # If we can write to static, fix predicted directory permissions
+    chmod -R 755 /app/backend/static/images/predicted 2>/dev/null || true
+    echo "Fixed permissions for predicted images directory"
+else
+    echo "Warning: Cannot write to static directory - check volume permissions"
+fi
+EOF
+
+RUN chmod +x /app/init-static-dirs.sh
+
 # Database construction steps
 # Note: Running as root temporarily for database setup, then switching to appuser
 # Set the database path environment variable for build time
@@ -89,8 +104,7 @@ RUN apt-get autoremove -y \
     && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Security: Switch to non-root user
-USER appuser
+# Note: We'll switch to appuser in the CMD after fixing permissions
 
 # Security: Set working directory with proper ownership
 WORKDIR /app
@@ -107,5 +121,5 @@ ENV CULICIDAELAB_DATABASE_PATH="/app/backend/data/.lancedb" \
     CULICIDAELAB_SAVE_PREDICTED_IMAGES="false" \
     CULICIDAELAB_BACKEND_CORS_ORIGINS="http://localhost:8765,http://127.0.0.1:8765"
 
-# Start command
-CMD ["python", "-m", "backend.main"]
+# Start command with initialization (run as root first, then switch to appuser)
+CMD ["/bin/bash", "-c", "chown -R appuser:appuser /app/backend/static/images/predicted 2>/dev/null || true && chmod -R 755 /app/backend/static/images/predicted 2>/dev/null || true && su appuser -s /bin/bash -c 'python -m backend.main'"]
