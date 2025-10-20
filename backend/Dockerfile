@@ -2,7 +2,7 @@
 # Multi-stage build for optimized production image with security hardening
 
 # Build stage
-FROM python:3.11-slim as builder
+FROM python:3.11-slim AS builder
 
 # Set environment variables for build
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -32,7 +32,7 @@ COPY uv.lock ./
 RUN uv sync --frozen --no-dev
 
 # Production stage
-FROM python:3.11-slim as production
+FROM python:3.11-slim AS production
 
 # Security: Set secure environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
