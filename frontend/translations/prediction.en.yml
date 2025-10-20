@@ -35,7 +35,7 @@ en:
     submit_another: "Submit Another Observation"
   file_upload:
     subtitle: "Upload an image of a mosquito to predict its species."
-    drag_image: "Drag and drop an image here..."
+    drag_image: "Drag and drop an image here. Maximum file size: 5MB."
   location:
     selected_location: "Selected location"
     select_location: "Select Location"
