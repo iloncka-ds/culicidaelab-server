@@ -39,13 +39,6 @@ services:
     labels:
       - "service=backend"
       - "environment=${ENVIRONMENT:-production}"
-    command: >
-      bash -c "
-        mkdir -p /app/backend/static/images/predicted/{original,224x224,100x100} &&
-        chmod -R 755 /app/backend/static/images/predicted &&
-        echo 'Predicted image directories created and permissions set' &&
-        python -m backend.main
-      "
 
 
   frontend:
