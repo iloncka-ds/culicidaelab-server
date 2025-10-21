@@ -1,0 +1,154 @@
+version: '3.8'
+
+# Docker Compose configuration for SSL-enabled production deployment
+# Usage: docker-compose -f docker-compose.ssl.yml --env-file .env.production up
+
+services:
+  init-static:
+    image: alpine:latest
+    restart: "no"
+    volumes:
+      - backend_static:/static
+    command: >
+      sh -c "
+        echo 'Initializing static volume permissions...' &&
+        mkdir -p /static/images/predicted/original /static/images/predicted/224x224 /static/images/predicted/100x100 &&
+        mkdir -p /static/images/species /static/images/diseases &&
+        chown -R 1001:1001 /static 2>/dev/null || echo 'Could not change ownership to 1001:1001' &&
+        chmod -R 755 /static 2>/dev/null || echo 'Could not change permissions' &&
+        chmod -R 777 /static/images/predicted 2>/dev/null || echo 'Could not set write permissions for predicted' &&
+        ls -la /static/ &&
+        ls -la /static/images/ 2>/dev/null || echo 'Images directory not found' &&
+        echo 'Static volume initialization complete'
+      "
+
+  backend:
+    image: ${REGISTRY:-}culicidaelab-backend:${BACKEND_VERSION:-latest}
+    container_name: culicidaelab_backend_ssl
+    restart: unless-stopped
+    depends_on:
+      - init-static
+    environment:
+      - CULICIDAELAB_DATABASE_PATH=/app/backend/data/.lancedb
+      - CULICIDAELAB_BACKEND_CORS_ORIGINS=${CULICIDAELAB_BACKEND_CORS_ORIGINS}
+      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=${CULICIDAELAB_SAVE_PREDICTED_IMAGES}
+      - PYTHONPATH=/app
+      - FASTAPI_ENV=${FASTAPI_ENV:-production}
+      - DEBUG=${DEBUG:-false}
+      - STATIC_URL_BASE=${STATIC_URL_BASE:-https://yourdomain.com}
+    volumes:
+      - backend_data:/app/backend/data
+      - backend_static:/app/backend/static
+    networks:
+      - culicidaelab_network
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 60s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=backend"
+      - "environment=${ENVIRONMENT:-production}"
+  
+  frontend:
+    image: ${REGISTRY:-}culicidaelab-frontend:${FRONTEND_VERSION:-latest}
+    container_name: culicidaelab_frontend_ssl
+    restart: unless-stopped
+    environment:
+      - CLIENT_BACKEND_URL=${CLIENT_BACKEND_URL:-https://yourdomain.com}
+      - SERVER_BACKEND_URL=http://backend:8000
+      - STATIC_FILES_URL=${STATIC_FILES_URL:-https://yourdomain.com}
+      - SOLARA_DEBUG=${SOLARA_DEBUG:-false}
+      - PYTHONPATH=/app
+    networks:
+      - culicidaelab_network
+    ports:
+      - "8765:8765"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8765/"]
+      interval: 60s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=frontend"
+      - "environment=${ENVIRONMENT:-production}"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  nginx-ssl:
+    image: ${REGISTRY:-iloncka/}culicidaelab-nginx-ssl:${SSL_NGINX_VERSION:-0.1.4}
+    container_name: culicidaelab_nginx_ssl
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - backend_static:/var/www/static
+      - nginx_logs:/var/log/nginx
+      - letsencrypt_data:/etc/letsencrypt
+      - certbot_webroot:/var/www/certbot
+    networks:
+      - culicidaelab_network
+    environment:
+      - NGINX_ENV=${NGINX_ENV:-production}
+      - DOMAIN=${DOMAIN:-yourdomain.com}
+      - EMAIL=${EMAIL:-admin@yourdomain.com}
+      - SSL_ENABLED=${SSL_ENABLED:-true}
+      - STAGING=${STAGING:-false}
+      - FORCE_RENEWAL=${FORCE_RENEWAL:-false}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/.well-known/health"]
+      interval: 60s
+      timeout: 10s
+      start_period: 60s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+        labels: "service,environment"
+    labels:
+      - "service=nginx-ssl"
+      - "environment=${ENVIRONMENT:-production}"
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+
+volumes:
+  backend_data:
+    driver: local
+  backend_static:
+    driver: local
+  nginx_logs:
+    driver: local
+  letsencrypt_data:
+    driver: local
+  certbot_webroot:
+    driver: local
+
+networks:
+  culicidaelab_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
