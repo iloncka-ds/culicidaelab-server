@@ -102,7 +102,7 @@ def PredictionCard(species: dict[str, Any]):
                 class_="mr-3 elevation-1",
                 style="border-radius: 4px; object-fit: cover;",
             )
-
+            # print(f"{STATIC_FILES_URL}/static/images/species/{species.get('id', 'species_not_defined')}/detail.jpg")
             with solara.Column(align="start", style="overflow: hidden;"):
                 species_id = species.get("id")
                 if species_id != "species_not_defined":

@@ -1,19 +1,20 @@
 version: '3.8'
 
 # Local development with simplified nginx (no SSL)
+# Usage: docker-compose -f docker-compose.local.yml --env-file .env.local up
 services:
   backend:
-    image: culicidaelab-backend:${VERSION:-latest}
+    image: iloncka/culicidaelab-backend:${BACKEND_VERSION:-latest}
     container_name: culicidaelab_backend_local
     restart: "no"
     environment:
       - CULICIDAELAB_DATABASE_PATH=/app/backend/data/.lancedb
-      - CULICIDAELAB_BACKEND_CORS_ORIGINS=http://localhost,http://localhost:8765,http://127.0.0.1,http://127.0.0.1:8765,http://localhost:3000,http://127.0.0.1:3000
-      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=true
+      - CULICIDAELAB_BACKEND_CORS_ORIGINS=${CULICIDAELAB_BACKEND_CORS_ORIGINS}
+      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=${CULICIDAELAB_SAVE_PREDICTED_IMAGES}
       - PYTHONPATH=/app
-      - FASTAPI_ENV=development
-      - DEBUG=true
-      - STATIC_URL_BASE=http://localhost
+      - FASTAPI_ENV=${FASTAPI_ENV}
+      - DEBUG=${DEBUG}
+      - STATIC_URL_BASE=${STATIC_URL_BASE}
     volumes:
       - ./backend/data:/app/backend/data:rw
       - ./backend/static:/app/backend/static:rw
@@ -29,14 +30,14 @@ services:
       retries: 3
 
   frontend:
-    image: culicidaelab-frontend:${VERSION:-latest}
+    image: iloncka/culicidaelab-frontend:${FRONTEND_VERSION:-latest}
     container_name: culicidaelab_frontend_local
     restart: "no"
     environment:
-      - CLIENT_BACKEND_URL=http://localhost  # For client-side (browser) requests via nginx
-      - SERVER_BACKEND_URL=http://backend:8000  # For server-side requests within Docker network
-      - STATIC_FILES_URL=http://localhost  # Static files served via nginx
-      - SOLARA_DEBUG=true
+      - CLIENT_BACKEND_URL=${CLIENT_BACKEND_URL}  # For client-side (browser) requests via nginx
+      - SERVER_BACKEND_URL=${SERVER_BACKEND_URL}  # For server-side requests within Docker network
+      - STATIC_FILES_URL=${STATIC_FILES_URL}  # Static files served via nginx
+      - SOLARA_DEBUG=${SOLARA_DEBUG}
       - SOLARA_ASSETS_PROXY=false
       - HOME=/app
     networks:
@@ -53,9 +54,7 @@ services:
       - backend
 
   nginx:
-    build:
-      context: .
-      dockerfile: nginx/Dockerfile.local
+    image: iloncka/culicidaelab-nginx-local:${NGINX_VERSION:-latest}
     container_name: culicidaelab_nginx_local
     restart: "no"
     ports:
@@ -63,7 +62,7 @@ services:
     networks:
       - culicidaelab_network
     environment:
-      - NGINX_ENV=development
+      - NGINX_ENV=${NGINX_ENV}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/health"]
       interval: 60s

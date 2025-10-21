@@ -104,7 +104,8 @@ RUN apt-get autoremove -y \
     && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Note: We'll switch to appuser in the CMD after fixing permissions
+# Switch to appuser for security
+USER appuser
 
 # Security: Set working directory with proper ownership
 WORKDIR /app
@@ -121,5 +122,5 @@ ENV CULICIDAELAB_DATABASE_PATH="/app/backend/data/.lancedb" \
     CULICIDAELAB_SAVE_PREDICTED_IMAGES="false" \
     CULICIDAELAB_BACKEND_CORS_ORIGINS="http://localhost:8765,http://127.0.0.1:8765"
 
-# Start command with initialization (run as root first, then switch to appuser)
-CMD ["/bin/bash", "-c", "chown -R appuser:appuser /app/backend/static/images/predicted 2>/dev/null || true && chmod -R 755 /app/backend/static/images/predicted 2>/dev/null || true && su appuser -s /bin/bash -c 'python -m backend.main'"]
+# Start command (running as appuser)
+CMD ["python", "-m", "backend.main"]

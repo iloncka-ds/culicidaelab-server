@@ -1,16 +1,6 @@
 # Standalone Frontend Dockerfile for Solara application
 FROM quay.io/jupyter/base-notebook:python-3.11
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONPATH="/app" \
-    PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    # Solara specific settings
-    SOLARA_ASSETS_PROXY=false \
-    HOME=/app
-
 # Update system packages and install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     tini \
@@ -20,8 +10,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
 
-# Set work directory
-WORKDIR /app
 
 # Install only the frontend dependencies directly with compatible versions
 RUN pip install --no-cache-dir \
@@ -45,18 +33,6 @@ RUN pip install --no-cache-dir \
 # Copy only frontend code including translations
 COPY frontend/ ./frontend/
 COPY __init__.py ./
-
-# Create non-root user
-RUN groupadd -r -g 1001 appuser \
-    && useradd -r -g appuser -u 1001 -s /bin/false -M -d /app appuser \
-    && mkdir -p /app/.solara /app/.cache \
-    && chown -R appuser:appuser /app \
-    && chmod -R 750 /app
-
-# Clean up
-RUN apt-get autoremove -y \
-    && apt-get autoclean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Switch to non-root user
 USER appuser

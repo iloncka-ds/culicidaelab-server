@@ -19,6 +19,7 @@ from frontend.config import (
     sub_heading_style,
     card_style,
     theme,
+    STATIC_FILES_URL,
 )
 
 from frontend.components.prediction.file_upload import FileUploadComponent, upload_and_predict
@@ -257,23 +258,35 @@ def Page():
                             style=sub_heading_style,
                         )
                         try:
-                            img_bytes = file_data_state
-                            b64_img = base64.b64encode(img_bytes).decode("utf-8")
-                            content_type = "image/jpeg"
-                            if file_name_state and file_name_state.lower().endswith(".png"):
-                                content_type = "image/png"
-                            elif file_name_state and file_name_state.lower().endswith(".gif"):
-                                content_type = "image/gif"
-
-                            solara.HTML(
-                                tag="img",
-                                unsafe_innerHTML="",
-                                attributes={
-                                    "src": f"data:{content_type};base64,{b64_img}",
-                                    "style": "width: 100%; height: 100%; object-fit: cover; "
+                            # Use the saved predicted image URL if available
+                            if prediction_result_state and prediction_result_state.get("image_url_species"):
+                                from solara.alias import rv
+                                rv.Img(
+                                    src=f"{STATIC_FILES_URL}{prediction_result_state['image_url_species']}",
+                                    
+                                    style="width: 100%; height: 100%; object-fit: cover; "
                                     "border: 1px solid #ccc; border-radius: 4px;",
-                                },
-                            )
+                                )
+                                # print(f"{STATIC_FILES_URL}{prediction_result_state['image_url_species']}")
+                            else:
+                                # Fallback to base64 encoding of uploaded image
+                                img_bytes = file_data_state
+                                b64_img = base64.b64encode(img_bytes).decode("utf-8")
+                                content_type = "image/jpeg"
+                                if file_name_state and file_name_state.lower().endswith(".png"):
+                                    content_type = "image/png"
+                                elif file_name_state and file_name_state.lower().endswith(".gif"):
+                                    content_type = "image/gif"
+
+                                solara.HTML(
+                                    tag="img",
+                                    unsafe_innerHTML="",
+                                    attributes={
+                                        "src": f"data:{content_type};base64,{b64_img}",
+                                        "style": "width: 100%; height: 100%; object-fit: cover; "
+                                        "border: 1px solid #ccc; border-radius: 4px;",
+                                    },
+                                )
                         except Exception as e:
                             solara.Error(i18n.t("prediction.messages.error.image_display", error=str(e)))
 
