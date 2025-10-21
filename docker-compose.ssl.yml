@@ -7,14 +7,19 @@ services:
   # Volume initialization container
   init-static:
     image: alpine:latest
+    restart: "no"
     volumes:
       - backend_static:/static
     command: >
       sh -c "
         echo 'Initializing static volume permissions...' &&
+        mkdir -p /static/images/predicted/original /static/images/predicted/224x224 /static/images/predicted/100x100 &&
+        mkdir -p /static/images/species /static/images/diseases &&
         chown -R 1001:1001 /static 2>/dev/null || echo 'Could not change ownership to 1001:1001' &&
         chmod -R 755 /static 2>/dev/null || echo 'Could not change permissions' &&
+        chmod -R 777 /static/images/predicted 2>/dev/null || echo 'Could not set write permissions for predicted' &&
         ls -la /static/ &&
+        ls -la /static/images/ 2>/dev/null || echo 'Images directory not found' &&
         echo 'Static volume initialization complete'
       "
 
@@ -23,11 +28,12 @@ services:
     container_name: culicidaelab_backend_ssl
     restart: unless-stopped
     depends_on:
-      - init-static
+      init-static:
+        condition: service_completed_successfully
     environment:
       - CULICIDAELAB_DATABASE_PATH=/app/backend/data/.lancedb
-      - CULICIDAELAB_BACKEND_CORS_ORIGINS=${CORS_ORIGINS:-https://yourdomain.com}
-      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=true
+      - CULICIDAELAB_BACKEND_CORS_ORIGINS=${CULICIDAELAB_BACKEND_CORS_ORIGINS}
+      - CULICIDAELAB_SAVE_PREDICTED_IMAGES=${CULICIDAELAB_SAVE_PREDICTED_IMAGES}
       - PYTHONPATH=/app
       - FASTAPI_ENV=${FASTAPI_ENV:-production}
       - DEBUG=${DEBUG:-false}
@@ -54,6 +60,15 @@ services:
     labels:
       - "service=backend"
       - "environment=${ENVIRONMENT:-production}"
+    command: >
+      sh -c "
+        echo 'Checking static directory permissions...' &&
+        mkdir -p /app/backend/static/images/predicted/original /app/backend/static/images/predicted/224x224 /app/backend/static/images/predicted/100x100 &&
+        chmod -R 755 /app/backend/static/images/predicted 2>/dev/null || echo 'Could not set permissions' &&
+        ls -la /app/backend/static/images/predicted/ &&
+        echo 'Starting backend...' &&
+        python -m backend.main
+      "
 
   frontend:
     image: ${REGISTRY:-}culicidaelab-frontend:${FRONTEND_VERSION:-latest}
