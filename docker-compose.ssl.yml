@@ -28,8 +28,7 @@ services:
     container_name: culicidaelab_backend_ssl
     restart: unless-stopped
     depends_on:
-      init-static:
-        condition: service_completed_successfully
+      - init-static
     environment:
       - CULICIDAELAB_DATABASE_PATH=/app/backend/data/.lancedb
       - CULICIDAELAB_BACKEND_CORS_ORIGINS=${CULICIDAELAB_BACKEND_CORS_ORIGINS}
@@ -60,15 +59,7 @@ services:
     labels:
       - "service=backend"
       - "environment=${ENVIRONMENT:-production}"
-    command: >
-      sh -c "
-        echo 'Checking static directory permissions...' &&
-        mkdir -p /app/backend/static/images/predicted/original /app/backend/static/images/predicted/224x224 /app/backend/static/images/predicted/100x100 &&
-        chmod -R 755 /app/backend/static/images/predicted 2>/dev/null || echo 'Could not set permissions' &&
-        ls -la /app/backend/static/images/predicted/ &&
-        echo 'Starting backend...' &&
-        python -m backend.main
-      "
+
 
   frontend:
     image: ${REGISTRY:-}culicidaelab-frontend:${FRONTEND_VERSION:-latest}
