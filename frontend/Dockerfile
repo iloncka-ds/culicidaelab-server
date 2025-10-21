@@ -70,7 +70,9 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 
 # Default environment variables
 ENV BACKEND_URL="http://backend:8000" \
-    SOLARA_DEBUG="false"
+    SOLARA_DEBUG="false" \
+    UVICORN_PROXY_HEADERS="1" \
+    FORWARDED_ALLOW_IPS="*"
 
 # Start command using the same approach as development
 CMD ["sh", "-c", "solara run frontend.main --host 0.0.0.0 --port 8765"]

@@ -69,6 +69,8 @@ services:
       - STATIC_FILES_URL=${STATIC_FILES_URL:-https://yourdomain.com}
       - SOLARA_DEBUG=${SOLARA_DEBUG:-false}
       - PYTHONPATH=/app
+      - UVICORN_PROXY_HEADERS=1
+      - FORWARDED_ALLOW_IPS=*
     networks:
       - culicidaelab_network
     ports:
