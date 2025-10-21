@@ -4,31 +4,11 @@ version: '3.8'
 # Usage: docker-compose -f docker-compose.ssl.yml --env-file .env.production up
 
 services:
-  # Volume initialization container
-  init-static:
-    image: alpine:latest
-    restart: "no"
-    volumes:
-      - backend_static:/static
-    command: >
-      sh -c "
-        echo 'Initializing static volume permissions...' &&
-        mkdir -p /static/images/predicted/original /static/images/predicted/224x224 /static/images/predicted/100x100 &&
-        mkdir -p /static/images/species /static/images/diseases &&
-        chown -R 1001:1001 /static 2>/dev/null || echo 'Could not change ownership to 1001:1001' &&
-        chmod -R 755 /static 2>/dev/null || echo 'Could not change permissions' &&
-        chmod -R 777 /static/images/predicted 2>/dev/null || echo 'Could not set write permissions for predicted' &&
-        ls -la /static/ &&
-        ls -la /static/images/ 2>/dev/null || echo 'Images directory not found' &&
-        echo 'Static volume initialization complete'
-      "
 
   backend:
     image: ${REGISTRY:-}culicidaelab-backend:${BACKEND_VERSION:-latest}
     container_name: culicidaelab_backend_ssl
     restart: unless-stopped
-    depends_on:
-      - init-static
     environment:
       - CULICIDAELAB_DATABASE_PATH=/app/backend/data/.lancedb
       - CULICIDAELAB_BACKEND_CORS_ORIGINS=${CULICIDAELAB_BACKEND_CORS_ORIGINS}
@@ -59,6 +39,13 @@ services:
     labels:
       - "service=backend"
       - "environment=${ENVIRONMENT:-production}"
+    command: >
+      bash -c "
+        mkdir -p /app/backend/static/images/predicted/{original,224x224,100x100} &&
+        chmod -R 755 /app/backend/static/images/predicted &&
+        echo 'Predicted image directories created and permissions set' &&
+        python -m backend.main
+      "
 
 
   frontend:

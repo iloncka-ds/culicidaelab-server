@@ -67,11 +67,19 @@ COPY --from=builder /app/.venv /app/.venv
 COPY backend/ ./backend/
 COPY __init__.py ./
 
+# Copy and set up entrypoint script
+COPY backend/entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # Security: Create necessary directories with proper permissions
 RUN mkdir -p /app/backend/data /app/backend/static \
+    && mkdir -p /app/backend/static/images/predicted/original \
+    && mkdir -p /app/backend/static/images/predicted/224x224 \
+    && mkdir -p /app/backend/static/images/predicted/100x100 \
     && chown -R appuser:appuser /app \
     && chmod -R 750 /app \
-    && chmod -R 755 /app/backend/static
+    && chmod -R 755 /app/backend/static \
+    && chmod -R 755 /app/backend/static/images/predicted
 
 # Create initialization script for runtime permissions
 RUN cat > /app/init-static-dirs.sh << 'EOF'
@@ -123,4 +131,4 @@ ENV CULICIDAELAB_DATABASE_PATH="/app/backend/data/.lancedb" \
     CULICIDAELAB_BACKEND_CORS_ORIGINS="http://localhost:8765,http://127.0.0.1:8765"
 
 # Start command (running as appuser)
-CMD ["python", "-m", "backend.main"]
+ENTRYPOINT ["/app/entrypoint.sh"]
