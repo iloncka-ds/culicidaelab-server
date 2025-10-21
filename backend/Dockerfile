@@ -78,23 +78,10 @@ RUN mkdir -p /app/backend/data /app/backend/static \
     && mkdir -p /app/backend/static/images/predicted/100x100 \
     && chown -R appuser:appuser /app \
     && chmod -R 750 /app \
-    && chmod -R 755 /app/backend/static \
-    && chmod -R 755 /app/backend/static/images/predicted
+    && chmod -R 755 /app/backend/static
 
-# Create initialization script for runtime permissions
-RUN cat > /app/init-static-dirs.sh << 'EOF'
-#!/bin/bash
-# Fix permissions for predicted images directory (volume might override permissions)
-if [ -w /app/backend/static ]; then
-    # If we can write to static, fix predicted directory permissions
-    chmod -R 755 /app/backend/static/images/predicted 2>/dev/null || true
-    echo "Fixed permissions for predicted images directory"
-else
-    echo "Warning: Cannot write to static directory - check volume permissions"
-fi
-EOF
-
-RUN chmod +x /app/init-static-dirs.sh
+# Note: Volume permissions will be handled by Docker and the host system
+# No need for runtime permission fixes as the appuser will inherit proper access
 
 # Database construction steps
 # Note: Running as root temporarily for database setup, then switching to appuser
