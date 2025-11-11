@@ -122,7 +122,7 @@ An open-source system for mosquito research and analysis includes components:
 
 - **Protocols**:
 
-    All training parameters and metrics available at:
+    All training parameters and metrics are available at:
 
     - [Detection model reports](https://gitlab.com/mosquitoscan/experiments-reports-detection-models)
     - [Segmentation model reports](https://gitlab.com/mosquitoscan/experiments-reports-segmentation-models)
@@ -135,7 +135,7 @@ An open-source system for mosquito research and analysis includes components:
     - [Web server (AGPL-3.0)](https://github.com/iloncka-ds/culicidaelab-server) hosting API services
     - Mobile apps (AGPL-3.0): [mosquitoscan](https://gitlab.com/mosquitoscan/mosquitoscan-app) for independent use with optimized models and [culicidaelab-mobile](https://github.com/iloncka-ds/culicidaelab-mobile) for educational and research purposes as part of the CulicidaeLab Ecosystem.
 
-These components form a cohesive ecosystem where datasets used for training models that power applications, the Python library provides core functionality to the web server, and the server exposes services consumed by the mobile application. All components are openly licensed, promoting transparency and collaboration.
+These components form a cohesive ecosystem where datasets are used for training models that power applications, the Python library provides core functionality to the web server, and the server exposes services consumed by the mobile application. All components are openly licensed, promoting transparency and collaboration.
 
 This integrated approach enables comprehensive mosquito research, from data collection to analysis and visualization, supporting both scientific research and public health initiatives.
 
@@ -183,7 +183,7 @@ This integrated approach enables comprehensive mosquito research, from data coll
 
 **Software:**
 
-  - for Linux needed libgl1 package to be installed
+  - for Linux needed `libgl1` package to be installed
   - Git
   - Python 3.11
   - uv 0.8.13
@@ -261,35 +261,122 @@ Check if generation successful by checking the LanceDB database.
 python -m backend.scripts.query_lancedb observations --limit 5
 ```
 
-#### Running the Application
+### Running the Application
 
-1. **Run the Backend API Server:**
-    Navigate to the project root (or ensure paths in `uvicorn` command are correct).
+#### Option 1: Local Development (on your own machine)
+
+1. **Run the Backend API Server**
+
+   Navigate to the project root and activate your virtual environment:
+
+   ```bash
+   cd culicidaelab-server
+   source .venv/bin/activate
+   # On Windows: .venv\Scripts\activate
+   uvicorn backend.main:app --port 8000 --host 127.0.0.1
+   ```
+
+   The API will be available at:
+   - Base URL: `http://localhost:8000`
+   - Swagger UI: `http://localhost:8000/docs`
+   - ReDoc: `http://localhost:8000/redoc`
+
+2. **Run the Frontend Application**
+
+   In a **new terminal**, again from the project root:
+
+   ```bash
+   cd culicidaelab-server
+   source .venv/bin/activate
+   solara run frontend.main
+   ```
+
+   The frontend will open at `http://localhost:8765`.
+
+#### Option 2: Running on a Virtual Server (e.g., cloud VM)
+
+First, you need to determine the IP address of your virtual server. These instructions will guide you through running the application on a virtual server with the public IP address 214.177.73.81 as an example. You should replace it with the address of your virtual server.
+
+##### Step 1: Configure Environment Variables
+
+Before starting the frontend app, set the following environment variables in your shell profile (e.g., `~/.bashrc`) or a `.env` file if your setup supports it to ensure correct asset loading and API communication:
+
+```bash
+export STATIC_FILES_URL=http://214.177.73.81:8000
+export STATIC_URL_BASE=http://214.177.73.81:8000
+export CLIENT_BACKEND_URL=http://214.177.73.81:8000
+```
+
+##### Step 2: Open Required Ports in Firewall
+
+Many VPS providers (like Hetzner, OVH, DigitalOcean) block all ports by default except SSH (22), HTTP (80), and HTTPS (443).
+If using `ufw` (common on Ubuntu) - allow traffic on ports `8000` (backend) and `8765` (Solara frontend):
+
+```bash
+sudo ufw allow 8000/tcp
+sudo ufw allow 8765/tcp
+sudo ufw reload
+```
+
+Verify the rules are active:
+
+```bash
+sudo ufw status
+```
+
+You should see output like:
+
+```
+22/tcp                     ALLOW       Anywhere
+443/tcp                    ALLOW       Anywhere
+8000/tcp                   ALLOW       Anywhere
+8765/tcp                   ALLOW       Anywhere
+```
+For other options of firewall setup, use your provider's documentation or ask technical support.
+
+##### Step 3: Start the Backend API
+
+In one terminal (or using a process manager like `systemd` or `screen`):
 
 ```bash
 cd culicidaelab-server
 source .venv/bin/activate
-# On Windows: .venv\Scripts\activate
-uvicorn backend.main:app --port 8000 --host 127.0.0.1
+uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
 
-The API will be accessible at `http://localhost:8000`.
-    * Swagger UI: `http://localhost:8000/docs`
-    * ReDoc: `http://localhost:8000/redoc`
+> This binds the backend to all network interfaces so it’s reachable externally at `http://214.177.73.81:8000`.
+> 
 
-2. **Run the Frontend Application:**
+Test in another terminal of your virtual server:
 
-    In a new terminal, navigate to the project root.
+```bash
+curl http://214.177.73.81:8000/health
+```
+
+##### Step 4: Start the Frontend (Solara)
+
+In another terminal:
 
 ```bash
 cd culicidaelab-server
 source .venv/bin/activate
-# On Windows: .venv\Scripts\activate
-solara run frontend.main
+# make sure these environment variables are  defined correctly (not needed if defined `.env` file or  `~/.bashrc`)
+export STATIC_FILES_URL=http://214.177.73.81:8000
+export STATIC_URL_BASE=http://214.177.73.81:8000
+export CLIENT_BACKEND_URL=http://214.177.73.81:8000
+solara run frontend.main --host 0.0.0.0 --port 8765
 ```
 
-The frontend application will be accessible at `http://localhost:8765` (or the port Solara defaults to/you specify).
+> The `--host 0.0.0.0` flag ensures Solara listens on all interfaces, not just `localhost`.
 
+##### Step 5: Access the Application
+
+- **Frontend**: Open `http://214.177.73.81:8765` in your browser   
+- **Backend API**: 
+	- Check health: `http://214.177.73.81:8000/health`  
+	- Swagger: `http://214.177.73.81:8000/docs`
+	- ReDoc: `http://214.177.73.81:8000/redoc`
+   
 ## Deployment
 
 Application can be deployed on any server with minimal configuration (see [docs/en/deployment/production.md](https://github.com/iloncka-ds/culicidaelab-server/blob/main/docs/en/deployment/production.md)).
