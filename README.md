@@ -376,7 +376,7 @@ solara run frontend.main --host 0.0.0.0 --port 8765
 	- Check health: `http://214.177.73.81:8000/health`  
 	- Swagger: `http://214.177.73.81:8000/docs`
 	- ReDoc: `http://214.177.73.81:8000/redoc`
- - 
+   
 ## Deployment
 
 Application can be deployed on any server with minimal configuration (see [docs/en/deployment/production.md](https://github.com/iloncka-ds/culicidaelab-server/blob/main/docs/en/deployment/production.md)).
