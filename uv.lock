@@ -801,7 +801,7 @@ requires-dist = [
     { name = "pyyaml", marker = "extra == 'docs'", specifier = ">=6.0.0" },
     { name = "requests", marker = "extra == 'docs'", specifier = ">=2.31.0" },
     { name = "shapely", specifier = ">=2.1.0" },
-    { name = "solara", extras = ["assets"], specifier = "==1.50.1" },
+    { name = "solara", extras = ["assets"], specifier = ">=1.50.1" },
     { name = "tabulate", marker = "extra == 'dev'", specifier = ">=0.9.0" },
     { name = "types-aiofiles", marker = "extra == 'dev'", specifier = ">=24.1.0.20250822" },
 ]

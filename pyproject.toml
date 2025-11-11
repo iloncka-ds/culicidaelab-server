@@ -21,7 +21,7 @@ dependencies = [
     "python-i18n[yaml]>=0.3.9",
     "python-multipart>=0.0.20",
     "shapely>=2.1.0",
-    "solara[assets]==1.50.1",
+    "solara[assets]>=1.50.1",
     "culicidaelab>=0.3.1",
 ]
 [project.optional-dependencies]
