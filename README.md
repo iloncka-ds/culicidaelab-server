@@ -262,6 +262,7 @@ python -m backend.scripts.query_lancedb observations --limit 5
 ```
 
 ### Running the Application
+
 #### Option 1: Local Development (on your own machine)
 
 1. **Run the Backend API Server**
@@ -292,11 +293,10 @@ python -m backend.scripts.query_lancedb observations --limit 5
 
    The frontend will open at `http://localhost:8765`.
 
----
-
 #### Option 2: Running on a Virtual Server (e.g., cloud VM)
 
-First, you need to determine the IP address of your virtual server. These instructions will guide you through running the application on a virtual server with the public IP address 214.177.73.81.
+First, you need to determine the IP address of your virtual server. These instructions will guide you through running the application on a virtual server with the public IP address 214.177.73.81 as an example. You should replace it with the address of your virtual server.
+
 ##### Step 1: Configure Environment Variables
 
 Before starting the app, set the following environment variables to ensure correct asset loading and API communication:
@@ -310,6 +310,7 @@ export CLIENT_BACKEND_URL=http://214.177.73.81:8000
 > 💡 Tip: Add these to your shell profile (e.g., `~/.bashrc`) or a `.env` file if your setup supports it.
 
 ##### Step 2: Open Required Ports in Firewall
+
 Many VPS providers (like Hetzner, OVH, DigitalOcean) block all ports by default except SSH (22), HTTP (80), and HTTPS (443).
 If using `ufw` (common on Ubuntu) - allow traffic on ports `8000` (backend) and `8765` (Solara frontend):
 
