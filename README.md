@@ -262,7 +262,7 @@ python -m backend.scripts.query_lancedb observations --limit 5
 ```
 
 ### Running the Application
-#### 🖥️ Option 1: Local Development (on your own machine)
+#### Option 1: Local Development (on your own machine)
 
 1. **Run the Backend API Server**
 
@@ -294,7 +294,7 @@ python -m backend.scripts.query_lancedb observations --limit 5
 
 ---
 
-#### ☁️ Option 2: Running on a Virtual Server (e.g., cloud VM)
+#### Option 2: Running on a Virtual Server (e.g., cloud VM)
 
 First, you need to determine the IP address of your virtual server. These instructions will guide you through running the application on a virtual server with the public IP address 214.177.73.81.
 ##### Step 1: Configure Environment Variables
