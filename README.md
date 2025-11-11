@@ -299,15 +299,13 @@ First, you need to determine the IP address of your virtual server. These instru
 
 ##### Step 1: Configure Environment Variables
 
-Before starting the app, set the following environment variables to ensure correct asset loading and API communication:
+Before starting the frontend app, set the following environment variables in your shell profile (e.g., `~/.bashrc`) or a `.env` file if your setup supports it to ensure correct asset loading and API communication:
 
 ```bash
 export STATIC_FILES_URL=http://214.177.73.81:8000
 export STATIC_URL_BASE=http://214.177.73.81:8000
 export CLIENT_BACKEND_URL=http://214.177.73.81:8000
 ```
-
-> 💡 Tip: Add these to your shell profile (e.g., `~/.bashrc`) or a `.env` file if your setup supports it.
 
 ##### Step 2: Open Required Ports in Firewall
 
@@ -362,6 +360,10 @@ In another terminal:
 ```bash
 cd culicidaelab-server
 source .venv/bin/activate
+# make sure these environment variables are  defined correctly (not needed if defined `.env` file or  `~/.bashrc`)
+export STATIC_FILES_URL=http://214.177.73.81:8000
+export STATIC_URL_BASE=http://214.177.73.81:8000
+export CLIENT_BACKEND_URL=http://214.177.73.81:8000
 solara run frontend.main --host 0.0.0.0 --port 8765
 ```
 
